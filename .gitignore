@@ -1,0 +1,127 @@
+# Environment variables and API keys
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs (keep directory but ignore log files)
+logs/*.log
+logs/*.txt
+!logs/.gitkeep
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Data output files (keep directory structure but ignore content)
+data/*.csv
+data/*.json
+data/*.xlsx
+!data/.gitkeep
+
+# LibreOffice/Excel lock files
+.~lock.*#
+*.lock
+
+# Debug and test files
+debug_*.py
+debug_*.html
+*.html
+raw_text*.txt
+page_*_source.html
+test_*.csv
+
+# Selenium WebDriver
+chromedriver*
+geckodriver*
+webdriver/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# User-specific files that shouldn't be committed
+guidelines*.txt
+israeli_government_decisions_rows*.csv
+api_test.py
+manual_test.py
+
+# Exclude parent directories and system files
+/**/../../*
+/**/../*
