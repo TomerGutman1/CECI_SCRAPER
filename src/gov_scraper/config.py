@@ -3,11 +3,30 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from the project root
-current_dir = os.path.dirname(__file__)
-project_root = os.path.dirname(current_dir)
-env_path = os.path.join(project_root, '.env')
-load_dotenv(env_path)
+def find_env_file():
+    """Find .env file in various locations for portability."""
+    # Try multiple locations in order of preference
+    locations = [
+        os.path.join(os.getcwd(), '.env'),                    # Current working directory
+        os.path.join(os.path.dirname(__file__), '.env'),      # Same directory as config.py
+        os.path.join(os.path.dirname(__file__), '..', '.env'), # Parent directory (src/.env)
+        os.path.join(os.path.dirname(__file__), '..', '..', '.env'), # Project root
+        os.path.join(os.path.expanduser('~'), '.env'),        # User home directory
+    ]
+    
+    for location in locations:
+        if os.path.exists(location):
+            return location
+    
+    return None
+
+# Load environment variables from the first found .env file
+env_file = find_env_file()
+if env_file:
+    load_dotenv(env_file)
+    print(f"Loaded environment variables from: {env_file}")
+else:
+    print("Warning: No .env file found. Please ensure environment variables are set.")
 
 # URLs
 BASE_CATALOG_URL = 'https://www.gov.il/he/collectors/policies'

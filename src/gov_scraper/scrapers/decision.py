@@ -4,8 +4,8 @@ import logging
 import re
 from datetime import datetime
 from typing import Dict, Optional
-from selenium_utils import SeleniumWebDriver
-from config import HEBREW_LABELS, GOVERNMENT_NUMBER, PRIME_MINISTER
+from ..utils.selenium import SeleniumWebDriver
+from ..config import HEBREW_LABELS, GOVERNMENT_NUMBER, PRIME_MINISTER
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -298,6 +298,97 @@ def scrape_decision_page_selenium(url: str) -> Dict[str, str]:
     except Exception as e:
         logger.error(f"Failed to scrape decision page {url} with Selenium: {e}")
         raise
+
+
+def scrape_decision_with_url_recovery(url: str) -> Optional[Dict[str, str]]:
+    """
+    Scrape a decision page with automatic URL recovery if the initial URL fails.
+    
+    Args:
+        url: Initial URL to try
+        
+    Returns:
+        Dictionary containing extracted decision data, or None if all attempts fail
+    """
+    logger.info(f"Attempting to scrape decision with URL recovery: {url}")
+    
+    # Extract decision number for recovery purposes
+    decision_number = extract_decision_number_from_url(url)
+    if not decision_number:
+        logger.error(f"Cannot extract decision number from URL: {url}")
+        return None
+    
+    # First attempt: try the original URL
+    try:
+        logger.info(f"First attempt: trying original URL {url}")
+        result = scrape_decision_page_selenium(url)
+        
+        # Check if we got meaningful content
+        if (result and 
+            result.get('decision_content') and 
+            len(result.get('decision_content', '')) > 50 and
+            result.get('decision_date')):
+            logger.info(f"Original URL worked successfully for decision {decision_number}")
+            return result
+        else:
+            logger.warning(f"Original URL returned empty or invalid content for decision {decision_number}")
+            
+    except Exception as e:
+        logger.warning(f"Original URL failed for decision {decision_number}: {e}")
+    
+    # Second attempt: search catalog for correct URL
+    try:
+        from .catalog import find_correct_url_in_catalog
+        logger.info(f"Second attempt: searching catalog for correct URL for decision {decision_number}")
+        correct_url = find_correct_url_in_catalog(decision_number)
+        
+        if correct_url and correct_url != url:
+            logger.info(f"Found different URL in catalog: {correct_url}")
+            result = scrape_decision_page_selenium(correct_url)
+            
+            # Check if we got meaningful content
+            if (result and 
+                result.get('decision_content') and 
+                len(result.get('decision_content', '')) > 50 and
+                result.get('decision_date')):
+                logger.info(f"Catalog URL worked successfully for decision {decision_number}")
+                return result
+            else:
+                logger.warning(f"Catalog URL also returned empty content for decision {decision_number}")
+        else:
+            logger.info(f"Catalog search returned same URL or no URL for decision {decision_number}")
+            
+    except Exception as e:
+        logger.warning(f"Catalog search failed for decision {decision_number}: {e}")
+    
+    # Third attempt: try minimal URL variations
+    try:
+        from .catalog import try_url_variations
+        logger.info(f"Third attempt: trying URL variations for decision {decision_number}")
+        working_url = try_url_variations(url, decision_number)
+        
+        if working_url:
+            logger.info(f"Found working URL variation: {working_url}")
+            result = scrape_decision_page_selenium(working_url)
+            
+            # Check if we got meaningful content
+            if (result and 
+                result.get('decision_content') and 
+                len(result.get('decision_content', '')) > 50 and
+                result.get('decision_date')):
+                logger.info(f"URL variation worked successfully for decision {decision_number}")
+                return result
+            else:
+                logger.warning(f"URL variation also returned empty content for decision {decision_number}")
+        else:
+            logger.info(f"No working URL variations found for decision {decision_number}")
+            
+    except Exception as e:
+        logger.warning(f"URL variation attempts failed for decision {decision_number}: {e}")
+    
+    # All attempts failed
+    logger.error(f"All URL recovery attempts failed for decision {decision_number}")
+    return None
 
 
 def test_decision_scraping():

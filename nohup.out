@@ -1,0 +1,30 @@
+INFO:__main__:================================================================================
+INFO:__main__:🚀 STARTING SELENIUM DATABASE SYNC ORCHESTRATOR
+INFO:__main__:================================================================================
+INFO:__main__:Max decisions to process: Unlimited (until baseline)
+INFO:__main__:AI processing: Enabled
+INFO:__main__:User approval required: Yes
+INFO:__main__:Working directory: /mnt/c/Users/tomer/Downloads/gov2db
+INFO:__main__:================================================================================
+INFO:__main__:📊 STEP 1: Getting database baseline...
+INFO:httpx:HTTP Request: GET https://hthrsrekzyobmlvtquub.supabase.co/rest/v1/israeli_government_decisions?select=%2A&decision_date=gt.2023-01-01&decision_number=neq.None&decision_content=neq.%D7%94%D7%9E%D7%A9%D7%9A+%D7%94%D7%AA%D7%95%D7%9B%D7%9F...&order=decision_date.desc&limit=1 "HTTP/2 200 OK"
+INFO:incremental_processor:Found baseline decision: 2998 from 2025-05-07
+INFO:__main__:✅ Baseline found: Decision 2998 (2025-05-07)
+INFO:__main__:🔍 STEP 2: Extracting decision URLs from catalog using Selenium...
+INFO:__main__:🔄 Unlimited mode: Starting with 50 URLs, will expand if needed
+INFO:catalog_scraper_selenium:Using Selenium to extract 50 decision URLs from catalog
+INFO:WDM:====== WebDriver manager ======
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+INFO:WDM:Get LATEST chromedriver version for google-chrome
+INFO:WDM:Driver [/home/tomer/.wdm/drivers/chromedriver/linux64/136.0.7103.113/chromedriver-linux64/chromedriver] found in cache
+INFO:selenium_utils:Chrome WebDriver initialized successfully
+INFO:catalog_scraper_selenium:Loading catalog page: https://www.gov.il/he/collectors/policies?Type=30280ed5-306f-4f0b-a11d-cacf05d36648&skip=0&limit=50
+INFO:selenium_utils:Loading page: https://www.gov.il/he/collectors/policies?Type=30280ed5-306f-4f0b-a11d-cacf05d36648&skip=0&limit=50
+WARNING:urllib3.connectionpool:Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(104, 'Connection reset by peer')': /session/201f130fe5854e77899b81953cfc8b1a
+WARNING:urllib3.connectionpool:Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f84d7e34a70>: Failed to establish a new connection: [Errno 111] Connection refused')': /session/201f130fe5854e77899b81953cfc8b1a
+WARNING:urllib3.connectionpool:Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f84d7e34e60>: Failed to establish a new connection: [Errno 111] Connection refused')': /session/201f130fe5854e77899b81953cfc8b1a
+INFO:selenium_utils:WebDriver closed successfully
+🚀 Starting Selenium-based database sync with UNLIMITED processing until baseline...
+📊 Will process all decisions until reaching the most recent decision in database
+
+❌ Sync interrupted by user

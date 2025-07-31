@@ -5,7 +5,7 @@ import logging
 import time
 from typing import Dict, Optional, List
 
-from config import OPENAI_API_KEY, OPENAI_MODEL, MAX_RETRIES, RETRY_DELAY
+from ..config import OPENAI_API_KEY, OPENAI_MODEL, MAX_RETRIES, RETRY_DELAY
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -321,19 +321,52 @@ def generate_government_body_tags(decision_content: str, decision_title: str) ->
 
 
 def generate_location_tags(decision_content: str, decision_title: str) -> str:
-    """Generate geographic location tags."""
+    """Generate geographic location tags - returns empty string if no locations found."""
     prompt = f"""
-נא לזהות מקומות גיאוגרפיים המוזכרים או הרלוונטיים להחלטה הבאה.
-רשום עד 5 מקומות, מופרדים בפסיק. אם אין מקומות ספציפיים, השאר ריק.
+נא לזהות מקומות גיאוגרפיים שמוזכרים במפורש בטקסט ההחלטה הבאה.
+חשוב: רק אם יש מקומות שמוזכרים ישירות בטקסט - רשום אותם מופרדים בפסיק.
+אם אין מקומות ספציפיים המוזכרים בטקסט, השב "אין".
+חשוב: אל תכתוב "ריק", "לא מוזכר", או הסברים אחרים - רק "אין" או שמות המקומות.
 
-דוגמאות למקומות: ירושלים, תל אביב, חיפה, באר שבע, הגליל, הנגב, יהודה ושומרון, עזה, גולן, צפון, דרום, מרכז.
+דוגמאות למקומות שיכולים להיות מוזכרים: ירושלים, תל אביב, חיפה, באר שבע, הגליל, הנגב, יהודה ושומרון, עזה, גולן, צפון, דרום, מרכז.
 
 כותרת: {decision_title}
 תוכן: {decision_content[:1500]}
 
-מקומות גיאוגרפיים:"""
+מקומות גיאוגרפיים (אם מוזכרים):"""
     
-    return make_openai_request_with_retry(prompt, max_tokens=150)
+    result = make_openai_request_with_retry(prompt, max_tokens=150)
+    
+    if result:
+        # Clean the result and check if it contains actual location names
+        result = result.strip()
+        
+        # If the result contains common non-location phrases, ignore it
+        non_location_phrases = [
+            "אין מקומות", "לא מוזכר", "לא נמצא", "ללא מיקום", "ללא מקום", 
+            "לא ספציפי", "כללי", "לא נמצאו", "אין", "ללא", "לא", "ריק",
+            "empty", "none", "null", "לא קיים", "לא זמין"
+        ]
+        
+        for phrase in non_location_phrases:
+            if phrase in result:
+                return ""
+        
+        # If result is very short and doesn't look like place names, ignore it
+        if len(result) < 3:
+            return ""
+        
+        # Clean up common AI response patterns
+        result = result.replace("מקומות גיאוגרפיים:", "").strip()
+        result = result.replace("מיקומים:", "").strip()
+        
+        # If after cleaning there's nothing meaningful left, return empty
+        if not result or result.isspace():
+            return ""
+        
+        return result
+    
+    return ""
 
 
 def process_decision_with_ai(decision_data: Dict[str, str]) -> Dict[str, str]:

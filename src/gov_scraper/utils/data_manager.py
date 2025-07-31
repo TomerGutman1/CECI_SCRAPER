@@ -6,7 +6,7 @@ import logging
 from typing import List, Dict
 from datetime import datetime
 
-from config import OUTPUT_DIR, OUTPUT_FILE, CSV_COLUMNS
+from ..config import OUTPUT_DIR, OUTPUT_FILE, CSV_COLUMNS
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -58,7 +58,12 @@ def prepare_decision_data(decision_data: Dict[str, str], row_id: int) -> Dict[st
     
     for csv_col, data_key in field_mapping.items():
         if data_key in decision_data:
-            prepared_data[csv_col] = str(decision_data[data_key])
+            value = decision_data[data_key]
+            if value is None:
+                # Keep None values as empty string for CSV, but preserve None for database
+                prepared_data[csv_col] = ''
+            else:
+                prepared_data[csv_col] = str(value)
     
     return prepared_data
 
