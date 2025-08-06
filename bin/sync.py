@@ -87,10 +87,10 @@ def main():
     try:
         # Step 1: Get database baseline for incremental processing
         logger.info("📊 STEP 1: Getting database baseline...")
-        baseline = get_scraping_baseline()
+        baseline_decision = get_scraping_baseline()
         
-        if baseline:
-            logger.info(f"✅ Baseline found: Decision {baseline.get('decision_number')} ({baseline.get('decision_date')})")
+        if baseline_decision:
+            logger.info(f"✅ Baseline found: Decision {baseline_decision.get('decision_number')} ({baseline_decision.get('decision_date')})")
         else:
             logger.info("ℹ️  No baseline found - will process all decisions found")
         
@@ -119,7 +119,7 @@ def main():
         # Step 3: Filter URLs by baseline and sort for ascending processing
         logger.info("📄 STEP 3: Filtering URLs by baseline and preparing for ascending processing...")
         
-        if baseline:
+        if baseline_decision:
             # Filter URLs to only those newer than baseline
             filtered_urls = []
             for url in decision_urls:
@@ -130,7 +130,7 @@ def main():
                     # For URL filtering, we'll be more permissive and let the actual scraping determine dates
                     # We'll filter based on decision number vs baseline number as a rough filter
                     try:
-                        if int(decision_number) > int(baseline.get('decision_number', '0')):
+                        if int(decision_number) > int(baseline_decision.get('decision_number', '0')):
                             filtered_urls.append(url)
                     except (ValueError, TypeError):
                         # If we can't compare numbers, include the URL to be safe
@@ -235,7 +235,7 @@ def main():
         # Step 7: User approval (unless disabled)
         if not args.no_approval:
             logger.info("👤 STEP 7: Getting user approval...")
-            if not get_user_approval(new_decisions, baseline):
+            if not get_user_approval(new_decisions, baseline_decision):
                 logger.info("❌ User declined to proceed. Sync cancelled.")
                 print("❌ Sync cancelled by user.")
                 return False

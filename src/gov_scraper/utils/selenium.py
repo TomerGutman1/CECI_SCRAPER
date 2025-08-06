@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+from ..config import CHROME_BINARY
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +29,7 @@ class SeleniumWebDriver:
             timeout: Default timeout for page loads
         """
         self.timeout = timeout
-        self.driver = None
+        self.driver: webdriver.Chrome
         
         try:
             # Set up Chrome options
@@ -36,18 +37,17 @@ class SeleniumWebDriver:
             
             if headless:
                 chrome_options.add_argument('--headless')
-            
+
             # Additional options for stability
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument('--disable-dev-shm-usage')
             chrome_options.add_argument('--disable-gpu')
             chrome_options.add_argument('--window-size=1920,1080')
+            chrome_options.add_argument(f"--binary-location={CHROME_BINARY}")
             chrome_options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
             
-            # Automatically download and setup ChromeDriver
-            service = Service(ChromeDriverManager().install())
-            
-            # Initialize the driver
+            # Initialize ChromeDriver
+            service = Service()
             self.driver = webdriver.Chrome(service=service, options=chrome_options)
             self.driver.set_page_load_timeout(timeout)
             

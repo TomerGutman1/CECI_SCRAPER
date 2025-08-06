@@ -52,6 +52,9 @@ PRIME_MINISTER = "בנימין נתניהו"
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_MODEL = 'gpt-3.5-turbo'
 
+# Chrome WebDriver configuration
+CHROME_BINARY = os.getenv('CHROME_BINARY', '/usr/bin/google-chrome')
+
 # Hebrew field labels for parsing
 HEBREW_LABELS = {
     'date': 'תאריך פרסום:',

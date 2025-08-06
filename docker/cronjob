@@ -1,0 +1,2 @@
+# Run make sync every day at 2:00 AM, log output
+8 12 * * * cd /app && make sync >> /var/log/cron.log 2>&1
