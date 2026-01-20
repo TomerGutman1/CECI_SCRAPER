@@ -1,0 +1,73 @@
+version: '3.8'
+
+# GOV2DB Docker Compose Template
+# This is a standalone example. For integration with existing docker-compose,
+# copy the service definition below into your existing docker-compose.yml
+
+services:
+  gov2db-scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gov2db-scraper:latest
+    container_name: gov2db-scraper
+
+    # Restart policy for reliability
+    restart: unless-stopped
+
+    # Environment variables (Option 1: inline)
+    environment:
+      - TZ=Asia/Jerusalem
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENAI_MODEL=gpt-3.5-turbo
+      - PYTHONUNBUFFERED=1
+
+    # Alternative: Use env_file (Option 2: recommended for security)
+    # Uncomment this and comment out the environment section above
+    # env_file:
+    #   - .env
+
+    # Volume mounts for persistence
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      # Optional: Mount tag files for easy updates without rebuild
+      - ./new_tags.md:/app/new_tags.md:ro
+      - ./new_departments.md:/app/new_departments.md:ro
+
+    # Network configuration
+    # IMPORTANT: Replace 'your-existing-network' with your actual network name
+    # Or remove this section if running standalone
+    networks:
+      - your-existing-network
+
+    # Health check (uses built-in HEALTHCHECK from Dockerfile)
+    # View status: docker inspect --format='{{.State.Health.Status}}' gov2db-scraper
+
+    # Resource limits (optional but recommended)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+
+    # Logging configuration (prevent disk fill-up)
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+# Network configuration
+# IMPORTANT: Update the network name to match your existing network
+# If you have an existing docker-compose network, set it as external
+networks:
+  your-existing-network:
+    external: true
+    # If creating a new network instead, remove 'external: true' and optionally add:
+    # driver: bridge

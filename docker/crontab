@@ -1,0 +1,14 @@
+# GOV2DB Daily Sync Cron Job
+# Runs at 02:00 AM Asia/Jerusalem time daily
+
+# Environment variables for cron
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+TZ=Asia/Jerusalem
+PYTHONUNBUFFERED=1
+
+# Daily sync at 02:00 AM
+0 2 * * * cd /app && python3 bin/sync.py --unlimited --no-approval --verbose --safety-mode regular >> /app/logs/daily_sync.log 2>&1 && echo "$(date -Iseconds)" > /app/healthcheck/last_success.txt || echo "Sync failed at $(date)" >> /app/logs/daily_sync.log
+
+# Logrotate daily at 03:00 AM (after sync)
+0 3 * * * /usr/sbin/logrotate /etc/logrotate.d/gov2db >> /app/logs/logrotate.log 2>&1

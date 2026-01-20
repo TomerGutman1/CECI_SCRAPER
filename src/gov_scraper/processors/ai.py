@@ -3,7 +3,8 @@
 import openai
 import logging
 import time
-from typing import Dict, Optional, List
+import os
+from typing import Dict, Optional, List, Set
 
 from ..config import OPENAI_API_KEY, OPENAI_MODEL, MAX_RETRIES, RETRY_DELAY
 
@@ -11,63 +12,48 @@ from ..config import OPENAI_API_KEY, OPENAI_MODEL, MAX_RETRIES, RETRY_DELAY
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Authorized policy area tags (37 Hebrew labels)
-POLICY_AREAS = [
-    "ביטחון לאומי וצבא",
-    "ביטחון פנים וחירום אזרחי",
-    "דיפלומטיה ויחסים בינלאומיים",
-    "הגירה וקליטת עלייה",
-    "תעסוקה ושוק העבודה",
-    "כלכלה מאקרו ותקציב",
-    "פיננסים, ביטוח ומסים",
-    "פיתוח כלכלי ותחרות",
-    "יוקר המחיה ושוק הצרכן",
-    "תחבורה ציבורית ותשתיות דרך",
-    "בטיחות בדרכים ורכב",
-    "אנרגיה ומתחדשות",
-    "מים ותשתיות מים",
-    "סביבה, אקלים ומגוון ביולוגי",
-    "רשות הטבע והגנים ונוף",
-    "חקלאות ופיתוח הכפר",
-    "דיור, נדלן ותכנון",
-    "שלטון מקומי ופיתוח פריפריה",
-    "בריאות ורפואה",
-    "רווחה ושירותים חברתיים",
-    "אזרחים ותיקים",
-    "שוויון חברתי וזכויות אדם",
-    "מיעוטים ואוכלוסיות ייחודיות",
-    "מילואים ותמיכה בלוחמים",
-    "חינוך ",
-    "השכלה גבוהה ומחקר",
-    "תרבות ואמנות",
-    "ספורט ואורח חיים פעיל",
-    "מורשת ולאום",
-    "תיירות ופנאי",
-    "דת ומוסדות דת",
-    "טכנולוגיה, חדשנות ודיגיטל",
-    "סייבר ואבטחת מידע",
-    "תקשורת ומדיה",
-    "משפט, חקיקה ורגולציה",
-    "מינהל ציבורי ושירות המדינה",
-    "סחר חוץ ותעשייה יצואנית",
-    "שונות"
-]
 
-# Initialize OpenAI client
-if OPENAI_API_KEY:
-    openai.api_key = OPENAI_API_KEY
-    client = openai.OpenAI(api_key=OPENAI_API_KEY)
-else:
-    logger.warning("OpenAI API key not found. AI processing will be skipped.")
-    client = None
+def _load_tag_list(filename: str) -> List[str]:
+    """Load tag list from a markdown file in project root."""
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+    filepath = os.path.join(project_root, filename)
+
+    tags = []
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                # Skip empty lines and headers
+                if not line or line.startswith('#') or ':' in line:
+                    continue
+                tags.append(line)
+
+        logger.info(f"Loaded {len(tags)} tags from {filename}")
+    except FileNotFoundError:
+        logger.error(f"Tag file not found: {filepath}")
+        raise
+    except Exception as e:
+        logger.error(f"Error loading tags from {filepath}: {e}")
+        raise
+
+    return tags
 
 
-def make_openai_request_with_retry(prompt: str, max_tokens: int = 500) -> Optional[str]:
-    """Make OpenAI API request with retry logic."""
-    if not client:
-        logger.warning("OpenAI client not initialized. Returning empty response.")
-        return ""
-    
+# Load authorized tag lists from files
+POLICY_AREAS = _load_tag_list('new_tags.md')
+GOVERNMENT_BODIES = _load_tag_list('new_departments.md')
+
+# Add fallback tag if not present
+if "שונות" not in POLICY_AREAS:
+    POLICY_AREAS.append("שונות")
+
+# Initialize OpenAI client - API key is required (validated in config.py)
+openai.api_key = OPENAI_API_KEY
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
+
+def make_openai_request_with_retry(prompt: str, max_tokens: int = 500) -> str:
+    """Make OpenAI API request with retry logic. Raises exception if all retries fail."""
     for attempt in range(MAX_RETRIES):
         try:
             logger.info(f"Making OpenAI request (attempt {attempt + 1}/{MAX_RETRIES})")
@@ -92,125 +78,123 @@ def make_openai_request_with_retry(prompt: str, max_tokens: int = 500) -> Option
                 time.sleep(RETRY_DELAY * (attempt + 1))
             else:
                 logger.error(f"All OpenAI request attempts failed")
-                return ""
-    
-    return ""
+                raise Exception(f"OpenAI API request failed after {MAX_RETRIES} attempts: {e}")
+
+    raise Exception(f"OpenAI API request failed after {MAX_RETRIES} attempts")
 
 
-def calculate_similarity(str1: str, str2: str) -> float:
-    """Calculate simple character-based similarity between two strings."""
-    if not str1 or not str2:
-        return 0.0
-    
-    # Convert to sets of characters for basic similarity
-    set1 = set(str1.lower())
-    set2 = set(str2.lower())
-    
-    intersection = len(set1.intersection(set2))
-    union = len(set1.union(set2))
-    
-    return intersection / union if union > 0 else 0.0
+def _get_words(text: str) -> Set[str]:
+    """Extract meaningful words (2+ chars, excluding stop words) from text."""
+    stop_words = {"ו", "ה", "של", "את", "על", "עם", "או", "גם", "כל", "לא", "אם", "כי", "זה", "זו", "אל"}
+    words = set()
+    text = text.replace(",", " ").replace(";", " ")
+    for word in text.split():
+        word = word.strip()
+        if len(word) > 2 and word not in stop_words:
+            words.add(word)
+    return words
 
 
-def find_closest_tag(tag: str) -> Optional[str]:
-    """Find the closest matching tag from POLICY_AREAS using fuzzy matching."""
-    if not tag:
+def _ai_summary_fallback(summary: str, valid_tags: List[str], tag_type: str) -> Optional[str]:
+    """AI fallback - analyze summary to find the best matching tag."""
+    if not summary:
         return None
-    
-    # Direct mapping for common variations
-    tag_mappings = {
-        "מדע וטכנולוגיה": "טכנולוגיה, חדשנות ודיגיטל",
-        "תעשייה יצואנית": "סחר חוץ ותעשייה יצואנית",
-        "דיפלומטיה ויחסים בינ״ל": "דיפלומטיה ויחסים בינלאומיים",
-        "דיפלומטיה ויחסים בינלאומיים": "דיפלומטיה ויחסים בינלאומיים",
-        "ביטחון לאומי וצה״ל": "ביטחון לאומי וצבא",
-        "בריאות ורפואה": "בריאות ורפואה",
-        "חינוך": "חינוך ",
-        "תחבורה": "תחבורה ציבורית ותשתיות דרך",
-        "אנרגיה": "אנרגיה ומתחדשות",
-        "סביבה": "סביבה, אקלים ומגוון ביולוגי",
-        "תרבות": "תרבות ואמנות",
-        "ספורט": "ספורט ואורח חיים פעיל",
-        "דיור": "דיור, נדלן ותכנון",
-        "רווחה": "רווחה ושירותים חברתיים",
-        "חקלאות": "חקלאות ופיתוח הכפר",
-        "מחקר": "השכלה גבוהה ומחקר",
-        "תעסוקה": "תעסוקה ושוק העבודה",
-        "כלכלה": "כלכלה מאקרו ותקציב",
-        "מסים": "פיננסים, ביטוח ומסים",
-        "ביטוח": "פיננסים, ביטוח ומסים",
-        "תיירות": "תיירות ופנאי",
-        "משפט": "משפט, חקיקה ורגולציה",
-        "חקיקה": "משפט, חקיקה ורגולציה",
-        "ביטחון פנים": "ביטחון פנים וחירום אזרחי",
-        "מינהל": "מינהל ציבורי ושירות המדינה",
-        "אחר": "שונות",
-        "שונות": "שונות"
-    }
-    
-    # Check direct mappings first
-    if tag in tag_mappings:
-        return tag_mappings[tag]
-    
-    # Check if tag is a substring of any valid tag
-    for valid_tag in POLICY_AREAS:
-        if tag in valid_tag or valid_tag in tag:
-            return valid_tag
-    
-    # Simple character-based similarity for very close matches
-    best_match = None
-    highest_similarity = 0.7  # Minimum similarity threshold
-    
-    for valid_tag in POLICY_AREAS:
-        similarity = calculate_similarity(tag, valid_tag)
-        if similarity > highest_similarity:
-            highest_similarity = similarity
-            best_match = valid_tag
-    
-    return best_match
+
+    tags_str = " | ".join(valid_tags)
+    tag_type_hebrew = "תחום מדיניות" if tag_type == "policy" else "גוף ממשלתי"
+
+    prompt = f"""נתון תקציר של החלטת ממשלה:
+"{summary[:1000]}"
+
+בחר את ה{tag_type_hebrew} המתאים ביותר מהרשימה הבאה:
+{tags_str}
+
+חשוב:
+- החזר רק תג אחד מדויק מהרשימה
+- העתק את הטקסט המדויק מהרשימה
+- אל תוסיף הסברים
+
+{tag_type_hebrew}:"""
+
+    try:
+        result = make_openai_request_with_retry(prompt, max_tokens=100)
+        result = result.strip().strip('"').strip("'")
+
+        # Verify result is in valid tags
+        if result in valid_tags:
+            return result
+        else:
+            logger.warning(f"AI fallback returned '{result}' which is not in valid tags list")
+    except Exception as e:
+        logger.warning(f"AI fallback failed: {e}")
+
+    return None
 
 
-def create_strict_policy_prompt(decision_content: str) -> str:
-    """Create a strict prompt for policy area classification."""
-    # Create the policy area list string (pipe-separated)
-    policy_areas_str = " | ".join(POLICY_AREAS)
-    
-    # Format the prompt according to the specification
-    system_prompt = (
-        f"""You are a **strict classifier**.
+def validate_tag_3_steps(
+    tag: str,
+    valid_tags: List[str],
+    summary: str = None,
+    tag_type: str = "policy"
+) -> str:
+    """
+    Validate tag using 3-step algorithm:
+    1. Exact match
+    2. Word-based Jaccard similarity (>= 50%)
+    3. AI fallback (analyze summary)
 
-TASK
-----
-Look at the Hebrew government-decision text I will send.
-Choose **only the policy-area tags that are clearly, explicitly present** in the text.
+    Args:
+        tag: Tag returned from GPT
+        valid_tags: List of authorized tags
+        summary: Decision summary (for step 3)
+        tag_type: "policy" or "government"
 
-RULES
-1. Prefer **one** tag.
-2. Return **two** tags *only* if the decision text discusses **two distinct areas
-   with roughly equal weight**.
-3. Return **three** tags *only* if **three** areas are each mentioned **explicitly**.
-4. If you are not sure, return just the single best tag.
-5. Use the authorised list *exactly* - copy the EXACT text from the list below.
-6. Respond with the tags **only**, separated by a semicolon + space ("; ").  
-   No explanations, no line breaks, no extra text.
-7. If nothing matches well, use "שונות".
-8. Keep tags unique per decision, 
-   i.e. if a decision is tagged with "בריאות ורפואה" and "בריאות ורפואה" again, 
-   it should be returned as "בריאות ורפואה" only.
+    Returns:
+        Validated tag or "שונות" (policy) / "" (government)
+    """
+    tag = tag.strip()
+    if not tag:
+        return "שונות" if tag_type == "policy" else ""
 
-CRITICAL: Use EXACT text from this list:
-{policy_areas_str}
+    # Step 1: Exact Match
+    if tag in valid_tags:
+        logger.debug(f"Tag '{tag}' validated: exact match")
+        return tag
 
-Examples:
-- Health decision → "בריאות ורפואה"
-- Technology decision → "טכנולוגיה, חדשנות ודיגיטל"  
-- Defense decision → "ביטחון לאומי וצבא"
-- Education decision → "חינוך "
+    # Step 2: Word Overlap (Jaccard >= 50%)
+    tag_words = _get_words(tag)
+    if len(tag_words) >= 2:
+        best_match = None
+        best_score = 0.5  # Minimum 50%
 
-Remember: Copy the EXACT tag text from the authorized list above."""
-    )
-    
-    return system_prompt
+        for valid_tag in valid_tags:
+            valid_words = _get_words(valid_tag)
+            if not valid_words:
+                continue
+
+            intersection = len(tag_words & valid_words)
+            union = len(tag_words | valid_words)
+            score = intersection / union if union > 0 else 0
+
+            if score > best_score:
+                best_score = score
+                best_match = valid_tag
+
+        if best_match:
+            logger.info(f"Tag '{tag}' → '{best_match}' (word overlap: {best_score:.2f})")
+            return best_match
+
+    # Step 3: AI Fallback (analyze summary)
+    if summary:
+        logger.info(f"Tag '{tag}' failed fuzzy match, trying AI fallback...")
+        ai_match = _ai_summary_fallback(summary, valid_tags, tag_type)
+        if ai_match:
+            logger.info(f"Tag '{tag}' → '{ai_match}' (AI summary fallback)")
+            return ai_match
+
+    # Failed all steps
+    logger.warning(f"Tag '{tag}' failed all validation steps")
+    return "שונות" if tag_type == "policy" else ""
 
 
 def generate_summary(decision_content: str, decision_title: str) -> str:
@@ -253,59 +237,71 @@ def generate_operativity(decision_content: str) -> str:
     return "אופרטיבית"
 
 
-def generate_policy_area_tags_strict(decision_content: str, decision_title: str) -> str:
-    """Generate policy area tags using strict classification with authorized list."""
-    system_prompt = create_strict_policy_prompt(decision_content)
-    
-    prompt = f"""
-{system_prompt}
+def generate_policy_area_tags_strict(
+    decision_content: str,
+    decision_title: str,
+    summary: str = None
+) -> str:
+    """
+    Generate policy area tags with validation against new_tags.md.
+
+    Args:
+        decision_content: Full decision text
+        decision_title: Decision title
+        summary: Decision summary (used for validation fallback)
+
+    Returns:
+        Semicolon-separated tags (1-3 tags)
+    """
+    # Create improved prompt with full authorized list
+    tags_str = " | ".join(POLICY_AREAS)
+
+    prompt = f"""אתה מסווג החלטות ממשלה לפי תחומי מדיניות.
+
+תחומי המדיניות המורשים:
+{tags_str}
+
+נא לסווג את ההחלטה הבאה:
 
 כותרת: {decision_title}
 תוכן: {decision_content[:2000]}
 
-Tags:"""
-    
+הנחיות:
+- בחר 1-3 תחומים מהרשימה למעלה
+- העדף תג אחד אם אפשרי
+- השתמש ב-2-3 תגים רק אם ההחלטה מכסה מספר תחומים באופן שווה
+- העתק את הטקסט המדויק מהרשימה
+- הפרד תגים ב-;
+
+תחומי מדיניות:"""
+
     result = make_openai_request_with_retry(prompt, max_tokens=200)
-    
+
     if not result:
         return "שונות"
-    
-    # Clean and validate the response
+
+    # Clean response
     result = result.strip().replace('"', '').replace("'", "")
-    
-    # Split by semicolon and validate each tag
-    raw_tags = [tag.strip() for tag in result.split(';') if tag.strip()]
+
+    # Validate each tag using 3-step validation
+    tags = [t.strip() for t in result.split(';') if t.strip()]
     validated_tags = []
-    
-    for tag in raw_tags:
-        # First check if it's exactly in our list
-        if tag in POLICY_AREAS:
-            validated_tags.append(tag)
-        else:
-            # Try to find closest match
-            closest = find_closest_tag(tag)
-            if closest:
-                validated_tags.append(closest)
-    
-    # Remove duplicates while preserving order
-    seen = set()
-    unique_tags = []
-    for tag in validated_tags:
-        if tag not in seen:
-            seen.add(tag)
-            unique_tags.append(tag)
-    
-    # Return up to 3 tags
-    final_tags = unique_tags[:3]
-    
-    if not final_tags:
+
+    for tag in tags:
+        validated = validate_tag_3_steps(tag, POLICY_AREAS, summary, "policy")
+        if validated and validated not in validated_tags:
+            validated_tags.append(validated)
+
+    # If all failed
+    if not validated_tags:
         return "שונות"
-    
-    return "; ".join(final_tags)
+
+    # Limit to 3 tags
+    return "; ".join(validated_tags[:3])
 
 
 def generate_government_body_tags(decision_content: str, decision_title: str) -> str:
-    """Generate government body tags."""
+    """Generate government body tags (legacy - no validation)."""
     prompt = f"""
 נא לזהות את הגופים הממשלתיים הרלוונטיים להחלטה הבאה.
 רשום עד 5 גופים, מופרדים בפסיק.
@@ -316,8 +312,69 @@ def generate_government_body_tags(decision_content: str, decision_title: str) ->
 תוכן: {decision_content[:1500]}
 
 גופים ממשלתיים:"""
-    
+
     return make_openai_request_with_retry(prompt, max_tokens=150)
+
+
+def generate_government_body_tags_validated(
+    decision_content: str,
+    decision_title: str,
+    summary: str = None
+) -> str:
+    """
+    Generate government body tags with validation against new_departments.md.
+
+    Args:
+        decision_content: Full decision text
+        decision_title: Decision title
+        summary: Decision summary (used for validation fallback)
+
+    Returns:
+        Semicolon-separated tags (1-3 tags) or empty string
+    """
+    # Create prompt with full authorized list
+    bodies_str = " | ".join(GOVERNMENT_BODIES)
+
+    prompt = f"""אתה מזהה גופים ממשלתיים הרלוונטיים להחלטת ממשלה.
+
+גופים ממשלתיים מורשים:
+{bodies_str}
+
+נא לזהות את הגופים הרלוונטיים להחלטה הבאה:
+
+כותרת: {decision_title}
+תוכן: {decision_content[:1500]}
+
+הנחיות:
+- בחר 1-3 גופים מהרשימה למעלה
+- בחר רק גופים שמוזכרים במפורש בהחלטה
+- העתק את השם המדויק מהרשימה
+- הפרד גופים ב-;
+
+גופים ממשלתיים:"""
+
+    result = make_openai_request_with_retry(prompt, max_tokens=150)
+
+    if not result:
+        return ""
+
+    # Clean response
+    result = result.strip().replace('"', '').replace("'", "")
+
+    # Validate each body using 3-step validation
+    bodies = [b.strip() for b in result.split(';') if b.strip()]
+    validated_bodies = []
+
+    for body in bodies:
+        validated = validate_tag_3_steps(body, GOVERNMENT_BODIES, summary, "government")
+        if validated and validated not in validated_bodies:
+            validated_bodies.append(validated)
+
+    # Limit to 3 bodies
+    if not validated_bodies:
+        return ""
+
+    return "; ".join(validated_bodies[:3])
 
 
 def generate_location_tags(decision_content: str, decision_title: str) -> str:
@@ -372,70 +429,75 @@ def generate_location_tags(decision_content: str, decision_title: str) -> str:
 def process_decision_with_ai(decision_data: Dict[str, str]) -> Dict[str, str]:
     """
     Process a decision with AI to generate all required fields.
-    
+    Uses validated tags from new_tags.md and new_departments.md.
+
     Args:
         decision_data: Dictionary containing basic decision data
-        
+
     Returns:
         Updated dictionary with AI-generated fields
+
+    Raises:
+        ValueError: If decision content is missing
+        Exception: If AI processing fails
     """
     logger.info(f"Processing decision {decision_data.get('decision_number', 'unknown')} with AI")
-    
+
     decision_content = decision_data.get('decision_content', '')
     decision_title = decision_data.get('decision_title', '')
-    
+
     if not decision_content:
-        logger.warning("No decision content provided for AI processing")
-        # Return empty AI fields
-        decision_data.update({
-            'summary': '',
-            'operativity': '',
-            'tags_policy_area': '',
-            'tags_government_body': '',
-            'tags_location': '',
-            'all_tags': ''
-        })
-        return decision_data
-    
-    # Generate all AI fields
-    try:
-        summary = generate_summary(decision_content, decision_title)
-        operativity = generate_operativity(decision_content)
-        policy_areas = generate_policy_area_tags_strict(decision_content, decision_title)
-        government_bodies = generate_government_body_tags(decision_content, decision_title)
-        locations = generate_location_tags(decision_content, decision_title)
-        
-        # Combine all tags
-        all_tags_parts = []
-        if policy_areas: all_tags_parts.append(policy_areas)
-        if government_bodies: all_tags_parts.append(government_bodies)
-        if locations: all_tags_parts.append(locations)
-        all_tags = '; '.join(all_tags_parts)
-        
-        # Update decision data
-        decision_data.update({
-            'summary': summary,
-            'operativity': operativity,
-            'tags_policy_area': policy_areas,
-            'tags_government_body': government_bodies,
-            'tags_location': locations,
-            'all_tags': all_tags
-        })
-        
-        logger.info(f"AI processing completed for decision {decision_data.get('decision_number')}")
-        
-    except Exception as e:
-        logger.error(f"AI processing failed for decision {decision_data.get('decision_number')}: {e}")
-        # Fill with empty values on failure
-        decision_data.update({
-            'summary': '',
-            'operativity': '',
-            'tags_policy_area': '',
-            'tags_government_body': '',
-            'tags_location': '',
-            'all_tags': ''
-        })
-    
+        raise ValueError(f"Decision {decision_data.get('decision_number', 'unknown')} has no content")
+
+    # Step 1: Generate summary (needed for validation)
+    summary = generate_summary(decision_content, decision_title)
+
+    # Step 2: Generate operativity
+    operativity = generate_operativity(decision_content)
+
+    # Step 3: Policy area tags (with summary for validation)
+    policy_areas = generate_policy_area_tags_strict(
+        decision_content,
+        decision_title,
+        summary=summary
+    )
+
+    # Step 4: Government body tags (with validation!)
+    government_bodies = generate_government_body_tags_validated(
+        decision_content,
+        decision_title,
+        summary=summary
+    )
+
+    # Step 5: Location tags (unchanged)
+    locations = generate_location_tags(decision_content, decision_title)
+
+    # Validate critical fields
+    if not summary or not policy_areas:
+        raise Exception(f"AI processing produced empty critical fields")
+
+    # Combine all tags
+    all_tags_parts = []
+    if policy_areas:
+        all_tags_parts.append(policy_areas)
+    if government_bodies:
+        all_tags_parts.append(government_bodies)
+    if locations:
+        all_tags_parts.append(locations)
+    all_tags = '; '.join(all_tags_parts)
+
+    # Update decision data
+    decision_data.update({
+        'summary': summary,
+        'operativity': operativity,
+        'tags_policy_area': policy_areas,
+        'tags_government_body': government_bodies,
+        'tags_location': locations,
+        'all_tags': all_tags
+    })
+
+    logger.info(f"AI processing completed: policy={policy_areas}, govt={government_bodies}")
+
     return decision_data
 
 

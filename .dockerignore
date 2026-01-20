@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Development
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs and data (mounted as volumes)
+logs/
+data/migration_reports/
+*.log
+
+# Documentation (exclude except essential files)
+docs/
+*.md
+!README.md
+!new_tags.md
+!new_departments.md
+
+# Testing
+tests/
+pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.bak
+sync_status_*.txt
+
+# Environment (secrets should be passed via docker-compose)
+.env
+.env.*
+
+# Docker
+docker-compose*.yml
+.dockerignore
+
+# JSON exports (mount as volume if needed)
+*.json

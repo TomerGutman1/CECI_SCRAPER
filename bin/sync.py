@@ -47,13 +47,14 @@ def main():
                         help='Maximum number of decisions to process (default: unlimited until baseline)')
     parser.add_argument('--unlimited', action='store_true',
                         help='Process all decisions until reaching database baseline (overrides --max-decisions)')
-    parser.add_argument('--no-ai', action='store_true',
-                        help='Skip AI processing for faster bulk import')
     parser.add_argument('--no-approval', action='store_true',
                         help='Skip user approval step (auto-approve)')
     parser.add_argument('--verbose', action='store_true',
                         help='Enable verbose logging')
-    
+    parser.add_argument('--safety-mode', type=str, default='regular',
+                        choices=['regular', 'extra-safe'],
+                        help='Safety mode: regular (efficient, date-based filtering) or extra-safe (no URL filtering, zero missed decisions)')
+
     args = parser.parse_args()
     
     # Setup logging
@@ -69,9 +70,7 @@ def main():
         print("📊 Will process all decisions until reaching the most recent decision in database")
     else:
         print(f"🚀 Starting Selenium-based database sync for up to {args.max_decisions} decisions...")
-    
-    if args.no_ai:
-        print("⚡ AI processing disabled - faster bulk import mode")
+
     if args.no_approval:
         print("⚡ Auto-approval enabled - no user confirmation required")
     
@@ -79,12 +78,39 @@ def main():
     logger.info("🚀 STARTING SELENIUM DATABASE SYNC ORCHESTRATOR")
     logger.info("=" * 80)
     logger.info(f"Max decisions to process: {'Unlimited (until baseline)' if args.max_decisions is None else args.max_decisions}")
-    logger.info(f"AI processing: {'Disabled' if args.no_ai else 'Enabled'}")
+    logger.info(f"AI processing: Enabled (required)")
     logger.info(f"User approval required: {'No' if args.no_approval else 'Yes'}")
+    logger.info(f"Safety mode: {args.safety_mode.upper()}")
+    if args.safety_mode == 'extra-safe':
+        logger.info("🛡️  EXTRA-SAFE MODE: Zero URL filtering - ensures no missed decisions")
+    else:
+        logger.info("🔄 REGULAR MODE: Efficient date-based URL filtering")
     logger.info(f"Working directory: {os.getcwd()}")
     logger.info("=" * 80)
-    
+
     try:
+        # Step 0: Validate OpenAI API key with a test request
+        logger.info("🔑 STEP 0: Validating OpenAI API key...")
+        try:
+            from gov_scraper.processors.ai import client
+            if not client:
+                raise ValueError("OpenAI client not initialized - API key is missing or invalid")
+
+            # Make a minimal test request to validate the API key
+            test_response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": "test"}],
+                max_tokens=5
+            )
+            logger.info("✅ OpenAI API key validated successfully")
+        except Exception as e:
+            logger.error(f"❌ OpenAI API key validation failed: {e}")
+            print(f"\n❌ ERROR: OpenAI API key is invalid or not working!")
+            print(f"Details: {e}")
+            print("\nPlease check your .env file and ensure OPENAI_API_KEY is set correctly.")
+            print("Get your API key from: https://platform.openai.com/account/api-keys\n")
+            return False
+
         # Step 1: Get database baseline for incremental processing
         logger.info("📊 STEP 1: Getting database baseline...")
         baseline = get_scraping_baseline()
@@ -99,7 +125,7 @@ def main():
         
         if args.max_decisions is None:
             # Unlimited mode - use large batch size for comprehensive coverage
-            large_batch_size = 500
+            large_batch_size = 100
             logger.info(f"🔄 Unlimited mode: Fetching {large_batch_size} URLs to ensure complete coverage")
             logger.info("⏱️  Large batch loading may take 30-60 seconds - please wait...")
             decision_urls = extract_decision_urls_from_catalog_selenium(max_decisions=large_batch_size)
@@ -120,25 +146,39 @@ def main():
         logger.info("📄 STEP 3: Filtering URLs by baseline and preparing for ascending processing...")
         
         if baseline:
-            # Filter URLs to only those newer than baseline
-            filtered_urls = []
-            for url in decision_urls:
-                # Quick extraction to check if this URL should be processed
-                from gov_scraper.scrapers.decision import extract_decision_number_from_url
-                decision_number = extract_decision_number_from_url(url)
-                if decision_number:
-                    # For URL filtering, we'll be more permissive and let the actual scraping determine dates
-                    # We'll filter based on decision number vs baseline number as a rough filter
-                    try:
-                        if int(decision_number) > int(baseline.get('decision_number', '0')):
+            logger.info(f"📊 Baseline found: Decision {baseline.get('decision_number')} from {baseline.get('decision_date')}")
+
+            # Apply filtering based on safety mode
+            if args.safety_mode == 'extra-safe':
+                # Extra Safe Mode: No URL filtering - process all URLs
+                logger.info(f"🛡️  EXTRA-SAFE MODE: Will process all {len(decision_urls)} URLs without pre-filtering")
+                logger.info("⚠️  This may scrape decisions already in DB, but ensures ZERO missed decisions")
+            else:
+                # Regular Mode: Filter by baseline DATE only (not decision number!)
+                logger.info(f"🔄 REGULAR MODE: Filtering URLs by baseline date ({baseline.get('decision_date')})")
+
+                filtered_urls = []
+                baseline_date = baseline.get('decision_date')
+
+                for url in decision_urls:
+                    # Extract year from URL (format: /dec3716-2026)
+                    import re
+                    match = re.search(r'-(\d{4})([a-z]?)', url)
+                    if match:
+                        url_year = match.group(1)
+                        baseline_year = baseline_date[:4]  # Extract YYYY from YYYY-MM-DD
+
+                        # Include URL if year >= baseline year
+                        # This is conservative - includes all decisions from baseline year forward
+                        if url_year >= baseline_year:
                             filtered_urls.append(url)
-                    except (ValueError, TypeError):
-                        # If we can't compare numbers, include the URL to be safe
+                    else:
+                        # If can't extract year, include to be safe
                         filtered_urls.append(url)
-            
-            logger.info(f"📊 Filtered {len(decision_urls)} URLs to {len(filtered_urls)} URLs newer than baseline")
-            decision_urls = filtered_urls
-        
+
+                logger.info(f"📊 Filtered {len(decision_urls)} URLs to {len(filtered_urls)} URLs (year >= {baseline_year})")
+                decision_urls = filtered_urls
+
         # Sort URLs in ascending order (oldest first) for processing from baseline forward
         def extract_decision_info_for_ascending_sort(url):
             """Extract decision info for ascending sort (oldest first)."""
@@ -187,11 +227,10 @@ def main():
                     failed_count += 1
                     continue
                 
-                # Process with AI if enabled
-                if not args.no_ai:
-                    logger.info(f"🤖 Processing decision {decision_data.get('decision_number')} with AI...")
-                    decision_data = process_decision_with_ai(decision_data)
-                
+                # Process with AI (required)
+                logger.info(f"🤖 Processing decision {decision_data.get('decision_number')} with AI...")
+                decision_data = process_decision_with_ai(decision_data)
+
                 processed_decisions.append(decision_data)
                 logger.info(f"✅ Successfully processed decision {decision_data.get('decision_number')}")
                 
@@ -202,7 +241,19 @@ def main():
         
         # Log processing results
         logger.info(f"📊 Completed processing: {len(processed_decisions)} decisions processed, {failed_count} failed/skipped")
-        
+
+        # Log filtering statistics
+        logger.info("=" * 60)
+        logger.info("📊 FILTERING STATISTICS:")
+        logger.info(f"  Safety mode: {args.safety_mode.upper()}")
+        logger.info(f"  URLs extracted: {len(decision_urls)}")
+        logger.info(f"  Decisions scraped: {len(processed_decisions)}")
+        logger.info(f"  Failed/skipped in scraping: {failed_count}")
+        logger.info(f"  Filtered by date (should_process_decision): {len(urls_to_process) - len(processed_decisions)}")
+        if baseline:
+            logger.info(f"  Baseline: {baseline.get('decision_number')} ({baseline.get('decision_date')})")
+        logger.info("=" * 60)
+
         if not processed_decisions:
             logger.info("🏁 No new decisions to process after filtering. Sync completed.")
             print("✅ No new decisions found. Database is up to date.")
@@ -254,7 +305,7 @@ def main():
         logger.info(f"Decisions processed: {len(processed_decisions)}")
         logger.info(f"New decisions found: {len(new_decisions)}")
         logger.info(f"Duplicates skipped: {len(existing_keys)}")
-        logger.info(f"AI processed: {len(processed_decisions) if not args.no_ai else 0}")
+        logger.info(f"AI processed: {len(processed_decisions)}")
         logger.info(f"Successfully inserted: {inserted_count}")
         logger.info(f"Failed insertions: {len(error_messages)}")
         

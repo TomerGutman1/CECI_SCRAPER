@@ -9,7 +9,7 @@ SRC_DIR := src
 TEST_DIR := tests
 DOCS_DIR := docs
 
-.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup
+.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30
 
 # Default target - show help
 help:
@@ -27,6 +27,20 @@ help:
 	@echo "  make docs         - View documentation"
 	@echo "  make lint         - Run code linting (if available)"
 	@echo "  make format       - Format code (if available)"
+	@echo ""
+	@echo "📊 Monitoring commands:"
+	@echo "  make monitor      - Tag quality report (last 7 days)"
+	@echo "  make monitor-30   - Tag quality report (last 30 days)"
+	@echo ""
+	@echo "🏷️  Tag Migration commands:"
+	@echo "  make migrate-preview    - Preview on 10 records"
+	@echo "  make migrate-preview-n n=20  - Preview on N records"
+	@echo "  make migrate-dry        - Full dry-run (no changes)"
+	@echo "  make migrate-execute    - Execute migration (with confirmation)"
+	@echo ""
+	@echo "🗓️  Year-by-Year Migration:"
+	@echo "  make migrate-all-years  - Migrate all years (2024-1993)"
+	@echo "  make migrate-year year=2024  - Migrate a specific year"
 	@echo ""
 	@echo "🔧 First time setup:"
 	@echo "  1. Copy .env.example to .env and fill in your credentials"
@@ -127,7 +141,49 @@ sync-dev:
 # Quick test with 1 decision
 sync-test:
 	@echo "⚡ Quick test sync (1 decision)..."
-	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --max-decisions 1 --no-ai --no-approval --verbose
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --max-decisions 1 --no-approval --verbose
+
+# =============================================================================
+# Tag Migration Commands
+# =============================================================================
+
+# Preview migration on 10 records (default)
+migrate-preview:
+	@echo "🔍 Previewing tag migration on 10 records..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/migrate_tags.py preview --verbose
+
+# Preview with custom count
+migrate-preview-n:
+	@echo "🔍 Previewing tag migration on $(n) records..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/migrate_tags.py preview --count $(n) --verbose
+
+# Full dry-run (no changes)
+migrate-dry:
+	@echo "📋 Running full migration dry-run (no database changes)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/migrate_tags.py dry-run --verbose
+
+# Execute migration (with confirmation)
+migrate-execute:
+	@echo "🚀 Executing tag migration..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/migrate_tags.py execute --verbose
+
+# Execute migration without confirmation (careful!)
+migrate-execute-yes:
+	@echo "⚠️  Executing tag migration (auto-confirm)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/migrate_tags.py execute --yes --verbose
+
+# Migrate all years from 2024 back to 1993
+migrate-all-years:
+	@echo "🗓️  Running migration for all years (2024-1993)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/migrate_all_years.py --verbose
+
+# Migrate a specific year
+migrate-year:
+	@echo "📅 Running migration for year $(year)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/migrate_tags.py execute \
+		--start-date $(year)-01-01 --end-date $(year)-12-31 --yes --verbose
+
+# =============================================================================
 
 # Show project status
 status:
@@ -137,3 +193,17 @@ status:
 	@echo "Dependencies: $(shell [ -f $(VENV_DIR)/bin/activate ] && source $(VENV_DIR)/bin/activate && python -c "import supabase, selenium, openai; print('✅ Installed')" 2>/dev/null || echo "❌ Missing")"
 	@echo "Environment File: $(shell [ -f .env ] && echo "✅ Present" || echo "❌ Create from .env.example")"
 	@echo "Database Connection: $(shell source $(VENV_DIR)/bin/activate && python $(TEST_DIR)/test_connection.py >/dev/null 2>&1 && echo "✅ Working" || echo "❌ Check .env credentials")"
+
+# =============================================================================
+# Monitoring Commands
+# =============================================================================
+
+# Monitor tag quality (last 7 days)
+monitor:
+	@echo "📊 Analyzing tag quality (last 7 days)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/monitor_tags.py --days 7
+
+# Monitor tag quality (last 30 days)
+monitor-30:
+	@echo "📊 Analyzing tag quality (last 30 days)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/monitor_tags.py --days 30

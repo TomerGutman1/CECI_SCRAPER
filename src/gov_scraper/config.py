@@ -52,6 +52,17 @@ PRIME_MINISTER = "בנימין נתניהו"
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_MODEL = 'gpt-3.5-turbo'
 
+# Validate that OpenAI API key is set - MANDATORY for operation
+if not OPENAI_API_KEY:
+    raise ValueError(
+        "❌ OPENAI_API_KEY is not set!\n"
+        "This system requires a valid OpenAI API key to function.\n"
+        "Please:\n"
+        "  1. Copy .env.example to .env\n"
+        "  2. Add your OpenAI API key to the .env file\n"
+        "  3. Get an API key from: https://platform.openai.com/account/api-keys"
+    )
+
 # Hebrew field labels for parsing
 HEBREW_LABELS = {
     'date': 'תאריך פרסום:',

@@ -78,12 +78,12 @@ def should_process_decision(decision_data: Dict, baseline: Optional[Dict] = None
             logger.warning(f"Date parsing error: {e}. Processing decision to be safe.")
             return True
         
-        # Compare dates first
+        # Compare dates first (primary filter)
         if decision_dt > baseline_dt:
-            logger.info(f"Decision {decision_number} ({decision_dt.date()}) is newer than baseline ({baseline_dt.date()})")
+            logger.info(f"✅ Decision {decision_number} ({decision_dt.date()}) is NEWER than baseline date ({baseline_dt.date()}) - PROCESSING")
             return True
         elif decision_dt < baseline_dt:
-            logger.info(f"Decision {decision_number} ({decision_dt.date()}) is older than baseline ({baseline_dt.date()})")
+            logger.info(f"⏭️  Decision {decision_number} ({decision_dt.date()}) is OLDER than baseline date ({baseline_dt.date()}) - SKIPPING")
             return False
         else:
             # Same date - compare decision numbers
@@ -92,10 +92,10 @@ def should_process_decision(decision_data: Dict, baseline: Optional[Dict] = None
                 baseline_num_int = int(baseline_number)
                 
                 if decision_num_int > baseline_num_int:
-                    logger.info(f"Decision {decision_number} is newer than baseline {baseline_number} (same date)")
+                    logger.info(f"✅ Decision {decision_number} is NEWER than baseline {baseline_number} (SAME DATE) - PROCESSING")
                     return True
                 else:
-                    logger.info(f"Decision {decision_number} is not newer than baseline {baseline_number}")
+                    logger.info(f"⏭️  Decision {decision_number} is NOT NEWER than baseline {baseline_number} (SAME DATE) - SKIPPING")
                     return False
             except ValueError:
                 logger.warning(f"Could not compare decision numbers: {decision_number} vs {baseline_number}")

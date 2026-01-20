@@ -43,6 +43,7 @@ def check_existing_decision_keys(decision_keys: List[str]) -> Set[str]:
     
     client = get_supabase_client()
     try:
+        logging.info(f"DEBUG: Checking decision keys: {decision_keys}")
         response = (
             client.table("israeli_government_decisions")
             .select("decision_key")
@@ -50,7 +51,9 @@ def check_existing_decision_keys(decision_keys: List[str]) -> Set[str]:
             .execute()
         )
         
+        logging.info(f"DEBUG: Raw database response: {response.data}")
         existing_keys = {item['decision_key'] for item in response.data}
+        logging.info(f"DEBUG: Existing keys found: {sorted(existing_keys)}")
         logging.info(f"Found {len(existing_keys)} existing decision keys out of {len(decision_keys)} checked")
         return existing_keys
         

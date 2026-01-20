@@ -62,6 +62,73 @@ make sync-test
 make sync
 ```
 
+## 🛡️ Safety Modes - Ensuring Zero Missed Decisions
+
+The system offers two operational modes to balance efficiency with guaranteed completeness:
+
+### Regular Mode (Default) ⚡
+**Best for**: Daily syncing, normal operation
+
+- **How it works**: Filters URLs by baseline year for efficiency
+- **Overhead**: ~5% (minimal extra scanning)
+- **Use when**: Running daily syncs or regular maintenance
+- **Guarantees**: Won't miss decisions from same date (even with lower numbers)
+
+```bash
+# Regular mode is the default
+make sync
+make sync-test
+python bin/sync.py --unlimited --no-approval
+```
+
+### Extra-Safe Mode 🛡️
+**Best for**: After long breaks, suspected missed decisions
+
+- **How it works**: NO URL filtering - processes all available URLs
+- **Overhead**: ~10-30% (scans more thoroughly)
+- **Use when**:
+  - System was offline for extended period
+  - Suspecting missed important decisions
+  - Want absolute certainty of completeness
+- **Guarantees**: ZERO missed decisions - catches everything
+
+```bash
+# Use extra-safe mode
+python bin/sync.py --unlimited --no-approval --safety-mode extra-safe
+
+# Testing with extra-safe mode
+python bin/sync.py --max-decisions 10 --safety-mode extra-safe
+```
+
+### How Decision Discovery Works
+
+Both modes use a **3-layer defense** system:
+
+1. **URL Filtering** (mode-dependent)
+   - Regular: Filter by baseline year
+   - Extra-Safe: No filtering
+
+2. **Date-Based Validation** (`should_process_decision()`)
+   - Checks: Is decision date newer than baseline?
+   - If same date: Is decision number higher than baseline?
+   - Prevents processing old decisions
+
+3. **Duplicate Prevention** (`check_existing_decision_keys()`)
+   - Queries database for existing decision_key
+   - Safety net against re-insertion
+   - Works in both modes
+
+### Real-World Example
+
+**Problem**: Government publishes multiple decisions on same date, not in order:
+- Baseline in DB: Decision 3716 (2026-01-01)
+- New on website: Decision 3700 (2026-01-05) ← Lower number, newer date!
+
+**Regular Mode**: ✅ Processes 3700 (year 2026 ≥ baseline year 2026)
+**Extra-Safe Mode**: ✅ Processes 3700 (no filtering, catches everything)
+
+**Old buggy behavior** ❌: Would reject 3700 because 3700 < 3716
+
 ## 📋 Main Commands (What Each Does)
 
 | Command | What It Does | Which File Runs |
@@ -74,6 +141,40 @@ make sync
 | `make setup` | **Install everything** - First-time setup of the system | Uses `requirements.txt` and `setup.py` |
 | `make status` | **System health** - Shows if everything is properly installed | Checks all system components |
 | `make clean` | **Cleanup** - Removes temporary files and cache | Built-in cleanup operations |
+
+## 🏷️ Tag Migration (Completed December 2024)
+
+A comprehensive tag migration was performed on all 24,919 historical records (1993-2025) to standardize `tags_policy_area` and `tags_government_body` fields.
+
+### Migration Results
+
+| Metric | Value |
+|--------|-------|
+| **Total Records** | 24,919 |
+| **Records Updated** | 24,853 (99.7%) |
+| **Runtime** | 3.5 hours |
+| **Fallback Rate** | 0.3% |
+
+### Mapping Methods Used
+
+| Method | Count | Percentage |
+|--------|-------|------------|
+| Exact Match | 10,363 | 18.5% |
+| Substring Match | 6,449 | 11.5% |
+| Word Overlap | 4,569 | 8.2% |
+| AI Tag Match | 32,288 | 57.7% |
+| AI Summary | 2,073 | 3.7% |
+| Fallback | 180 | 0.3% |
+
+### Migration Commands (For Future Use)
+
+```bash
+make migrate-preview      # Preview on 10 records
+make migrate-dry          # Full dry-run (no DB changes)
+make migrate-execute      # Execute migration
+make migrate-all-years    # Run year-by-year migration (2024→1993)
+make migrate-year year=2024  # Migrate specific year
+```
 
 ## 🏗️ How It Works (Technical Overview)
 
@@ -94,7 +195,9 @@ GOV2DB/
 ├── 📁 bin/                          # Main executable scripts
 │   ├── sync.py                      # 🎯 Primary sync script (what "make sync" runs)
 │   ├── large_batch_sync.py          # 📦 Large batch processor (350+ decisions)
-│   └── overnight_sync.sh            # 🌙 Shell script for overnight operations
+│   ├── overnight_sync.sh            # 🌙 Shell script for overnight operations
+│   ├── migrate_tags.py              # 🏷️ Tag migration CLI
+│   └── migrate_all_years.py         # 🗓️ Year-by-year migration runner
 │
 ├── 📁 src/gov_scraper/              # Core Python package
 │   ├── scrapers/                    # 🕷️ Web scraping (Selenium-based)
@@ -103,7 +206,8 @@ GOV2DB/
 │   ├── processors/                  # 🧠 Data processing and AI
 │   │   ├── ai.py                    # OpenAI GPT integration
 │   │   ├── incremental.py           # Smart baseline processing
-│   │   └── approval.py              # User confirmation workflows
+│   │   ├── approval.py              # User confirmation workflows
+│   │   └── tag_migration.py         # 🏷️ Tag migration logic (6-step algorithm)
 │   ├── db/                          # 🗄️ Database operations
 │   │   ├── dal.py                   # Data access layer (Supabase)
 │   │   └── utils.py                 # Database utilities
@@ -111,8 +215,10 @@ GOV2DB/
 │
 ├── 📁 tests/                        # 🧪 Test suite
 ├── 📁 docs/                         # 📚 Documentation
-├── 📁 data/                         # 📄 Output files (CSV exports)
+├── 📁 data/                         # 📄 Output files (CSV exports, migration reports)
 ├── 📁 logs/                         # 📝 Log files
+├── new_tags.md                      # 📋 Authorized policy area tags (40 tags)
+├── new_departments.md               # 📋 Authorized government bodies (44 departments)
 └── 📁 venv/                         # 🐍 Python virtual environment
 ```
 
@@ -183,12 +289,19 @@ For each government decision, the system extracts:
 - **Full Content** - Complete Hebrew text
 - **URL** - Direct link to government page
 
-### 🤖 AI-Generated Analysis:
+### 🤖 AI-Generated Analysis (Validated):
+
+All AI-generated tags are validated against authorized lists to prevent hallucinations:
+
 - **Summary** - Concise description of what the decision does
-- **Operativity** - Whether it's operational or declarative
-- **Policy Area Tags** - Which government areas it affects (economy, security, etc.)
-- **Government Body Tags** - Which ministries or agencies are involved
-- **Location Tags** - Geographic areas affected
+- **Operativity** - Whether it's operational (אופרטיבית) or declarative (דקלרטיבית)
+- **Policy Area Tags** - Validated against `new_tags.md` (40 authorized categories)
+  - 3-step validation: exact match → word overlap → AI summary analysis
+  - Ensures tags match authorized policy areas
+- **Government Body Tags** - Validated against `new_departments.md` (44 authorized entities)
+  - Same 3-step validation ensures tags match official department names
+  - No more hallucinated ministry names
+- **Location Tags** - Geographic areas (validated to reject non-locations)
 - **All Tags** - Combined tags for easy searching
 
 ### 🏛️ System Fields:

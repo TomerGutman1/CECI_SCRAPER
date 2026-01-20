@@ -1,0 +1,83 @@
+# ========================================
+# GOV2DB Integration Snippet
+# ========================================
+#
+# INSTRUCTIONS:
+# Copy the 'gov2db-scraper' service definition below into your
+# main docker-compose.yml file (at the repo root level)
+#
+# BEFORE COPYING:
+# 1. Replace 'YOUR_NETWORK_NAME' with your actual network name
+# 2. Adjust paths if GOV2DB is not in the root of the repo
+# 3. Make sure the .env file path is correct
+#
+# ========================================
+
+version: '3.8'
+
+services:
+  gov2db-scraper:
+    build:
+      context: ./GOV2DB           # ← Adjust this path if GOV2DB is elsewhere
+      dockerfile: Dockerfile
+    image: gov2db-scraper:latest
+    container_name: gov2db-scraper
+    restart: unless-stopped
+
+    # Environment variables - use env_file for security
+    env_file:
+      - ./GOV2DB/.env             # ← Adjust path if needed
+
+    # Alternative: inline environment (less secure)
+    # environment:
+    #   - TZ=Asia/Jerusalem
+    #   - OPENAI_API_KEY=${OPENAI_API_KEY}
+    #   - SUPABASE_URL=${SUPABASE_URL}
+    #   - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+    #   - PYTHONUNBUFFERED=1
+
+    # Volume mounts for persistence
+    volumes:
+      - ./GOV2DB/logs:/app/logs
+      - ./GOV2DB/data:/app/data
+      # Optional: Mount tag files for easy updates
+      - ./GOV2DB/new_tags.md:/app/new_tags.md:ro
+      - ./GOV2DB/new_departments.md:/app/new_departments.md:ro
+
+    # Network configuration
+    # 🔴 IMPORTANT: Replace 'YOUR_NETWORK_NAME' with your actual network name
+    # Common names: app-network, backend-network, default, etc.
+    # To find your network name, run: docker network ls
+    networks:
+      - YOUR_NETWORK_NAME         # ← REPLACE THIS
+
+    # Resource limits (adjust as needed)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+
+    # Logging configuration (prevent disk fill-up)
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+# ========================================
+# Network Configuration
+# ========================================
+# If your main docker-compose.yml already has a networks section,
+# skip this part. If not, add it:
+#
+# networks:
+#   YOUR_NETWORK_NAME:           # ← Same name as above
+#     external: true             # ← If network already exists
+#     # OR if creating new network:
+#     # driver: bridge
+#
+# ========================================
