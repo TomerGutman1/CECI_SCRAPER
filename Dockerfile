@@ -18,8 +18,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Create non-root user for running scraper (security best practice)
-RUN useradd -m -u 1000 -s /bin/bash scraper
+# Use the existing seluser from selenium image (UID 1000) or create scraper with different UID
+# selenium/standalone-chrome already has 'seluser' with UID 1000
+RUN useradd -m -u 1001 -s /bin/bash scraper 2>/dev/null || true
 
 # Set working directory
 WORKDIR /app
@@ -43,22 +44,21 @@ RUN pip3 install -e .
 RUN mkdir -p /app/logs /app/data /app/healthcheck \
     && chown -R scraper:scraper /app
 
-# Copy entrypoint and health check scripts
-COPY docker/docker-entrypoint.sh /usr/local/bin/
-COPY docker/healthcheck.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh /usr/local/bin/healthcheck.sh
+# Copy entrypoint and health check scripts with execute permissions
+COPY --chmod=755 docker/docker-entrypoint.sh /usr/local/bin/
+COPY --chmod=755 docker/healthcheck.sh /usr/local/bin/
 
 # Setup cron job for daily sync at 02:00 AM
+# Using /etc/cron.d/ format - cron daemon reads these directly
 COPY docker/crontab /etc/cron.d/gov2db-scraper
-RUN chmod 0644 /etc/cron.d/gov2db-scraper \
-    && crontab -u scraper /etc/cron.d/gov2db-scraper
+RUN chmod 0644 /etc/cron.d/gov2db-scraper
 
 # Setup logrotate
 COPY docker/logrotate.conf /etc/logrotate.d/gov2db
 RUN chmod 0644 /etc/logrotate.d/gov2db
 
-# Switch to non-root user
-USER scraper
+# Note: Running as root because cron daemon requires root permissions
+# The sync script itself doesn't need root, but cron does
 
 # Expose health check port (optional, for HTTP health endpoint)
 EXPOSE 8080

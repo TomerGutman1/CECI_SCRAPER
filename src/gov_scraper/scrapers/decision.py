@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 
 
 def extract_decision_number_from_url(url: str) -> Optional[str]:
-    """Extract decision number from URL like /he/pages/dec2980-2025."""
-    match = re.search(r'/dec(\d+)-\d{4}', url)
+    """Extract decision number from URL like /he/pages/dec2980-2025 or /he/pages/dec-3820-2026."""
+    match = re.search(r'/dec-?(\d+)-\d{4}', url)
     return match.group(1) if match else None
 
 
@@ -236,19 +236,13 @@ def scrape_decision_page_selenium(url: str) -> Dict[str, str]:
     
     try:
         with SeleniumWebDriver(headless=True) as driver:
-            # Load the page and wait for Hebrew content to appear
+            # Load the page with sufficient wait for SPA to render
             soup = driver.get_page_with_js(
                 url,
-                wait_for_element=None,  # Don't wait for specific element
-                wait_time=10  # Wait for JavaScript to load content
+                wait_for_element=None,
+                wait_time=15
             )
-            
-            # Additional wait for Hebrew content specifically
-            driver.wait_for_content_with_text('החלטה', max_wait=10)
-            
-            # Get fresh soup after waiting for content
-            soup = driver.get_page_with_js(url, wait_time=2)
-            
+
             logger.info(f"Successfully loaded decision page (HTML length: {len(str(soup))})")
             
             # Extract decision number from URL
@@ -300,93 +294,104 @@ def scrape_decision_page_selenium(url: str) -> Dict[str, str]:
         raise
 
 
-def scrape_decision_with_url_recovery(url: str) -> Optional[Dict[str, str]]:
+def scrape_decision_content_only(url: str, wait_time: int = 15) -> str:
     """
-    Scrape a decision page with automatic URL recovery if the initial URL fails.
-    
+    Scrape only the decision content body from a decision page.
+    Metadata (title, date, number, committee) comes from the catalog API.
+
     Args:
-        url: Initial URL to try
-        
+        url: Full URL of the decision page
+        wait_time: Seconds to wait for JavaScript rendering (default 15)
+
     Returns:
-        Dictionary containing extracted decision data, or None if all attempts fail
+        The decision content text, or empty string on failure
     """
-    logger.info(f"Attempting to scrape decision with URL recovery: {url}")
-    
-    # Extract decision number for recovery purposes
-    decision_number = extract_decision_number_from_url(url)
-    if not decision_number:
-        logger.error(f"Cannot extract decision number from URL: {url}")
-        return None
-    
-    # First attempt: try the original URL
+    logger.info(f"Scraping decision content from: {url} (wait_time={wait_time}s)")
     try:
-        logger.info(f"First attempt: trying original URL {url}")
-        result = scrape_decision_page_selenium(url)
-        
-        # Check if we got meaningful content
-        if (result and 
-            result.get('decision_content') and 
-            len(result.get('decision_content', '')) > 50 and
-            result.get('decision_date')):
-            logger.info(f"Original URL worked successfully for decision {decision_number}")
-            return result
-        else:
-            logger.warning(f"Original URL returned empty or invalid content for decision {decision_number}")
-            
+        with SeleniumWebDriver(headless=True) as driver:
+            soup = driver.get_page_with_js(url, wait_time=wait_time)
+            content = extract_decision_content_from_soup(soup)
+            logger.info(f"Extracted content: {len(content)} chars")
+            return content
     except Exception as e:
-        logger.warning(f"Original URL failed for decision {decision_number}: {e}")
-    
+        logger.error(f"Failed to scrape content from {url}: {e}")
+        return ""
+
+
+def _build_result_from_meta(decision_meta: dict, content: str) -> Dict[str, str]:
+    """Build a full result dict by merging API metadata with scraped content."""
+    return {
+        'decision_url': decision_meta['url'],
+        'decision_number': decision_meta.get('decision_number', ''),
+        'decision_date': decision_meta.get('decision_date', ''),
+        'committee': decision_meta.get('committee', ''),
+        'decision_title': decision_meta.get('title', ''),
+        'decision_content': content,
+        'government_number': str(GOVERNMENT_NUMBER),
+        'prime_minister': PRIME_MINISTER,
+        'decision_key': f"{GOVERNMENT_NUMBER}_{decision_meta.get('decision_number', '')}"
+    }
+
+
+def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15) -> Optional[Dict[str, str]]:
+    """
+    Scrape a decision's content with automatic URL recovery if the initial URL fails.
+    Metadata (title, date, number, committee) comes from the catalog API via decision_meta.
+
+    Args:
+        decision_meta: Dict with keys: url, title, decision_number, decision_date, committee
+        wait_time: Seconds to wait for JavaScript rendering (default 15)
+
+    Returns:
+        Dictionary containing decision data, or None if all attempts fail
+    """
+    url = decision_meta['url']
+    decision_number = decision_meta.get('decision_number', '') or extract_decision_number_from_url(url)
+    logger.info(f"Attempting to scrape decision {decision_number} with URL recovery: {url}")
+
+    if not decision_number:
+        logger.error(f"Cannot determine decision number for: {url}")
+        return None
+
+    # First attempt: scrape content from the original URL
+    content = scrape_decision_content_only(url, wait_time=wait_time)
+    if content and len(content) > 50:
+        logger.info(f"Original URL worked for decision {decision_number}")
+        return _build_result_from_meta(decision_meta, content)
+
+    logger.warning(f"Original URL returned empty content for decision {decision_number}")
+
     # Second attempt: search catalog for correct URL
     try:
         from .catalog import find_correct_url_in_catalog
         logger.info(f"Second attempt: searching catalog for correct URL for decision {decision_number}")
         correct_url = find_correct_url_in_catalog(decision_number)
-        
+
         if correct_url and correct_url != url:
             logger.info(f"Found different URL in catalog: {correct_url}")
-            result = scrape_decision_page_selenium(correct_url)
-            
-            # Check if we got meaningful content
-            if (result and 
-                result.get('decision_content') and 
-                len(result.get('decision_content', '')) > 50 and
-                result.get('decision_date')):
-                logger.info(f"Catalog URL worked successfully for decision {decision_number}")
-                return result
-            else:
-                logger.warning(f"Catalog URL also returned empty content for decision {decision_number}")
-        else:
-            logger.info(f"Catalog search returned same URL or no URL for decision {decision_number}")
-            
+            content = scrape_decision_content_only(correct_url, wait_time=wait_time)
+            if content and len(content) > 50:
+                logger.info(f"Catalog URL worked for decision {decision_number}")
+                meta_with_url = {**decision_meta, 'url': correct_url}
+                return _build_result_from_meta(meta_with_url, content)
     except Exception as e:
         logger.warning(f"Catalog search failed for decision {decision_number}: {e}")
-    
+
     # Third attempt: try minimal URL variations
     try:
         from .catalog import try_url_variations
         logger.info(f"Third attempt: trying URL variations for decision {decision_number}")
         working_url = try_url_variations(url, decision_number)
-        
+
         if working_url:
-            logger.info(f"Found working URL variation: {working_url}")
-            result = scrape_decision_page_selenium(working_url)
-            
-            # Check if we got meaningful content
-            if (result and 
-                result.get('decision_content') and 
-                len(result.get('decision_content', '')) > 50 and
-                result.get('decision_date')):
-                logger.info(f"URL variation worked successfully for decision {decision_number}")
-                return result
-            else:
-                logger.warning(f"URL variation also returned empty content for decision {decision_number}")
-        else:
-            logger.info(f"No working URL variations found for decision {decision_number}")
-            
+            content = scrape_decision_content_only(working_url, wait_time=wait_time)
+            if content and len(content) > 50:
+                logger.info(f"URL variation worked for decision {decision_number}")
+                meta_with_url = {**decision_meta, 'url': working_url}
+                return _build_result_from_meta(meta_with_url, content)
     except Exception as e:
         logger.warning(f"URL variation attempts failed for decision {decision_number}: {e}")
-    
-    # All attempts failed
+
     logger.error(f"All URL recovery attempts failed for decision {decision_number}")
     return None
 

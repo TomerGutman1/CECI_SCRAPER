@@ -25,7 +25,7 @@ from dataclasses import dataclass, field
 from collections import defaultdict
 
 from ..db.connector import get_supabase_client
-from ..config import OPENAI_API_KEY, OPENAI_MODEL, MAX_RETRIES, RETRY_DELAY
+from ..config import GEMINI_API_KEY, GEMINI_MODEL, MAX_RETRIES, RETRY_DELAY
 from .ai import make_openai_request_with_retry
 
 # Set up logging

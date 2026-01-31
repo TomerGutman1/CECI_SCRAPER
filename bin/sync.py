@@ -9,18 +9,18 @@ import argparse
 import logging
 import os
 import sys
-from datetime import datetime
 
 # Add src to Python path for package imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from gov_scraper.scrapers.catalog import extract_decision_urls_from_catalog_selenium
-from gov_scraper.scrapers.decision import scrape_decision_page_selenium, scrape_decision_with_url_recovery
+from gov_scraper.scrapers.decision import scrape_decision_with_url_recovery
 from gov_scraper.processors.ai import process_decision_with_ai
-from gov_scraper.processors.incremental import get_scraping_baseline, should_process_decision, prepare_for_database
+from gov_scraper.processors.incremental import prepare_for_database
 from gov_scraper.db.dal import insert_decisions_batch, check_existing_decision_keys
 from gov_scraper.processors.approval import get_user_approval
-from gov_scraper.config import LOG_DIR, LOG_FILE
+from gov_scraper.processors.qa import validate_decision_inline, validate_scraped_content, apply_inline_fixes
+from gov_scraper.config import LOG_DIR, LOG_FILE, GOVERNMENT_NUMBER
 
 def setup_logging(verbose=False):
     """Set up logging configuration."""
@@ -44,16 +44,16 @@ def main():
         description='Sync Israeli Government Decisions with Supabase Database (Selenium-based)'
     )
     parser.add_argument('--max-decisions', type=int, default=None,
-                        help='Maximum number of decisions to process (default: unlimited until baseline)')
+                        help='Maximum number of new decisions to process (default: unlimited)')
     parser.add_argument('--unlimited', action='store_true',
-                        help='Process all decisions until reaching database baseline (overrides --max-decisions)')
+                        help='Process all new decisions not yet in database (overrides --max-decisions)')
     parser.add_argument('--no-approval', action='store_true',
                         help='Skip user approval step (auto-approve)')
     parser.add_argument('--verbose', action='store_true',
                         help='Enable verbose logging')
     parser.add_argument('--safety-mode', type=str, default='regular',
                         choices=['regular', 'extra-safe'],
-                        help='Safety mode: regular (efficient, date-based filtering) or extra-safe (no URL filtering, zero missed decisions)')
+                        help='Deprecated: kept for backward compatibility. Filtering is now key-based (all entries checked against DB).')
 
     args = parser.parse_args()
     
@@ -66,242 +66,218 @@ def main():
         args.max_decisions = None
         
     if args.max_decisions is None:
-        print("🚀 Starting Selenium-based database sync with UNLIMITED processing until baseline...")
-        print("📊 Will process all decisions until reaching the most recent decision in database")
+        print("🚀 Starting Selenium-based database sync (unlimited mode)...")
+        print("📊 Will process all new decisions not yet in database")
     else:
         print(f"🚀 Starting Selenium-based database sync for up to {args.max_decisions} decisions...")
 
     if args.no_approval:
         print("⚡ Auto-approval enabled - no user confirmation required")
-    
+
     logger.info("=" * 80)
     logger.info("🚀 STARTING SELENIUM DATABASE SYNC ORCHESTRATOR")
     logger.info("=" * 80)
-    logger.info(f"Max decisions to process: {'Unlimited (until baseline)' if args.max_decisions is None else args.max_decisions}")
+    logger.info(f"Max decisions to process: {'Unlimited' if args.max_decisions is None else args.max_decisions}")
     logger.info(f"AI processing: Enabled (required)")
     logger.info(f"User approval required: {'No' if args.no_approval else 'Yes'}")
-    logger.info(f"Safety mode: {args.safety_mode.upper()}")
-    if args.safety_mode == 'extra-safe':
-        logger.info("🛡️  EXTRA-SAFE MODE: Zero URL filtering - ensures no missed decisions")
-    else:
-        logger.info("🔄 REGULAR MODE: Efficient date-based URL filtering")
+    logger.info(f"Filtering: Key-based DB check (processes all entries not in database)")
     logger.info(f"Working directory: {os.getcwd()}")
     logger.info("=" * 80)
 
     try:
-        # Step 0: Validate OpenAI API key with a test request
-        logger.info("🔑 STEP 0: Validating OpenAI API key...")
+        # Step 0: Validate Gemini API key with a test request
+        logger.info("🔑 STEP 0: Validating Gemini API key...")
         try:
-            from gov_scraper.processors.ai import client
-            if not client:
-                raise ValueError("OpenAI client not initialized - API key is missing or invalid")
+            from gov_scraper.processors.ai import gemini_client
+            from gov_scraper.config import GEMINI_MODEL
+            if not gemini_client:
+                raise ValueError("Gemini client not initialized - API key is missing or invalid")
 
             # Make a minimal test request to validate the API key
-            test_response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": "test"}],
-                max_tokens=5
+            test_response = gemini_client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents="test",
+                config={"max_output_tokens": 5}
             )
-            logger.info("✅ OpenAI API key validated successfully")
+            logger.info("✅ Gemini API key validated successfully")
         except Exception as e:
-            logger.error(f"❌ OpenAI API key validation failed: {e}")
-            print(f"\n❌ ERROR: OpenAI API key is invalid or not working!")
+            logger.error(f"❌ Gemini API key validation failed: {e}")
+            print(f"\n❌ ERROR: Gemini API key is invalid or not working!")
             print(f"Details: {e}")
-            print("\nPlease check your .env file and ensure OPENAI_API_KEY is set correctly.")
-            print("Get your API key from: https://platform.openai.com/account/api-keys\n")
+            print("\nPlease check your .env file and ensure GEMINI_API_KEY is set correctly.")
+            print("Get your API key from: https://aistudio.google.com/app/apikey\n")
             return False
 
-        # Step 1: Get database baseline for incremental processing
-        logger.info("📊 STEP 1: Getting database baseline...")
-        baseline = get_scraping_baseline()
-        
-        if baseline:
-            logger.info(f"✅ Baseline found: Decision {baseline.get('decision_number')} ({baseline.get('decision_date')})")
-        else:
-            logger.info("ℹ️  No baseline found - will process all decisions found")
-        
-        # Step 2: Extract decision URLs using Selenium
-        logger.info("🔍 STEP 2: Extracting decision URLs from catalog using Selenium...")
-        
+        # Step 1: Extract decision entries using Selenium + catalog API
+        logger.info("🔍 STEP 1: Extracting decision entries from catalog API using Selenium...")
+
         if args.max_decisions is None:
-            # Unlimited mode - use large batch size for comprehensive coverage
             large_batch_size = 100
-            logger.info(f"🔄 Unlimited mode: Fetching {large_batch_size} URLs to ensure complete coverage")
+            logger.info(f"🔄 Unlimited mode: Fetching {large_batch_size} entries to ensure complete coverage")
             logger.info("⏱️  Large batch loading may take 30-60 seconds - please wait...")
-            decision_urls = extract_decision_urls_from_catalog_selenium(max_decisions=large_batch_size)
+            decision_entries = extract_decision_urls_from_catalog_selenium(max_decisions=large_batch_size)
         else:
-            # Limited mode - get extra URLs for smart filtering
-            decision_urls = extract_decision_urls_from_catalog_selenium(
-                max_decisions=args.max_decisions * 2  # Get extra URLs for smart filtering
+            decision_entries = extract_decision_urls_from_catalog_selenium(
+                max_decisions=args.max_decisions * 2
             )
-        
-        if not decision_urls:
-            logger.warning("⚠️  No decision URLs found")
-            print("🏁 No URLs to process. Sync completed.")
+
+        if not decision_entries:
+            logger.warning("⚠️  No decision entries found")
+            print("🏁 No entries to process. Sync completed.")
             return True
-        
-        logger.info(f"✅ Found {len(decision_urls)} decision URLs")
-        
-        # Step 3: Filter URLs by baseline and sort for ascending processing
-        logger.info("📄 STEP 3: Filtering URLs by baseline and preparing for ascending processing...")
-        
-        if baseline:
-            logger.info(f"📊 Baseline found: Decision {baseline.get('decision_number')} from {baseline.get('decision_date')}")
 
-            # Apply filtering based on safety mode
-            if args.safety_mode == 'extra-safe':
-                # Extra Safe Mode: No URL filtering - process all URLs
-                logger.info(f"🛡️  EXTRA-SAFE MODE: Will process all {len(decision_urls)} URLs without pre-filtering")
-                logger.info("⚠️  This may scrape decisions already in DB, but ensures ZERO missed decisions")
-            else:
-                # Regular Mode: Filter by baseline DATE only (not decision number!)
-                logger.info(f"🔄 REGULAR MODE: Filtering URLs by baseline date ({baseline.get('decision_date')})")
+        total_from_catalog = len(decision_entries)
+        logger.info(f"✅ Found {total_from_catalog} decision entries")
 
-                filtered_urls = []
-                baseline_date = baseline.get('decision_date')
+        # Step 2: Filter to new entries by checking which already exist in database
+        logger.info("🔍 STEP 2: Checking which entries already exist in database...")
 
-                for url in decision_urls:
-                    # Extract year from URL (format: /dec3716-2026)
-                    import re
-                    match = re.search(r'-(\d{4})([a-z]?)', url)
-                    if match:
-                        url_year = match.group(1)
-                        baseline_year = baseline_date[:4]  # Extract YYYY from YYYY-MM-DD
+        candidate_keys = []
+        key_to_entry = {}
+        for entry in decision_entries:
+            dec_num = entry.get('decision_number', '')
+            if dec_num:
+                key = f"{GOVERNMENT_NUMBER}_{dec_num}"
+                candidate_keys.append(key)
+                key_to_entry[key] = entry
 
-                        # Include URL if year >= baseline year
-                        # This is conservative - includes all decisions from baseline year forward
-                        if url_year >= baseline_year:
-                            filtered_urls.append(url)
-                    else:
-                        # If can't extract year, include to be safe
-                        filtered_urls.append(url)
+        existing_keys = check_existing_decision_keys(candidate_keys)
+        logger.info(f"📊 Found {len(existing_keys)} entries already in database out of {len(candidate_keys)} candidates")
 
-                logger.info(f"📊 Filtered {len(decision_urls)} URLs to {len(filtered_urls)} URLs (year >= {baseline_year})")
-                decision_urls = filtered_urls
+        new_entries = [key_to_entry[k] for k in candidate_keys if k not in existing_keys]
+        new_entries.sort(key=lambda e: (e.get('decision_date', ''), e.get('decision_number', '')))
+        logger.info(f"📝 Identified {len(new_entries)} new entries to process")
 
-        # Sort URLs in ascending order (oldest first) for processing from baseline forward
-        def extract_decision_info_for_ascending_sort(url):
-            """Extract decision info for ascending sort (oldest first)."""
-            import re
-            match = re.search(r'/dec(\d+)([a-z]?)-(\d{4})([a-z]?)', url)
-            if match:
-                decision_num = int(match.group(1))
-                prefix_suffix = match.group(2) or ""
-                year = int(match.group(3))
-                postfix_suffix = match.group(4) or ""
-                
-                # Return positive values for ascending order (oldest first)
-                suffix_order = ord(prefix_suffix) if prefix_suffix else 0
-                postfix_order = ord(postfix_suffix) if postfix_suffix else 0
-                
-                return (year, decision_num, suffix_order, postfix_order)
-            return (9999, 9999, 999, 999)  # Put unparseable URLs at the end
-        
-        decision_urls.sort(key=extract_decision_info_for_ascending_sort)
-        logger.info("🔄 Sorted URLs in ascending order (processing from baseline forward)")
-        
-        # Step 4: Process decisions and extract data
-        logger.info("📄 STEP 4: Processing decisions in ascending order...")
+        if not new_entries:
+            logger.info("🏁 No new decisions found. Database is up to date.")
+            print("✅ No new decisions found. Database is up to date.")
+            return True
+
+        # Step 3: Process decisions - scrape content and run AI
+        logger.info("📄 STEP 3: Processing new decisions...")
         processed_decisions = []
         failed_count = 0
-        
-        # Determine which URLs to process
-        if args.max_decisions is None:
-            urls_to_process = decision_urls  # Process all URLs in unlimited mode
-            max_desc = "all filtered URLs from baseline forward"
+
+        if args.max_decisions is not None:
+            entries_to_process = new_entries[:args.max_decisions]
         else:
-            urls_to_process = decision_urls[:args.max_decisions]
-            max_desc = f"{min(len(decision_urls), args.max_decisions)}"
-        
-        logger.info(f"📊 Will process {max_desc}")
-        
-        for i, url in enumerate(urls_to_process, 1):
-            logger.info(f"Processing decision {i}/{len(urls_to_process) if args.max_decisions else '?'}: {url}")
-            
+            entries_to_process = new_entries
+
+        logger.info(f"📊 Will process {len(entries_to_process)} new decisions")
+
+        for i, entry in enumerate(entries_to_process, 1):
+            dec_num = entry.get('decision_number', '?')
+            dec_url = entry.get('url', '')
+            logger.info(f"Processing decision {i}/{len(entries_to_process)}: #{dec_num} {dec_url}")
+
             try:
-                # Use URL recovery for robust scraping
-                decision_data = scrape_decision_with_url_recovery(url)
-                
+                # Scrape content with retry on bad content (Cloudflare, short, no Hebrew)
+                decision_data = None
+                max_content_retries = 2
+
+                for retry in range(max_content_retries + 1):
+                    wait_time = 15 + (retry * 10)  # 15s, 25s, 35s
+                    decision_data = scrape_decision_with_url_recovery(entry, wait_time=wait_time)
+
+                    if not decision_data:
+                        break  # Scraping itself failed — no point retrying content validation
+
+                    # Pre-AI content validation
+                    is_valid, error_msg = validate_scraped_content(decision_data)
+                    if is_valid:
+                        break
+
+                    if retry < max_content_retries:
+                        logger.warning(f"Content validation failed for #{dec_num} (attempt {retry + 1}): {error_msg} — retrying with {wait_time + 10}s wait")
+                    else:
+                        logger.error(f"Content validation failed for #{dec_num} after {max_content_retries + 1} attempts: {error_msg} — skipping")
+                        decision_data = None
+
                 if not decision_data:
-                    logger.warning(f"Failed to scrape decision from {url} even with URL recovery - skipping")
+                    logger.warning(f"Failed to get valid content for decision #{dec_num} from {dec_url} - skipping")
                     failed_count += 1
                     continue
-                
+
                 # Process with AI (required)
-                logger.info(f"🤖 Processing decision {decision_data.get('decision_number')} with AI...")
+                logger.info(f"🤖 Processing decision #{dec_num} with AI...")
                 decision_data = process_decision_with_ai(decision_data)
 
+                # Post-AI algorithmic fixes ($0 cost)
+                decision_data = apply_inline_fixes(decision_data)
+
+                # QA inline validation (warnings only, does not block)
+                qa_warnings = validate_decision_inline(decision_data)
+                if qa_warnings:
+                    for warn in qa_warnings:
+                        logger.warning(f"⚠️  QA [{dec_num}]: {warn}")
+
                 processed_decisions.append(decision_data)
-                logger.info(f"✅ Successfully processed decision {decision_data.get('decision_number')}")
-                
+                logger.info(f"✅ Successfully processed decision #{dec_num}")
+
             except Exception as e:
-                logger.error(f"Failed to process decision from {url}: {e}")
+                logger.error(f"Failed to process decision #{dec_num}: {e}")
                 failed_count += 1
                 continue
-        
-        # Log processing results
-        logger.info(f"📊 Completed processing: {len(processed_decisions)} decisions processed, {failed_count} failed/skipped")
 
-        # Log filtering statistics
+        logger.info(f"📊 Completed processing: {len(processed_decisions)} decisions processed, {failed_count} failed")
+
         logger.info("=" * 60)
         logger.info("📊 FILTERING STATISTICS:")
-        logger.info(f"  Safety mode: {args.safety_mode.upper()}")
-        logger.info(f"  URLs extracted: {len(decision_urls)}")
-        logger.info(f"  Decisions scraped: {len(processed_decisions)}")
-        logger.info(f"  Failed/skipped in scraping: {failed_count}")
-        logger.info(f"  Filtered by date (should_process_decision): {len(urls_to_process) - len(processed_decisions)}")
-        if baseline:
-            logger.info(f"  Baseline: {baseline.get('decision_number')} ({baseline.get('decision_date')})")
+        logger.info(f"  Entries from catalog API: {total_from_catalog}")
+        logger.info(f"  Already in database: {len(existing_keys)}")
+        logger.info(f"  New entries identified: {len(new_entries)}")
+        logger.info(f"  Entries processed: {len(entries_to_process)}")
+        logger.info(f"  Decisions scraped + AI processed: {len(processed_decisions)}")
+        logger.info(f"  Failed: {failed_count}")
         logger.info("=" * 60)
 
         if not processed_decisions:
-            logger.info("🏁 No new decisions to process after filtering. Sync completed.")
-            print("✅ No new decisions found. Database is up to date.")
-            return True
-        
-        logger.info(f"📊 Processed {len(processed_decisions)} decisions successfully ({failed_count} failed/skipped)")
-        
-        # Step 5: Prepare data for database
-        logger.info("🔄 STEP 5: Preparing data for database insertion...")
+            logger.info("🏁 No decisions were successfully processed.")
+            print("⚠️  No decisions were successfully processed. Check logs for errors.")
+            return False
+
+        logger.info(f"📊 Processed {len(processed_decisions)} decisions successfully ({failed_count} failed)")
+
+        # Step 4: Prepare data for database
+        logger.info("🔄 STEP 4: Preparing data for database insertion...")
         db_ready_decisions = prepare_for_database(processed_decisions)
-        
-        # Step 6: Check for duplicates
-        logger.info("🔍 STEP 6: Checking for existing decisions...")
+
+        # Step 5: Safety check for duplicates (race condition protection)
+        logger.info("🔍 STEP 5: Safety duplicate check before insertion...")
         decision_keys = [d['decision_key'] for d in db_ready_decisions]
-        existing_keys = check_existing_decision_keys(decision_keys)
-        
-        # Filter out duplicates
-        new_decisions = [d for d in db_ready_decisions if d['decision_key'] not in existing_keys]
-        
-        if existing_keys:
-            logger.info(f"⏭️  Found {len(existing_keys)} duplicate decisions (will skip)")
-            
+        final_existing = check_existing_decision_keys(decision_keys)
+
+        new_decisions = [d for d in db_ready_decisions if d['decision_key'] not in final_existing]
+
+        if final_existing:
+            logger.info(f"⏭️  Found {len(final_existing)} decisions inserted since filtering (race condition safety)")
+
         if not new_decisions:
             logger.info("🏁 All processed decisions already exist in database.")
             print("✅ All decisions are already in database. No new data to insert.")
             return True
-        
+
         logger.info(f"📝 Found {len(new_decisions)} new decisions to insert")
-        
-        # Step 7: User approval (unless disabled)
+
+        # Step 6: User approval (unless disabled)
         if not args.no_approval:
-            logger.info("👤 STEP 7: Getting user approval...")
-            if not get_user_approval(new_decisions, baseline):
+            logger.info("👤 STEP 6: Getting user approval...")
+            if not get_user_approval(new_decisions, None):
                 logger.info("❌ User declined to proceed. Sync cancelled.")
                 print("❌ Sync cancelled by user.")
                 return False
         else:
-            logger.info("⚡ STEP 7: Auto-approval enabled - proceeding without confirmation")
-        
-        # Step 8: Insert into database
-        logger.info("💾 STEP 8: Inserting decisions into database...")
+            logger.info("⚡ STEP 6: Auto-approval enabled - proceeding without confirmation")
+
+        # Step 7: Insert into database
+        logger.info("💾 STEP 7: Inserting decisions into database...")
         inserted_count, error_messages = insert_decisions_batch(new_decisions)
         
         # Report results
         logger.info("=" * 80)
         logger.info("📊 FINAL SYNC SUMMARY")
         logger.info("=" * 80)
-        logger.info(f"URLs scraped: {len(decision_urls)}")
+        logger.info(f"Entries from catalog: {total_from_catalog}")
         logger.info(f"Decisions processed: {len(processed_decisions)}")
         logger.info(f"New decisions found: {len(new_decisions)}")
         logger.info(f"Duplicates skipped: {len(existing_keys)}")

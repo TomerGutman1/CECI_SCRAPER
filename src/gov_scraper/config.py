@@ -48,19 +48,19 @@ RETRY_DELAY = 2  # seconds
 GOVERNMENT_NUMBER = 37
 PRIME_MINISTER = "בנימין נתניהו"
 
-# OpenAI Configuration
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-OPENAI_MODEL = 'gpt-3.5-turbo'
+# Gemini Configuration
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-2.0-flash')
 
-# Validate that OpenAI API key is set - MANDATORY for operation
-if not OPENAI_API_KEY:
+# Validate that Gemini API key is set - MANDATORY for operation
+if not GEMINI_API_KEY:
     raise ValueError(
-        "❌ OPENAI_API_KEY is not set!\n"
-        "This system requires a valid OpenAI API key to function.\n"
+        "❌ GEMINI_API_KEY is not set!\n"
+        "This system requires a valid Google Gemini API key to function.\n"
         "Please:\n"
         "  1. Copy .env.example to .env\n"
-        "  2. Add your OpenAI API key to the .env file\n"
-        "  3. Get an API key from: https://platform.openai.com/account/api-keys"
+        "  2. Add your Gemini API key to the .env file\n"
+        "  3. Get an API key from: https://aistudio.google.com/app/apikey"
     )
 
 # Hebrew field labels for parsing

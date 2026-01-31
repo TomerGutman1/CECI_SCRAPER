@@ -1,12 +1,13 @@
-"""OpenAI integration for generating summaries and tags for government decisions."""
+"""Gemini integration for generating summaries and tags for government decisions."""
 
-import openai
+from google import genai
+from google.genai import types
 import logging
 import time
 import os
 from typing import Dict, Optional, List, Set
 
-from ..config import OPENAI_API_KEY, OPENAI_MODEL, MAX_RETRIES, RETRY_DELAY
+from ..config import GEMINI_API_KEY, GEMINI_MODEL, MAX_RETRIES, RETRY_DELAY
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -47,40 +48,44 @@ GOVERNMENT_BODIES = _load_tag_list('new_departments.md')
 if "שונות" not in POLICY_AREAS:
     POLICY_AREAS.append("שונות")
 
-# Initialize OpenAI client - API key is required (validated in config.py)
-openai.api_key = OPENAI_API_KEY
-client = openai.OpenAI(api_key=OPENAI_API_KEY)
+# Initialize Gemini client - API key is required (validated in config.py)
+gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+
+SYSTEM_INSTRUCTION = "אתה עוזר מקצועי המנתח החלטות ממשלה ישראליות. ענה בעברית בצורה קצרה ומדויקת."
 
 
 def make_openai_request_with_retry(prompt: str, max_tokens: int = 500) -> str:
-    """Make OpenAI API request with retry logic. Raises exception if all retries fail."""
+    """Make Gemini API request with retry logic. Raises exception if all retries fail."""
     for attempt in range(MAX_RETRIES):
         try:
-            logger.info(f"Making OpenAI request (attempt {attempt + 1}/{MAX_RETRIES})")
-            
-            response = client.chat.completions.create(
-                model=OPENAI_MODEL,
-                messages=[
-                    {"role": "system", "content": "אתה עוזר מקצועי המנתח החלטות ממשלה ישראליות. ענה בעברית בצורה קצרה ומדויקת."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=max_tokens,
-                temperature=0.3
+            logger.info(f"Making Gemini request (attempt {attempt + 1}/{MAX_RETRIES})")
+
+            response = gemini_client.models.generate_content(
+                model=GEMINI_MODEL,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_INSTRUCTION,
+                    max_output_tokens=max_tokens,
+                    temperature=0.3,
+                ),
             )
-            
-            result = response.choices[0].message.content.strip()
-            logger.info(f"OpenAI request successful (attempt {attempt + 1})")
+
+            if not response.text:
+                raise Exception("Gemini returned empty response (possibly blocked by safety filters)")
+
+            result = response.text.strip()
+            logger.info(f"Gemini request successful (attempt {attempt + 1})")
             return result
-            
+
         except Exception as e:
-            logger.warning(f"OpenAI request failed (attempt {attempt + 1}): {e}")
+            logger.warning(f"Gemini request failed (attempt {attempt + 1}): {e}")
             if attempt < MAX_RETRIES - 1:
                 time.sleep(RETRY_DELAY * (attempt + 1))
             else:
-                logger.error(f"All OpenAI request attempts failed")
-                raise Exception(f"OpenAI API request failed after {MAX_RETRIES} attempts: {e}")
+                logger.error(f"All Gemini request attempts failed")
+                raise Exception(f"Gemini API request failed after {MAX_RETRIES} attempts: {e}")
 
-    raise Exception(f"OpenAI API request failed after {MAX_RETRIES} attempts")
+    raise Exception(f"Gemini API request failed after {MAX_RETRIES} attempts")
 
 
 def _get_words(text: str) -> Set[str]:
@@ -214,17 +219,22 @@ def generate_summary(decision_content: str, decision_title: str) -> str:
 
 def generate_operativity(decision_content: str) -> str:
     """Determine the operational status of the decision."""
-    prompt = f"""
-נא לקבוע את סוג הפעילות של ההחלטה הממשלתית הבאה. 
-ענה במילה אחת בלבד: "אופרטיבית" (החלטה שמחייבת פעולה מעשית) או "דקלרטיבית" (החלטה עקרונית או הכרזה).
+    prompt = f"""נא לקבוע את סוג הפעילות של ההחלטה הממשלתית הבאה.
+ענה במילה אחת בלבד: "אופרטיבית" או "דקלרטיבית".
+
+הגדרות:
+- אופרטיבית: החלטה שמחייבת פעולה מעשית, כמו הקצאת תקציב, מינוי, הקמת גוף, שינוי מדיניות, הוראה לביצוע.
+  דוגמאות: "להקצות 50 מיליון ש"ח", "למנות ועדה", "לפעול להקמת...", "מטיל על משרד..."
+- דקלרטיבית: החלטה עקרונית, הכרזה, הבעת עמדה, או רישום לפני הממשלה ללא חיוב לפעולה ספציפית.
+  דוגמאות: "הממשלה רושמת בפניה", "מכירה בחשיבות", "קוראת לציבור", "מביעה הערכה"
 
 תוכן ההחלטה:
-{decision_content[:1500]}
+{decision_content[:3000]}
 
 סוג הפעילות:"""
-    
+
     result = make_openai_request_with_retry(prompt, max_tokens=50)
-    
+
     # Clean and validate the response
     if result:
         result = result.strip().replace('"', '').replace("'", "")
@@ -232,9 +242,10 @@ def generate_operativity(decision_content: str) -> str:
             return "אופרטיבית"
         elif "דקלרטיבית" in result:
             return "דקלרטיבית"
-    
-    # Default to operational if unclear
-    return "אופרטיבית"
+
+    # Flag as unclear instead of defaulting to operative
+    logger.warning("Operativity classification unclear — flagging as 'לא ברור'")
+    return "לא ברור"
 
 
 def generate_policy_area_tags_strict(

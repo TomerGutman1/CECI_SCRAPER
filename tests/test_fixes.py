@@ -81,7 +81,7 @@ def test_location_tags():
     print(f"  Content: '{content1[:50]}...'")
     print(f"  Title: '{title1}'")
     
-    # Mock the AI function for testing (since we don't want to make actual OpenAI calls)
+    # Mock the AI function for testing (since we don't want to make actual Gemini calls)
     def mock_generate_location_tags(content, title):
         if "ירושלים" in content and "תל אביב" in content:
             return "ירושלים, תל אביב, חיפה, באר שבע" 

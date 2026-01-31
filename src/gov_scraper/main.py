@@ -12,7 +12,7 @@ from catalog_scraper_selenium import extract_decision_urls_from_catalog_selenium
 from decision_scraper_selenium import scrape_decision_page_selenium
 from ai_processor import process_decision_with_ai
 from data_manager import save_decisions_to_csv, validate_decision_data
-from config import LOG_DIR, LOG_FILE, OPENAI_API_KEY
+from config import LOG_DIR, LOG_FILE, GEMINI_API_KEY
 
 # Set up logging
 def setup_logging():
@@ -46,7 +46,7 @@ def main_selenium(max_decisions: int = 5, use_ai: bool = True):
     logger.info("=" * 60)
     logger.info("Starting Israeli Government Decisions Scraper (SELENIUM)")
     logger.info(f"Target: {max_decisions} decisions")
-    logger.info(f"AI Processing: {'Enabled' if use_ai and OPENAI_API_KEY else 'Disabled'}")
+    logger.info(f"AI Processing: {'Enabled' if use_ai and GEMINI_API_KEY else 'Disabled'}")
     logger.info("=" * 60)
     
     all_decisions_data = []
@@ -77,7 +77,7 @@ def main_selenium(max_decisions: int = 5, use_ai: bool = True):
                     logger.warning(f"Validation issues for decision {i}: {validation_issues}")
                 
                 # Process with AI if enabled and API key is available
-                if use_ai and OPENAI_API_KEY:
+                if use_ai and GEMINI_API_KEY:
                     logger.info(f"Processing decision {i} with AI...")
                     decision_data = process_decision_with_ai(decision_data)
                 else:
@@ -141,13 +141,13 @@ def main_selenium(max_decisions: int = 5, use_ai: bool = True):
 
 
 if __name__ == "__main__":
-    # Check if OpenAI API key is set
-    ai_available = bool(OPENAI_API_KEY)
+    # Check if Gemini API key is set
+    ai_available = bool(GEMINI_API_KEY)
     if not ai_available:
-        print("⚠️  Warning: OPENAI_API_KEY not found in environment variables.")
+        print("⚠️  Warning: GEMINI_API_KEY not found in environment variables.")
         print("   AI processing will be skipped. To enable AI features:")
         print("   1. Copy .env.example to .env")
-        print("   2. Add your OpenAI API key to the .env file")
+        print("   2. Add your Gemini API key to the .env file")
         print("   3. Run the script again")
         print()
     

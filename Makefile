@@ -9,7 +9,7 @@ SRC_DIR := src
 TEST_DIR := tests
 DOCS_DIR := docs
 
-.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30
+.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30 qa-scan qa-scan-check qa-fix-preview qa-fix-dry qa-fix-execute
 
 # Default target - show help
 help:
@@ -31,6 +31,13 @@ help:
 	@echo "📊 Monitoring commands:"
 	@echo "  make monitor      - Tag quality report (last 7 days)"
 	@echo "  make monitor-30   - Tag quality report (last 30 days)"
+	@echo ""
+	@echo "🔍 QA commands:"
+	@echo "  make qa-scan                     - Full QA scan (all checks)"
+	@echo "  make qa-scan-check check=X       - Run specific check"
+	@echo "  make qa-fix-preview check=X      - Preview fix (10 records)"
+	@echo "  make qa-fix-dry check=X          - Dry-run fix"
+	@echo "  make qa-fix-execute check=X      - Execute fix"
 	@echo ""
 	@echo "🏷️  Tag Migration commands:"
 	@echo "  make migrate-preview    - Preview on 10 records"
@@ -190,9 +197,38 @@ status:
 	@echo "📊 Project Status"
 	@echo "=================="
 	@echo "Virtual Environment: $(shell [ -d $(VENV_DIR) ] && echo "✅ Present" || echo "❌ Missing")"
-	@echo "Dependencies: $(shell [ -f $(VENV_DIR)/bin/activate ] && source $(VENV_DIR)/bin/activate && python -c "import supabase, selenium, openai; print('✅ Installed')" 2>/dev/null || echo "❌ Missing")"
+	@echo "Dependencies: $(shell [ -f $(VENV_DIR)/bin/activate ] && source $(VENV_DIR)/bin/activate && python -c "import supabase, selenium, google.genai; print('✅ Installed')" 2>/dev/null || echo "❌ Missing")"
 	@echo "Environment File: $(shell [ -f .env ] && echo "✅ Present" || echo "❌ Create from .env.example")"
 	@echo "Database Connection: $(shell source $(VENV_DIR)/bin/activate && python $(TEST_DIR)/test_connection.py >/dev/null 2>&1 && echo "✅ Working" || echo "❌ Check .env credentials")"
+
+# =============================================================================
+# QA Commands
+# =============================================================================
+
+# Full QA scan (all checks)
+qa-scan:
+	@echo "🔍 Running full QA scan..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/qa.py scan --verbose
+
+# Scan specific check
+qa-scan-check:
+	@echo "🔍 Running QA check: $(check)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/qa.py scan --check $(check) --verbose
+
+# Preview fix (10 records)
+qa-fix-preview:
+	@echo "🔍 Previewing QA fix: $(check)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/qa.py fix $(check) preview --verbose
+
+# Dry-run fix
+qa-fix-dry:
+	@echo "📋 Running QA fix dry-run: $(check)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/qa.py fix $(check) dry-run --verbose
+
+# Execute fix
+qa-fix-execute:
+	@echo "🚀 Executing QA fix: $(check)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/qa.py fix $(check) execute --verbose
 
 # =============================================================================
 # Monitoring Commands

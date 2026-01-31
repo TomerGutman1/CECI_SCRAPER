@@ -3,7 +3,7 @@
 ## Project Overview
 
 **Purpose:** Automated extraction, AI analysis, and storage of Israeli government decisions from gov.il
-**Tech Stack:** Python 3.8+, Selenium, Supabase (PostgreSQL), OpenAI GPT-3.5-turbo, BeautifulSoup
+**Tech Stack:** Python 3.8+, Selenium, Supabase (PostgreSQL), Google Gemini 2.0 Flash, BeautifulSoup
 **Language:** Hebrew (RTL) government content
 
 ---
@@ -49,7 +49,7 @@ GOV2DB/
 │   │   ├── catalog.py            # Extract decision URLs from catalog
 │   │   └── decision.py           # Scrape individual decision pages
 │   ├── processors/
-│   │   ├── ai.py                 # OpenAI integration (summaries, tags)
+│   │   ├── ai.py                 # Gemini integration (summaries, tags)
 │   │   ├── incremental.py        # Baseline & filtering logic
 │   │   ├── approval.py           # User approval workflow
 │   │   └── tag_migration.py      # Tag migration logic (one-time)
@@ -61,10 +61,19 @@ GOV2DB/
 │       ├── selenium.py           # WebDriver wrapper
 │       └── data_manager.py       # Data handling
 │
+├── docker/                       # Docker infrastructure
+│   ├── docker-entrypoint.sh      # Container entry point
+│   ├── healthcheck.sh            # Health monitoring
+│   ├── crontab                   # Daily sync schedule (02:00 AM)
+│   └── logrotate.conf            # Log rotation config
+│
 ├── tests/                        # Test suite
-├── docs/                         # Documentation
-├── data/                         # CSV exports
-├── logs/                         # Log files (scraper.log)
+├── data/                         # CSV exports & migration reports
+├── logs/                         # Log files (scraper.log, daily_sync.log)
+├── Dockerfile                    # Container definition
+├── SERVER-OPERATIONS.md          # Production server operations guide
+├── new_tags.md                   # Authorized policy tags (40)
+├── new_departments.md            # Authorized government bodies (44)
 ├── requirements.txt              # Dependencies
 └── Makefile                      # Build commands
 ```
@@ -74,7 +83,7 @@ GOV2DB/
 ## Environment Variables (.env)
 
 ```bash
-OPENAI_API_KEY=sk-proj-...              # Required - OpenAI API key
+GEMINI_API_KEY=AIzaSy...                # Required - Google Gemini API key
 SUPABASE_URL=https://xxx.supabase.co    # Required - Supabase project URL
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...   # Required - Service role JWT
 ```
@@ -107,7 +116,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...   # Required - Service role JWT
 
 ### 2. AI Processing Pipeline (`processors/ai.py`)
 
-**Model:** GPT-3.5-turbo, Temperature: 0.3, Max retries: 5
+**Model:** Gemini 2.0 Flash, Temperature: 0.3, Max retries: 5
 
 #### Tag Sources (Updated):
 - **Policy areas:** Loaded from `new_tags.md` (40 tags)
@@ -127,7 +136,7 @@ All tags go through strict 3-step validation to prevent hallucinations:
 - Handles word order variations: "חינוך ותרבות" = "תרבות וחינוך"
 
 **Step 3: AI Summary Fallback**
-- If steps 1-2 fail, ask GPT to analyze decision summary
+- If steps 1-2 fail, ask Gemini to analyze decision summary
 - Prompt includes full authorized list
 - Only accepts tags from authorized list
 - Last resort before defaulting to "שונות" (policy) or empty (government)
@@ -251,15 +260,25 @@ python bin/sync.py --max-decisions 10 --safety-mode extra-safe
 ## Main Workflow (bin/sync.py)
 
 ```
-Step 0: Validate OpenAI API Key
-Step 1: Get Database Baseline
-Step 2: Extract Decision URLs (100 for unlimited)
-Step 3: Filter & Sort URLs (ascending by date/number)
-Step 4: Process Decisions (scrape + AI)
-Step 5: Prepare for Database
-Step 6: Check for Duplicates
-Step 7: User Approval (unless --no-approval)
-Step 8: Database Insertion
+Step 0: Validate Gemini API Key
+Step 1: Extract Decision URLs (100 for unlimited)
+Step 2: Filter to new entries (key-based DB check)
+Step 3: Process Decisions:
+  3a: Scrape content with URL recovery
+  3b: Validate scraped content (pre-AI blocking)
+      - Cloudflare detection → retry with longer wait (max 2 retries)
+      - Short content (<40 chars) → retry
+      - No Hebrew content → skip
+  3c: Process with AI (summaries, tags, operativity)
+  3d: Apply algorithmic fixes ($0 cost)
+      - Fix operativity typos (OPERATIVITY_TYPO_MAP)
+      - Remove hallucinated locations not in content
+      - Remove hallucinated government bodies not in text
+  3e: Inline validation warnings (non-blocking)
+Step 4: Prepare for Database
+Step 5: Safety duplicate check
+Step 6: User Approval (unless --no-approval)
+Step 7: Database Insertion
 ```
 
 **CLI Arguments:**
@@ -297,7 +316,7 @@ Step 8: Database Insertion
 GOVERNMENT_NUMBER = 37
 PRIME_MINISTER = "בנימין נתניהו"
 BASE_CATALOG_URL = 'https://www.gov.il/he/collectors/policies'
-OPENAI_MODEL = 'gpt-3.5-turbo'
+GEMINI_MODEL = 'gemini-2.0-flash'
 MAX_RETRIES = 5
 RETRY_DELAY = 2  # seconds
 ```
@@ -341,7 +360,7 @@ datetime.strptime(date_str, "%d.%m.%Y").strftime("%Y-%m-%d")
 | Layer | Strategy |
 |-------|----------|
 | URL Scraping | 3-tier recovery (original → catalog search → variations) |
-| OpenAI API | 5 retries with exponential backoff (2s × attempt) |
+| Gemini API | 5 retries with exponential backoff (2s × attempt) |
 | Database | Batch fails → individual insertion fallback |
 | Validation | Skip decision if critical fields missing |
 
@@ -380,7 +399,7 @@ pytest tests/       # Run with pytest
 Edit `POLICY_AREAS` list in [processors/ai.py](src/gov_scraper/processors/ai.py:30-70)
 
 ### Change AI Model
-Edit `OPENAI_MODEL` in [config.py](src/gov_scraper/config.py) or set env var
+Edit `GEMINI_MODEL` in [config.py](src/gov_scraper/config.py) or set env var
 
 ### Modify Scraping Patterns
 Edit regex in `extract_decision_urls_from_catalog_selenium()` in [catalog.py](src/gov_scraper/scrapers/catalog.py)
@@ -436,8 +455,8 @@ One-time migration tool to update `tags_policy_area` and `tags_government_body` 
 | Exact Match | 10,363 | 18.5% | Tag exists verbatim in new list |
 | Substring Match | 6,449 | 11.5% | "משרד ה" prefix matching |
 | Word Overlap | 4,569 | 8.2% | Jaccard similarity >= 50% |
-| AI Tag Match | 32,288 | 57.7% | GPT-3.5 semantic match by tag name |
-| AI Summary | 2,073 | 3.7% | GPT-3.5 analysis of decision summary |
+| AI Tag Match | 32,288 | 57.7% | AI semantic match by tag name |
+| AI Summary | 2,073 | 3.7% | AI analysis of decision summary |
 | Fallback | 180 | 0.3% | Defaulted to "שונות" |
 
 ### Source Files
@@ -452,8 +471,8 @@ One-time migration tool to update `tags_policy_area` and `tags_government_body` 
 | 1 | Exact Match | Tag exists in new list |
 | 2 | Substring Match | "משרד ה" prefix matching with high confidence |
 | 3 | Word Overlap | Jaccard similarity >= 50% (same words, different order) |
-| 4 | AI Tag Match | GPT-3.5 semantic matching by tag name |
-| 5 | AI Summary | GPT-3.5 analysis of decision summary (per-record) |
+| 4 | AI Tag Match | AI semantic matching by tag name |
+| 5 | AI Summary | AI analysis of decision summary (per-record) |
 | 6 | Fallback | Default to "שונות" |
 
 ### Usage
@@ -532,13 +551,240 @@ The migration system supports returning multiple tags (up to 3) when AI determin
 
 ---
 
+## QA System
+
+Quality assurance system for detecting and fixing data quality issues across all ~25K records.
+Full lessons-learned document: **[QA-LESSONS.md](QA-LESSONS.md)**
+
+### Current Status (January 2026)
+
+**Phase:** 20 scanners built (Phase 1-4). 8 fixers available. Algorithmic fixes completed. AI fixes in progress.
+
+#### Completed Algorithmic Improvements (January 31, 2026)
+
+**Algorithm enhancements (before fixing):**
+- `_word_in_text()` rewritten with 6-tier matching: exact → prefix-stripped → suffix-stripped → stem → prefix-added → combined
+- `_strip_hebrew_prefix()` improved: double prefix stripping (e.g., "שבביטחון" → "בביטחון" → "ביטחון")
+- `_strip_hebrew_suffix()` added: handles ים, ות, ן, ית, יים, יות suffixes
+- `_is_body_in_text()` updated: uses `_word_in_text()` for abbreviations + "המשרד ל..." pattern
+- `_is_body_semantically_relevant()` added: infers body relevance from policy tags via TAG_BODY_MAP reverse lookup + keyword evidence
+- `BODY_TO_TAGS_MAP` added: reverse mapping of TAG_BODY_MAP for semantic inference
+- `POLICY_TAG_KEYWORDS` expanded: +42 keywords across 7 tags with low coverage
+- `BODY_ABBREVIATIONS` expanded: +13 historical names for 7 bodies (e.g., "משרד המסחר והתעשייה" → "משרד הכלכלה והתעשייה")
+
+**Improvement impact (482 stratified sample, seed=42):**
+
+| Metric | Baseline | Post-Improvement | Change |
+|--------|----------|-----------------|--------|
+| Total issues | 1,489 | 1,369 | -8% |
+| HIGH severity | 829 | 723 | -13% |
+| policy-relevance | 257 (53.8%) | 175 (36.6%) | -32% |
+| location-hallucination | 23 (21.9%) | 9 (8.6%) | -61% |
+
+#### Completed Algorithmic Fixes ($0, no AI)
+
+| Fix | Records Fixed | Errors | Date |
+|-----|--------------|--------|------|
+| `operativity-typos` | 17 | 0 | 2026-01-31 |
+| `locations` | 390 | 0 | 2026-01-31 |
+| `government-bodies` | 12,457 | 0 | 2026-01-31 |
+
+**Post-fix scan results (482 stratified sample, seed=42):**
+
+| Metric | Baseline | Post-Fix | Change |
+|--------|----------|----------|--------|
+| Total issues | 1,489 | 673 | **-55%** |
+| HIGH severity | 829 | 217 | **-74%** |
+| location-hallucination | 23 | 0 | **-100%** |
+| gov-body-hallucination | 506 | 0 | **-100%** |
+| operativity-validity | 5 | 0 | **-100%** |
+| body-default | 93 | 3 | **-97%** |
+| tag-body consistency | 164 | 109 | **-34%** |
+| title-vs-content | 6 | 3 | **-50%** |
+
+#### Completed AI Fixes (January 31, 2026)
+
+| Fix | Records Fixed | Errors | Cost |
+|-----|--------------|--------|------|
+| `policy-tags` (שונות records) | 9 | 0 | ~$0.01 |
+| `policy-tags-defaults` (תרבות וספורט) | 918 | 0 | ~$0.10 |
+| `government-bodies-ai` (default combos) | 483 | 0 | ~$0.05 |
+| `summaries` (too short/long) | 590 | 1 | ~$0.06 |
+| `operativity` (keyword mismatches) | 1,322 | 0 | ~$0.15 |
+
+**Final post-fix scan results (482 stratified sample, seed=42):**
+
+| Metric | Baseline | After Algo Fixes | **After AI Fixes** | Total Change |
+|--------|----------|-----------------|-------------------|-------------|
+| Total issues | 1,489 | 673 | **585** | **-61%** |
+| HIGH severity | 829 | 217 | **164** | **-80%** |
+| location-hallucination | 23 | 0 | **0** | -100% |
+| gov-body-hallucination | 506 | 0 | **2** | -99.6% |
+| operativity-validity | 5 | 0 | **0** | -100% |
+| operativity-vs-content | 41 | 26 | **1** | **-97.6%** |
+| body-default | 93 | 3 | **0** | **-100%** |
+| policy-default | 27 | 27 | **0** | **-100%** |
+| summary-quality | 8 | 8 | **0** | **-100%** |
+| policy-relevance | 257 | 183 | 164 | -36% |
+| tag-body | 164 | 109 | 106 | -35% |
+
+#### Remaining Issues (informational / require manual review)
+
+| Issue | Count (sample) | Severity | Notes |
+|-------|---------------|----------|-------|
+| Policy tag ↔ content mismatch | 164 (34.3%) | HIGH | Residual — many are borderline/semantic matches |
+| Tag-body consistency | 106 (34.1%) | LOW | Cross-ministry decisions are normal |
+| Summary vs tags | 280 (58.2%) | LOW | Informational only — summaries too short for keywords |
+| Content quality (short) | 4 (0.8%) | MEDIUM | Need re-scraping |
+| Tag consistency | 5 (1.0%) | MEDIUM | "שונות" as unauthorized body tag |
+
+### Architecture
+
+- **Scanner**: Read-only analysis — detects issues and produces JSON reports
+- **Fixer**: Batch update operations (preview → dry-run → execute) to correct issues
+- **Inline validation**: Lightweight checks in the sync pipeline (warnings only, does not block)
+- **Hebrew-aware matching**: `_word_in_text()` with 6-tier matching — prefix stripping (ב,ל,מ,ה,ו,כ,ש × 2), suffix stripping (ים,ות,ן,ית,יים,יות), stemming, and prefix-added variants
+- **Semantic inference**: `_is_body_semantically_relevant()` — preserves government bodies linked to assigned policy tags via TAG_BODY_MAP or keyword evidence (≥2 keyword hits)
+
+### Key Files
+
+- [processors/qa.py](src/gov_scraper/processors/qa.py) - Core QA logic (scanners, fixers, keyword dictionaries)
+- [bin/qa.py](bin/qa.py) - QA CLI script
+- [QA-LESSONS.md](QA-LESSONS.md) - Lessons learned and known issues
+
+### Quick Commands
+
+```bash
+# Scanning (read-only, no AI cost, no DB changes)
+make qa-scan                          # Full scan (all 20 checks)
+make qa-scan-check check=operativity  # Single check
+make qa-scan-check check=cross-field  # All cross-field checks
+make qa-scan-check check=body-default # Detect body default patterns
+make qa-scan-check check=policy-default # Detect policy default patterns
+make qa-scan-check check=operativity-validity # Detect corrupted operativity
+
+# Stratified sampling (representative sample across all years, no AI cost)
+python bin/qa.py scan --stratified                           # ~5K records (20% per year)
+python bin/qa.py scan --stratified --sample-percent 60       # ~15K records (60% per year)
+python bin/qa.py scan --stratified --seed 42                 # Reproducible sampling
+python bin/qa.py scan --stratified --check body-default      # Stratified + specific check
+
+# Fixing (preview → dry-run → execute pattern)
+make qa-fix-preview check=operativity      # Preview on 10 records (shows old vs new)
+make qa-fix-dry check=operativity          # Full dry-run (no DB changes, generates report)
+make qa-fix-execute check=operativity      # Execute fix (updates DB, with confirmation)
+
+# New fixers
+python bin/qa.py fix operativity-typos preview              # Preview typo fix ($0)
+python bin/qa.py fix government-bodies-ai preview           # Preview AI body re-tag
+python bin/qa.py fix policy-tags-defaults preview            # Preview default policy fix
+python bin/qa.py fix government-bodies-ai preview --from-report data/qa_reports/flagged_body_hallucination.json
+
+# Direct CLI with more options
+python bin/qa.py scan --count 500 --verbose              # Limit to 500 records
+python bin/qa.py scan --check policy-relevance --count 50 # Specific check
+python bin/qa.py fix operativity preview                  # Preview fix
+python bin/qa.py fix locations execute --yes               # Execute without confirmation
+```
+
+### Available Checks (20 total)
+
+**Phase 1 — Core quality (high impact):**
+
+| Check | What it does | Algorithm |
+|-------|-------------|-----------|
+| `operativity` | Distribution bias (too many operative?) | Count distribution |
+| `policy-relevance` | Policy tags match content keywords | Hebrew keyword dict (40 tags × 10-25 keywords) |
+| `policy-fallback` | Rate of "שונות" as sole tag | Count |
+
+**Phase 2 — Cross-field consistency:**
+
+| Check | What it does | Algorithm |
+|-------|-------------|-----------|
+| `operativity-vs-content` | Operative/declarative keywords match classification | Keyword evidence comparison |
+| `tag-body` | Policy tag ↔ government body consistency | TAG_BODY_MAP lookup (single-tag records only) |
+| `committee-tag` | Committee name ↔ policy tag consistency | COMMITTEE_TAG_MAP lookup |
+| `location-hallucination` | Locations actually appear in content | Substring match in content |
+| `government-body-hallucination` | Bodies mentioned in content | BODY_ABBREVIATIONS + minister title patterns |
+| `summary-quality` | Summary length/quality checks | Length bounds (20-500 chars) |
+
+**Phase 3 — Data integrity:**
+
+| Check | What it does | Algorithm |
+|-------|-------------|-----------|
+| `summary-vs-tags` | Summary reflects assigned tags (informational) | Keyword match in summary |
+| `location-vs-body` | Location ↔ government body consistency | LOCATION_BODY_MAP lookup |
+| `date-vs-government` | Date matches government number | Gov 37 started 2022-12-29 |
+| `title-vs-content` | Title keywords in content | Hebrew prefix-aware word matching |
+| `date-validity` | Date in valid range (1948–today) | Range check |
+| `content-quality` | Cloudflare pages, short content, nav text | Pattern matching |
+| `tag-consistency` | Tags in authorized lists | Set membership check |
+| `content-completeness` | Content not truncated | Sentence-ending heuristics |
+
+**Phase 4 — Default/fallback pattern detection:**
+
+| Check | What it does | Algorithm |
+|-------|-------------|-----------|
+| `body-default` | Detect AI-assigned default body combos (משרד הרווחה, trio combos) | SUSPICIOUS_BODY_COMBOS + keyword check |
+| `policy-default` | Detect AI-assigned default policy tag (תרבות וספורט) | SUSPICIOUS_POLICY_TAGS + keyword check |
+| `operativity-validity` | Detect corrupted/invalid operativity values (typos, encoding) | VALID_OPERATIVITY_VALUES + OPERATIVITY_TYPO_MAP |
+
+### Available Fixers
+
+| Fixer | What it does | AI Cost | Algorithm |
+|-------|-------------|---------|-----------|
+| `operativity` | Re-classify with improved prompt + keyword evidence | ~$2-5 for 25K | Gemini |
+| `policy-tags` | Re-tag שונות-only and low-relevance records | ~$1-3 | Gemini |
+| `locations` | Remove locations not found in text | **$0** | Text filter |
+| `government-bodies` | Remove bodies not found in text | **$0** | Text filter + BODY_ABBREVIATIONS |
+| `summaries` | Re-generate short/identical summaries | ~$1-3 | Gemini |
+| `operativity-typos` | Fix corrupted operativity values via typo map | **$0** | OPERATIVITY_TYPO_MAP lookup |
+| `government-bodies-ai` | AI re-tag bodies flagged as defaults/hallucinations | ~$3-8 | generate_government_body_tags_validated() |
+| `policy-tags-defaults` | AI re-tag policy for "תרבות וספורט" defaults | ~$1-3 | generate_policy_area_tags_strict() |
+| `cloudflare` | Re-scrape Cloudflare-blocked records + regenerate all AI fields | ~$0.50-$1 | Selenium re-scrape + process_decision_with_ai() |
+
+### Pipeline Integration
+
+QA checks are integrated into the sync pipeline at 3 stages:
+
+**Stage 1: Pre-AI Content Validation (BLOCKING)** — `validate_scraped_content()`
+- Cloudflare challenge page detection → retry with longer wait (25s, 35s)
+- Short content (<40 chars) → retry
+- No Hebrew content → skip
+- Navigation text captured → retry
+- Up to 2 retries before skipping. Prevents wasting AI credits on garbage content.
+
+**Stage 2: Post-AI Algorithmic Fixes ($0)** — `apply_inline_fixes()`
+- Fix operativity typos via OPERATIVITY_TYPO_MAP
+- Remove locations not found in content (substring match)
+- Remove government bodies not in text and not semantically relevant
+
+**Stage 3: Inline Validation Warnings (non-blocking)** — `validate_decision_inline()`
+- Policy tag keyword presence in content
+- Operative/declarative keyword match vs classification
+- Location tags appear in text
+- Government body tags appear in text
+- Summary length bounds (20-500 chars)
+- Summary not identical to title
+- Operativity classification clarity
+- Suspicious body default patterns (SUSPICIOUS_BODY_COMBOS)
+- Suspicious policy default patterns (SUSPICIOUS_POLICY_TAGS)
+
+### Output
+
+Reports are exported to `data/qa_reports/`:
+- `qa_scan_YYYYMMDD_HHMMSS.json` - Scan results with issue counts, severity, and sample issues
+- `qa_fix_{check}_{mode}_YYYYMMDD_HHMMSS.json` - Fix results
+
+---
+
 ## Dependencies
 
 **Core:**
 - selenium 4.34.2
 - beautifulsoup4 4.12.2
 - supabase 2.17.0
-- openai 1.97.1
+- google-genai 1.0.0+
 - pandas 2.2.0+
 
 **Utilities:**
@@ -555,6 +801,64 @@ The migration system supports returning multiple tags (up to 3) when AI determin
 - Use service role key for Supabase (not user key)
 - Rotate API keys regularly
 - All credentials via environment variables
+
+---
+
+## Production Deployment (CECI Server)
+
+The system is deployed as a Docker container on the CECI production server with automated daily syncing.
+
+### Server Details
+
+| Field | Value |
+|-------|-------|
+| **IP** | 178.62.39.248 |
+| **User** | root |
+| **SSH Alias** | ceci |
+| **Project Path** | /root/ceci-ai-production/ceci-ai/GOV2DB |
+| **Container** | gov2db-scraper |
+| **Image** | tomerjoe/gov2db-scraper:latest |
+| **Network** | compose_ceci-internal |
+| **Daily Sync** | 02:00 AM (Asia/Jerusalem) |
+
+### Quick Commands
+
+```bash
+# SSH to server
+ssh ceci
+
+# Container status
+docker ps | grep gov2db-scraper
+
+# Health check
+docker inspect --format='{{.State.Health.Status}}' gov2db-scraper
+
+# View sync logs
+tail -f /root/ceci-ai-production/ceci-ai/GOV2DB/logs/daily_sync.log
+
+# Manual sync
+docker exec gov2db-scraper python3 bin/sync.py --max-decisions 5 --verbose
+
+# Full operations guide
+cat GOV2DB/SERVER-OPERATIONS.md
+```
+
+### Key Files
+
+- **[SERVER-OPERATIONS.md](SERVER-OPERATIONS.md)** - Complete server operations guide with SSH setup, verification checklist, troubleshooting, and update procedures
+- **[Dockerfile](Dockerfile)** - Container definition (selenium/standalone-chrome base)
+- **[docker/crontab](docker/crontab)** - Cron schedule (02:00 AM daily)
+- **[docker/healthcheck.sh](docker/healthcheck.sh)** - Health monitoring script
+
+### Updating Production
+
+```bash
+# Build and push new image (from local machine)
+docker buildx build --platform linux/amd64 -t tomerjoe/gov2db-scraper:latest --push .
+
+# Pull and restart on server
+ssh ceci "docker pull tomerjoe/gov2db-scraper:latest && docker restart gov2db-scraper"
+```
 
 ---
 
@@ -581,3 +885,23 @@ The migration system supports returning multiple tags (up to 3) when AI determin
 1. Modify Supabase table structure
 2. Update [dal.py](src/gov_scraper/db/dal.py) queries
 3. Update field mappings in [incremental.py](src/gov_scraper/processors/incremental.py)
+
+---
+
+## Documentation Update Policy
+
+**IMPORTANT:** Every improvement or change to the project must be briefly documented in this file (CLAUDE.md).
+
+When making changes, update the relevant section:
+- **New scanner/fixer?** → Update the "Available Checks" or "Available Fixers" tables in the QA System section
+- **Pipeline change?** → Update "Main Workflow" steps
+- **New script/file?** → Update "Project Structure"
+- **Config change?** → Update "Fixed Values" or "Environment Variables"
+- **QA finding?** → Update "Current Status" table + add detail to [QA-LESSONS.md](QA-LESSONS.md)
+- **Scraping improvement?** → Update "Web Scraping Pipeline"
+- **AI prompt change?** → Update "AI Processing Pipeline"
+- **New Makefile target?** → Update "Quick Start Commands"
+
+Related documentation files:
+- **[QA-LESSONS.md](QA-LESSONS.md)** — QA process lessons learned, known issues, recommendations
+- **[SERVER-OPERATIONS.md](SERVER-OPERATIONS.md)** — Production server operations guide

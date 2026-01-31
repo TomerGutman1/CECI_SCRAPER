@@ -342,12 +342,10 @@ rm -rf venv/
 make setup
 ```
 
-## 📚 More Documentation
+## 📚 Documentation
 
-- **[docs/README.md](docs/README.md)** - Detailed technical documentation
-- **[docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md)** - For developers working on the code
-- **[docs/INTEGRATION_GUIDE.md](docs/INTEGRATION_GUIDE.md)** - Database setup details
-- **[docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)** - Testing procedures
+- **[CLAUDE.md](CLAUDE.md)** - Complete technical reference (algorithms, database schema, configuration)
+- **[SERVER-OPERATIONS.md](SERVER-OPERATIONS.md)** - Production server operations (SSH, deployment, monitoring)
 
 ## 🛠️ For Developers
 
