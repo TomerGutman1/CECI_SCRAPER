@@ -2,6 +2,7 @@
 
 import time
 import logging
+import subprocess
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -12,6 +13,22 @@ from bs4 import BeautifulSoup
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def _detect_chrome_version():
+    """Detect the installed Chrome major version."""
+    for cmd in ["google-chrome --version", "chromium --version", "chromium-browser --version"]:
+        try:
+            output = subprocess.check_output(cmd, shell=True, stderr=subprocess.DEVNULL).decode().strip()
+            # e.g. "Google Chrome 144.0.7559.96" → 144
+            version_str = output.split()[-1]
+            major = int(version_str.split(".")[0])
+            logger.info(f"Detected Chrome version: {major} (from: {output})")
+            return major
+        except Exception:
+            continue
+    logger.warning("Could not detect Chrome version, letting undetected-chromedriver auto-detect")
+    return None
 
 class SeleniumWebDriver:
     """WebDriver wrapper using undetected-chromedriver to bypass Cloudflare."""
@@ -38,7 +55,8 @@ class SeleniumWebDriver:
             options.add_argument('--disable-gpu')
             options.add_argument('--window-size=1920,1080')
 
-            self.driver = uc.Chrome(options=options, version_main=None)
+            chrome_version = _detect_chrome_version()
+            self.driver = uc.Chrome(options=options, version_main=chrome_version)
             self.driver.set_page_load_timeout(timeout)
 
             logger.info("Undetected Chrome WebDriver initialized successfully")
