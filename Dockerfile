@@ -28,8 +28,8 @@ WORKDIR /app
 # Copy requirements first (layer caching optimization)
 COPY requirements.txt .
 
-# Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Install Python dependencies (setuptools needed for distutils on Python 3.14+)
+RUN pip3 install --no-cache-dir setuptools && pip3 install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY bin/ ./bin/
