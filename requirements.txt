@@ -2,6 +2,7 @@
 # Web scraping and browser automation
 selenium==4.34.2
 webdriver-manager==4.0.2
+undetected-chromedriver>=3.5.0
 beautifulsoup4==4.12.2
 lxml>=5.0.0
 requests==2.31.0
