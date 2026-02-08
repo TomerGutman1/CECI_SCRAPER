@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 from typing import List, Dict, Optional
 from selenium.webdriver.common.by import By
-from ..utils.selenium import SeleniumWebDriver
+from ..utils.selenium import SeleniumWebDriver, CloudflareBlockedError
 from ..config import BASE_CATALOG_URL, CATALOG_PARAMS, BASE_DECISION_URL
 
 # Set up logging
@@ -49,7 +49,7 @@ def _extract_decision_sort_key(url: str):
     return (0, 0, 0, 0)
 
 
-def extract_decision_urls_from_catalog_selenium(max_decisions: int = 5) -> List[Dict]:
+def extract_decision_urls_from_catalog_selenium(max_decisions: int = 5, swd=None) -> List[Dict]:
     """
     Use Selenium to call the gov.il REST API and extract decision entries.
 
@@ -59,6 +59,7 @@ def extract_decision_urls_from_catalog_selenium(max_decisions: int = 5) -> List[
 
     Args:
         max_decisions: Maximum number of decision entries to extract
+        swd: Optional SeleniumWebDriver instance to reuse (avoids creating new Chrome)
 
     Returns:
         List of dicts with keys: url, title, decision_number, decision_date, committee
@@ -67,90 +68,126 @@ def extract_decision_urls_from_catalog_selenium(max_decisions: int = 5) -> List[
 
     api_url = f"{CATALOG_API_URL}&skip=0&limit={max_decisions}"
 
-    try:
-        with SeleniumWebDriver(headless=True) as swd:
-            drv = swd.driver
+    def _fetch_catalog(driver_instance, retry_count=0):
+        drv = driver_instance.driver
+        max_retries = 2
+
+        try:
+            # First visit the main page to establish a "legitimate" session
+            if retry_count == 0:
+                logger.info("Visiting main gov.il page first to establish session...")
+                drv.get("https://www.gov.il/he")
+                time.sleep(5)
 
             logger.info(f"Loading catalog API: {api_url}")
-            drv.get(api_url)
-            time.sleep(8)
+            if swd:
+                # Use navigate_to for rate-limited navigation in reused session
+                driver_instance.navigate_to(api_url, wait_time=8)
+            else:
+                drv.get(api_url)
+                time.sleep(8)
 
             body = drv.find_element(By.TAG_NAME, "body").text
 
             if not body or not body.startswith("{"):
                 logger.warning(f"API returned non-JSON response (length={len(body)}). Retrying after loading main page first...")
-                drv.get("https://www.gov.il/he/collectors/policies")
-                time.sleep(10)
-                drv.get(api_url)
-                time.sleep(8)
+                if swd:
+                    driver_instance.navigate_to("https://www.gov.il/he/collectors/policies", wait_time=10)
+                    driver_instance.navigate_to(api_url, wait_time=8)
+                else:
+                    drv.get("https://www.gov.il/he/collectors/policies")
+                    time.sleep(10)
+                    drv.get(api_url)
+                    time.sleep(8)
                 body = drv.find_element(By.TAG_NAME, "body").text
 
-            if not body or not body.startswith("{"):
-                logger.error(f"API still returned non-JSON after retry. Body: {body[:200]}")
-                return []
+            return body
 
-            data = json.loads(body)
-            total = data.get("total", 0)
-            results = data.get("results", [])
+        except CloudflareBlockedError as e:
+            if retry_count < max_retries:
+                wait_time = 30 * (retry_count + 1)  # 30s, 60s
+                logger.warning(f"Cloudflare block detected. Waiting {wait_time}s and retrying... (attempt {retry_count + 1}/{max_retries})")
+                time.sleep(wait_time)
+                # Navigate to main catalog page first
+                drv.get("https://www.gov.il/he/collectors/policies")
+                time.sleep(15)
+                return _fetch_catalog(driver_instance, retry_count + 1)
+            else:
+                raise
 
-            logger.info(f"API returned {len(results)} results (total available: {total})")
+    try:
+        if swd:
+            body = _fetch_catalog(swd)
+        else:
+            with SeleniumWebDriver(headless=True) as new_swd:
+                body = _fetch_catalog(new_swd)
 
-            # Extract decision entries with metadata from API results
-            decision_entries = []
-            for result in results:
-                url_path = result.get("url", "")
-                if not url_path or not re.search(r'/he/pages/dec-?\d+', url_path):
-                    continue
+        if not body or not body.startswith("{"):
+            logger.error(f"API still returned non-JSON after retry. Body: {body[:200]}")
+            return []
 
-                full_url = f"{BASE_DECISION_URL}{url_path}"
-                title = result.get("title", "")
+        data = json.loads(body)
+        total = data.get("total", 0)
+        results = data.get("results", [])
 
-                # Extract metadata from structured tags
-                tags = result.get("tags", {})
-                promoted = tags.get("promotedMetaData", {})
-                meta = tags.get("metaData", {})
+        logger.info(f"API returned {len(results)} results (total available: {total})")
 
-                # Decision number
-                num_list = promoted.get("מספר החלטה", [])
-                decision_number = num_list[0].get("title", "") if num_list else ""
+        # Extract decision entries with metadata from API results
+        decision_entries = []
+        for result in results:
+            url_path = result.get("url", "")
+            if not url_path or not re.search(r'/he/pages/dec-?\d+', url_path):
+                continue
 
-                # Publication date (DD.MM.YYYY → YYYY-MM-DD)
-                date_list = meta.get("תאריך פרסום", [])
-                raw_date = date_list[0].get("title", "") if date_list else ""
-                decision_date = _format_date(raw_date)
+            full_url = f"{BASE_DECISION_URL}{url_path}"
+            title = result.get("title", "")
 
-                # Committee (optional)
-                committee_list = meta.get("ועדות שרים", [])
-                committee = committee_list[0].get("title", "") if committee_list else ""
+            # Extract metadata from structured tags
+            tags = result.get("tags", {})
+            promoted = tags.get("promotedMetaData", {})
+            meta = tags.get("metaData", {})
 
-                decision_entries.append({
-                    "url": full_url,
-                    "title": title,
-                    "decision_number": decision_number,
-                    "decision_date": decision_date,
-                    "committee": committee,
-                })
+            # Decision number
+            num_list = promoted.get("מספר החלטה", [])
+            decision_number = num_list[0].get("title", "") if num_list else ""
 
-            # Sort by decision number (newest first)
-            decision_entries.sort(key=lambda d: _extract_decision_sort_key(d["url"]))
+            # Publication date (DD.MM.YYYY → YYYY-MM-DD)
+            date_list = meta.get("תאריך פרסום", [])
+            raw_date = date_list[0].get("title", "") if date_list else ""
+            decision_date = _format_date(raw_date)
 
-            logger.info(f"Sorted {len(decision_entries)} entries by decision number (newest first)")
+            # Committee (optional)
+            committee_list = meta.get("ועדות שרים", [])
+            committee = committee_list[0].get("title", "") if committee_list else ""
 
-            if not decision_entries:
-                logger.warning("No decision entries found from API!")
+            decision_entries.append({
+                "url": full_url,
+                "title": title,
+                "decision_number": decision_number,
+                "decision_date": decision_date,
+                "committee": committee,
+            })
 
-            logger.info(f"Extracted {len(decision_entries)} decision entries")
-            for i, entry in enumerate(decision_entries, 1):
-                logger.info(f"  {i}. {entry['url']} | #{entry['decision_number']} | {entry['decision_date']}")
+        # Sort by decision number (newest first)
+        decision_entries.sort(key=lambda d: _extract_decision_sort_key(d["url"]))
 
-            return decision_entries
+        logger.info(f"Sorted {len(decision_entries)} entries by decision number (newest first)")
+
+        if not decision_entries:
+            logger.warning("No decision entries found from API!")
+
+        logger.info(f"Extracted {len(decision_entries)} decision entries")
+        for i, entry in enumerate(decision_entries, 1):
+            logger.info(f"  {i}. {entry['url']} | #{entry['decision_number']} | {entry['decision_date']}")
+
+        return decision_entries
 
     except Exception as e:
         logger.error(f"Failed to extract decision entries with Selenium: {e}")
         raise
 
 
-def find_correct_url_in_catalog(decision_number: str, max_search_decisions: int = 100) -> Optional[str]:
+def find_correct_url_in_catalog(decision_number: str, max_search_decisions: int = 100, swd=None) -> Optional[str]:
     """
     Search the catalog for the correct URL for a given decision number.
     This is used when a URL fails and we need to find the actual working URL.
@@ -158,6 +195,7 @@ def find_correct_url_in_catalog(decision_number: str, max_search_decisions: int 
     Args:
         decision_number: The decision number to search for (e.g., "3173")
         max_search_decisions: How many decisions to search through
+        swd: Optional SeleniumWebDriver instance to reuse
 
     Returns:
         The correct URL if found, None otherwise
@@ -165,7 +203,7 @@ def find_correct_url_in_catalog(decision_number: str, max_search_decisions: int 
     logger.info(f"Searching catalog for correct URL for decision {decision_number}")
 
     try:
-        catalog_entries = extract_decision_urls_from_catalog_selenium(max_decisions=max_search_decisions)
+        catalog_entries = extract_decision_urls_from_catalog_selenium(max_decisions=max_search_decisions, swd=swd)
 
         possible_urls = []
         for entry in catalog_entries:
@@ -185,7 +223,7 @@ def find_correct_url_in_catalog(decision_number: str, max_search_decisions: int 
         return None
 
 
-def try_url_variations(base_url: str, decision_number: str) -> Optional[str]:
+def try_url_variations(base_url: str, decision_number: str, swd=None) -> Optional[str]:
     """
     Try minimal URL variations when catalog search fails.
     Only tries adding single 'a' suffix to number or year.
@@ -193,6 +231,7 @@ def try_url_variations(base_url: str, decision_number: str) -> Optional[str]:
     Args:
         base_url: The original URL that failed
         decision_number: The decision number
+        swd: Optional SeleniumWebDriver instance to reuse
 
     Returns:
         Working URL if found, None otherwise
@@ -214,13 +253,16 @@ def try_url_variations(base_url: str, decision_number: str) -> Optional[str]:
     for variation_url in variations:
         try:
             logger.info(f"Testing URL variation: {variation_url}")
-            with SeleniumWebDriver(headless=True) as driver:
-                soup = driver.get_page_with_js(variation_url, wait_time=5)
-                content = soup.get_text()
+            if swd:
+                soup = swd.navigate_to(variation_url, wait_time=5)
+            else:
+                with SeleniumWebDriver(headless=True) as driver:
+                    soup = driver.get_page_with_js(variation_url, wait_time=5)
+            content = soup.get_text()
 
-                if len(content) > 200 and any(char > '\u0590' for char in content):
-                    logger.info(f"Found working URL variation: {variation_url}")
-                    return variation_url
+            if len(content) > 200 and any(char > '\u0590' for char in content):
+                logger.info(f"Found working URL variation: {variation_url}")
+                return variation_url
 
         except Exception as e:
             logger.debug(f"URL variation {variation_url} failed: {e}")

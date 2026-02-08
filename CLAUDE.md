@@ -12,15 +12,17 @@
 
 ```bash
 make setup            # Initial setup (venv + dependencies)
-make sync             # Daily sync - process all new decisions (regular mode)
+make sync             # Daily sync - process all new decisions (uses --no-headless)
 make sync-test        # Quick test (1 decision, no approval)
 make sync-dev         # Dev mode (5 decisions)
 make test-conn        # Test database connection
 make overnight        # Large batch (350+ decisions)
 
-# Safety modes (see "Decision Discovery Logic" section below)
-python bin/sync.py --unlimited --no-approval --safety-mode extra-safe  # Zero missed decisions
+# Direct CLI with --no-headless (required to bypass Cloudflare WAF)
+python bin/sync.py --unlimited --no-approval --no-headless --verbose
 ```
+
+**Important:** As of February 2026, the `--no-headless` flag is required to bypass Cloudflare WAF protection. Headless Chrome mode is blocked. All `make sync*` commands include this flag automatically.
 
 ### Tag Migration Commands
 
@@ -41,7 +43,8 @@ GOV2DB/
 │   ├── sync.py                   # Main orchestrator (8-step workflow)
 │   ├── large_batch_sync.py       # Batch processor
 │   ├── overnight_sync.sh         # Shell wrapper
-│   └── migrate_tags.py           # Tag migration CLI
+│   ├── migrate_tags.py           # Tag migration CLI
+│   └── test_new_tags.py          # Special category tags test scanner
 │
 ├── src/gov_scraper/              # Core package
 │   ├── config.py                 # Configuration & env vars
@@ -71,8 +74,9 @@ GOV2DB/
 ├── data/                         # CSV exports & migration reports
 ├── logs/                         # Log files (scraper.log, daily_sync.log)
 ├── Dockerfile                    # Container definition
+├── ANTI-BLOCK-STRATEGY.md        # Cloudflare anti-block strategy & tuning guide
 ├── SERVER-OPERATIONS.md          # Production server operations guide
-├── new_tags.md                   # Authorized policy tags (40)
+├── new_tags.md                   # Authorized policy tags (45)
 ├── new_departments.md            # Authorized government bodies (44)
 ├── requirements.txt              # Dependencies
 └── Makefile                      # Build commands
@@ -103,7 +107,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...   # Required - Service role JWT
 - Returns URLs sorted by decision number (newest first)
 
 **Decision Scraper** (`scrapers/decision.py`):
-- Headless Chrome via Selenium
+- Headless Chrome via `undetected-chromedriver` (auto-detects Chrome version)
 - Extracts: decision_number, date, title, committee, content, URL
 - Hebrew date format: `DD.MM.YYYY` → `YYYY-MM-DD`
 - Validates Hebrew content presence
@@ -119,7 +123,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...   # Required - Service role JWT
 **Model:** Gemini 2.0 Flash, Temperature: 0.3, Max retries: 5
 
 #### Tag Sources (Updated):
-- **Policy areas:** Loaded from `new_tags.md` (40 tags)
+- **Policy areas:** Loaded from `new_tags.md` (45 tags, including 5 special category tags)
 - **Government bodies:** Loaded from `new_departments.md` (44 departments)
 
 #### Validation: 3-Step Algorithm
@@ -327,10 +331,99 @@ RETRY_DELAY = 2  # seconds
 
 Policy area tags and government bodies are defined in external files:
 
-- **Policy Areas:** See [new_tags.md](new_tags.md) (40 tags)
+- **Policy Areas:** See [new_tags.md](new_tags.md) (45 tags, including 5 special category tags)
 - **Government Bodies:** See [new_departments.md](new_departments.md) (44 departments)
 
 These files are the source of truth for tag validation and migration.
+
+---
+
+## Special Category Tags (February 2026)
+
+5 new cross-cutting policy tags with weighted keyword-based detection ($0, no AI):
+
+| Tag | Description |
+|-----|-------------|
+| החברה הערבית | Arab society — decisions related to the Arab population in Israel |
+| החברה החרדית | Haredi society — decisions related to the Haredi population |
+| נשים ומגדר | Women & gender — gender equality, women's rights, harassment |
+| שיקום הצפון | Northern rehabilitation — post-2023-24 war recovery |
+| שיקום הדרום | Southern rehabilitation — post-October 7 recovery |
+
+### Weighted Keyword Scoring System
+
+Each tag has 30+ weighted keywords with a 4-tier weight system:
+
+| Weight | Category | Description | Example |
+|--------|----------|-------------|---------|
+| **30** | CRITICAL | Unambiguous identifiers | "תכנית 922", "מנהלת תקומה" |
+| **15** | STRONG | Specific, strong terms | "המגזר הערבי", "7 באוקטובר" |
+| **8** | MODERATE | Relevant terms | "בדואים", "מפונים" |
+| **3** | SUPPORTING | Context/support words | "פיצויים", "שיקום" |
+
+### Classification Thresholds
+
+Decisions are classified by absolute score (sum of matched keyword weights):
+
+| Score | Classification | Action |
+|-------|----------------|--------|
+| >= 60 | ✅ Auto-tag | Add tag directly |
+| 30-59 | ⚠️ AI verify | Send to Gemini for confirmation |
+| 15-29 | 🔍 Manual review | Flag for human review |
+| < 15 | ❌ Skip | Do not tag |
+
+**Additional requirement:** Minimum 2 keyword matches required to prevent false positives.
+
+### Test Script
+
+```bash
+# Scan database for new tag matches
+python bin/test_new_tags.py                       # All 5 tags, summary
+python bin/test_new_tags.py --tag "שיקום הדרום"   # Specific tag
+python bin/test_new_tags.py --count 3000 --verbose  # Limit + details
+python bin/test_new_tags.py --export              # Export to JSON
+
+# Fine-tune thresholds
+python bin/test_new_tags.py --auto-threshold 55   # Lower auto-tag threshold
+python bin/test_new_tags.py --min-keywords 3      # Require 3+ keyword matches
+```
+
+### Key Files
+
+- [new_tags.md](new_tags.md) — Tags list (5 new tags at bottom)
+- [processors/qa.py](src/gov_scraper/processors/qa.py) — `NEW_TAG_KEYWORDS` dictionary with weighted keywords
+- [bin/test_new_tags.py](bin/test_new_tags.py) — Test script for scanning database
+
+### Configuration Constants (qa.py)
+
+```python
+NEW_TAG_AUTO_THRESHOLD = 60       # >= 60 points → auto-tag
+NEW_TAG_AI_THRESHOLD = 30         # 30-59 points → AI verification
+NEW_TAG_MANUAL_THRESHOLD = 15     # 15-29 points → manual review
+NEW_TAG_MIN_KEYWORDS = 2          # Minimum keyword matches required
+```
+
+### TAG_BODY_MAP Mappings
+
+Each special tag is mapped to relevant government bodies:
+
+```python
+"החברה הערבית": ["המשרד לשוויון חברתי", "משרד הרווחה", "משרד החינוך"],
+"החברה החרדית": ["המשרד לשירותי דת", "משרד הרווחה", "משרד החינוך"],
+"נשים ומגדר": ["המשרד לשוויון חברתי", "משרד הרווחה", "משרד העבודה"],
+"שיקום הצפון": ["משרד הנגב, הגליל והחוסן הלאומי", "המשרד לפיתוח הנגב והגליל", "משרד הביטחון", "משרד הפנים"],
+"שיקום הדרום": ["משרד הנגב, הגליל והחוסן הלאומי", "המשרד לפיתוח הנגב והגליל", "משרד הביטחון", "רשות החירום הלאומית (רח\"ל)"],
+```
+
+### Test Results (3000 recent decisions, Feb 2026)
+
+| Tag | Auto-tag | AI Verify | Manual | Skip |
+|-----|----------|-----------|--------|------|
+| שיקום הדרום | 14 | 22 | 21 | 2943 |
+| נשים ומגדר | 1 | 17 | 27 | 2955 |
+| שיקום הצפון | 1 | 2 | 4 | 2993 |
+| החברה הערבית | 2 | 5 | 5 | 2988 |
+| החברה החרדית | 0 | 0 | 0 | 3000 |
 
 ---
 
@@ -461,7 +554,7 @@ One-time migration tool to update `tags_policy_area` and `tags_government_body` 
 
 ### Source Files
 
-- **New policy tags:** `new_tags.md` (40 tags)
+- **New policy tags:** `new_tags.md` (45 tags)
 - **New departments:** `new_departments.md` (44 departments)
 
 ### 6-Step Mapping Algorithm
@@ -694,7 +787,7 @@ python bin/qa.py fix locations execute --yes               # Execute without con
 | Check | What it does | Algorithm |
 |-------|-------------|-----------|
 | `operativity` | Distribution bias (too many operative?) | Count distribution |
-| `policy-relevance` | Policy tags match content keywords | Hebrew keyword dict (40 tags × 10-25 keywords) |
+| `policy-relevance` | Policy tags match content keywords | Hebrew keyword dict (45 tags × 10-25 keywords) |
 | `policy-fallback` | Rate of "שונות" as sole tag | Count |
 
 **Phase 2 — Cross-field consistency:**
@@ -782,6 +875,7 @@ Reports are exported to `data/qa_reports/`:
 
 **Core:**
 - selenium 4.34.2
+- undetected-chromedriver 3.5.0+ (Cloudflare bypass)
 - beautifulsoup4 4.12.2
 - supabase 2.17.0
 - google-genai 1.0.0+
@@ -847,18 +941,56 @@ cat GOV2DB/SERVER-OPERATIONS.md
 
 - **[SERVER-OPERATIONS.md](SERVER-OPERATIONS.md)** - Complete server operations guide with SSH setup, verification checklist, troubleshooting, and update procedures
 - **[Dockerfile](Dockerfile)** - Container definition (selenium/standalone-chrome base)
-- **[docker/crontab](docker/crontab)** - Cron schedule (02:00 AM daily)
+- **[docker/crontab](docker/crontab)** - Cron schedule (triggers every 12h, randomized execution)
+- **[docker/randomized_sync.sh](docker/randomized_sync.sh)** - Randomized sync wrapper (21-34h intervals)
 - **[docker/healthcheck.sh](docker/healthcheck.sh)** - Health monitoring script
+
+### Randomized Scheduling (Anti-Detection)
+
+To avoid predictable patterns that Cloudflare might detect:
+- **Cron triggers:** Every 12 hours (02:00 AM, 14:00 PM)
+- **Wrapper checks:** If 21+ hours since last sync
+- **Random delay:** 0-13 hours added
+- **Effective interval:** 21-34 hours between syncs
+
+This makes sync times unpredictable while ensuring at least daily coverage.
 
 ### Updating Production
 
 ```bash
-# Build and push new image (from local machine)
-docker buildx build --platform linux/amd64 -t tomerjoe/gov2db-scraper:latest --push .
+# Build directly on server (recommended — avoids Docker Hub round-trip)
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull origin master && docker build -t tomerjoe/gov2db-scraper:latest . && docker compose up -d"
 
-# Pull and restart on server
+# Or: Build and push from local machine
+docker buildx build --platform linux/amd64 -t tomerjoe/gov2db-scraper:latest --push .
 ssh ceci "docker pull tomerjoe/gov2db-scraper:latest && docker restart gov2db-scraper"
 ```
+
+### Cloudflare WAF Block & Anti-Block Strategy (February 2026)
+
+**Status:** Cloudflare blocks headless Chrome. **Solution: Use `--no-headless` flag** (visible Chrome window bypasses detection).
+
+**Working command:**
+```bash
+python bin/sync.py --unlimited --no-approval --no-headless --verbose
+# Or simply:
+make sync  # Already includes --no-headless
+```
+
+**Root cause:** Cloudflare WAF detects headless Chrome browsers and blocks them. Running Chrome in visible (non-headless) mode bypasses this detection because Cloudflare has difficulty distinguishing it from a real user.
+
+**Mitigations implemented:**
+1. **`--no-headless` flag** — Run Chrome in visible mode to bypass Cloudflare (required as of Feb 2026)
+2. **Session reuse** — Single Chrome session for entire sync (was 50+ per run)
+3. **Rate limiting** — 2-5s random delay before each page navigation (`navigate_to()`)
+4. **Batch cooldowns** — 15-30s pause every 10 decisions
+5. **Graceful degradation** — Stops scraping after 3 consecutive failures, saves what was already scraped
+6. **`undetected-chromedriver`** — Anti-bot detection bypass with auto Chrome version detection
+7. **Explicit Cloudflare detection** — `detect_cloudflare_block()` with 12+ patterns, `CloudflareBlockedError` exception, 30-60s cooldown per detection
+8. **Fingerprint randomization** — Random window size (6 resolutions) and accept-language per session
+9. **macOS Chrome detection** — `_detect_chrome_version()` now works on macOS (Feb 2026 fix)
+
+Full documentation: **[ANTI-BLOCK-STRATEGY.md](ANTI-BLOCK-STRATEGY.md)**
 
 ---
 
@@ -905,3 +1037,4 @@ When making changes, update the relevant section:
 Related documentation files:
 - **[QA-LESSONS.md](QA-LESSONS.md)** — QA process lessons learned, known issues, recommendations
 - **[SERVER-OPERATIONS.md](SERVER-OPERATIONS.md)** — Production server operations guide
+- **[ANTI-BLOCK-STRATEGY.md](ANTI-BLOCK-STRATEGY.md)** — Cloudflare anti-block strategy, rate limiting tuning guide

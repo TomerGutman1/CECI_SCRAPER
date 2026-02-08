@@ -32,8 +32,8 @@ run_once() {
     python3 bin/sync.py \
         --unlimited \
         --no-approval \
-        --verbose \
-        --safety-mode regular
+        --no-headless \
+        --verbose
 
     # Update health check file
     echo "$(date -Iseconds)" > /app/healthcheck/last_success.txt

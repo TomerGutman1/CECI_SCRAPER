@@ -44,9 +44,10 @@ RUN pip3 install -e .
 RUN mkdir -p /app/logs /app/data /app/healthcheck \
     && chown -R scraper:scraper /app
 
-# Copy entrypoint and health check scripts with execute permissions
+# Copy entrypoint, health check, and randomized sync scripts with execute permissions
 COPY --chmod=755 docker/docker-entrypoint.sh /usr/local/bin/
 COPY --chmod=755 docker/healthcheck.sh /usr/local/bin/
+COPY --chmod=755 docker/randomized_sync.sh /app/docker/
 
 # Setup cron job for daily sync at 02:00 AM
 # Using /etc/cron.d/ format - cron daemon reads these directly

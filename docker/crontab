@@ -3,8 +3,12 @@ PATH=/home/seluser/venv/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:
 TZ=Asia/Jerusalem
 PYTHONUNBUFFERED=1
 
-# Daily sync at 02:00 AM
-0 2 * * * root cd /app && python3 bin/sync.py --unlimited --no-approval --verbose --safety-mode regular >> /app/logs/daily_sync.log 2>&1 && echo "$(date -Iseconds)" > /app/healthcheck/last_success.txt
+# Randomized sync - runs every 12 hours, wrapper ensures 21-34 hour intervals
+# The randomized_sync.sh script:
+# 1. Checks if 21+ hours passed since last sync
+# 2. Adds 0-13 hours random delay
+# 3. Uses --no-headless to bypass Cloudflare
+0 2,14 * * * root /app/docker/randomized_sync.sh >> /app/logs/daily_sync.log 2>&1
 
 # Logrotate daily at 03:00 AM
 0 3 * * * root /usr/sbin/logrotate /etc/logrotate.d/gov2db >> /app/logs/logrotate.log 2>&1

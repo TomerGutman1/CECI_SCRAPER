@@ -8,7 +8,9 @@ and syncs them with the Supabase database.
 import argparse
 import logging
 import os
+import random
 import sys
+import time
 
 # Add src to Python path for package imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -20,7 +22,14 @@ from gov_scraper.processors.incremental import prepare_for_database
 from gov_scraper.db.dal import insert_decisions_batch, check_existing_decision_keys
 from gov_scraper.processors.approval import get_user_approval
 from gov_scraper.processors.qa import validate_decision_inline, validate_scraped_content, apply_inline_fixes
+from gov_scraper.utils.selenium import SeleniumWebDriver, CloudflareBlockedError
 from gov_scraper.config import LOG_DIR, LOG_FILE, GOVERNMENT_NUMBER
+
+# Anti-block: batch cooldown settings
+BATCH_SIZE = 10            # Take a break every N decisions
+BATCH_DELAY_MIN = 15.0     # Minimum cooldown seconds
+BATCH_DELAY_MAX = 30.0     # Maximum cooldown seconds
+MAX_CONSECUTIVE_BLOCKS = 3  # Stop scraping after N consecutive failures
 
 def setup_logging(verbose=False):
     """Set up logging configuration."""
@@ -54,6 +63,8 @@ def main():
     parser.add_argument('--safety-mode', type=str, default='regular',
                         choices=['regular', 'extra-safe'],
                         help='Deprecated: kept for backward compatibility. Filtering is now key-based (all entries checked against DB).')
+    parser.add_argument('--no-headless', action='store_true',
+                        help='Run Chrome in visible mode (not headless) - may help bypass Cloudflare')
 
     args = parser.parse_args()
     
@@ -108,117 +119,157 @@ def main():
             print("Get your API key from: https://aistudio.google.com/app/apikey\n")
             return False
 
-        # Step 1: Extract decision entries using Selenium + catalog API
-        logger.info("🔍 STEP 1: Extracting decision entries from catalog API using Selenium...")
+        # Open a single Chrome session for all scraping (reduces Cloudflare detection risk)
+        headless_mode = not args.no_headless
+        logger.info(f"🌐 Opening shared Chrome session for scraping... (headless={headless_mode})")
+        with SeleniumWebDriver(headless=headless_mode) as swd:
 
-        if args.max_decisions is None:
-            large_batch_size = 100
-            logger.info(f"🔄 Unlimited mode: Fetching {large_batch_size} entries to ensure complete coverage")
-            logger.info("⏱️  Large batch loading may take 30-60 seconds - please wait...")
-            decision_entries = extract_decision_urls_from_catalog_selenium(max_decisions=large_batch_size)
-        else:
-            decision_entries = extract_decision_urls_from_catalog_selenium(
-                max_decisions=args.max_decisions * 2
-            )
+            # Step 1: Extract decision entries using Selenium + catalog API
+            logger.info("🔍 STEP 1: Extracting decision entries from catalog API using Selenium...")
 
-        if not decision_entries:
-            logger.warning("⚠️  No decision entries found")
-            print("🏁 No entries to process. Sync completed.")
-            return True
+            if args.max_decisions is None:
+                large_batch_size = 100
+                logger.info(f"🔄 Unlimited mode: Fetching {large_batch_size} entries to ensure complete coverage")
+                logger.info("⏱️  Large batch loading may take 30-60 seconds - please wait...")
+                decision_entries = extract_decision_urls_from_catalog_selenium(max_decisions=large_batch_size, swd=swd)
+            else:
+                decision_entries = extract_decision_urls_from_catalog_selenium(
+                    max_decisions=args.max_decisions * 2, swd=swd
+                )
 
-        total_from_catalog = len(decision_entries)
-        logger.info(f"✅ Found {total_from_catalog} decision entries")
+            if not decision_entries:
+                logger.warning("⚠️  No decision entries found")
+                print("🏁 No entries to process. Sync completed.")
+                return True
 
-        # Step 2: Filter to new entries by checking which already exist in database
-        logger.info("🔍 STEP 2: Checking which entries already exist in database...")
+            total_from_catalog = len(decision_entries)
+            logger.info(f"✅ Found {total_from_catalog} decision entries")
 
-        candidate_keys = []
-        key_to_entry = {}
-        for entry in decision_entries:
-            dec_num = entry.get('decision_number', '')
-            if dec_num:
-                key = f"{GOVERNMENT_NUMBER}_{dec_num}"
-                candidate_keys.append(key)
-                key_to_entry[key] = entry
+            # Step 2: Filter to new entries by checking which already exist in database
+            logger.info("🔍 STEP 2: Checking which entries already exist in database...")
 
-        existing_keys = check_existing_decision_keys(candidate_keys)
-        logger.info(f"📊 Found {len(existing_keys)} entries already in database out of {len(candidate_keys)} candidates")
+            candidate_keys = []
+            key_to_entry = {}
+            for entry in decision_entries:
+                dec_num = entry.get('decision_number', '')
+                if dec_num:
+                    key = f"{GOVERNMENT_NUMBER}_{dec_num}"
+                    candidate_keys.append(key)
+                    key_to_entry[key] = entry
 
-        new_entries = [key_to_entry[k] for k in candidate_keys if k not in existing_keys]
-        new_entries.sort(key=lambda e: (e.get('decision_date', ''), e.get('decision_number', '')))
-        logger.info(f"📝 Identified {len(new_entries)} new entries to process")
+            existing_keys = check_existing_decision_keys(candidate_keys)
+            logger.info(f"📊 Found {len(existing_keys)} entries already in database out of {len(candidate_keys)} candidates")
 
-        if not new_entries:
-            logger.info("🏁 No new decisions found. Database is up to date.")
-            print("✅ No new decisions found. Database is up to date.")
-            return True
+            new_entries = [key_to_entry[k] for k in candidate_keys if k not in existing_keys]
+            new_entries.sort(key=lambda e: (e.get('decision_date', ''), e.get('decision_number', '')))
+            logger.info(f"📝 Identified {len(new_entries)} new entries to process")
 
-        # Step 3: Process decisions - scrape content and run AI
-        logger.info("📄 STEP 3: Processing new decisions...")
-        processed_decisions = []
-        failed_count = 0
+            if not new_entries:
+                logger.info("🏁 No new decisions found. Database is up to date.")
+                print("✅ No new decisions found. Database is up to date.")
+                return True
 
-        if args.max_decisions is not None:
-            entries_to_process = new_entries[:args.max_decisions]
-        else:
-            entries_to_process = new_entries
+            # Step 3: Process decisions - scrape content and run AI
+            logger.info("📄 STEP 3: Processing new decisions...")
+            processed_decisions = []
+            failed_count = 0
+            consecutive_blocks = 0
 
-        logger.info(f"📊 Will process {len(entries_to_process)} new decisions")
+            if args.max_decisions is not None:
+                entries_to_process = new_entries[:args.max_decisions]
+            else:
+                entries_to_process = new_entries
 
-        for i, entry in enumerate(entries_to_process, 1):
-            dec_num = entry.get('decision_number', '?')
-            dec_url = entry.get('url', '')
-            logger.info(f"Processing decision {i}/{len(entries_to_process)}: #{dec_num} {dec_url}")
+            logger.info(f"📊 Will process {len(entries_to_process)} new decisions")
 
-            try:
-                # Scrape content with retry on bad content (Cloudflare, short, no Hebrew)
-                decision_data = None
-                max_content_retries = 2
+            for i, entry in enumerate(entries_to_process, 1):
+                dec_num = entry.get('decision_number', '?')
+                dec_url = entry.get('url', '')
+                logger.info(f"Processing decision {i}/{len(entries_to_process)}: #{dec_num} {dec_url}")
 
-                for retry in range(max_content_retries + 1):
-                    wait_time = 15 + (retry * 10)  # 15s, 25s, 35s
-                    decision_data = scrape_decision_with_url_recovery(entry, wait_time=wait_time)
+                # Batch cooldown every BATCH_SIZE decisions
+                if i > 1 and (i - 1) % BATCH_SIZE == 0:
+                    cooldown = random.uniform(BATCH_DELAY_MIN, BATCH_DELAY_MAX)
+                    logger.info(f"⏸️  Batch cooldown: {cooldown:.0f}s after {i-1} decisions")
+                    time.sleep(cooldown)
+
+                try:
+                    # Scrape content with retry on bad content (Cloudflare, short, no Hebrew)
+                    decision_data = None
+                    max_content_retries = 2
+
+                    for retry in range(max_content_retries + 1):
+                        wait_time = 15 + (retry * 10)  # 15s, 25s, 35s
+                        decision_data = scrape_decision_with_url_recovery(entry, wait_time=wait_time, swd=swd)
+
+                        if not decision_data:
+                            break  # Scraping itself failed — no point retrying content validation
+
+                        # Pre-AI content validation
+                        is_valid, error_msg = validate_scraped_content(decision_data)
+                        if is_valid:
+                            break
+
+                        if retry < max_content_retries:
+                            logger.warning(f"Content validation failed for #{dec_num} (attempt {retry + 1}): {error_msg} — retrying with {wait_time + 10}s wait")
+                        else:
+                            logger.error(f"Content validation failed for #{dec_num} after {max_content_retries + 1} attempts: {error_msg} — skipping")
+                            decision_data = None
 
                     if not decision_data:
-                        break  # Scraping itself failed — no point retrying content validation
+                        logger.warning(f"Failed to get valid content for decision #{dec_num} from {dec_url} - skipping")
+                        failed_count += 1
+                        consecutive_blocks += 1
 
-                    # Pre-AI content validation
-                    is_valid, error_msg = validate_scraped_content(decision_data)
-                    if is_valid:
-                        break
+                        # Graceful degradation: stop if likely blocked
+                        if consecutive_blocks >= MAX_CONSECUTIVE_BLOCKS:
+                            logger.error(f"🚫 {MAX_CONSECUTIVE_BLOCKS} consecutive failures — likely blocked by Cloudflare. Stopping scraping.")
+                            logger.info(f"📊 Processed {len(processed_decisions)} decisions before block detected")
+                            break
+                        continue
 
-                    if retry < max_content_retries:
-                        logger.warning(f"Content validation failed for #{dec_num} (attempt {retry + 1}): {error_msg} — retrying with {wait_time + 10}s wait")
-                    else:
-                        logger.error(f"Content validation failed for #{dec_num} after {max_content_retries + 1} attempts: {error_msg} — skipping")
-                        decision_data = None
+                    # Reset block counter on success
+                    consecutive_blocks = 0
 
-                if not decision_data:
-                    logger.warning(f"Failed to get valid content for decision #{dec_num} from {dec_url} - skipping")
+                    # Process with AI (required)
+                    logger.info(f"🤖 Processing decision #{dec_num} with AI...")
+                    decision_data = process_decision_with_ai(decision_data)
+
+                    # Post-AI algorithmic fixes ($0 cost)
+                    decision_data = apply_inline_fixes(decision_data)
+
+                    # QA inline validation (warnings only, does not block)
+                    qa_warnings = validate_decision_inline(decision_data)
+                    if qa_warnings:
+                        for warn in qa_warnings:
+                            logger.warning(f"⚠️  QA [{dec_num}]: {warn}")
+
+                    processed_decisions.append(decision_data)
+                    logger.info(f"✅ Successfully processed decision #{dec_num}")
+
+                except CloudflareBlockedError as e:
+                    # Cloudflare-specific: longer cooldown before next attempt
+                    block_cooldown = random.uniform(30.0, 60.0)
+                    logger.warning(f"🛡️ Cloudflare block on #{dec_num}: {e}. Cooling down {block_cooldown:.0f}s")
+                    time.sleep(block_cooldown)
                     failed_count += 1
+                    consecutive_blocks += 1
+                    if consecutive_blocks >= MAX_CONSECUTIVE_BLOCKS:
+                        logger.error(f"🚫 {MAX_CONSECUTIVE_BLOCKS} consecutive Cloudflare blocks — stopping scraping.")
+                        break
                     continue
 
-                # Process with AI (required)
-                logger.info(f"🤖 Processing decision #{dec_num} with AI...")
-                decision_data = process_decision_with_ai(decision_data)
+                except Exception as e:
+                    logger.error(f"Failed to process decision #{dec_num}: {e}")
+                    failed_count += 1
+                    consecutive_blocks += 1
+                    if consecutive_blocks >= MAX_CONSECUTIVE_BLOCKS:
+                        logger.error(f"🚫 {MAX_CONSECUTIVE_BLOCKS} consecutive failures — stopping scraping.")
+                        break
+                    continue
 
-                # Post-AI algorithmic fixes ($0 cost)
-                decision_data = apply_inline_fixes(decision_data)
-
-                # QA inline validation (warnings only, does not block)
-                qa_warnings = validate_decision_inline(decision_data)
-                if qa_warnings:
-                    for warn in qa_warnings:
-                        logger.warning(f"⚠️  QA [{dec_num}]: {warn}")
-
-                processed_decisions.append(decision_data)
-                logger.info(f"✅ Successfully processed decision #{dec_num}")
-
-            except Exception as e:
-                logger.error(f"Failed to process decision #{dec_num}: {e}")
-                failed_count += 1
-                continue
-
+        # Chrome session closed here
+        logger.info("🌐 Chrome session closed")
         logger.info(f"📊 Completed processing: {len(processed_decisions)} decisions processed, {failed_count} failed")
 
         logger.info("=" * 60)

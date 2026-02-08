@@ -9,7 +9,7 @@ SRC_DIR := src
 TEST_DIR := tests
 DOCS_DIR := docs
 
-.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30 qa-scan qa-scan-check qa-fix-preview qa-fix-dry qa-fix-execute
+.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30 qa-scan qa-scan-check qa-fix-preview qa-fix-dry qa-fix-execute special-tags-preview special-tags-dry special-tags-year special-tags-all
 
 # Default target - show help
 help:
@@ -39,7 +39,13 @@ help:
 	@echo "  make qa-fix-dry check=X          - Dry-run fix"
 	@echo "  make qa-fix-execute check=X      - Execute fix"
 	@echo ""
-	@echo "🏷️  Tag Migration commands:"
+	@echo "🏷️  Special Category Tags (AI-based):"
+	@echo "  make special-tags-preview        - Preview on 10 records"
+	@echo "  make special-tags-dry            - Full dry-run"
+	@echo "  make special-tags-year year=2024 - Process specific year"
+	@echo "  make special-tags-all            - Process all years (25K records)"
+	@echo ""
+	@echo "🏷️  Tag Migration commands:
 	@echo "  make migrate-preview    - Preview on 10 records"
 	@echo "  make migrate-preview-n n=20  - Preview on N records"
 	@echo "  make migrate-dry        - Full dry-run (no changes)"
@@ -74,9 +80,10 @@ setup:
 	@echo "  2. Run: make test-conn"
 
 # Daily sync - unlimited processing until baseline
+# Uses --no-headless to bypass Cloudflare WAF (Feb 2026)
 sync:
 	@echo "🚀 Starting daily sync (unlimited until baseline)..."
-	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --unlimited --no-approval --verbose
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --unlimited --no-approval --no-headless --verbose
 
 # Overnight sync for large batches
 overnight:
@@ -143,12 +150,12 @@ format:
 # Development sync with AI processing
 sync-dev:
 	@echo "🔬 Starting development sync with AI..."
-	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --max-decisions 5 --verbose
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --max-decisions 5 --no-headless --verbose
 
 # Quick test with 1 decision
 sync-test:
 	@echo "⚡ Quick test sync (1 decision)..."
-	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --max-decisions 1 --no-approval --verbose
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/sync.py --max-decisions 1 --no-approval --no-headless --verbose
 
 # =============================================================================
 # Tag Migration Commands
@@ -243,3 +250,27 @@ monitor:
 monitor-30:
 	@echo "📊 Analyzing tag quality (last 30 days)..."
 	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/monitor_tags.py --days 30
+
+# =============================================================================
+# Special Category Tags Commands (AI-based)
+# =============================================================================
+
+# Preview special category tagging on 10 records
+special-tags-preview:
+	@echo "🔍 Previewing special category tags (10 records)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/add_special_tags.py --preview --verbose
+
+# Full dry-run (no database changes)
+special-tags-dry:
+	@echo "📋 Running special category tags dry-run..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/add_special_tags.py --dry-run --verbose
+
+# Process specific year
+special-tags-year:
+	@echo "📅 Processing special category tags for year $(year)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/add_special_tags.py --execute --year $(year) --verbose
+
+# Process all years (~25K records)
+special-tags-all:
+	@echo "🚀 Processing special category tags for all years..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/add_special_tags.py --execute --verbose
