@@ -2,6 +2,7 @@
 
 from google import genai
 from google.genai import types
+import json
 import logging
 import time
 import os
@@ -493,9 +494,7 @@ def generate_special_category_tags(
         result = make_openai_request_with_retry(prompt, max_tokens=100)
         result = result.strip()
 
-        # Parse JSON response
-        import json
-        # Clean up response if needed
+        # Parse JSON response - clean up if needed
         if result.startswith("```"):
             result = result.split("```")[1]
             if result.startswith("json"):
@@ -610,9 +609,7 @@ def review_and_fix_policy_tags(
         result = make_openai_request_with_retry(prompt, max_tokens=200)
         result = result.strip()
 
-        # Parse JSON response
-        import json
-        # Clean up response if needed
+        # Parse JSON response - clean up if needed
         if result.startswith("```"):
             result = result.split("```")[1]
             if result.startswith("json"):
