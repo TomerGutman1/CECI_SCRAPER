@@ -109,19 +109,30 @@ def should_process_decision(decision_data: Dict, baseline: Optional[Dict] = None
 def generate_decision_key(decision_data: Dict) -> str:
     """
     Generate a unique key for a decision based on government number and decision number.
-    
+
     Args:
         decision_data: Dictionary containing decision information
-        
+
     Returns:
         Unique decision key string
+
+    Raises:
+        ValueError: If decision_number is None, empty, or invalid
     """
     government_number = decision_data.get('government_number', '37')  # Default to current government
-    decision_number = str(decision_data.get('decision_number', ''))
-    
-    if not decision_number:
-        raise ValueError("Decision number is required to generate decision key")
-    
+    decision_number = decision_data.get('decision_number')  # Don't convert to str yet!
+
+    # Explicit None check
+    if decision_number is None:
+        raise ValueError("Decision number is required to generate decision key (got None)")
+
+    # Convert to string and clean
+    decision_number = str(decision_number).strip()
+
+    # Check for empty string or literal 'None' (in case it came as a string)
+    if not decision_number or decision_number.lower() == 'none':
+        raise ValueError(f"Decision number is required to generate decision key (got '{decision_number}')")
+
     return f"{government_number}_{decision_number}"
 
 

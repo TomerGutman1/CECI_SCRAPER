@@ -34,27 +34,45 @@ def clean_hebrew_text(text: str) -> str:
     return text.strip()
 
 
-def extract_and_format_date(text: str) -> str:
-    """Extract DD.MM.YYYY date from text and convert to YYYY-MM-DD format."""
+def extract_and_format_date(text: str) -> Optional[str]:
+    """
+    Extract DD.MM.YYYY date from text and convert to YYYY-MM-DD format.
+
+    Args:
+        text: Text containing a date
+
+    Returns:
+        Formatted date string (YYYY-MM-DD) or None if extraction fails
+    """
     if not text:
-        return ""
-    
+        return None
+
     # Look for DD.MM.YYYY pattern
     date_pattern = r'\b(\d{2})\.(\d{2})\.(\d{4})\b'
     match = re.search(date_pattern, text)
-    
+
     if match:
         day, month, year = match.groups()
         try:
             # Validate and convert to YYYY-MM-DD format
             parsed_date = datetime.strptime(f"{day}.{month}.{year}", "%d.%m.%Y")
+
+            # Validate reasonable date range (1948 - today + 1 year buffer)
+            min_date = datetime(1948, 1, 1)
+            max_date = datetime.now().replace(year=datetime.now().year + 1)
+
+            if parsed_date < min_date or parsed_date > max_date:
+                logger.warning(f"Date {match.group()} is outside valid range (1948-{max_date.year})")
+                return None
+
             return parsed_date.strftime("%Y-%m-%d")
+
         except ValueError:
             logger.warning(f"Invalid date format found: {match.group()}")
-            return ""
-    
+            return None
+
     logger.warning(f"No valid date pattern DD.MM.YYYY found in text: {text[:100]}...")
-    return ""
+    return None
 
 
 def extract_committee_name(text: str) -> str:
@@ -294,7 +312,7 @@ def scrape_decision_page_selenium(url: str) -> Dict[str, str]:
         raise
 
 
-def scrape_decision_content_only(url: str, wait_time: int = 15) -> str:
+def scrape_decision_content_only(url: str, wait_time: int = 15, swd=None) -> str:
     """
     Scrape only the decision content body from a decision page.
     Metadata (title, date, number, committee) comes from the catalog API.
@@ -302,17 +320,24 @@ def scrape_decision_content_only(url: str, wait_time: int = 15) -> str:
     Args:
         url: Full URL of the decision page
         wait_time: Seconds to wait for JavaScript rendering (default 15)
+        swd: Optional SeleniumWebDriver instance to reuse (avoids creating new Chrome)
 
     Returns:
         The decision content text, or empty string on failure
     """
     logger.info(f"Scraping decision content from: {url} (wait_time={wait_time}s)")
     try:
-        with SeleniumWebDriver(headless=True) as driver:
-            soup = driver.get_page_with_js(url, wait_time=wait_time)
+        if swd:
+            soup = swd.navigate_to(url, wait_time=wait_time)
             content = extract_decision_content_from_soup(soup)
             logger.info(f"Extracted content: {len(content)} chars")
             return content
+        else:
+            with SeleniumWebDriver(headless=True) as driver:
+                soup = driver.get_page_with_js(url, wait_time=wait_time)
+                content = extract_decision_content_from_soup(soup)
+                logger.info(f"Extracted content: {len(content)} chars")
+                return content
     except Exception as e:
         logger.error(f"Failed to scrape content from {url}: {e}")
         return ""
@@ -333,7 +358,7 @@ def _build_result_from_meta(decision_meta: dict, content: str) -> Dict[str, str]
     }
 
 
-def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15) -> Optional[Dict[str, str]]:
+def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15, swd=None) -> Optional[Dict[str, str]]:
     """
     Scrape a decision's content with automatic URL recovery if the initial URL fails.
     Metadata (title, date, number, committee) comes from the catalog API via decision_meta.
@@ -341,6 +366,7 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15) 
     Args:
         decision_meta: Dict with keys: url, title, decision_number, decision_date, committee
         wait_time: Seconds to wait for JavaScript rendering (default 15)
+        swd: Optional SeleniumWebDriver instance to reuse (avoids creating new Chrome)
 
     Returns:
         Dictionary containing decision data, or None if all attempts fail
@@ -354,7 +380,7 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15) 
         return None
 
     # First attempt: scrape content from the original URL
-    content = scrape_decision_content_only(url, wait_time=wait_time)
+    content = scrape_decision_content_only(url, wait_time=wait_time, swd=swd)
     if content and len(content) > 50:
         logger.info(f"Original URL worked for decision {decision_number}")
         return _build_result_from_meta(decision_meta, content)
@@ -365,11 +391,11 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15) 
     try:
         from .catalog import find_correct_url_in_catalog
         logger.info(f"Second attempt: searching catalog for correct URL for decision {decision_number}")
-        correct_url = find_correct_url_in_catalog(decision_number)
+        correct_url = find_correct_url_in_catalog(decision_number, swd=swd)
 
         if correct_url and correct_url != url:
             logger.info(f"Found different URL in catalog: {correct_url}")
-            content = scrape_decision_content_only(correct_url, wait_time=wait_time)
+            content = scrape_decision_content_only(correct_url, wait_time=wait_time, swd=swd)
             if content and len(content) > 50:
                 logger.info(f"Catalog URL worked for decision {decision_number}")
                 meta_with_url = {**decision_meta, 'url': correct_url}
@@ -381,10 +407,10 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15) 
     try:
         from .catalog import try_url_variations
         logger.info(f"Third attempt: trying URL variations for decision {decision_number}")
-        working_url = try_url_variations(url, decision_number)
+        working_url = try_url_variations(url, decision_number, swd=swd)
 
         if working_url:
-            content = scrape_decision_content_only(working_url, wait_time=wait_time)
+            content = scrape_decision_content_only(working_url, wait_time=wait_time, swd=swd)
             if content and len(content) > 50:
                 logger.info(f"URL variation worked for decision {decision_number}")
                 meta_with_url = {**decision_meta, 'url': working_url}

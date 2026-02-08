@@ -225,8 +225,8 @@ def find_correct_url_in_catalog(decision_number: str, max_search_decisions: int 
 
 def try_url_variations(base_url: str, decision_number: str, swd=None) -> Optional[str]:
     """
-    Try minimal URL variations when catalog search fails.
-    Only tries adding single 'a' suffix to number or year.
+    Try URL variations when catalog search fails.
+    Tries common suffix patterns: a, b, c and hyphen variations.
 
     Args:
         base_url: The original URL that failed
@@ -236,21 +236,42 @@ def try_url_variations(base_url: str, decision_number: str, swd=None) -> Optiona
     Returns:
         Working URL if found, None otherwise
     """
-    logger.info(f"Trying minimal URL variations for decision {decision_number}")
+    logger.info(f"Trying URL variations for decision {decision_number}")
 
     # Extract base components - support both dec3173 and dec-3173 formats
-    match = re.search(r'(https?://[^/]+/he/pages/dec-?)(\d+)(-\d{4})', base_url)
+    match = re.search(r'(https?://[^/]+/he/pages/)(dec-?)(\d+)(-\d{4})', base_url)
     if not match:
         return None
 
-    prefix, num, suffix = match.groups()
+    domain, dec_prefix, num, year_suffix = match.groups()
 
-    variations = [
-        f"{prefix}{num}a{suffix}",   # dec3173a-2025 or dec-3173a-2025
-        f"{prefix}{num}{suffix}a"    # dec3173-2025a or dec-3173-2025a
-    ]
+    # Expanded patterns: a, b, c suffixes
+    letter_suffixes = ['a', 'b', 'c']
+    variations = []
 
-    for variation_url in variations:
+    for s in letter_suffixes:
+        # dec3173a-2025, dec3173b-2025
+        variations.append(f"{domain}{dec_prefix}{num}{s}{year_suffix}")
+        # dec3173-2025a, dec3173-2025b
+        variations.append(f"{domain}{dec_prefix}{num}{year_suffix}{s}")
+
+    # Add hyphen variations if original didn't have hyphen
+    if dec_prefix == 'dec':
+        for s in letter_suffixes:
+            # dec-3173a-2025
+            variations.append(f"{domain}dec-{num}{s}{year_suffix}")
+            # dec-3173-2025a
+            variations.append(f"{domain}dec-{num}{year_suffix}{s}")
+
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_variations = []
+    for v in variations:
+        if v not in seen:
+            seen.add(v)
+            unique_variations.append(v)
+
+    for variation_url in unique_variations:
         try:
             logger.info(f"Testing URL variation: {variation_url}")
             if swd:

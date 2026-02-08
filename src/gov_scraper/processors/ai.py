@@ -100,6 +100,41 @@ def _get_words(text: str) -> Set[str]:
     return words
 
 
+def _log_truncation(content: str, limit: int, func_name: str) -> None:
+    """Log warning when content is significantly truncated (>30% lost)."""
+    if len(content) > limit:
+        pct_lost = ((len(content) - limit) / len(content)) * 100
+        if pct_lost > 30:
+            logger.warning(
+                f"{func_name}: {pct_lost:.0f}% content truncated "
+                f"({len(content):,}→{limit:,} chars)"
+            )
+
+
+def get_smart_content(content: str, max_length: int = 4000) -> str:
+    """
+    Extract content intelligently for long decisions.
+
+    For decisions longer than max_length, takes 70% from the beginning
+    and 30% from the end to capture both intro and conclusions.
+
+    Args:
+        content: Full decision content
+        max_length: Maximum output length (default 4000)
+
+    Returns:
+        Content string, either full or with middle section removed
+    """
+    if len(content) <= max_length:
+        return content
+
+    # Take beginning and end
+    head_size = int(max_length * 0.7)  # 70% from beginning
+    tail_size = max_length - head_size  # 30% from end
+
+    return f"{content[:head_size]}\n\n[...תוכן מקוצץ...]\n\n{content[-tail_size:]}"
+
+
 def _ai_summary_fallback(summary: str, valid_tags: List[str], tag_type: str) -> Optional[str]:
     """AI fallback - analyze summary to find the best matching tag."""
     if not summary:
@@ -109,7 +144,7 @@ def _ai_summary_fallback(summary: str, valid_tags: List[str], tag_type: str) -> 
     tag_type_hebrew = "תחום מדיניות" if tag_type == "policy" else "גוף ממשלתי"
 
     prompt = f"""נתון תקציר של החלטת ממשלה:
-"{summary[:1000]}"
+"{summary[:1500]}"
 
 בחר את ה{tag_type_hebrew} המתאים ביותר מהרשימה הבאה:
 {tags_str}
@@ -203,17 +238,21 @@ def validate_tag_3_steps(
 
 
 def generate_summary(decision_content: str, decision_title: str) -> str:
-    """Generate a concise summary of the decision."""
+    """Generate a concise summary of the decision.
+
+    Note: Full content is passed to Gemini (no truncation).
+    Gemini 2.0 Flash supports 1M tokens - max decision is ~15K tokens.
+    """
     prompt = f"""
 נא לסכם את ההחלטה הממשלתית הבאה במשפט או שניים קצרים ומדויקים:
 
 כותרת: {decision_title}
 
 תוכן ההחלטה:
-{decision_content[:2000]}
+{decision_content}
 
 סיכום:"""
-    
+
     return make_openai_request_with_retry(prompt, max_tokens=200)
 
 
@@ -229,7 +268,7 @@ def generate_operativity(decision_content: str) -> str:
   דוגמאות: "הממשלה רושמת בפניה", "מכירה בחשיבות", "קוראת לציבור", "מביעה הערכה"
 
 תוכן ההחלטה:
-{decision_content[:3000]}
+{decision_content}
 
 סוג הפעילות:"""
 
@@ -275,7 +314,7 @@ def generate_policy_area_tags_strict(
 נא לסווג את ההחלטה הבאה:
 
 כותרת: {decision_title}
-תוכן: {decision_content[:2000]}
+תוכן: {decision_content}
 
 הנחיות:
 - בחר 1-3 תחומים מהרשימה למעלה
@@ -320,7 +359,7 @@ def generate_government_body_tags(decision_content: str, decision_title: str) ->
 דוגמאות לגופים: הממשלה, הכנסת, בית המשפט העליון, משרד החינוך, משרד הביטחון, משרד האוצר, משרד הבריאות, משרד החוץ, צה"ל, משטרת ישראל, ועדת השרים, ועדת הכנסת.
 
 כותרת: {decision_title}
-תוכן: {decision_content[:1500]}
+תוכן: {decision_content}
 
 גופים ממשלתיים:"""
 
@@ -354,7 +393,7 @@ def generate_government_body_tags_validated(
 נא לזהות את הגופים הרלוונטיים להחלטה הבאה:
 
 כותרת: {decision_title}
-תוכן: {decision_content[:1500]}
+תוכן: {decision_content}
 
 הנחיות:
 - בחר 1-3 גופים מהרשימה למעלה
@@ -388,6 +427,265 @@ def generate_government_body_tags_validated(
     return "; ".join(validated_bodies[:3])
 
 
+# Special category tags for cross-cutting policy areas
+SPECIAL_CATEGORY_TAGS = [
+    "החברה הערבית",
+    "החברה החרדית",
+    "נשים ומגדר",
+    "שיקום הצפון",
+    "שיקום הדרום",
+]
+
+
+def generate_special_category_tags(
+    decision_content: str,
+    decision_title: str,
+    summary: str = None,
+    decision_date: str = None
+) -> List[str]:
+    """
+    Identify special category tags using AI analysis.
+
+    These are cross-cutting tags that identify decisions related to:
+    - Arab society (החברה הערבית)
+    - Haredi society (החברה החרדית)
+    - Women & gender (נשים ומגדר)
+    - Northern rehabilitation (שיקום הצפון) - post-2023-24 war
+    - Southern rehabilitation (שיקום הדרום) - post-October 7
+
+    Args:
+        decision_content: Full decision text
+        decision_title: Decision title
+        summary: Optional summary
+        decision_date: Optional date for context (YYYY-MM-DD)
+
+    Returns:
+        List of applicable special category tags (0-3)
+    """
+    # Build date context if available
+    date_context = ""
+    if decision_date:
+        date_context = f"תאריך ההחלטה: {decision_date}\n"
+
+    prompt = f"""אתה מסווג החלטות ממשלה ישראליות לקטגוריות מיוחדות.
+
+הקטגוריות המיוחדות הן:
+1. החברה הערבית - החלטות הנוגעות לאוכלוסייה הערבית בישראל, המגזר הערבי, הבדואים, יישובים ערביים, תוכניות כמו 922/550, שילוב ערבים בתעסוקה, חינוך ערבי
+2. החברה החרדית - החלטות הנוגעות לאוכלוסייה החרדית, גיוס חרדים, לימודי ליבה, שילוב חרדים בתעסוקה, ישיבות, כוללים
+3. נשים ומגדר - החלטות הנוגעות לשוויון מגדרי, קידום נשים, הטרדה מינית, זכויות נשים, ייצוג נשים, אלימות במשפחה, נשות הליבה
+4. שיקום הצפון - החלטות הנוגעות לשיקום יישובי צפון הארץ לאחר מלחמת 2023-24, מפוני הצפון, הגליל, קריית שמונה, מטולה, יישובי הספר הצפוניים
+5. שיקום הדרום - החלטות הנוגעות לשיקום יישובי עוטף עזה לאחר 7 באוקטובר 2023, מנהלת תקומה, החטופים, שדרות, אשקלון, נתיבות, כפר עזה, בארי, רעים
+
+{date_context}כותרת: {decision_title}
+תוכן: {decision_content}
+{f'תקציר: {summary}' if summary else ''}
+
+הנחיות חשובות:
+- בחר רק קטגוריות שרלוונטיות בבירור להחלטה
+- אם ההחלטה נוגעת בנושא רק באופן שולי, אל תסווג
+- שיקום הצפון/דרום רלוונטי בעיקר להחלטות מאוקטובר 2023 ואילך
+- החזר JSON בפורמט: {{"tags": ["קטגוריה1", "קטגוריה2"]}}
+- אם אין קטגוריה מתאימה, החזר: {{"tags": []}}
+
+תשובה (JSON בלבד):"""
+
+    try:
+        result = make_openai_request_with_retry(prompt, max_tokens=100)
+        result = result.strip()
+
+        # Parse JSON response
+        import json
+        # Clean up response if needed
+        if result.startswith("```"):
+            result = result.split("```")[1]
+            if result.startswith("json"):
+                result = result[4:]
+            result = result.strip()
+
+        parsed = json.loads(result)
+        tags = parsed.get("tags", [])
+
+        # Validate against authorized list
+        validated = [t for t in tags if t in SPECIAL_CATEGORY_TAGS]
+
+        if validated:
+            logger.info(f"Special category tags identified: {validated}")
+
+        return validated[:3]  # Max 3 tags
+
+    except json.JSONDecodeError as e:
+        logger.warning(f"Failed to parse JSON response for special tags: {result}")
+        # Try to extract tags manually
+        extracted = []
+        for tag in SPECIAL_CATEGORY_TAGS:
+            if tag in result:
+                extracted.append(tag)
+        return extracted[:3]
+
+    except Exception as e:
+        logger.error(f"Error generating special category tags: {e}")
+        return []
+
+
+def review_and_fix_policy_tags(
+    decision_content: str,
+    decision_title: str,
+    current_tags: str,
+    summary: str = None,
+    decision_date: str = None
+) -> tuple:
+    """
+    Review existing policy tags and add special category tags if relevant.
+
+    This function:
+    1. Identifies special category tags that should be added
+    2. Reviews existing policy tags for relevance
+    3. Returns corrected tags and a change log
+
+    Args:
+        decision_content: Full decision text
+        decision_title: Decision title
+        current_tags: Current semicolon-separated policy tags
+        summary: Optional summary
+        decision_date: Optional date (YYYY-MM-DD)
+
+    Returns:
+        Tuple of (new_tags_string, changes_list)
+        - new_tags_string: Updated semicolon-separated tags
+        - changes_list: List of changes made (for audit trail)
+    """
+    changes = []
+
+    # Parse current tags
+    current_tag_list = [t.strip() for t in current_tags.split(';') if t.strip()]
+
+    # Check which special tags are already present
+    existing_special = [t for t in current_tag_list if t in SPECIAL_CATEGORY_TAGS]
+    existing_regular = [t for t in current_tag_list if t not in SPECIAL_CATEGORY_TAGS]
+
+    # Build prompt for comprehensive review
+    tags_str = " | ".join(POLICY_AREAS)
+    special_tags_str = " | ".join(SPECIAL_CATEGORY_TAGS)
+
+    date_context = f"תאריך ההחלטה: {decision_date}\n" if decision_date else ""
+
+    prompt = f"""אתה בודק ומשפר תיוג של החלטות ממשלה ישראליות.
+
+משימה כפולה:
+1. זהה אם ההחלטה רלוונטית לאחת מ-5 הקטגוריות המיוחדות
+2. בדוק אם התגיות הקיימות מתאימות - אם לא, תקן
+
+קטגוריות מיוחדות (הוסף אם רלוונטי):
+{special_tags_str}
+
+הסברים לקטגוריות מיוחדות:
+- החברה הערבית: אוכלוסייה ערבית, מגזר ערבי, בדואים, תכניות 922/550
+- החברה החרדית: אוכלוסייה חרדית, גיוס חרדים, לימודי ליבה, תעסוקה
+- נשים ומגדר: שוויון מגדרי, קידום נשים, הטרדה מינית
+- שיקום הצפון: שיקום יישובי צפון לאחר מלחמת 2023-24
+- שיקום הדרום: שיקום עוטף עזה לאחר 7 באוקטובר, מנהלת תקומה
+
+תגיות קיימות: {current_tags}
+{date_context}כותרת: {decision_title}
+{f'תקציר: {summary}' if summary else ''}
+תוכן: {decision_content[:2500]}
+
+תחומי מדיניות מורשים (לתיקון תגיות):
+{tags_str}
+
+הנחיות:
+1. החזר JSON עם שני שדות:
+   - special_tags: רשימת קטגוריות מיוחדות להוספה (או רשימה ריקה)
+   - fixed_tags: תגיות מדיניות מתוקנות (או null אם אין שינוי)
+2. הוסף קטגוריה מיוחדת רק אם רלוונטית בבירור
+3. תקן תגיות רק אם ברור שהן שגויות (למשל "שונות" כאשר יש תג ספציפי יותר)
+4. שמור על מקסימום 3 תגיות מדיניות רגילות
+
+פורמט תשובה (JSON בלבד):
+{{"special_tags": ["קטגוריה"], "fixed_tags": "תג1; תג2" או null}}
+
+תשובה:"""
+
+    try:
+        result = make_openai_request_with_retry(prompt, max_tokens=200)
+        result = result.strip()
+
+        # Parse JSON response
+        import json
+        # Clean up response if needed
+        if result.startswith("```"):
+            result = result.split("```")[1]
+            if result.startswith("json"):
+                result = result[4:]
+            result = result.strip()
+
+        parsed = json.loads(result)
+
+        # Process special tags
+        new_special_tags = parsed.get("special_tags", [])
+        validated_special = [t for t in new_special_tags if t in SPECIAL_CATEGORY_TAGS]
+
+        # Process fixed tags
+        fixed_tags_str = parsed.get("fixed_tags")
+
+        # Build final tag list
+        if fixed_tags_str and fixed_tags_str != "null":
+            # AI suggested changes to regular tags
+            fixed_tag_list = [t.strip() for t in fixed_tags_str.split(';') if t.strip()]
+            # Validate against authorized list
+            validated_fixed = []
+            for tag in fixed_tag_list:
+                validated = validate_tag_3_steps(tag, POLICY_AREAS, summary, "policy")
+                if validated and validated not in validated_fixed:
+                    validated_fixed.append(validated)
+            final_regular = validated_fixed[:3]
+
+            if set(final_regular) != set(existing_regular):
+                changes.append(f"תגיות מדיניות: {'; '.join(existing_regular)} → {'; '.join(final_regular)}")
+        else:
+            # Keep existing regular tags
+            final_regular = existing_regular
+
+        # Add new special tags
+        for tag in validated_special:
+            if tag not in existing_special:
+                changes.append(f"הוספה: {tag}")
+
+        # Combine all tags
+        all_special = list(set(existing_special + validated_special))
+        final_tags = final_regular + all_special
+
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_tags = []
+        for tag in final_tags:
+            if tag not in seen:
+                seen.add(tag)
+                unique_tags.append(tag)
+
+        new_tags_str = "; ".join(unique_tags)
+
+        return new_tags_str, changes
+
+    except json.JSONDecodeError as e:
+        logger.warning(f"Failed to parse JSON response for tag review: {result}")
+        # Fall back to just adding special tags if detected in text
+        special_only = generate_special_category_tags(
+            decision_content, decision_title, summary, decision_date
+        )
+        if special_only:
+            for tag in special_only:
+                if tag not in current_tag_list:
+                    changes.append(f"הוספה: {tag}")
+            new_tags = current_tag_list + [t for t in special_only if t not in current_tag_list]
+            return "; ".join(new_tags), changes
+        return current_tags, []
+
+    except Exception as e:
+        logger.error(f"Error reviewing tags: {e}")
+        return current_tags, []
+
+
 def generate_location_tags(decision_content: str, decision_title: str) -> str:
     """Generate geographic location tags - returns empty string if no locations found."""
     prompt = f"""
@@ -399,7 +697,7 @@ def generate_location_tags(decision_content: str, decision_title: str) -> str:
 דוגמאות למקומות שיכולים להיות מוזכרים: ירושלים, תל אביב, חיפה, באר שבע, הגליל, הנגב, יהודה ושומרון, עזה, גולן, צפון, דרום, מרכז.
 
 כותרת: {decision_title}
-תוכן: {decision_content[:1500]}
+תוכן: {decision_content}
 
 מקומות גיאוגרפיים (אם מוזכרים):"""
     
