@@ -64,8 +64,11 @@ if [ "$total_delay_minutes" -gt 0 ]; then
     sleep "${total_delay_minutes}m"
 fi
 
-log "Starting sync with --no-headless..."
+log "Starting sync with --no-headless on virtual display..."
 cd /app
+
+# Use virtual display for non-headless Chrome (Cloudflare bypass)
+export DISPLAY=:99
 
 # Run sync with --no-headless to bypass Cloudflare
 python3 bin/sync.py \

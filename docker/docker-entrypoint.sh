@@ -11,6 +11,15 @@ echo "Timezone: $TZ"
 echo "Mode: ${1:-cron}"
 echo "========================================="
 
+# Start Xvfb virtual display for non-headless Chrome (bypasses Cloudflare)
+start_xvfb() {
+    echo "Starting Xvfb virtual display on :99..."
+    Xvfb :99 -screen 0 1920x1080x24 &>/dev/null &
+    export DISPLAY=:99
+    sleep 2
+    echo "Xvfb started successfully"
+}
+
 # Function to export Docker env vars to .env file for cron
 export_env_for_cron() {
     echo "Exporting environment variables for cron..."
@@ -44,15 +53,21 @@ run_once() {
 run_cron() {
     echo "Setting up cron for daily execution..."
 
+    # Start Xvfb for non-headless Chrome (Cloudflare bypass)
+    start_xvfb
+
     # Export Docker env vars to .env file for cron
     export_env_for_cron
+
+    # Export DISPLAY for cron jobs
+    echo "DISPLAY=:99" >> /etc/environment
 
     # Ensure cron log file exists
     touch /app/logs/cron.log
 
     # Start cron in foreground
     echo "Starting cron daemon..."
-    echo "Daily sync scheduled for 02:00 AM ($TZ)"
+    echo "Randomized sync scheduled (every 12h, 21-34h intervals)"
 
     # Create initial health check file
     echo "$(date -Iseconds)" > /app/healthcheck/last_success.txt
