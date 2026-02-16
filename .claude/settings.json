@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "pre-write-file": {
+      "description": "Run Python syntax check before writing Python files",
+      "command": "if [[ \"$FILEPATH\" == *.py ]]; then python -m py_compile \"$FILEPATH\" 2>/dev/null || echo 'Warning: Python syntax check failed'; fi"
+    },
+    "post-run-command": {
+      "description": "Check for errors in scraper log after running sync commands",
+      "command": "if [[ \"$COMMAND\" == *\"bin/sync.py\"* ]]; then tail -n 20 logs/scraper.log | grep -E '(ERROR|CRITICAL|Cloudflare)' || true; fi"
+    },
+    "pre-commit": {
+      "description": "Run QA scan on sample before committing",
+      "command": "if [[ \"$MESSAGE\" == *\"fix\"* ]] || [[ \"$MESSAGE\" == *\"data\"* ]]; then echo 'Consider running: make qa-scan-check check=operativity'; fi"
+    },
+    "verify-env": {
+      "description": "Ensure required environment variables are set",
+      "command": "test -f .env && grep -q 'GEMINI_API_KEY' .env && grep -q 'SUPABASE_URL' .env || echo 'Warning: Missing required environment variables in .env'"
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Edit(*)",
+      "Write(*)",
+      "Read(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "WebFetch(*)",
+      "WebSearch(*)",
+      "Task(*)",
+      "MultiEdit(*)",
+      "Read(/Users/tomergutman/**)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:gov.il)"
+    ]
+  }
+}
