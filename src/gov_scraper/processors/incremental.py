@@ -291,10 +291,16 @@ def prepare_for_database(decisions: List[Dict]) -> List[Dict]:
             # Ensure decision number is string
             if 'decision_number' in db_decision:
                 db_decision['decision_number'] = str(db_decision['decision_number'])
-            
+
+            # Remove internal metadata fields that don't exist in the database
+            metadata_fields = ['_ai_processing_time', '_ai_confidence', '_ai_api_calls',
+                             '_validation_warnings', '_validation_errors']
+            for field in metadata_fields:
+                db_decision.pop(field, None)
+
             # Remove any None values that could cause database issues
             db_decision = {k: v for k, v in db_decision.items() if v is not None}
-            
+
             prepared_decisions.append(db_decision)
             
         except Exception as e:

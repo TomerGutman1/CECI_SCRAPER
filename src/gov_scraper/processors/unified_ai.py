@@ -111,8 +111,17 @@ class UnifiedAIProcessor:
                 return result
 
             except Exception as e:
+                error_str = str(e)
                 logger.warning(f"Unified request failed (attempt {attempt + 1}): {e}")
-                if attempt < MAX_RETRIES - 1:
+
+                # Check for rate limit error (429)
+                if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                    # Exponential backoff for rate limits: 30s, 60s, 120s, 240s, 480s
+                    wait_time = min(30 * (2 ** attempt), 480)  # Cap at 8 minutes
+                    logger.warning(f"Rate limit hit! Waiting {wait_time} seconds before retry...")
+                    time.sleep(wait_time)
+                elif attempt < MAX_RETRIES - 1:
+                    # Regular linear backoff for other errors
                     time.sleep(RETRY_DELAY * (attempt + 1))
                 else:
                     raise Exception(f"Unified AI request failed after {MAX_RETRIES} attempts: {e}")

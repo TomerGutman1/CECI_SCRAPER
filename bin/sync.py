@@ -112,12 +112,18 @@ def main():
             )
             logger.info("✅ Gemini API key validated successfully")
         except Exception as e:
-            logger.error(f"❌ Gemini API key validation failed: {e}")
-            print(f"\n❌ ERROR: Gemini API key is invalid or not working!")
-            print(f"Details: {e}")
-            print("\nPlease check your .env file and ensure GEMINI_API_KEY is set correctly.")
-            print("Get your API key from: https://aistudio.google.com/app/apikey\n")
-            return False
+            error_str = str(e)
+            # Check if it's just a rate limit issue
+            if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                logger.warning(f"⚠️ Gemini API is rate limited but key is valid. Will retry with backoff during processing.")
+                logger.info("✅ Gemini API key is valid (rate limited)")
+            else:
+                logger.error(f"❌ Gemini API key validation failed: {e}")
+                print(f"\n❌ ERROR: Gemini API key is invalid or not working!")
+                print(f"Details: {e}")
+                print("\nPlease check your .env file and ensure GEMINI_API_KEY is set correctly.")
+                print("Get your API key from: https://aistudio.google.com/app/apikey\n")
+                return False
 
         # Open a single Chrome session for all scraping (reduces Cloudflare detection risk)
         headless_mode = not args.no_headless
