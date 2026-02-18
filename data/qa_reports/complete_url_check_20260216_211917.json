@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "timestamp": "20260216_211917",
+    "total_records": 25021,
+    "total_mismatches": 8,
+    "total_missing_urls": 0,
+    "mismatch_rate": 0.03
+  },
+  "mismatches": [
+    {
+      "decision_key": "37_2846",
+      "url": "https://www.gov.il/he/pages/dec2486-2024",
+      "decision_from_key": "2846",
+      "decision_from_url": "2486",
+      "difference": -360,
+      "title": "הכרזה על שעת חירום במשק הגז הטבעי",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2581",
+      "url": "https://www.gov.il/he/pages/dec2851-2024",
+      "decision_from_key": "2581",
+      "decision_from_url": "2851",
+      "difference": 270,
+      "title": "הצעת חוק העונשין (תיקון - איחוד עבירת האינוס ועבירת מעשה סדום), התשפ\"ה-2024 של חה\"כ לימור סון הרמלך ",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2094",
+      "url": "https://www.gov.il/he/pages/dec2093-2024",
+      "decision_from_key": "2094",
+      "decision_from_url": "2093",
+      "difference": -1,
+      "title": "פטור חד פעמי ממכרז למשרות במטה היישום לשיקום ארוך טווח וניהול אירועי חירום",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2060",
+      "url": "https://www.gov.il/he/pages/dec2061-2024",
+      "decision_from_key": "2060",
+      "decision_from_url": "2061",
+      "difference": 1,
+      "title": "הצעת חוק רישוי עסקים (תיקון - פטור מרישוי עסק לקייטנה לתנועות ולארגוני נוער), התשפ\"ג-2023 של חה\"כ אל",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2094",
+      "url": "https://www.gov.il/he/pages/dec2093-2024",
+      "decision_from_key": "2094",
+      "decision_from_url": "2093",
+      "difference": -1,
+      "title": "פטור חד פעמי ממכרז למשרות במטה היישום לשיקום ארוך טווח וניהול אירועי חירום",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2060",
+      "url": "https://www.gov.il/he/pages/dec2061-2024",
+      "decision_from_key": "2060",
+      "decision_from_url": "2061",
+      "difference": 1,
+      "title": "הצעת חוק רישוי עסקים (תיקון - פטור מרישוי עסק לקייטנה לתנועות ולארגוני נוער), התשפ\"ג-2023 של חה\"כ אל",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2846",
+      "url": "https://www.gov.il/he/pages/dec2486-2024",
+      "decision_from_key": "2846",
+      "decision_from_url": "2486",
+      "difference": -360,
+      "title": "הכרזה על שעת חירום במשק הגז הטבעי",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2581",
+      "url": "https://www.gov.il/he/pages/dec2851-2024",
+      "decision_from_key": "2581",
+      "decision_from_url": "2851",
+      "difference": 270,
+      "title": "הצעת חוק העונשין (תיקון - איחוד עבירת האינוס ועבירת מעשה סדום), התשפ\"ה-2024 של חה\"כ לימור סון הרמלך ",
+      "issue": "url_mismatch"
+    }
+  ],
+  "missing_urls": [],
+  "statistics": {
+    "by_government": {
+      "37": 8
+    },
+    "by_difference": {
+      "-360": 2,
+      "270": 2,
+      "-1": 2,
+      "1": 2
+    },
+    "difference_range": {
+      "min": -360,
+      "max": 270
+    }
+  }
+}

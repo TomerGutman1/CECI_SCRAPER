@@ -52,6 +52,11 @@ PRIME_MINISTER = "בנימין נתניהו"
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-2.0-flash')
 
+# AI Processing Configuration
+USE_UNIFIED_AI = os.getenv('USE_UNIFIED_AI', 'true').lower() == 'true'
+AI_CONFIDENCE_THRESHOLD = float(os.getenv('AI_CONFIDENCE_THRESHOLD', '0.5'))
+AI_ENABLE_VALIDATION = os.getenv('AI_ENABLE_VALIDATION', 'true').lower() == 'true'
+
 # Validate that Gemini API key is set - MANDATORY for operation
 if not GEMINI_API_KEY:
     raise ValueError(
@@ -75,6 +80,9 @@ OUTPUT_DIR = 'data'
 OUTPUT_FILE = 'decisions_data.csv'
 LOG_DIR = 'logs'
 LOG_FILE = 'scraper.log'
+
+# Project paths
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 # CSV columns (excluding embedding, created_at, updated_at)
 CSV_COLUMNS = [

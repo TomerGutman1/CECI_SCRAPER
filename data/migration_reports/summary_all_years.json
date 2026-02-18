@@ -1,0 +1,35 @@
+{
+  "migration_completed": "2025-12-24T16:45:50.598518",
+  "total_records": 0,
+  "total_updated": 0,
+  "total_unchanged": 0,
+  "update_rate_percent": 0,
+  "years_processed": 0,
+  "total_execution_time_seconds": 0,
+  "total_execution_time_formatted": "0h 0m",
+  "by_year": {},
+  "overall_stats": {
+    "policy_area": {
+      "exact": 0,
+      "exact_percent": 0,
+      "substring": 0,
+      "word_overlap": 0,
+      "ai_tag": 0,
+      "ai_percent": 0,
+      "ai_summary": 0,
+      "fallback": 0,
+      "fallback_percent": 0
+    },
+    "government_body": {
+      "exact": 0,
+      "exact_percent": 0,
+      "substring": 0,
+      "word_overlap": 0,
+      "ai_tag": 0,
+      "ai_percent": 0,
+      "ai_summary": 0,
+      "fallback": 0,
+      "fallback_percent": 0
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "analysis_metadata": {
+    "timestamp": "20260216_210612",
+    "total_records_analyzed": 1000,
+    "analysis_version": "1.0",
+    "focus": "URL integrity and data shifting investigation"
+  },
+  "summary_statistics": {
+    "critical_issues": 5,
+    "warnings": 0,
+    "clean_records": 995,
+    "missing_urls": 0,
+    "integrity_score": 99.5
+  },
+  "issue_breakdown": {
+    "url_decision_mismatch": 5,
+    "nearby_decision_error": 1,
+    "far_decision_error": 4
+  },
+  "government_distribution": {
+    "37": 1000
+  },
+  "url_mismatch_analysis": {
+    "total_mismatches": 5,
+    "adjacent_errors": 0,
+    "nearby_errors": 1,
+    "far_errors": 4,
+    "systematic_shift_detected": false,
+    "common_difference_patterns": [
+      [
+        9,
+        1
+      ],
+      [
+        -300,
+        1
+      ],
+      [
+        -360,
+        1
+      ],
+      [
+        270,
+        1
+      ],
+      [
+        1800,
+        1
+      ]
+    ]
+  },
+  "critical_examples": [
+    {
+      "decision_key": "37_3789",
+      "url": "https://www.gov.il/he/pages/dec3798-2026",
+      "decision_from_key": "3789",
+      "decision_from_url": "3798",
+      "title": "הגדלת הוודאות המיסויית בפעילות קרנות גידור בישראל ושיפור הסביבה העסקית עבור חברות ומשקיעי הייטק ותיק..."
+    },
+    {
+      "decision_key": "37_3661",
+      "url": "https://www.gov.il/he/pages/dec3361-2025",
+      "decision_from_key": "3661",
+      "decision_from_url": "3361",
+      "title": "סגירת תחנת השידור הצבאית \"גלי צה\"ל\""
+    },
+    {
+      "decision_key": "37_2846",
+      "url": "https://www.gov.il/he/pages/dec2486-2024",
+      "decision_from_key": "2846",
+      "decision_from_url": "2486",
+      "title": "הכרזה על שעת חירום במשק הגז הטבעי"
+    },
+    {
+      "decision_key": "37_2581",
+      "url": "https://www.gov.il/he/pages/dec2851-2024",
+      "decision_from_key": "2581",
+      "decision_from_url": "2851",
+      "title": "הצעת חוק העונשין (תיקון - איחוד עבירת האינוס ועבירת מעשה סדום), התשפ\"ה-2024 של חה\"כ לימור סון הרמלך ..."
+    },
+    {
+      "decision_key": "37_2478",
+      "url": "https://www.gov.il/he/pages/dec4278-2024",
+      "decision_from_key": "2478",
+      "decision_from_url": "4278",
+      "title": "טיוטת חוק לתיקון פקודת התעבורה (תיקון מס' 138), התשפ\"ה-2024"
+    }
+  ],
+  "recommendations": [
+    "CRITICAL: 5 records have URL-decision mismatches requiring immediate investigation"
+  ]
+}

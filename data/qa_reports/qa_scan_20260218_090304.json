@@ -1,0 +1,300 @@
+{
+  "timestamp": "2026-02-18T09:03:04.300167",
+  "total_records": 5,
+  "total_issues": 8,
+  "issues_by_severity": {
+    "high": 3,
+    "low": 4,
+    "medium": 1
+  },
+  "checks": [
+    {
+      "check_name": "operativity_distribution",
+      "total_scanned": 5,
+      "issues_found": 1,
+      "issue_rate": "20.0%",
+      "summary": {
+        "distribution": {
+          "אופרטיבית": 5
+        },
+        "operative_pct": "100.0%",
+        "declarative_pct": "0.0%",
+        "bias_detected": true
+      },
+      "sample_issues": [
+        {
+          "decision_key": "AGGREGATE",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרטיבית: 100.0%",
+          "description": "Operativity heavily skewed: 100.0% operative. Expected ~50-65%."
+        }
+      ]
+    },
+    {
+      "check_name": "policy_tag_relevance",
+      "total_scanned": 5,
+      "issues_found": 2,
+      "issue_rate": "40.0%",
+      "summary": {
+        "no_keyword_matches": 2,
+        "low_relevance": 2
+      },
+      "sample_issues": [
+        {
+          "decision_key": "37_3812",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תקציב, פיננסים, ביטוח ומיסוי",
+          "description": "Tag 'תקציב, פיננסים, ביטוח ומיסוי' has 0 keyword matches in content+title (28 keywords checked)"
+        },
+        {
+          "decision_key": "37_3812",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "שיקום הדרום",
+          "description": "Tag 'שיקום הדרום' has 0 keyword matches in content+title (31 keywords checked)"
+        }
+      ]
+    },
+    {
+      "check_name": "policy_fallback_rate",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "fallback_rate": "0.0%",
+        "by_year": {
+          "2026": {
+            "total": 5,
+            "fallback": 0,
+            "rate": "0.0%"
+          }
+        }
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "operativity_vs_content",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "mismatches_found": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "tag_body_consistency",
+      "total_scanned": 4,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "inconsistencies": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "committee_tag_consistency",
+      "total_scanned": 0,
+      "issues_found": 0,
+      "issue_rate": "0%",
+      "summary": {
+        "inconsistencies": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "location_hallucination",
+      "total_scanned": 1,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "hallucinated_locations": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "government_body_hallucination",
+      "total_scanned": 4,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "hallucinated_bodies": 0,
+        "records_all_missing": 0,
+        "records_some_missing": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "summary_quality",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "too_short": 0,
+        "too_long": 0,
+        "same_as_title": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "summary_vs_tags",
+      "total_scanned": 5,
+      "issues_found": 3,
+      "issue_rate": "60.0%",
+      "summary": {
+        "mismatches": 3
+      },
+      "sample_issues": [
+        {
+          "decision_key": "37_3812",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='תקציב, פיננסים, ביטוח ומיסוי', summary='ההחלטה הממשלתית כוללת הוקרה, סיוע ותגמול לחיילי מילואים המשרתים במלחמת \"התקומה\", הגדלת המענקים וההטב'",
+          "description": "Tag 'תקציב, פיננסים, ביטוח ומיסוי' keywords not found in summary"
+        },
+        {
+          "decision_key": "37_3812",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='שיקום הדרום', summary='ההחלטה הממשלתית כוללת הוקרה, סיוע ותגמול לחיילי מילואים המשרתים במלחמת \"התקומה\", הגדלת המענקים וההטב'",
+          "description": "Tag 'שיקום הדרום' keywords not found in summary"
+        },
+        {
+          "decision_key": "37_3822",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='מדיני ביטחוני', summary='הממשלה אישרה לשר התקשורת, באישור ראש הממשלה, להורות על הפסקת שידורי אלג'זירה, סגירת משרדיו, תפיסת צי'",
+          "description": "Tag 'מדיני ביטחוני' keywords not found in summary"
+        }
+      ]
+    },
+    {
+      "check_name": "location_vs_body",
+      "total_scanned": 1,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "inconsistencies": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "date_vs_government",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "mismatches": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "title_vs_content",
+      "total_scanned": 5,
+      "issues_found": 1,
+      "issue_rate": "20.0%",
+      "summary": {
+        "mismatches": 1
+      },
+      "sample_issues": [
+        {
+          "decision_key": "37_3812",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='הוקרה, סיוע ותגמול לחיילי מילואים המשרתים במלחמת \"התקומה\", הגדלת המענקים וההטבות הניתנים למשפחות שכו', match_rate=0%",
+          "description": "Only 0/19 title words found in content"
+        }
+      ]
+    },
+    {
+      "check_name": "date_validity",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "invalid_dates": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "content_quality",
+      "total_scanned": 5,
+      "issues_found": 1,
+      "issue_rate": "20.0%",
+      "summary": {
+        "too_short": 0,
+        "has_navigation": 1,
+        "cloudflare_pages": 0
+      },
+      "sample_issues": [
+        {
+          "decision_key": "37_3812",
+          "severity": "low",
+          "field": "decision_content",
+          "current_value": "דלג לתוכן האתרחפשו שירות או מידעאולי יעניין אותך רשות המסים בישראלזימון תור להנפקת דרכונים ותעודות ז",
+          "description": "Content contains navigation text: 'דלג לתוכן'"
+        }
+      ]
+    },
+    {
+      "check_name": "tag_consistency",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "unauthorized_policy_tags": {},
+        "unauthorized_body_tags": {}
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "content_completeness",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "truncated": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "body_default_patterns",
+      "total_scanned": 0,
+      "issues_found": 0,
+      "issue_rate": "0%",
+      "summary": {
+        "records_with_suspicious_combos": 0,
+        "high_severity_flagged": 0,
+        "low_severity_partial": 0,
+        "combo_breakdown": {}
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "policy_default_patterns",
+      "total_scanned": 0,
+      "issues_found": 0,
+      "issue_rate": "0%",
+      "summary": {
+        "records_with_suspicious_tags": 0,
+        "high_severity_flagged": 0,
+        "tag_breakdown": {}
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "operativity_validity",
+      "total_scanned": 5,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "invalid_values": 0,
+        "known_typos": {},
+        "garbage_values": 0
+      },
+      "sample_issues": []
+    }
+  ]
+}

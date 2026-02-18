@@ -1,0 +1,38 @@
+[run]
+# Coverage configuration for GOV2DB QA testing
+
+source = src/gov_scraper/processors/qa
+branch = True
+omit =
+    */tests/*
+    */venv/*
+    */env/*
+    */__pycache__/*
+    */migrations/*
+    */conftest.py
+    setup.py
+
+[report]
+# Reporting options
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if self.debug:
+    if settings.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    if 0:
+    if __name__ == .__main__.:
+    class .*\bProtocol\):
+    @(abc\.)?abstractmethod
+
+ignore_errors = True
+show_missing = True
+precision = 2
+
+[html]
+directory = htmlcov
+title = GOV2DB QA Coverage Report
+
+[xml]
+output = coverage.xml

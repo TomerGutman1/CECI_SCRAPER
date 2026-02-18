@@ -1,0 +1,84 @@
+{
+  "check_name": "fix_cloudflare",
+  "total_scanned": 24,
+  "issues_found": 24,
+  "issue_rate": "100.0%",
+  "summary": {
+    "total_processed": 24,
+    "re_scraped": 24,
+    "errors": 0,
+    "error_details": []
+  },
+  "sample_issues": [
+    {
+      "decision_key": "37_3813",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3813-2026"
+    },
+    {
+      "decision_key": "37_3816",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3816-2026"
+    },
+    {
+      "decision_key": "37_3817",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3817-2026"
+    },
+    {
+      "decision_key": "37_3820",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3820-2025"
+    },
+    {
+      "decision_key": "37_3821",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3821-2026"
+    },
+    {
+      "decision_key": "37_3822",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3822-2026"
+    },
+    {
+      "decision_key": "37_3823",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3823-2026"
+    },
+    {
+      "decision_key": "37_3815",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3815-2026"
+    },
+    {
+      "decision_key": "37_3814",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3814-2026"
+    },
+    {
+      "decision_key": "37_3796",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Would re-scrape from: https://www.gov.il/he/pages/dec3796-2026"
+    }
+  ]
+}

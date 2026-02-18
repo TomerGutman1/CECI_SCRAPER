@@ -347,6 +347,63 @@ POLICY_TAG_KEYWORDS: Dict[str, List[str]] = {
         "מועצה אזורית", "ראש עיר", "ראש רשות", "רשויות מקומיות",
         "ארנונה", "חינוך מוניציפלי",
     ],
+    # === תגיות חדשות (פברואר 2026) ===
+    "החברה הערבית": [
+        "תכנית 922", "תכנית 550", "החלטה 922", "החלטה 550",
+        "הרשות לפיתוח כלכלי של המגזר הערבי", "ועדת השרים לענייני האזרחים הערבים",
+        "המגזר הערבי", "האוכלוסייה הערבית", "החברה הערבית", "הציבור הערבי",
+        "יישובים ערביים", "רשויות ערביות", "הנגב הבדואי", "יישובי הבדואים",
+        "שילוב ערבים", "בדואי", "בדואים", "יישובים בדואיים", "כפרים ערביים",
+        "אזרחים ערבים", "פיתוח המגזר הערבי", "חינוך ערבי",
+        "השתלבות ערבים", "תעסוקת ערבים", "בתי ספר ערביים", "רשות ערבית",
+    ],
+    "החברה החרדית": [
+        "גיוס חרדים", "שירות לאומי חרדי", "לימודי ליבה", "תורתו אומנותו",
+        "רשת החינוך החרדי", "מועצת גדולי התורה",
+        "המגזר החרדי", "האוכלוסייה החרדית", "החברה החרדית", "הציבור החרדי",
+        "שילוב חרדים בשוק העבודה", "תעסוקת חרדים", "השתלבות חרדים", "פטור מגיוס",
+        "יישובים חרדיים", "עיר חרדית", "חינוך חרדי", "בית יעקב", "תלמוד תורה",
+        "מודיעין עילית", "ביתר עילית",
+        "ישיבות גדולות", "כוללים", "אברכים", "לומדי תורה", "בני ישיבות", "אלעד",
+        # NOT using: "ישיבה" (=meeting), "שבת", "כשרות", "בני ברק"
+    ],
+    "נשים ומגדר": [
+        "רשות לקידום מעמד האישה", "הטרדה מינית", "אלימות מינית", "תקיפה מינית",
+        "אלימות נגד נשים", "שכר שווה לעבודה שווה", "נציבות שוויון הזדמנויות בעבודה",
+        "שוויון מגדרי", "שוויון בין המינים", "מעמד האישה", "קידום מעמד האישה",
+        "קידום נשים", "ייצוג נשים", "העצמת נשים", "מנהיגות נשית",
+        "פערי שכר מגדריים", "זכויות נשים",
+        "אפליה מגדרית", "תקרת זכוכית", "אלימות במשפחה", "נשים מוכות",
+        "יועצת למעמד האישה",
+        "אמהות עובדות", "חופשת לידה", "הארכת חופשת לידה",
+        "משפחות חד-הוריות", "הורות יחידנית", "מעונות יום לעובדים", "בריאות האישה",
+        # NOT using: "נשים" alone, "הריון" alone, "יולדות"
+    ],
+    "שיקום הצפון": [
+        "מנהלת שיקום הצפון", "תכנית שיקום הצפון", "שיקום הצפון", "תקומת הצפון",
+        "קרן לב\"ב", "מפוני הצפון", "מפונים מהצפון", "פינוי הצפון",
+        "פינוי יישובי הצפון", "חזרה לצפון", "שיבה לצפון",
+        "קו העימות הצפוני", "יישובי קו העימות",
+        "פינוי תושבי הצפון", "חזרת תושבי הצפון", "פיצויים למפוני הצפון",
+        "דיור למפוני הצפון", "שיקום יישובי הצפון", "בנייה מחדש בצפון",
+        "מנגנון שיקום הצפון",
+        "גבול לבנון", "איום מלבנון", "רקטות מלבנון", "ירי מלבנון", "חיזבאללה",
+        "חזרה ליישובי הצפון",
+        # NOT using: individual town names alone
+    ],
+    "שיקום הדרום": [
+        "מנהלת תקומה", "תכנית תקומה", "שיקום הדרום", "תקומת הדרום",
+        "7 באוקטובר", "שבעה באוקטובר", "מלחמת חרבות ברזל",
+        "עוטף עזה", "מפוני הדרום", "מפונים מהדרום", "פינוי הדרום",
+        "חטופים", "בני ערובה", "שחרור חטופים", "משפחות החטופים",
+        "יישובי העוטף", "קיבוצי העוטף",
+        "נפגעי 7 באוקטובר", "שיקום יישובי העוטף", "בנייה מחדש בעוטף",
+        "פיצויים לנפגעי 7 באוקטובר", "מועצה אזורית שער הנגב",
+        "מועצה אזורית אשכול", "מנגנון תקומה", "השביעי באוקטובר",
+        "קרן האחים", "רשות שיקום", "שיקום קהילתי", "שיקום נפשי לניצולים",
+        "אירועי 7 באוקטובר", "מתקפת 7 באוקטובר",
+        # NOT using: individual town names alone, "ניצולים" alone, "טראומה" alone
+    ],
 }
 
 # Operative vs declarative keyword indicators.
@@ -419,6 +476,12 @@ TAG_BODY_MAP: Dict[str, List[str]] = {
     "משטרת ישראל": ["משטרת ישראל"],
     "מורשת": ["משרד ירושלים ומורשת"],
     "רגולציה": ["רשות הרגולציה"],
+    # === תגיות חדשות (פברואר 2026) ===
+    "החברה הערבית": ["המשרד לשוויון חברתי", "משרד הרווחה", "משרד החינוך"],
+    "החברה החרדית": ["המשרד לשירותי דת", "משרד הרווחה", "משרד החינוך"],
+    "נשים ומגדר": ["המשרד לשוויון חברתי", "משרד הרווחה", "משרד העבודה"],
+    "שיקום הצפון": ["משרד הנגב, הגליל והחוסן הלאומי", "המשרד לפיתוח הנגב והגליל", "משרד הביטחון", "משרד הפנים"],
+    "שיקום הדרום": ["משרד הנגב, הגליל והחוסן הלאומי", "המשרד לפיתוח הנגב והגליל", "משרד הביטחון", "רשות החירום הלאומית (רח\"ל)"],
 }
 
 # Committee name → expected policy areas
@@ -428,6 +491,192 @@ COMMITTEE_TAG_MAP: Dict[str, List[str]] = {
     "ועדת שרים לענייני חקיקה": ["חקיקה, משפט ורגולציה"],
     "ועדת שרים לענייני כלכלה": ["פיתוח כלכלי ותחרות", "תעשייה מסחר ומשק"],
     "ועדת שרים לענייני חברה": ["רווחה ושירותים חברתיים", "שוויון חברתי וזכויות אדם"],
+}
+
+# =========================================================================
+# NEW TAG WEIGHTED KEYWORDS (February 2026)
+# Scoring system for the 5 new tags with weighted keywords
+# Score = (matched_weight / total_weight) * 100
+# =========================================================================
+
+# Thresholds (absolute score, not percentage)
+# Based on weight system: CRITICAL=30, STRONG=15, MODERATE=8, SUPPORTING=3
+# Example: 1 CRITICAL + 1 STRONG = 45 points
+NEW_TAG_AUTO_THRESHOLD = 60       # >= 60 points → auto-tag (e.g., 2 CRITICAL or 1 CRITICAL + 2 STRONG)
+NEW_TAG_AI_THRESHOLD = 35         # 35-59 points → AI verification (raised from 30 to reduce false positives)
+NEW_TAG_MANUAL_THRESHOLD = 15     # 15-29 points → manual review (e.g., 1 STRONG or 2 MODERATE)
+NEW_TAG_MIN_KEYWORDS = 2          # Minimum keyword matches required
+
+NEW_TAG_KEYWORDS: Dict[str, Dict[str, int]] = {
+    "החברה הערבית": {
+        # CRITICAL (30) - מזהים חד-משמעיים
+        "תכנית 922": 30,
+        "תכנית 550": 30,
+        "החלטה 922": 30,
+        "החלטה 550": 30,
+        "הרשות לפיתוח כלכלי של המגזר הערבי": 30,
+        "ועדת השרים לענייני האזרחים הערבים": 30,
+        # STRONG (15) - ביטויים ספציפיים חזקים
+        "המגזר הערבי": 15,
+        "האוכלוסייה הערבית": 15,
+        "החברה הערבית": 15,
+        "הציבור הערבי": 15,
+        "יישובים ערביים": 15,
+        "רשויות ערביות": 15,
+        "הנגב הבדואי": 15,
+        "יישובי הבדואים": 15,
+        "שילוב ערבים": 15,
+        # MODERATE (8) - ביטויים רלוונטיים
+        "בדואי": 8,
+        "בדואים": 8,
+        "יישובים בדואיים": 8,
+        "כפרים ערביים": 8,
+        "אזרחים ערבים": 8,
+        "פיתוח המגזר הערבי": 8,
+        "חינוך ערבי": 8,
+        # SUPPORTING (3) - מילות תמיכה
+        "השתלבות ערבים": 3,
+        "תעסוקת ערבים": 3,
+        "בתי ספר ערביים": 3,
+        "רשות ערבית": 3,
+    },
+    "החברה החרדית": {
+        # CRITICAL (30)
+        "גיוס חרדים": 30,
+        "שירות לאומי חרדי": 30,
+        "לימודי ליבה": 30,
+        "תורתו אומנותו": 30,
+        "רשת החינוך החרדי": 30,
+        "מועצת גדולי התורה": 30,
+        # STRONG (15)
+        "המגזר החרדי": 15,
+        "האוכלוסייה החרדית": 15,
+        "החברה החרדית": 15,
+        "הציבור החרדי": 15,
+        "שילוב חרדים בשוק העבודה": 15,
+        "תעסוקת חרדים": 15,
+        "השתלבות חרדים": 15,
+        "פטור מגיוס": 15,
+        # MODERATE (8)
+        "יישובים חרדיים": 8,
+        "עיר חרדית": 8,
+        "חינוך חרדי": 8,
+        "בית יעקב": 8,
+        "תלמוד תורה": 8,
+        "מודיעין עילית": 8,
+        "ביתר עילית": 8,
+        # SUPPORTING (3)
+        "ישיבות גדולות": 3,
+        "כוללים": 3,
+        "אברכים": 3,
+        "לומדי תורה": 3,
+        "בני ישיבות": 3,
+        "אלעד": 3,
+    },
+    "נשים ומגדר": {
+        # CRITICAL (30)
+        "רשות לקידום מעמד האישה": 30,
+        "הטרדה מינית": 30,
+        "אלימות מינית": 30,
+        "תקיפה מינית": 30,
+        "אלימות נגד נשים": 30,
+        "שכר שווה לעבודה שווה": 30,
+        "נציבות שוויון הזדמנויות בעבודה": 30,
+        # STRONG (15)
+        "שוויון מגדרי": 15,
+        "שוויון בין המינים": 15,
+        "מעמד האישה": 5,  # Lowered from 15 - appears in ministry names (false positives)
+        "קידום מעמד האישה": 5,  # Lowered from 15 - appears in ministry names (false positives)
+        "קידום נשים": 15,
+        "ייצוג נשים": 15,
+        "העצמת נשים": 15,
+        "מנהיגות נשית": 15,
+        "פערי שכר מגדריים": 15,
+        "זכויות נשים": 15,
+        # MODERATE (8)
+        "אפליה מגדרית": 8,
+        "תקרת זכוכית": 8,
+        "אלימות במשפחה": 8,
+        "נשים מוכות": 8,
+        "יועצת למעמד האישה": 8,
+        # SUPPORTING (3)
+        "אמהות עובדות": 3,
+        "חופשת לידה": 3,
+        "הארכת חופשת לידה": 3,
+        "משפחות חד-הוריות": 3,
+        "הורות יחידנית": 3,
+        "מעונות יום לעובדים": 3,
+        "בריאות האישה": 3,
+    },
+    "שיקום הצפון": {
+        # CRITICAL (30)
+        "מנהלת שיקום הצפון": 30,
+        "תכנית שיקום הצפון": 30,
+        "שיקום הצפון": 30,
+        "תקומת הצפון": 30,
+        "קרן לב\"ב": 30,
+        # STRONG (15)
+        "מפוני הצפון": 15,
+        "מפונים מהצפון": 15,
+        "פינוי הצפון": 15,
+        "פינוי יישובי הצפון": 15,
+        "חזרה לצפון": 15,
+        "שיבה לצפון": 15,
+        "קו העימות הצפוני": 15,
+        "יישובי קו העימות": 15,
+        # MODERATE (8)
+        "פינוי תושבי הצפון": 8,
+        "חזרת תושבי הצפון": 8,
+        "פיצויים למפוני הצפון": 8,
+        "דיור למפוני הצפון": 8,
+        "שיקום יישובי הצפון": 8,
+        "בנייה מחדש בצפון": 8,
+        "מנגנון שיקום הצפון": 8,
+        # SUPPORTING (3)
+        "גבול לבנון": 3,
+        "איום מלבנון": 3,
+        "רקטות מלבנון": 3,
+        "ירי מלבנון": 3,
+        "חיזבאללה": 3,
+        "חזרה ליישובי הצפון": 3,
+    },
+    "שיקום הדרום": {
+        # CRITICAL (30)
+        "מנהלת תקומה": 30,
+        "תכנית תקומה": 30,
+        "שיקום הדרום": 30,
+        "תקומת הדרום": 30,
+        "7 באוקטובר": 30,
+        "שבעה באוקטובר": 30,
+        "מלחמת חרבות ברזל": 30,
+        # STRONG (15)
+        "עוטף עזה": 15,
+        "מפוני הדרום": 15,
+        "מפונים מהדרום": 15,
+        "פינוי הדרום": 15,
+        "חטופים": 15,
+        "בני ערובה": 15,
+        "שחרור חטופים": 15,
+        "משפחות החטופים": 15,
+        "יישובי העוטף": 15,
+        "קיבוצי העוטף": 15,
+        # MODERATE (8)
+        "נפגעי 7 באוקטובר": 8,
+        "שיקום יישובי העוטף": 8,
+        "בנייה מחדש בעוטף": 8,
+        "פיצויים לנפגעי 7 באוקטובר": 8,
+        "מועצה אזורית שער הנגב": 8,
+        "מועצה אזורית אשכול": 8,
+        "מנגנון תקומה": 8,
+        "השביעי באוקטובר": 8,
+        # SUPPORTING (3)
+        "קרן האחים": 3,
+        "רשות שיקום": 3,
+        "שיקום קהילתי": 3,
+        "שיקום נפשי לניצולים": 3,
+        "אירועי 7 באוקטובר": 3,
+        "מתקפת 7 באוקטובר": 3,
+    },
 }
 
 # Government body abbreviations for text matching.
@@ -2526,6 +2775,158 @@ def fix_cloudflare(records: List[Dict], dry_run: bool = True) -> Tuple[List[Tupl
 
 
 # =============================================================================
+# Special Category Tags Fixer
+# =============================================================================
+
+def fix_special_category_tags(
+    records: List[Dict],
+    dry_run: bool = True,
+    review_existing: bool = True
+) -> Tuple[List[Tuple[str, Dict]], QAScanResult]:
+    """
+    Add special category tags and optionally review existing policy tags.
+
+    Special category tags:
+    - החברה הערבית (Arab society)
+    - החברה החרדית (Haredi society)
+    - נשים ומגדר (Women & gender)
+    - שיקום הצפון (Northern rehabilitation)
+    - שיקום הדרום (Southern rehabilitation)
+
+    Args:
+        records: Records to process
+        dry_run: If True, don't write to DB
+        review_existing: If True, also review/correct existing policy tags
+
+    Returns:
+        Tuple of (updates list, scan result)
+    """
+    from .ai import (
+        generate_special_category_tags,
+        review_and_fix_policy_tags,
+        SPECIAL_CATEGORY_TAGS
+    )
+
+    result = QAScanResult(
+        check_name="fix_special_category_tags",
+        total_scanned=0,
+        issues_found=0,
+        issues=[],
+        summary={}
+    )
+
+    updates = []
+    special_tag_counts = {tag: 0 for tag in SPECIAL_CATEGORY_TAGS}
+    tags_fixed_count = 0
+    errors_list = []
+
+    for r in records:
+        decision_key = r.get("decision_key", "")
+        content = r.get("decision_content", "") or ""
+        title = r.get("decision_title", "") or ""
+        summary = r.get("summary", "") or ""
+        current_tags = r.get("tags_policy_area", "") or ""
+        decision_date = r.get("decision_date", "") or ""
+
+        # Skip if no content
+        if not content or len(content) < 100:
+            continue
+
+        result.total_scanned += 1
+
+        try:
+            if review_existing:
+                # Full review: special tags + existing tag review
+                new_tags, changes = review_and_fix_policy_tags(
+                    content, title, current_tags, summary, str(decision_date)
+                )
+
+                if changes:  # Something changed
+                    result.issues_found += 1
+
+                    # Count special tags added
+                    for tag in SPECIAL_CATEGORY_TAGS:
+                        if tag in new_tags and tag not in current_tags:
+                            special_tag_counts[tag] += 1
+
+                    # Check if regular tags were fixed
+                    if any("תגיות מדיניות:" in c for c in changes):
+                        tags_fixed_count += 1
+
+                    result.issues.append(QAIssue(
+                        decision_key=decision_key,
+                        check_name="fix_special_category_tags",
+                        severity="medium",
+                        field="tags_policy_area",
+                        current_value=current_tags,
+                        expected_value=new_tags,
+                        description="; ".join(changes)
+                    ))
+                    updates.append((decision_key, {"tags_policy_area": new_tags}))
+                    logger.info(f"  {decision_key}: {'; '.join(changes)}")
+
+            else:
+                # Simple mode: just add special tags
+                special_tags = generate_special_category_tags(
+                    content, title, summary, str(decision_date)
+                )
+
+                if special_tags:
+                    # Parse current tags
+                    current_list = [t.strip() for t in current_tags.split(';') if t.strip()]
+
+                    # Add new special tags
+                    new_special = [t for t in special_tags if t not in current_list]
+
+                    if new_special:
+                        result.issues_found += 1
+                        new_tags_list = current_list + new_special
+                        new_tags = "; ".join(new_tags_list)
+
+                        for tag in new_special:
+                            special_tag_counts[tag] += 1
+
+                        result.issues.append(QAIssue(
+                            decision_key=decision_key,
+                            check_name="fix_special_category_tags",
+                            severity="medium",
+                            field="tags_policy_area",
+                            current_value=current_tags,
+                            expected_value=new_tags,
+                            description=f"הוספה: {', '.join(new_special)}"
+                        ))
+                        updates.append((decision_key, {"tags_policy_area": new_tags}))
+                        logger.info(f"  {decision_key}: added {new_special}")
+
+        except Exception as e:
+            errors_list.append(f"{decision_key}: {e}")
+            logger.error(f"  {decision_key}: error: {e}")
+
+    # Extract skipped decision keys from error list for retry later
+    skipped_keys = [e.split(":")[0].strip() for e in errors_list if ":" in e]
+
+    # Build summary
+    result.summary = {
+        "total_processed": result.total_scanned,
+        "decisions_updated": result.issues_found,
+        "special_tags_added": special_tag_counts,
+        "existing_tags_fixed": tags_fixed_count,
+        "review_mode": review_existing,
+        "errors": len(errors_list),
+        "error_details": errors_list[:10],
+        "skipped_keys": skipped_keys,  # For completion runs
+    }
+
+    if not dry_run and updates:
+        from .tag_migration import batch_update_records
+        success, batch_errors = batch_update_records(updates)
+        result.summary["applied"] = success
+        result.summary["batch_errors"] = len(batch_errors)
+
+    return updates, result
+
+
+# =============================================================================
 # All Available Fixers
 # =============================================================================
 
@@ -2539,6 +2940,7 @@ ALL_FIXERS = {
     "government-bodies-ai": fix_government_bodies_ai,
     "policy-tags-defaults": fix_policy_tags_defaults,
     "cloudflare": fix_cloudflare,
+    "special-category": fix_special_category_tags,
 }
 
 
@@ -2550,16 +2952,21 @@ def validate_scraped_content(decision_data: Dict) -> Tuple[bool, Optional[str]]:
     """
     Validate scraped content quality BEFORE AI processing.
     Catches garbage content early to avoid wasting AI credits.
+    Uses detect_cloudflare_block() from selenium utils for Cloudflare detection.
 
     Returns:
         (is_valid, error_message) — (True, None) if OK, (False, reason) if bad
     """
+    from gov_scraper.utils.selenium import detect_cloudflare_block
+    from bs4 import BeautifulSoup
+
     content = decision_data.get("decision_content", "") or ""
 
-    # Critical: Cloudflare challenge page
-    cloudflare_patterns = ["Just a moment", "Cloudflare", "Verify you are human", "Ray ID:"]
-    if any(pattern in content for pattern in cloudflare_patterns):
-        return (False, "Cloudflare challenge page detected")
+    # Critical: Cloudflare challenge page (shared detection with selenium.py)
+    soup = BeautifulSoup(content, 'html.parser')
+    block_reason = detect_cloudflare_block(soup)
+    if block_reason:
+        return (False, f"Cloudflare challenge page detected: {block_reason}")
 
     # High: Content too short (page probably didn't load)
     if len(content) < 40:

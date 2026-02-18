@@ -1,0 +1,85 @@
+{
+  "check_name": "fix_government_bodies_ai",
+  "total_scanned": 499,
+  "issues_found": 483,
+  "issue_rate": "96.8%",
+  "summary": {
+    "total_processed": 499,
+    "re_tagged": 483,
+    "change_rate": "96.8%",
+    "applied": 483,
+    "errors": 0
+  },
+  "sample_issues": [
+    {
+      "decision_key": "37_3544",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד הרווחה; ועדת הכספים'"
+    },
+    {
+      "decision_key": "37_2966",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד המשפטים; משרד האוצר; משרד הרווחה'"
+    },
+    {
+      "decision_key": "37_2960",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד המשפטים; ועדת השרים'"
+    },
+    {
+      "decision_key": "37_2925",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד המשפטים; משרד הפנים; משרד הביטחון'"
+    },
+    {
+      "decision_key": "37_2635",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד העבודה; ועדת השרים; ועדת הכספים'"
+    },
+    {
+      "decision_key": "37_2547",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד המשפטים; משרד העבודה'"
+    },
+    {
+      "decision_key": "37_2476",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד האוצר; משרד הביטחון; משרד העבודה'"
+    },
+    {
+      "decision_key": "37_2428",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד האוצר; ועדת הכספים; אגף תקציבים'"
+    },
+    {
+      "decision_key": "37_2409",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'מנהל התכנון; משרד הביטחון; ועדת השרים'"
+    },
+    {
+      "decision_key": "37_2372",
+      "severity": "high",
+      "field": "tags_government_body",
+      "current_value": "משרד הרווחה",
+      "description": "AI re-tagged: 'משרד הרווחה' → 'משרד הרווחה; משרד המשפטים; היועץ המשפטי לממשלה'"
+    }
+  ]
+}

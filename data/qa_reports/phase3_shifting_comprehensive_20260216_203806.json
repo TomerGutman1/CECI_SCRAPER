@@ -1,0 +1,803 @@
+{
+  "timestamp": "2026-02-16T20:38:06.801389",
+  "total_records_analyzed": 1000,
+  "total_governments_analyzed": 1,
+  "total_shifts_found": 112,
+  "summary": {
+    "shift_patterns": {
+      "backward": 54,
+      "forward": 58
+    },
+    "shift_distances": {
+      "1": 41,
+      "2": 38,
+      "3": 33
+    },
+    "fields_affected": {
+      "summary": 112,
+      "operativity": 0,
+      "tags": 0
+    },
+    "governments_with_issues": 1
+  },
+  "government_stats": {
+    "25": {
+      "total_decisions": 1000,
+      "shifts_found": 112,
+      "shift_rate": "11.2%"
+    }
+  },
+  "detected_shifts": [
+    {
+      "affected_decision": "25_1035",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1034",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - משרד החוץ",
+      "affected_title": "ביקורת המדינה: דו\"ח שנתי מס. 43 - א. משרד החינוך והתרבות ב. רשות השידור",
+      "affected_summary": "ההחלטה עוסקת בממצאים ובהמלצות של דו\"ח מבקר המדינה מס. 43 בנוגע לרשות השידור. הממשלה החליטה על מספר צעדים, כולל סיום עבודות בחדר בקרה ובאולפני רדיו, וכן חידוש דרישות דיווח מפורט על נסיעות לחוץ לארץ של ..."
+    },
+    {
+      "affected_decision": "25_1035",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1037",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המלצות"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הרכב הצוות המקצועי לגיבוש המלצות בדבר שילובם וקידומם של עובדים מהמגזר הלא-יהודי בשירות הציבורי:- הוספת חברים",
+      "affected_title": "ביקורת המדינה: דו\"ח שנתי מס. 43 - א. משרד החינוך והתרבות ב. רשות השידור",
+      "affected_summary": "ההחלטה עוסקת בממצאים ובהמלצות של דו\"ח מבקר המדינה מס. 43 בנוגע לרשות השידור. הממשלה החליטה על מספר צעדים, כולל סיום עבודות בחדר בקרה ובאולפני רדיו, וכן חידוש דרישות דיווח מפורט על נסיעות לחוץ לארץ של ..."
+    },
+    {
+      "affected_decision": "25_1035",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1033",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "נוהל",
+        "המדינה"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - נוהל הדיונים בועדת השרים לעניני תיאום ומינהל",
+      "affected_title": "ביקורת המדינה: דו\"ח שנתי מס. 43 - א. משרד החינוך והתרבות ב. רשות השידור",
+      "affected_summary": "ההחלטה עוסקת בממצאים ובהמלצות של דו\"ח מבקר המדינה מס. 43 בנוגע לרשות השידור. הממשלה החליטה על מספר צעדים, כולל סיום עבודות בחדר בקרה ובאולפני רדיו, וכן חידוש דרישות דיווח מפורט על נסיעות לחוץ לארץ של ..."
+    },
+    {
+      "affected_decision": "25_1035",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1038",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - משרד הבריאות",
+      "affected_title": "ביקורת המדינה: דו\"ח שנתי מס. 43 - א. משרד החינוך והתרבות ב. רשות השידור",
+      "affected_summary": "ההחלטה עוסקת בממצאים ובהמלצות של דו\"ח מבקר המדינה מס. 43 בנוגע לרשות השידור. הממשלה החליטה על מספר צעדים, כולל סיום עבודות בחדר בקרה ובאולפני רדיו, וכן חידוש דרישות דיווח מפורט על נסיעות לחוץ לארץ של ..."
+    },
+    {
+      "affected_decision": "25_1035",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_1017",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הופעת נציגי הממשלה בפני ועדות הכנסת",
+      "affected_title": "ביקורת המדינה: דו\"ח שנתי מס. 43 - א. משרד החינוך והתרבות ב. רשות השידור",
+      "affected_summary": "ההחלטה עוסקת בממצאים ובהמלצות של דו\"ח מבקר המדינה מס. 43 בנוגע לרשות השידור. הממשלה החליטה על מספר צעדים, כולל סיום עבודות בחדר בקרה ובאולפני רדיו, וכן חידוש דרישות דיווח מפורט על נסיעות לחוץ לארץ של ..."
+    },
+    {
+      "affected_decision": "25_1067",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_1068",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעות שרים",
+      "affected_title": "הצעת-חוק העונשין (תיקון - ענשי מינימום בעבירות מין ואלימות), התשנ\"ג-1993 של חה\"כ א. סנה (מס. שע\"ב) - ערר על החלטת ועדת השרים לעניני חקיקה ואכיפת החוק",
+      "affected_summary": "הממשלה החליטה לדחות את הערר על החלטת ועדת השרים לענייני חקיקה בנושא הצעת החוק לעונשין הקשורה לעונשי מינימום בעבירות מין ואלימות. ההחלטה התקבלה ברוב של 12 קולות בעד, 1 נגד ו-1 נמנע, והממשלה הודיעה על ה..."
+    },
+    {
+      "affected_decision": "25_1067",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1065",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "עמדת הממשלה לגבי הצעת-חוק פיצויים לנפגעי גזזת, התשנ\"ג-1992, של חה\"כ ע. פרץ (מס. שע\"ח)",
+      "affected_title": "הצעת-חוק העונשין (תיקון - ענשי מינימום בעבירות מין ואלימות), התשנ\"ג-1993 של חה\"כ א. סנה (מס. שע\"ב) - ערר על החלטת ועדת השרים לעניני חקיקה ואכיפת החוק",
+      "affected_summary": "הממשלה החליטה לדחות את הערר על החלטת ועדת השרים לענייני חקיקה בנושא הצעת החוק לעונשין הקשורה לעונשי מינימום בעבירות מין ואלימות. ההחלטה התקבלה ברוב של 12 קולות בעד, 1 נגד ו-1 נמנע, והממשלה הודיעה על ה..."
+    },
+    {
+      "affected_decision": "25_1123",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1125",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "תיקון החלטת ועדת השרים לעניני כלכלה בדבר מתן העדפה לרכישות מתוצרת הארץ - התאמה ל- .M.O.U שבין ממשלת ישראל/משרד הבטחון לבין ממשלת ארה\"ב/משרד ההגנה",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעת שר התיירות לפריז ולארצות הברית בין התאריכים 8-18 באפריל 1993, לשם קידום ענייני משרדו. במהלך העדרתו, שר התחבורה ימלא את מקומו. לא יתלוו לשר עובדי מדינה...."
+    },
+    {
+      "affected_decision": "25_1148",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1144",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "דיווח על תוצאות חיוביות של ביקורת המדינה",
+      "affected_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - המשרד לקליטת העליה",
+      "affected_summary": "ההחלטה עוסקת בממצאים והמלצות של דו\"ח מבקר המדינה לגבי משרד קליטת העלייה, ובפרט בנושא הפניית עולים לדירות בבעלות ציבורית. ועדת השרים לענייני תיאום ומינהל רושמת כי עד אפריל 1993 יושלמו הקריטריונים להנחי..."
+    },
+    {
+      "affected_decision": "25_1148",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1136",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הערכות משרד החינוך והתרבות לקראת שילוב תלמידים מקרב עולי-אתיופיה במערכת החינוך",
+      "affected_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - המשרד לקליטת העליה",
+      "affected_summary": "ההחלטה עוסקת בממצאים והמלצות של דו\"ח מבקר המדינה לגבי משרד קליטת העלייה, ובפרט בנושא הפניית עולים לדירות בבעלות ציבורית. ועדת השרים לענייני תיאום ומינהל רושמת כי עד אפריל 1993 יושלמו הקריטריונים להנחי..."
+    },
+    {
+      "affected_decision": "25_1148",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1153",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "מינוי המנהל הכללי של משרד הבינוי והשיכון",
+      "affected_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - המשרד לקליטת העליה",
+      "affected_summary": "ההחלטה עוסקת בממצאים והמלצות של דו\"ח מבקר המדינה לגבי משרד קליטת העלייה, ובפרט בנושא הפניית עולים לדירות בבעלות ציבורית. ועדת השרים לענייני תיאום ומינהל רושמת כי עד אפריל 1993 יושלמו הקריטריונים להנחי..."
+    },
+    {
+      "affected_decision": "25_1173",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1172",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ראש",
+        "נסיעת",
+        "הממשלה"
+      ],
+      "confidence": 3,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה ונסיעות שרים",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "החלטת הממשלה מאשרת את נסיעת שר החוץ לטורקיה כדי להשתתף באירוע במעמד נשיא טורקיה ביום 21.4.93, ובמהלך היעדרו, ראש הממשלה ימלא את מקומו. אל השר יתלווה עובד מדינה אחד. ההחלטה התקבלה בהתאם לסעיף 18 בתקנון..."
+    },
+    {
+      "affected_decision": "25_1173",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1171",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "נסיעת",
+        "נשיא"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "נסיעת נשיא המדינה לארצות-הברית",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "החלטת הממשלה מאשרת את נסיעת שר החוץ לטורקיה כדי להשתתף באירוע במעמד נשיא טורקיה ביום 21.4.93, ובמהלך היעדרו, ראש הממשלה ימלא את מקומו. אל השר יתלווה עובד מדינה אחד. ההחלטה התקבלה בהתאם לסעיף 18 בתקנון..."
+    },
+    {
+      "affected_decision": "25_1183",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1185",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "כניסתו לתוקף של חוק חובת המכרזים",
+      "affected_title": "דיווח שר המשפטים על סיום הכנתו של תיקון מס. 7 לחוק החברות הממשלתיות - לפי החלטת ועדת השרים לעניני הפרטה",
+      "affected_summary": "הממשלה אישרה את תיקון מס. 7 לחוק החברות הממשלתיות, כולל הוספת הוראות הדירקטוריון שיינתנו על ידי ועדת השרים לענייני הפרטה. כמו כן, הוחלט על מחיקת סעיף 59(ג) המתקשר לענישה, בעקבות הערת שר המשטרה והתקשור..."
+    },
+    {
+      "affected_decision": "25_1183",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1188",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעות שרים",
+      "affected_title": "דיווח שר המשפטים על סיום הכנתו של תיקון מס. 7 לחוק החברות הממשלתיות - לפי החלטת ועדת השרים לעניני הפרטה",
+      "affected_summary": "הממשלה אישרה את תיקון מס. 7 לחוק החברות הממשלתיות, כולל הוספת הוראות הדירקטוריון שיינתנו על ידי ועדת השרים לענייני הפרטה. כמו כן, הוחלט על מחיקת סעיף 59(ג) המתקשר לענישה, בעקבות הערת שר המשטרה והתקשור..."
+    },
+    {
+      "affected_decision": "25_1254",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1256",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - משטרת ישראל, שירות בתי הסוהר",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה החליטה לשלוח נציגים לאריתריאה כדי לייצג את המדינה בטקס הכרזת עצמאותה, שיתקיים מ-23 עד 25 במאי 1993. במהלך העדרו של שר החקלאות, את תפקידו ימלאו שר הכלכלה והתכנון ושר המדע והטכנולוגיה...."
+    },
+    {
+      "affected_decision": "25_1254",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1257",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - משטרת ישראל, המירשם הפלילי",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה החליטה לשלוח נציגים לאריתריאה כדי לייצג את המדינה בטקס הכרזת עצמאותה, שיתקיים מ-23 עד 25 במאי 1993. במהלך העדרו של שר החקלאות, את תפקידו ימלאו שר הכלכלה והתכנון ושר המדע והטכנולוגיה...."
+    },
+    {
+      "affected_decision": "25_1264",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1262",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משטרת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "ביקורת המדינה:- דו\"ח שנתי מס. 43 - משטרת ישראל, המירשם הפלילי",
+      "affected_title": "הענקת עיטור",
+      "affected_summary": "הממשלה החליטה לאשר לשגריר שמואל הדס, ראש חטיבת קשרי תרבות ומדע במשרד החוץ, לקבל עיטור מטעם משטרת צ'ילה...."
+    },
+    {
+      "affected_decision": "25_1292",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1291",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "יהודה",
+        "שומרון"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "תעסוקתם של תושבי יהודה, שומרון ועזה בעקבות הסגר",
+      "affected_title": "הפסקת הבניה והמרת מענקי מקום בהלוואות - תיקון החלטה",
+      "affected_summary": "החלטת הממשלה מתייחסת לתיקון החלטה קודמת מ-1992, ולפיה תוקם ועדת חריגים בראשות מנכ\"ל משרד הבינוי והשיכון, הממונה על התקציבים במשרד האוצר ועוזר שר הביטחון, שתבחן בקשות של רשויות מקומיות ביהודה ושומרון ו..."
+    },
+    {
+      "affected_decision": "25_1292",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1296",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעות שרים",
+      "affected_title": "הפסקת הבניה והמרת מענקי מקום בהלוואות - תיקון החלטה",
+      "affected_summary": "החלטת הממשלה מתייחסת לתיקון החלטה קודמת מ-1992, ולפיה תוקם ועדת חריגים בראשות מנכ\"ל משרד הבינוי והשיכון, הממונה על התקציבים במשרד האוצר ועוזר שר הביטחון, שתבחן בקשות של רשויות מקומיות ביהודה ושומרון ו..."
+    },
+    {
+      "affected_decision": "25_1292",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1319",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הקצאת מענק משרד הפנים",
+      "affected_title": "הפסקת הבניה והמרת מענקי מקום בהלוואות - תיקון החלטה",
+      "affected_summary": "החלטת הממשלה מתייחסת לתיקון החלטה קודמת מ-1992, ולפיה תוקם ועדת חריגים בראשות מנכ\"ל משרד הבינוי והשיכון, הממונה על התקציבים במשרד האוצר ועוזר שר הביטחון, שתבחן בקשות של רשויות מקומיות ביהודה ושומרון ו..."
+    },
+    {
+      "affected_decision": "25_1354",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_1355",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תיירות"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הפרטת החברה לפיתוח מפעלי תיירות בע\"מ",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעת שר התחבורה לצרפת בין התאריכים 10.6.93 ל-15.6.93, בהתאם להזמנת עמיתו הצרפתי. במהלך העדרו, שר התיירות ימלא את מקומו. השר יתלווה אליו שני עובדי מדינה...."
+    },
+    {
+      "affected_decision": "25_1383",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_1384",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "דין וחשבון של משרד הפנים והצוות האופרטיבי בענין מימוש ההחלטות בדבר איחוד משפחות",
+      "affected_title": "סיוע לבני הפלסמורה - הצעות ודיון",
+      "affected_summary": "הממשלה החליטה להסמיך את משרד קליטת העלייה לטפל בקבוצה של כ-220 בני פלסמורה המגיעים לישראל, בהתאם להחלטת ממשלה קודמת מ-1993, כאשר כל מקרה ייבחן לפי נסיבותיו...."
+    },
+    {
+      "affected_decision": "25_1383",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_1362",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "בני",
+        "משרד"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "פעילויות בקליטת בני נוער עולים:- (1) סקירת משרד החינוך והתרבות (2) סקירת משרד העבודה והרווחה (3) סקירת צה\"ל (4) סקירת עלית הנוער",
+      "affected_title": "סיוע לבני הפלסמורה - הצעות ודיון",
+      "affected_summary": "הממשלה החליטה להסמיך את משרד קליטת העלייה לטפל בקבוצה של כ-220 בני פלסמורה המגיעים לישראל, בהתאם להחלטת ממשלה קודמת מ-1993, כאשר כל מקרה ייבחן לפי נסיבותיו...."
+    },
+    {
+      "affected_decision": "25_1542",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1545",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שיתוף",
+        "אתיופיה"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "אשרור הסכם עם ממשלת המעבר של אתיופיה בדבר שיתוף פעולה טכני ומדעי",
+      "affected_title": "הפלסמורה",
+      "affected_summary": "ממשלת ישראל קובעת כי פעולתם של גורמים בלתי-אחראיים שהטעו מאות מתושבי הכפרים במערב אתיופיה לנטוש את בתיהם לאיזור גונדר היא זוכה לגינוי חמור, ומדגישה שאין להבטחותיהם כל תוקף. הממשלה מזהירה כי המעשים הלל..."
+    },
+    {
+      "affected_decision": "25_1542",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_1508",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעות שרים",
+      "affected_title": "הפלסמורה",
+      "affected_summary": "ממשלת ישראל קובעת כי פעולתם של גורמים בלתי-אחראיים שהטעו מאות מתושבי הכפרים במערב אתיופיה לנטוש את בתיהם לאיזור גונדר היא זוכה לגינוי חמור, ומדגישה שאין להבטחותיהם כל תוקף. הממשלה מזהירה כי המעשים הלל..."
+    },
+    {
+      "affected_decision": "25_1695",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1693",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "השרים",
+        "החלטת"
+      ],
+      "confidence": 3,
+      "government_number": "25",
+      "source_title": "תיקון החלטת ועדת השרים לעניני כלכלה מס. כל/60 מיום 28.4.93 בנושא הקמת ועדת מנכ\"לים לעניני כלכלת השטחים",
+      "affected_title": "תקנות הנמלים (שירותי נמל בנמל אילת) (הוראת שעה), התשנ\"ג-1993",
+      "affected_summary": "החלטת הממשלה מתמקדת בעידוד הפעילות של נמל אילת, כאשר שר התחבורה ושר האוצר יבחינו בסוגיות הקשורות לכך ויביאו את הצעותיהם לאישור ועדת השרים לענייני כלכלה...."
+    },
+    {
+      "affected_decision": "25_1720",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1719",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "תנאי שכרם של היועצים המשפטיים של משרד ראש הממשלה ומשרד התחבורה",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעת שר התיירות לדרום אפריקה בענייני משרדו בין התאריכים 10.8.93 ל-19.8.93. במהלך ההיעדרות, שר התחבורה ימלא את מקומו, ויתלווה אליו עובד מדינה אחד...."
+    },
+    {
+      "affected_decision": "25_1770",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1769",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המקצועי"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הרכב הצוות המקצועי להגברת שילובן של נשים בשירות הממשלתי - הוספת חברות",
+      "affected_title": "הרכב הצוות המקצועי לגיבוש המלצות בדבר שילובם וקידומם של עובדים מהמגזר הלא יהודי בשרות המדינה - צרוף חברים",
+      "affected_summary": "הממשלה החליטה להוסיף חברים לצוות המקצועי שעוסק בשילוב ובקידום עובדים מהמגזר הלא יהודי בשירות המדינה, בהתאם להחלטת ועדת השרים לתיאום ומינהל מיום 17.1.93. חברים חדשים שנוספו הם מר מוסא מחמד אלצאנע ומר פ..."
+    },
+    {
+      "affected_decision": "25_1806",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_1807",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מכירת",
+        "000"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "מכירת 2,000 קרוונים ומגורונים הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "תוספת הכנסות ממכירת דירות הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה להקטין את הגרעון בשנת 1994 ב-95 מיליון ש\"ח על ידי מכירת 1,000 יחידות דיור נוספות, מבלי להעניק אשראי...."
+    },
+    {
+      "affected_decision": "25_1809",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1807",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "000"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "מכירת 2,000 קרוונים ומגורונים הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "פריסת מימון בגין גיוס השוטרים במשטרת ישראל הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה לדחות סך של 20 מיליון ש\"ח מההוצאות לגיוס ואחזקת 1000 שוטרים, שאושרו למשטרת ישראל בשנת 1993, משנת 1994 לשנת 1995...."
+    },
+    {
+      "affected_decision": "25_1813",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_1814",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הצעת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "שיווק ותכנון קרקעות הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "מיסוי יחידים הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה לאמץ שינויים במס ההכנסה לשנת 1994, כולל ביטול היטל של 5% ומדרגות מס מעודכנות לשנים 1994 ו-1995. ההחלטה כוללת הטבות נוספות כמו נקודות זיכוי לחיילים משוחררים, תקרת זיכוי על תרומות, והקלות ..."
+    },
+    {
+      "affected_decision": "25_1813",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1812",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הצעת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "תוספת תקציב לנושאים שונים הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "מיסוי יחידים הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה לאמץ שינויים במס ההכנסה לשנת 1994, כולל ביטול היטל של 5% ומדרגות מס מעודכנות לשנים 1994 ו-1995. ההחלטה כוללת הטבות נוספות כמו נקודות זיכוי לחיילים משוחררים, תקרת זיכוי על תרומות, והקלות ..."
+    },
+    {
+      "affected_decision": "25_1813",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1815",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הצעת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "פינוי מחנות צבא ושטחי אש הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "מיסוי יחידים הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה לאמץ שינויים במס ההכנסה לשנת 1994, כולל ביטול היטל של 5% ומדרגות מס מעודכנות לשנים 1994 ו-1995. ההחלטה כוללת הטבות נוספות כמו נקודות זיכוי לחיילים משוחררים, תקרת זיכוי על תרומות, והקלות ..."
+    },
+    {
+      "affected_decision": "25_1813",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1811",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הצעת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הפסקת סבסוד מחיר הנפטא הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "מיסוי יחידים הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה לאמץ שינויים במס ההכנסה לשנת 1994, כולל ביטול היטל של 5% ומדרגות מס מעודכנות לשנים 1994 ו-1995. ההחלטה כוללת הטבות נוספות כמו נקודות זיכוי לחיילים משוחררים, תקרת זיכוי על תרומות, והקלות ..."
+    },
+    {
+      "affected_decision": "25_1813",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_1810",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הצעת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "תשלום עבור תדרים הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "מיסוי יחידים הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה לאמץ שינויים במס ההכנסה לשנת 1994, כולל ביטול היטל של 5% ומדרגות מס מעודכנות לשנים 1994 ו-1995. ההחלטה כוללת הטבות נוספות כמו נקודות זיכוי לחיילים משוחררים, תקרת זיכוי על תרומות, והקלות ..."
+    },
+    {
+      "affected_decision": "25_1843",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_1844",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקציב",
+        "המדינה"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "חברת יזמה הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "אחזקת מלאי נפט גולמי הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה להטיל על שר האנרגיה והתשתית והאוצר לפעול להפרדת הבעלויות על מלאי הדלק האסטרטגי והתפעולי, ולוודא שהמדינה תספק מימון למלאי האסטרטגי בלבד בתקציב לשנת 1994...."
+    },
+    {
+      "affected_decision": "25_1843",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1845",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תשתית"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "אגרות פיתוח תשתית תעשייתית ותיירותית הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "אחזקת מלאי נפט גולמי הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה להטיל על שר האנרגיה והתשתית והאוצר לפעול להפרדת הבעלויות על מלאי הדלק האסטרטגי והתפעולי, ולוודא שהמדינה תספק מימון למלאי האסטרטגי בלבד בתקציב לשנת 1994...."
+    },
+    {
+      "affected_decision": "25_1843",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1841",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקציב"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נכי צה\"ל בדרגות 10%-19% הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "אחזקת מלאי נפט גולמי הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה להטיל על שר האנרגיה והתשתית והאוצר לפעול להפרדת הבעלויות על מלאי הדלק האסטרטגי והתפעולי, ולוודא שהמדינה תספק מימון למלאי האסטרטגי בלבד בתקציב לשנת 1994...."
+    },
+    {
+      "affected_decision": "25_1843",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1846",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "אנרגיה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הוצאת מפעלי אנרגיה מתחולת החוק לעידוד השקעות הון הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "אחזקת מלאי נפט גולמי הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה להטיל על שר האנרגיה והתשתית והאוצר לפעול להפרדת הבעלויות על מלאי הדלק האסטרטגי והתפעולי, ולוודא שהמדינה תספק מימון למלאי האסטרטגי בלבד בתקציב לשנת 1994...."
+    },
+    {
+      "affected_decision": "25_1843",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_1840",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקציב",
+        "המדינה"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "תקציב ימי מילואים הצעת תקציב המדינה לשנת 1994",
+      "affected_title": "אחזקת מלאי נפט גולמי הצעת תקציב המדינה לשנת 1994",
+      "affected_summary": "הממשלה החליטה להטיל על שר האנרגיה והתשתית והאוצר לפעול להפרדת הבעלויות על מלאי הדלק האסטרטגי והתפעולי, ולוודא שהמדינה תספק מימון למלאי האסטרטגי בלבד בתקציב לשנת 1994...."
+    },
+    {
+      "affected_decision": "25_1885",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1883",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "לגבי"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "אשור פטור מחובת מיכרז לגבי משרות מסויימות ברכבת ישראל",
+      "affected_title": "הצגת פרוייקט ניסויי לבדיקת תוכנית להקמת מפעלי היי-טק (המלצות 5.1.2.1 - 5.1.2.5 בדו\"ח ועדת ברנובר) - סיכומים והמלצות של צוותי הבדיקה",
+      "affected_summary": "הממשלה החליטה לקדם פרויקט ניסויי להקמת מפעלי היי-טק במטרה ליצור מקומות עבודה למדענים ולמהנדסים, במיוחד בקרב העולים החדשים. הוקם צוות בדיקה בראשות נציג שר התעשייה והמסחר, אשר יכלול גם חברי ועדת ברנובר ..."
+    },
+    {
+      "affected_decision": "25_1890",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1893",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים",
+        "ראש",
+        "הממשלה"
+      ],
+      "confidence": 3,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה ונסיעות שרים",
+      "affected_title": "אישור ההסכם עם אש\"פ",
+      "affected_summary": "הממשלה אישרה את חילופי המסמכים עם אש\"פ שנחתמו על ידי ראש הממשלה ויו\"ר אש\"פ. ראש הממשלה הביע הערכה למפכ\"ל ולמשטרת ישראל על טיפולם בהפגנות. השרים ב. בן-אליעזר ומ. שחל גם הביעו את דעתם בנושא...."
+    },
+    {
+      "affected_decision": "25_1890",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_1884",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "בנושא"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "תוספת להחלטה מס' כל/71 בנושא תנאי שכר וגימלאות למנהל מע\"צ",
+      "affected_title": "אישור ההסכם עם אש\"פ",
+      "affected_summary": "הממשלה אישרה את חילופי המסמכים עם אש\"פ שנחתמו על ידי ראש הממשלה ויו\"ר אש\"פ. ראש הממשלה הביע הערכה למפכ\"ל ולמשטרת ישראל על טיפולם בהפגנות. השרים ב. בן-אליעזר ומ. שחל גם הביעו את דעתם בנושא...."
+    },
+    {
+      "affected_decision": "25_1899",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_1901",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה ונסיעות שרים",
+      "affected_title": "המשא-ומתן לשלום",
+      "affected_summary": "הממשלה רושמת לפניה את הסכם סדר היום המשותף שנחתם עם ירדן במעמד מזכיר המדינה ונציג רוסיה, המתייחס למשא ומתן לשלום בין המדינות, אשר נחתם ב-14 בספטמבר 1993 בוושינגטון...."
+    },
+    {
+      "affected_decision": "25_1899",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1893",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה ונסיעות שרים",
+      "affected_title": "המשא-ומתן לשלום",
+      "affected_summary": "הממשלה רושמת לפניה את הסכם סדר היום המשותף שנחתם עם ירדן במעמד מזכיר המדינה ונציג רוסיה, המתייחס למשא ומתן לשלום בין המדינות, אשר נחתם ב-14 בספטמבר 1993 בוושינגטון...."
+    },
+    {
+      "affected_decision": "25_1940",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_1932",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה ושר הבטחון",
+      "affected_title": "חוק הסדרים במשק המדינה - תיקון החלטה",
+      "affected_summary": "הממשלה החליטה לתקן את החלטתה הקודמת מ-31.8.1993, כך ש\"צוות שרים\" יוחלף ב\"ועדת שרים מיוחדת\"...."
+    },
+    {
+      "affected_decision": "25_1940",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_1931",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה לסין",
+      "affected_title": "חוק הסדרים במשק המדינה - תיקון החלטה",
+      "affected_summary": "הממשלה החליטה לתקן את החלטתה הקודמת מ-31.8.1993, כך ש\"צוות שרים\" יוחלף ב\"ועדת שרים מיוחדת\"...."
+    },
+    {
+      "affected_decision": "25_1940",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_1945",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעות שרים",
+      "affected_title": "חוק הסדרים במשק המדינה - תיקון החלטה",
+      "affected_summary": "הממשלה החליטה לתקן את החלטתה הקודמת מ-31.8.1993, כך ש\"צוות שרים\" יוחלף ב\"ועדת שרים מיוחדת\"...."
+    },
+    {
+      "affected_decision": "25_1940",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_1912",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעות שרים",
+      "affected_title": "חוק הסדרים במשק המדינה - תיקון החלטה",
+      "affected_summary": "הממשלה החליטה לתקן את החלטתה הקודמת מ-31.8.1993, כך ש\"צוות שרים\" יוחלף ב\"ועדת שרים מיוחדת\"...."
+    }
+  ],
+  "other_field_issues": {
+    "operativity_shifts": [],
+    "tags_shifts": []
+  },
+  "verified_cases": {
+    "known_case_36_1022_1024": false
+  }
+}

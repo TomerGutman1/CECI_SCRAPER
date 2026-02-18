@@ -1,0 +1,83 @@
+{
+  "check_name": "fix_operativity",
+  "total_scanned": 1379,
+  "issues_found": 1317,
+  "issue_rate": "95.5%",
+  "summary": {
+    "total_processed": 1379,
+    "changes": 1317,
+    "change_rate": "95.5%"
+  },
+  "sample_issues": [
+    {
+      "decision_key": "37_3819",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3802",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3703",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3695",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3696",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3698",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3697",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3664",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3651",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    },
+    {
+      "decision_key": "37_3648",
+      "severity": "high",
+      "field": "operativity",
+      "current_value": "דקלרטיבית",
+      "description": "Changed: 'דקלרטיבית' → 'אופרטיבית'"
+    }
+  ]
+}

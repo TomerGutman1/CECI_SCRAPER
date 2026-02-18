@@ -1,0 +1,1074 @@
+{
+  "timestamp": "2026-02-18T09:25:28.479655",
+  "total_records": 4990,
+  "total_issues": 8597,
+  "issues_by_severity": {
+    "high": 2513,
+    "medium": 130,
+    "low": 4767
+  },
+  "checks": [
+    {
+      "check_name": "operativity_distribution",
+      "total_scanned": 4945,
+      "issues_found": 1188,
+      "issue_rate": "24.0%",
+      "summary": {
+        "distribution": {
+          "אופרטיבית": 3961,
+          "דקלרטיבית": 984
+        },
+        "operative_pct": "80.1%",
+        "declarative_pct": "19.9%",
+        "bias_detected": true
+      },
+      "sample_issues": [
+        {
+          "decision_key": "AGGREGATE",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרטיבית: 80.1%",
+          "description": "Operativity heavily skewed: 80.1% operative. Expected ~50-65%."
+        }
+      ]
+    },
+    {
+      "check_name": "policy_tag_relevance",
+      "total_scanned": 4924,
+      "issues_found": 2448,
+      "issue_rate": "49.7%",
+      "summary": {
+        "no_keyword_matches": 2448,
+        "low_relevance": 2044
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_2209",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "רווחה ושירותים חברתיים",
+          "description": "Tag 'רווחה ושירותים חברתיים' has 0 keyword matches in content+title (20 keywords checked)"
+        },
+        {
+          "decision_key": "25_2209",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "חינוך",
+          "description": "Tag 'חינוך' has 0 keyword matches in content+title (20 keywords checked)"
+        },
+        {
+          "decision_key": "25_1534",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "בריאות ורפואה",
+          "description": "Tag 'בריאות ורפואה' has 0 keyword matches in content+title (21 keywords checked)"
+        },
+        {
+          "decision_key": "25_1534",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "ביטחון פנים",
+          "description": "Tag 'ביטחון פנים' has 0 keyword matches in content+title (22 keywords checked)"
+        },
+        {
+          "decision_key": "25_1691",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Tag 'תרבות וספורט' has 0 keyword matches in content+title (17 keywords checked)"
+        },
+        {
+          "decision_key": "25_1691",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "מורשת",
+          "description": "Tag 'מורשת' has 0 keyword matches in content+title (12 keywords checked)"
+        },
+        {
+          "decision_key": "25_2197",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תקציב, פיננסים, ביטוח ומיסוי",
+          "description": "Tag 'תקציב, פיננסים, ביטוח ומיסוי' has 0 keyword matches in content+title (28 keywords checked)"
+        },
+        {
+          "decision_key": "25_2195",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "חוץ הסברה ותפוצות",
+          "description": "Tag 'חוץ הסברה ותפוצות' has 0 keyword matches in content+title (19 keywords checked)"
+        },
+        {
+          "decision_key": "25_2195",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "מנהלת תקומה",
+          "description": "Tag 'מנהלת תקומה' has 0 keyword matches in content+title (12 keywords checked)"
+        },
+        {
+          "decision_key": "25_1946",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "מדיני ביטחוני",
+          "description": "Tag 'מדיני ביטחוני' has 0 keyword matches in content+title (20 keywords checked)"
+        }
+      ]
+    },
+    {
+      "check_name": "policy_fallback_rate",
+      "total_scanned": 4990,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "fallback_rate": "0.0%",
+        "by_year": {
+          "2026": {
+            "total": 12,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2025": {
+            "total": 145,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2024": {
+            "total": 219,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2023": {
+            "total": 193,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2022": {
+            "total": 168,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2021": {
+            "total": 206,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2020": {
+            "total": 170,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2019": {
+            "total": 62,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2018": {
+            "total": 165,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2017": {
+            "total": 167,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2016": {
+            "total": 199,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2015": {
+            "total": 131,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2014": {
+            "total": 189,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2013": {
+            "total": 163,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2012": {
+            "total": 173,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2011": {
+            "total": 186,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2010": {
+            "total": 216,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2009": {
+            "total": 201,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2008": {
+            "total": 166,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2007": {
+            "total": 138,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2006": {
+            "total": 103,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2005": {
+            "total": 104,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2004": {
+            "total": 86,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2003": {
+            "total": 117,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2002": {
+            "total": 113,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2001": {
+            "total": 128,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "2000": {
+            "total": 138,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "1999": {
+            "total": 136,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "1998": {
+            "total": 125,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "1997": {
+            "total": 136,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "1996": {
+            "total": 128,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "1995": {
+            "total": 140,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "1994": {
+            "total": 151,
+            "fallback": 0,
+            "rate": "0.0%"
+          },
+          "1993": {
+            "total": 116,
+            "fallback": 0,
+            "rate": "0.0%"
+          }
+        }
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "operativity_vs_content",
+      "total_scanned": 4944,
+      "issues_found": 8,
+      "issue_rate": "0.2%",
+      "summary": {
+        "mismatches_found": 8
+      },
+      "sample_issues": [
+        {
+          "decision_key": "27_1854",
+          "severity": "medium",
+          "field": "operativity",
+          "current_value": "דקלרטיבית",
+          "description": "Classified declarative but content has 1 operative keywords, 0 declarative keywords"
+        },
+        {
+          "decision_key": "32_2639",
+          "severity": "medium",
+          "field": "operativity",
+          "current_value": "דקלרטיבית",
+          "description": "Classified declarative but content has 1 operative keywords, 0 declarative keywords"
+        },
+        {
+          "decision_key": "32_4521",
+          "severity": "medium",
+          "field": "operativity",
+          "current_value": "דקלרטיבית",
+          "description": "Classified declarative but content has 1 operative keywords, 0 declarative keywords"
+        },
+        {
+          "decision_key": "33_22",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרטיבית",
+          "description": "Classified operative but content has 1 declarative keywords, 0 operative keywords"
+        },
+        {
+          "decision_key": "33_1629",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרטיבית",
+          "description": "Classified operative but content has 1 declarative keywords, 0 operative keywords"
+        },
+        {
+          "decision_key": "34_21",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרטיבית",
+          "description": "Classified operative but content has 1 declarative keywords, 0 operative keywords"
+        },
+        {
+          "decision_key": "34_3243",
+          "severity": "medium",
+          "field": "operativity",
+          "current_value": "דקלרטיבית",
+          "description": "Classified declarative but content has 1 operative keywords, 0 declarative keywords"
+        },
+        {
+          "decision_key": "35_533",
+          "severity": "medium",
+          "field": "operativity",
+          "current_value": "דקלרטיבית",
+          "description": "Classified declarative but content has 1 operative keywords, 0 declarative keywords"
+        }
+      ]
+    },
+    {
+      "check_name": "tag_body_consistency",
+      "total_scanned": 3195,
+      "issues_found": 340,
+      "issue_rate": "10.6%",
+      "summary": {
+        "inconsistencies": 340
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_991",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='תקציב, פיננסים, ביטוח ומיסוי', bodies='משרד הבריאות'",
+          "description": "Policy 'תקציב, פיננסים, ביטוח ומיסוי' expects bodies ['משרד האוצר', 'אגף תקציבים'] but got 'משרד הבריאות'"
+        },
+        {
+          "decision_key": "25_1433",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='מדע, טכנולוגיה וחדשנות', bodies='ועדת השרים'",
+          "description": "Policy 'מדע, טכנולוגיה וחדשנות' expects bodies ['משרד החדשנות המדע והטכנולוגיה'] but got 'ועדת השרים'"
+        },
+        {
+          "decision_key": "25_992",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='חקיקה, משפט ורגולציה', bodies='ועדת השרים'",
+          "description": "Policy 'חקיקה, משפט ורגולציה' expects bodies ['משרד המשפטים', 'היועץ המשפטי לממשלה'] but got 'ועדת השרים'"
+        },
+        {
+          "decision_key": "25_902",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='חקיקה, משפט ורגולציה', bodies='ועדת השרים'",
+          "description": "Policy 'חקיקה, משפט ורגולציה' expects bodies ['משרד המשפטים', 'היועץ המשפטי לממשלה'] but got 'ועדת השרים'"
+        },
+        {
+          "decision_key": "25_993",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='חקיקה, משפט ורגולציה', bodies='ועדת השרים'",
+          "description": "Policy 'חקיקה, משפט ורגולציה' expects bodies ['משרד המשפטים', 'היועץ המשפטי לממשלה'] but got 'ועדת השרים'"
+        },
+        {
+          "decision_key": "25_1193",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='תקציב, פיננסים, ביטוח ומיסוי', bodies='ועדת השרים'",
+          "description": "Policy 'תקציב, פיננסים, ביטוח ומיסוי' expects bodies ['משרד האוצר', 'אגף תקציבים'] but got 'ועדת השרים'"
+        },
+        {
+          "decision_key": "25_3835",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='חקלאות ופיתוח הכפר', bodies='רשות החברות הממשלתיות; ועדת השרים'",
+          "description": "Policy 'חקלאות ופיתוח הכפר' expects bodies ['משרד החקלאות ופיתוח הכפר'] but got 'רשות החברות הממשלתיות; ועדת השרים'"
+        },
+        {
+          "decision_key": "25_4529",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='רווחה ושירותים חברתיים', bodies='משרד העבודה; ועדת השרים'",
+          "description": "Policy 'רווחה ושירותים חברתיים' expects bodies ['משרד הרווחה'] but got 'משרד העבודה; ועדת השרים'"
+        },
+        {
+          "decision_key": "25_3934",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='תקציב, פיננסים, ביטוח ומיסוי', bodies='ועדת השרים'",
+          "description": "Policy 'תקציב, פיננסים, ביטוח ומיסוי' expects bodies ['משרד האוצר', 'אגף תקציבים'] but got 'ועדת השרים'"
+        },
+        {
+          "decision_key": "25_2617",
+          "severity": "low",
+          "field": "tags_policy_area + tags_government_body",
+          "current_value": "policy='חקיקה, משפט ורגולציה', bodies='ועדת השרים'",
+          "description": "Policy 'חקיקה, משפט ורגולציה' expects bodies ['משרד המשפטים', 'היועץ המשפטי לממשלה'] but got 'ועדת השרים'"
+        }
+      ]
+    },
+    {
+      "check_name": "committee_tag_consistency",
+      "total_scanned": 1375,
+      "issues_found": 1,
+      "issue_rate": "0.1%",
+      "summary": {
+        "inconsistencies": 1
+      },
+      "sample_issues": [
+        {
+          "decision_key": "36_ב/41",
+          "severity": "low",
+          "field": "committee + tags_policy_area",
+          "current_value": "committee='ועדת השרים לענייני ביטחון לאומי (הקבינט המדיני-ביטחוני)', tags='תקציב, פיננסים, ביטוח ומיסוי'",
+          "description": "Committee 'ועדת השרים לענייני ביטחון לאומי' expects policy areas ['מדיני ביטחוני', 'ביטחון פנים']"
+        }
+      ]
+    },
+    {
+      "check_name": "location_hallucination",
+      "total_scanned": 1003,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "hallucinated_locations": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "government_body_hallucination",
+      "total_scanned": 3167,
+      "issues_found": 145,
+      "issue_rate": "4.6%",
+      "summary": {
+        "hallucinated_bodies": 145,
+        "records_all_missing": 32,
+        "records_some_missing": 68
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_1993",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "מנהל התכנון",
+          "description": "ALL bodies missing: 'מנהל התכנון' not in content (checked: ['מנהל התכנון', 'התכנון והבנייה'])"
+        },
+        {
+          "decision_key": "25_1471",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה",
+          "description": "Government body 'משרד הרווחה' not in content (checked: ['הרווחה', 'משרד הרווחה', 'שר הרווחה', 'שרת הרווחה', 'הרווחה והביטחון החברתי', 'משרד הרווחה והשירותים החברתיים', 'השירותים החברתיים'])"
+        },
+        {
+          "decision_key": "25_1052",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הביטחון",
+          "description": "ALL bodies missing: 'משרד הביטחון' not in content (checked: ['הביטחון', 'משרד הביטחון', 'מש\"הב', 'שר הביטחון', 'שרת הביטחון'])"
+        },
+        {
+          "decision_key": "25_3913",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "מנהל התכנון",
+          "description": "ALL bodies missing: 'מנהל התכנון' not in content (checked: ['מנהל התכנון', 'התכנון והבנייה'])"
+        },
+        {
+          "decision_key": "25_3913",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד החוץ",
+          "description": "ALL bodies missing: 'משרד החוץ' not in content (checked: ['החוץ', 'משרד החוץ', 'שר החוץ', 'שרת החוץ'])"
+        },
+        {
+          "decision_key": "25_3913",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "ועדת השרים",
+          "description": "ALL bodies missing: 'ועדת השרים' not in content (checked: ['ועדת השרים', 'ועדת שרים'])"
+        },
+        {
+          "decision_key": "25_3748",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "מנהל התכנון",
+          "description": "ALL bodies missing: 'מנהל התכנון' not in content (checked: ['מנהל התכנון', 'התכנון והבנייה'])"
+        },
+        {
+          "decision_key": "25_3748",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "ועדת השרים",
+          "description": "ALL bodies missing: 'ועדת השרים' not in content (checked: ['ועדת השרים', 'ועדת שרים'])"
+        },
+        {
+          "decision_key": "25_3748",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "ועדת הכספים",
+          "description": "ALL bodies missing: 'ועדת הכספים' not in content (checked: ['ועדת הכספים'])"
+        },
+        {
+          "decision_key": "25_6212",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הבריאות",
+          "description": "ALL bodies missing: 'משרד הבריאות' not in content (checked: ['הבריאות', 'משרד הבריאות', 'שר הבריאות', 'שרת הבריאות'])"
+        }
+      ]
+    },
+    {
+      "check_name": "summary_quality",
+      "total_scanned": 4990,
+      "issues_found": 1,
+      "issue_rate": "0.0%",
+      "summary": {
+        "too_short": 0,
+        "too_long": 1,
+        "same_as_title": 0
+      },
+      "sample_issues": [
+        {
+          "decision_key": "34_2262",
+          "severity": "low",
+          "field": "summary",
+          "current_value": "במסגרת החלטת הממשלה, הוכרז על פיתוח כלכלי של מחוז הצפון וצעדים משלימים לחיזוק העיר חיפה, עם השקעה כוללת של כ-15 מיליארד ש\"ח בשנים 2017-2020. ההחלטה כוללת צעדים לקידום תעסוקה, השקעות בתשתיות תחבורה, חי",
+          "description": "Summary too long (572 chars)"
+        }
+      ]
+    },
+    {
+      "check_name": "summary_vs_tags",
+      "total_scanned": 4986,
+      "issues_found": 4200,
+      "issue_rate": "84.2%",
+      "summary": {
+        "mismatches": 4200
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_1900",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='מינהל ציבורי ושירות המדינה', summary='ההחלטה מפרטת את סיום כהונתו של היועץ המשפטי לממשלה יוסף חריש, לבקשתו, וממנה את השופט מיכאל בן-יאיר ל'",
+          "description": "Tag 'מינהל ציבורי ושירות המדינה' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_2209",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='רווחה ושירותים חברתיים', summary='החלטת הממשלה עוסקת בהיערכות המשרד לקליטת העלייה לקראת החורף, והיא כוללת הנחיה לממלא מקום מנכ\"ל המשרד'",
+          "description": "Tag 'רווחה ושירותים חברתיים' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_2209",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='חינוך', summary='החלטת הממשלה עוסקת בהיערכות המשרד לקליטת העלייה לקראת החורף, והיא כוללת הנחיה לממלא מקום מנכ\"ל המשרד'",
+          "description": "Tag 'חינוך' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_1534",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='בריאות ורפואה', summary='הממשלה אישרה את מינויה של גב' דורית שמואליאל כנציגת משרד ראש הממשלה במועצת הרשות למלחמה בסמים.'",
+          "description": "Tag 'בריאות ורפואה' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_1534",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='ביטחון פנים', summary='הממשלה אישרה את מינויה של גב' דורית שמואליאל כנציגת משרד ראש הממשלה במועצת הרשות למלחמה בסמים.'",
+          "description": "Tag 'ביטחון פנים' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_1691",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='תרבות וספורט', summary='החלטת הממשלה מאשרת את הצעת נגיד בנק ישראל להנפקת מטבעות זיכרון ומיוחדים. ההחלטה כוללת הנפקת מטבעות מ'",
+          "description": "Tag 'תרבות וספורט' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_1741",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='תקציב, פיננסים, ביטוח ומיסוי', summary='הממשלה מער approve את החלטת דירקטוריון כימיקלים לישראל להגדיל את הון המניות הרשום של חברת מפעלי ים ה'",
+          "description": "Tag 'תקציב, פיננסים, ביטוח ומיסוי' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_2197",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='תקציב, פיננסים, ביטוח ומיסוי', summary='הממשלה אישרה עקרונית את טיוטת חוק מס רכוש וקרן פיצויים (תיקון), התשנ\"ג-1993, והחליטה להעביר את הטיוט'",
+          "description": "Tag 'תקציב, פיננסים, ביטוח ומיסוי' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_2195",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='חוץ הסברה ותפוצות', summary='הממשלה מאשרת את נסיעת שר הכלכלה והתכנון לגואטמלה ולארצות הברית בין התאריכים 6-12 בדצמבר 1993, לצורך '",
+          "description": "Tag 'חוץ הסברה ותפוצות' keywords not found in summary"
+        },
+        {
+          "decision_key": "25_2195",
+          "severity": "low",
+          "field": "summary + tags_policy_area",
+          "current_value": "tag='מנהלת תקומה', summary='הממשלה מאשרת את נסיעת שר הכלכלה והתכנון לגואטמלה ולארצות הברית בין התאריכים 6-12 בדצמבר 1993, לצורך '",
+          "description": "Tag 'מנהלת תקומה' keywords not found in summary"
+        }
+      ]
+    },
+    {
+      "check_name": "location_vs_body",
+      "total_scanned": 656,
+      "issues_found": 136,
+      "issue_rate": "20.7%",
+      "summary": {
+        "inconsistencies": 136
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_1038",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='הנגב', bodies='משרד הבריאות'",
+          "description": "Location 'הנגב' suggests bodies ['המשרד לפיתוח הנגב והגליל', 'משרד הנגב, הגליל והחוסן הלאומי']"
+        },
+        {
+          "decision_key": "25_603",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='שונות'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_3008",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='משרד הפנים'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_2712",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='משרד האנרגיה והתשתיות'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_3007",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='משרד המשפטים'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_3209",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='משרד האוצר'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_5457",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='משרד האוצר'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_5579",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='ועדת השרים'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_5099",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='ירושלים', bodies='ועדת הכספים'",
+          "description": "Location 'ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        },
+        {
+          "decision_key": "25_5099",
+          "severity": "low",
+          "field": "tags_location + tags_government_body",
+          "current_value": "location='תיאטרון ירושלים', bodies='ועדת הכספים'",
+          "description": "Location 'תיאטרון ירושלים' suggests bodies ['משרד ירושלים ומורשת']"
+        }
+      ]
+    },
+    {
+      "check_name": "date_vs_government",
+      "total_scanned": 4990,
+      "issues_found": 1,
+      "issue_rate": "0.0%",
+      "summary": {
+        "mismatches": 1
+      },
+      "sample_issues": [
+        {
+          "decision_key": "37_4683",
+          "severity": "high",
+          "field": "government_number + decision_date",
+          "current_value": "gov=37, date=2019-09-04",
+          "description": "Government 37 started 2022-12-29 but decision dated 2019-09-04"
+        }
+      ]
+    },
+    {
+      "check_name": "title_vs_content",
+      "total_scanned": 4687,
+      "issues_found": 39,
+      "issue_rate": "0.8%",
+      "summary": {
+        "mismatches": 39
+      },
+      "sample_issues": [
+        {
+          "decision_key": "27_2664",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='חוק שירותי הדת היהודיים', match_rate=0%",
+          "description": "Only 0/3 title words found in content"
+        },
+        {
+          "decision_key": "29_30",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='תקציב לפעולות המטה המקצועי-הנדסי ולפעולות המינהלה לטיפול במבנים שנבנו בשיטת הפל-קל', match_rate=0%",
+          "description": "Only 0/11 title words found in content"
+        },
+        {
+          "decision_key": "31_503",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='תשלום בגין קצבה ומשכורת מקופת הציבור', match_rate=17%",
+          "description": "Only 1/6 title words found in content"
+        },
+        {
+          "decision_key": "31_482",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='התאמות בתשלומי העברה', match_rate=0%",
+          "description": "Only 0/3 title words found in content"
+        },
+        {
+          "decision_key": "31_342",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='תשלום שכר באיזור הצפון ופיצוי בשל נזק עקיף', match_rate=0%",
+          "description": "Only 0/8 title words found in content"
+        },
+        {
+          "decision_key": "31_1749",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='הפסקת טיסות לקרית-שמונה', match_rate=0%",
+          "description": "Only 0/3 title words found in content"
+        },
+        {
+          "decision_key": "31_1206",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='מענק מיוחד למימון הוצאות עודפות הנובעות מהמצב הביטחוני במועצות האזוריות בעוטף עזה בשנת 2006', match_rate=14%",
+          "description": "Only 2/14 title words found in content"
+        },
+        {
+          "decision_key": "31_3427",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='תכנית סיוע משלימה לשדרות וליישובי \"עוטף רצועת עזה\" לשנת 2007 - תיקון החלטת ממשלה', match_rate=17%",
+          "description": "Only 2/12 title words found in content"
+        },
+        {
+          "decision_key": "31_3846",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='הצעת חוק הביטוח הלאומי (תיקון - הקרן לילדים ובני נוער בסיכון), התשס\"ח-2007 של חה\"כ דב חנין ואחרים (פ', match_rate=14%",
+          "description": "Only 2/14 title words found in content"
+        },
+        {
+          "decision_key": "31_3899",
+          "severity": "medium",
+          "field": "decision_title + decision_content",
+          "current_value": "title='הצעת חוק הנוער (טיפול והשגחה) (תיקון - חובת מינוי', match_rate=14%",
+          "description": "Only 1/7 title words found in content"
+        }
+      ]
+    },
+    {
+      "check_name": "date_validity",
+      "total_scanned": 4990,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "invalid_dates": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "content_quality",
+      "total_scanned": 4989,
+      "issues_found": 69,
+      "issue_rate": "1.4%",
+      "summary": {
+        "too_short": 65,
+        "has_navigation": 4,
+        "cloudflare_pages": 0
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_991",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: החלטת הממשלה היא לקבל את ערר שר האוצר ולדחות את הצעת חוק הביטוח הלאומי של ח\"כ ב.",
+          "description": "Content too short (99 chars)"
+        },
+        {
+          "decision_key": "25_902",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: הממשלה החליטה לאשר את עיקרי הצעת-חוק החברות הממשלתיות (תיקון מס.",
+          "description": "Content too short (83 chars)"
+        },
+        {
+          "decision_key": "26_34",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "נושא ההחלטה :התקנון לעבודת הממשלהמחליטים:",
+          "description": "Content too short (41 chars)"
+        },
+        {
+          "decision_key": "27_1791",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: הממשלה החליטה למנות את פרופ' נחמיה לבציון, יו\"ר הוועדה לתכנון ו",
+          "description": "Content too short (82 chars)"
+        },
+        {
+          "decision_key": "27_1477",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: הממשלה אישרה מספר נסיעות של שרים לחו\"ל בתחומי משרדיהם למשך תקופות שונות.",
+          "description": "Content too short (91 chars)"
+        },
+        {
+          "decision_key": "27_2677",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: החלטת הממשלה עוסקת בהגברת ההיבטים הכלכליים בתכנון תכניות בנייה.",
+          "description": "Content too short (82 chars)"
+        },
+        {
+          "decision_key": "27_2715",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: הממשלה החליטה להקים ועדת שרים לענין גביית חובות המגיעים לישראלים מתושבי השטחים.",
+          "description": "Content too short (98 chars)"
+        },
+        {
+          "decision_key": "27_2719",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: הממשלה החליטה לאמץ את המלצות דין-וחשבון ועדת המנכ\"לים הבינמשרדי",
+          "description": "Content too short (82 chars)"
+        },
+        {
+          "decision_key": "27_2646",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: הממשלה החליטה להגדיל את עלות סל שירותי הבריאות לקופות לשנת 1998",
+          "description": "Content too short (82 chars)"
+        },
+        {
+          "decision_key": "27_1553",
+          "severity": "medium",
+          "field": "decision_content",
+          "current_value": "החלטת ממשלה בנושא: הממשלה אישרה שיפוץ זמני של רחבת קבר הרצל בהר הרצל, ירושלים, וה",
+          "description": "Content too short (81 chars)"
+        }
+      ]
+    },
+    {
+      "check_name": "tag_consistency",
+      "total_scanned": 4990,
+      "issues_found": 21,
+      "issue_rate": "0.4%",
+      "summary": {
+        "unauthorized_policy_tags": {},
+        "unauthorized_body_tags": {
+          "שונות": 21
+        }
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_603",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "27_2476",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "28_504",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "28_2284",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "29_2471",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "30_685",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "30_3840",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "31_602",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "31_580",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        },
+        {
+          "decision_key": "31_1005",
+          "severity": "medium",
+          "field": "tags_government_body",
+          "current_value": "שונות",
+          "description": "Unauthorized government body: 'שונות'"
+        }
+      ]
+    },
+    {
+      "check_name": "content_completeness",
+      "total_scanned": 4983,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "truncated": 0
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "body_default_patterns",
+      "total_scanned": 3,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "records_with_suspicious_combos": 3,
+        "high_severity_flagged": 0,
+        "low_severity_partial": 0,
+        "combo_breakdown": {
+          "משרד הרווחה": {
+            "total": 3,
+            "flagged": 0
+          }
+        }
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "policy_default_patterns",
+      "total_scanned": 13,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "records_with_suspicious_tags": 13,
+        "high_severity_flagged": 0,
+        "tag_breakdown": {
+          "תרבות וספורט": {
+            "total": 13,
+            "flagged": 0
+          }
+        }
+      },
+      "sample_issues": []
+    },
+    {
+      "check_name": "operativity_validity",
+      "total_scanned": 4990,
+      "issues_found": 0,
+      "issue_rate": "0.0%",
+      "summary": {
+        "invalid_values": 0,
+        "known_typos": {},
+        "garbage_values": 0
+      },
+      "sample_issues": []
+    }
+  ]
+}

@@ -1,0 +1,2083 @@
+{
+  "timestamp": "2026-02-16T20:39:36.063718",
+  "total_records_analyzed": 1000,
+  "total_governments_analyzed": 13,
+  "total_shifts_found": 131,
+  "summary": {
+    "shift_patterns": {
+      "backward": 60,
+      "forward": 71
+    },
+    "fields_affected": {
+      "summary": 131,
+      "operativity": 0,
+      "tags": 0
+    },
+    "governments_with_issues": 9
+  },
+  "government_stats": {
+    "25": {
+      "total_decisions": 2,
+      "shifts_found": 1,
+      "shift_rate": "50.0%"
+    },
+    "26": {
+      "total_decisions": 4,
+      "shifts_found": 1,
+      "shift_rate": "25.0%"
+    },
+    "27": {
+      "total_decisions": 32,
+      "shifts_found": 2,
+      "shift_rate": "6.2%"
+    },
+    "28": {
+      "total_decisions": 150,
+      "shifts_found": 20,
+      "shift_rate": "13.3%"
+    },
+    "29": {
+      "total_decisions": 250,
+      "shifts_found": 39,
+      "shift_rate": "15.6%"
+    },
+    "30": {
+      "total_decisions": 282,
+      "shifts_found": 40,
+      "shift_rate": "14.2%"
+    },
+    "31": {
+      "total_decisions": 51,
+      "shifts_found": 9,
+      "shift_rate": "17.6%"
+    },
+    "32": {
+      "total_decisions": 186,
+      "shifts_found": 17,
+      "shift_rate": "9.1%"
+    },
+    "33": {
+      "total_decisions": 4,
+      "shifts_found": 0,
+      "shift_rate": "0.0%"
+    },
+    "34": {
+      "total_decisions": 19,
+      "shifts_found": 2,
+      "shift_rate": "10.5%"
+    },
+    "35": {
+      "total_decisions": 4,
+      "shifts_found": 0,
+      "shift_rate": "0.0%"
+    },
+    "36": {
+      "total_decisions": 11,
+      "shifts_found": 0,
+      "shift_rate": "0.0%"
+    },
+    "37": {
+      "total_decisions": 5,
+      "shifts_found": 0,
+      "shift_rate": "0.0%"
+    }
+  },
+  "detected_shifts": [
+    {
+      "affected_decision": "25_6039",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_6214",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "פעולה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "אשרור הסכם עם גרוזיה לשיתוף פעולה בתחומי החינוך, התרבות והמדע",
+      "affected_title": "הצעת תקציב המדינה לשנת 1996 גיוס אשראי על-ידי הרשויות המקומיות",
+      "affected_summary": "החלטת הממשלה עוסקת בהקמת ועדה ציבורית בראשות נציג מהציבור, שתבחן את נושא גיוס האשראי על ידי הרשויות המקומיות. הוועדה תמליץ על קריטריונים להיתרי אשראי, סוגי פעולות שזכאיות להיתר, בטחונות נדרשים, דרכים ..."
+    },
+    {
+      "affected_decision": "26_308",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "26_440",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "פעולה",
+        "שיתוף"
+      ],
+      "confidence": 2,
+      "government_number": "26",
+      "source_title": "הסכם עם קפריסין בדבר שיתוף פעולה בתחומי התרבות, החינוך והמדע",
+      "affected_title": "מסגרת לתכנית עבודה בשנת הלימודים התשנ\"ו לילדים יוצאי אתיופיה",
+      "affected_summary": "החלטת הממשלה עוסקת בהקמת צוות בראשות יו\"ר מרכז ההיגוי של עולי אתיופיה במשרד החינוך, לצורך עריכת מחקר והערכה לגבי פרויקט המחוננים בקרב תלמידים יוצאי אתיופיה. הצוות יכלול נציגים נוספים מהמשרד לקליטת העל..."
+    },
+    {
+      "affected_decision": "27_3660",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "27_3649",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תכנון"
+      ],
+      "confidence": 1,
+      "government_number": "27",
+      "source_title": "תכנון ופיתוח שדות תעופה ומינחתים - דו\"ח מס' 48 של מבקר המדינה",
+      "affected_title": "דיווח שנתי בנושא תורת הטיפול בחומרים מסוכנים",
+      "affected_summary": "החלטת הממשלה מתייחסת לתכנון תרגיל לטיפול בארועים involving חומרים מסוכנים, שיתקיים בסוף חודש יוני 1998. התוכנית לתרגיל תוצג לשר לאיכות הסביבה עד סוף מאי 1998, והאחריות להכנתו ולעריכתו מוטלת על המשרד ל..."
+    },
+    {
+      "affected_decision": "27_4750",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "27_4411",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שירות"
+      ],
+      "confidence": 1,
+      "government_number": "27",
+      "source_title": "שירות התעסוקה - הטיפול בדורשי עבודה",
+      "affected_title": "ביטוח חיים ואובדן כושר עבודה למשרתים במילואים",
+      "affected_summary": "הממשלה החליטה לשפר את הסדרי הביטוח למשרתים במילואים, כך שיבוטלו החרגות על כיסוי ביטוחי במקרים של שירות צבאי, למעט מלחמה כוללת. משרדי האוצר והביטחון יתבקשו לבדוק את האפשרות לבטל פרמיות נוספות למבוטחים ..."
+    },
+    {
+      "affected_decision": "28_144",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "28_356",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "נסיעת ראש הממשלה לגרמניה ולצרפת",
+      "affected_title": "ייעול השימוש בקרקע",
+      "affected_summary": "הממשלה החליטה להטיל על שר המשפטים, בשיתוף פעולה עם מספר משרדים, להכין הצעה להנחיות ביצוע ותיקוני חקיקה שיאפשרו ניצול יעיל יותר של קרקעות, כולל השטח התת-קרקעי ושילוב תשתיות שונות באותו מתחם. ההצעה תתמק..."
+    },
+    {
+      "affected_decision": "28_886",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "28_828",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "כוללת"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "תוכנית כוללת להתמודדות עם המחסור במים שפירים בטווח הבינוני והארוך",
+      "affected_title": "עדכונים ודיווחים בנושא ההיערכות לקראת שנת 2000",
+      "affected_summary": "ההחלטה הממשלתית כוללת עדכונים והיערכות למעבר לשנת 2000, כולל תהליכי עבודה ידנית בחברת תש\"ן, השהיית שינוע חומרים מסוכנים והיתרים לעבודה בשבת ביום המעבר לשנת 2000...."
+    },
+    {
+      "affected_decision": "28_1066",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "28_1028",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "הודעת ראש הממשלה על מינוי קבע למנכ\"ל משרד הבינוי והשיכון",
+      "affected_title": "המינהלה לקידום הבדואים בנגב - ערר שר התשתיות על החלטת ועדת השרים",
+      "affected_summary": "הממשלה החליטה להקפיא את הטיפול בערר שהגיש שר התשתיות לגבי החלטת ועדת השרים, עד לסיום הסדרת המעמד והכפיפות המינהלית של מינהל מקרקעי ישראל. לאחר מכן, ועדת השרים תשוב לדון בערר...."
+    },
+    {
+      "affected_decision": "28_1066",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "28_1171",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מקרקעי"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "מינוי חבר למועצת מקרקעי ישראל",
+      "affected_title": "המינהלה לקידום הבדואים בנגב - ערר שר התשתיות על החלטת ועדת השרים",
+      "affected_summary": "הממשלה החליטה להקפיא את הטיפול בערר שהגיש שר התשתיות לגבי החלטת ועדת השרים, עד לסיום הסדרת המעמד והכפיפות המינהלית של מינהל מקרקעי ישראל. לאחר מכן, ועדת השרים תשוב לדון בערר...."
+    },
+    {
+      "affected_decision": "28_1066",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "28_983",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "השרים"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "מינוי יועץ לועדת השרים לעניני המגזר הערבי",
+      "affected_title": "המינהלה לקידום הבדואים בנגב - ערר שר התשתיות על החלטת ועדת השרים",
+      "affected_summary": "הממשלה החליטה להקפיא את הטיפול בערר שהגיש שר התשתיות לגבי החלטת ועדת השרים, עד לסיום הסדרת המעמד והכפיפות המינהלית של מינהל מקרקעי ישראל. לאחר מכן, ועדת השרים תשוב לדון בערר...."
+    },
+    {
+      "affected_decision": "28_1673",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "28_1619",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הסביבה",
+        "לאיכות"
+      ],
+      "confidence": 2,
+      "government_number": "28",
+      "source_title": "הקמת מועצה לאומית לאיכות הסביבה - תיקון החלטת הממשלה",
+      "affected_title": "הצגת סקר: \"הערכת היקף זיהום האקוויפר באיזור תל אביב-נחלת יצחק\"",
+      "affected_summary": "ממשלת ישראל החליטה להטיל על משרד האוצר ומשרד הביטחון להכין תכנית תקציבית לשיקום וטיהור אתרים מזוהמים באזור תל אביב-נחלת יצחק, כולל האתר בתע\"ש מגן. התכנית תכלול דרכי פעולה, אמצעים ולוח זמנים, ותוצג לוו..."
+    },
+    {
+      "affected_decision": "28_1674",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "28_1826",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שני",
+        "הקמת"
+      ],
+      "confidence": 2,
+      "government_number": "28",
+      "source_title": "הקמת שני תחומים נוספים במשרד המשפטים",
+      "affected_title": "הטיפול באיכות מי השתיה",
+      "affected_summary": "החלטת הממשלה עוסקת בשיפור איכות מי השתייה בישראל. ועדת השרים מאשרת את הכנת תכנית לשנים 2000-2003, שתכלול איתור והסרת מזהמים, חקיקה להקמת תאגידי מים, והגברת הפיקוח והאכיפה. נציב המים יקבע תוכנית מפורטת..."
+    },
+    {
+      "affected_decision": "28_1674",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "28_1619",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הקמת"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "הקמת מועצה לאומית לאיכות הסביבה - תיקון החלטת הממשלה",
+      "affected_title": "הטיפול באיכות מי השתיה",
+      "affected_summary": "החלטת הממשלה עוסקת בשיפור איכות מי השתייה בישראל. ועדת השרים מאשרת את הכנת תכנית לשנים 2000-2003, שתכלול איתור והסרת מזהמים, חקיקה להקמת תאגידי מים, והגברת הפיקוח והאכיפה. נציב המים יקבע תוכנית מפורטת..."
+    },
+    {
+      "affected_decision": "28_2136",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "28_2129",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ממלא-מקום"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "מינוי ממלא-מקום ליושב-ראש מועצת רשות הדואר",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה מאשרת את נסיעת השר חיים רמון וממלא-מקום שר הפנים לצרפת באורח פרטי בין התאריכים 13 עד 26 באוגוסט 2000. ראש הממשלה ימלא את מקומם במהלך העדרם מהארץ...."
+    },
+    {
+      "affected_decision": "28_2202",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "28_2206",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "2001"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - ביטול הפטור על הסדר כובל בשירותי תעופה",
+      "affected_title": "המדיניות הכלכלית לשנת 2001 - כלי רכב - ביטול תקינה ישראלית ייחודית",
+      "affected_summary": "בהחלטה זו, הממשלה קובעת כי החל מ-1 במרץ 2001 יאומץ בישראל תקן הרכב האירופי והאמריקאי, במטרה לבטל את התקינה הייחודית הישראלית. התקנות יתוקנו בהתאם לעקרונות האימוץ, כאשר רכב מיוצר במדינות צפון אמריקה כפ..."
+    },
+    {
+      "affected_decision": "28_2202",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "28_2194",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "2001"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - שיפור רמת ההשכלה וההכשרה המיקצועית - תוספת בוגרים במקצועות העילית במערכת ההשכלה הגבוהה",
+      "affected_title": "המדיניות הכלכלית לשנת 2001 - כלי רכב - ביטול תקינה ישראלית ייחודית",
+      "affected_summary": "בהחלטה זו, הממשלה קובעת כי החל מ-1 במרץ 2001 יאומץ בישראל תקן הרכב האירופי והאמריקאי, במטרה לבטל את התקינה הייחודית הישראלית. התקנות יתוקנו בהתאם לעקרונות האימוץ, כאשר רכב מיוצר במדינות צפון אמריקה כפ..."
+    },
+    {
+      "affected_decision": "28_2202",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "28_2214",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "2001"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - שווק קרקעות לבנייה למגורים - קביעת יעדים",
+      "affected_title": "המדיניות הכלכלית לשנת 2001 - כלי רכב - ביטול תקינה ישראלית ייחודית",
+      "affected_summary": "בהחלטה זו, הממשלה קובעת כי החל מ-1 במרץ 2001 יאומץ בישראל תקן הרכב האירופי והאמריקאי, במטרה לבטל את התקינה הייחודית הישראלית. התקנות יתוקנו בהתאם לעקרונות האימוץ, כאשר רכב מיוצר במדינות צפון אמריקה כפ..."
+    },
+    {
+      "affected_decision": "28_2202",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "28_2189",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "2001"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - כביש חוצה ישראל - קטע 18",
+      "affected_title": "המדיניות הכלכלית לשנת 2001 - כלי רכב - ביטול תקינה ישראלית ייחודית",
+      "affected_summary": "בהחלטה זו, הממשלה קובעת כי החל מ-1 במרץ 2001 יאומץ בישראל תקן הרכב האירופי והאמריקאי, במטרה לבטל את התקינה הייחודית הישראלית. התקנות יתוקנו בהתאם לעקרונות האימוץ, כאשר רכב מיוצר במדינות צפון אמריקה כפ..."
+    },
+    {
+      "affected_decision": "28_2202",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "28_2217",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "2001"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - פינוי בינוי במרקמים עירוניים - הגדרת מסלולים חדשים",
+      "affected_title": "המדיניות הכלכלית לשנת 2001 - כלי רכב - ביטול תקינה ישראלית ייחודית",
+      "affected_summary": "בהחלטה זו, הממשלה קובעת כי החל מ-1 במרץ 2001 יאומץ בישראל תקן הרכב האירופי והאמריקאי, במטרה לבטל את התקינה הייחודית הישראלית. התקנות יתוקנו בהתאם לעקרונות האימוץ, כאשר רכב מיוצר במדינות צפון אמריקה כפ..."
+    },
+    {
+      "affected_decision": "28_2202",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "28_2186",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "2001"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - משק הדלק - מבנה משק הגז הטבעי (תיקון כללים)",
+      "affected_title": "המדיניות הכלכלית לשנת 2001 - כלי רכב - ביטול תקינה ישראלית ייחודית",
+      "affected_summary": "בהחלטה זו, הממשלה קובעת כי החל מ-1 במרץ 2001 יאומץ בישראל תקן הרכב האירופי והאמריקאי, במטרה לבטל את התקינה הייחודית הישראלית. התקנות יתוקנו בהתאם לעקרונות האימוץ, כאשר רכב מיוצר במדינות צפון אמריקה כפ..."
+    },
+    {
+      "affected_decision": "28_2381",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "28_2415",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "החינוך"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "קביעת שרים למשרדי החינוך, התעשיה והמסחר והחקלאות ופיתוח הכפר",
+      "affected_title": "תגבור נושאים במסגרת סדרי עדיפויות",
+      "affected_summary": "החלטת הממשלה נוגעת להגברת ההשקעות בתחומים שונים במסגרת תקציב המדינה לשנת 2001. ההחלטה כוללת הגדלת תקציב משרד התחבורה ב-700 מיליון ש\"ח לפיתוח תשתיות תחבורתיות, תוספות למשרד החינוך, משרד המדע, התרבות וה..."
+    },
+    {
+      "affected_decision": "28_2457",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "28_2448",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הרשות"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "מינוי חברים במליאת הרשות לשמירת הטבע והגנים הלאומיים",
+      "affected_title": "ההתפתחויות המדיניות והבטחוניות ערב הפיסגה בשארם א-שייח'",
+      "affected_summary": "ההחלטה מתעדת את הגעת ראש הממשלה ושר הביטחון לפסגת החירום בשארם א-שייח', שמטרתה להפסיק את האלימות באיו\"ש ובאז\"חע. ישראל תדרוש מעצר מחדש של אנשי חמאס וג'יהאד האסלאמי, צעדים נגד ירי מהמשטרה הפלסטינית, הפ..."
+    },
+    {
+      "affected_decision": "28_2624",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "28_2623",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "נוסף"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "הקמת תחום נוסף במשרד המשפטים - תחום חברות, משכונות, הקדשות ומפלגות",
+      "affected_title": "גז טבעי",
+      "affected_summary": "החלטת הממשלה עוסקת בפיתוח משק גז טבעי בר-קיימא בישראל, תוך יצירת מבנה תחרותי המבוסס על מספר ספקים מקומיים וזרים. הצנרת שתונח תפעל במתכונת של גישה פתוחה (OPEN ACCESS), והשירותים יתנו בתעריפים שייקבעו ב..."
+    },
+    {
+      "affected_decision": "28_2836",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "28_2844",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "לגבי"
+      ],
+      "confidence": 1,
+      "government_number": "28",
+      "source_title": "עמדת ישראל לגבי הרעיונות שהועלו על-ידי הנשיא קלינטון בהקשר לתהליך המדיני",
+      "affected_title": "חבצלת פיגועים",
+      "affected_summary": "הממשלה החליטה להסמיך את ממלא מקום מזכיר הממשלה ואת מנהל האגף האסטרטגי במשרד הפנים להחליט על אישור אוטובוסים ממוגנים להלוויות של חללי פח\"ע. האישור יינתן לתושבי אזורי יהודה, שומרון וחבל עזה, במקרים שבהם..."
+    },
+    {
+      "affected_decision": "28_2836",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "28_2811",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ידי",
+        "אישור"
+      ],
+      "confidence": 2,
+      "government_number": "28",
+      "source_title": "אישור מכירת קרקע על ידי מינהל מקרקעי ישראל לחברת \"פרויקט גן העיר בע\"מ\"",
+      "affected_title": "חבצלת פיגועים",
+      "affected_summary": "הממשלה החליטה להסמיך את ממלא מקום מזכיר הממשלה ואת מנהל האגף האסטרטגי במשרד הפנים להחליט על אישור אוטובוסים ממוגנים להלוויות של חללי פח\"ע. האישור יינתן לתושבי אזורי יהודה, שומרון וחבל עזה, במקרים שבהם..."
+    },
+    {
+      "affected_decision": "29_97",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_59",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "התעשייה"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "מינוי המנהל הכללי של משרד התעשייה והמסחר",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעת שרת התעשייה והמסחר לאנגליה בין התאריכים 11-15 באפריל 2001, והחליטה כי השר שלום שמחון ימלא את מקומה בזמן העדרה. אל השרה יתלווה עובד מדינה אחד. ההחלטה התקבלה בהתאם לתקנון עבודת הממ..."
+    },
+    {
+      "affected_decision": "29_124",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "29_126",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "נסיעות שרים",
+      "affected_title": "אספקת חול - דו\"ח מס' 51ב' של מבקר המדינה",
+      "affected_summary": "הממשלה קיבלה החלטה לקדם תוכנית לפיתוח אתרים חדשים לכריית חול בארץ, בהתייעצות עם משרדי הממשלה הרלוונטיים. בנוסף, יגובשו פתרונות לשמירה על אתרי החול, בשיתוף מינהל מקרקעי ישראל ומשטרת ישראל, כאשר ההמלצות..."
+    },
+    {
+      "affected_decision": "29_124",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "29_97",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "נסיעות שרים",
+      "affected_title": "אספקת חול - דו\"ח מס' 51ב' של מבקר המדינה",
+      "affected_summary": "הממשלה קיבלה החלטה לקדם תוכנית לפיתוח אתרים חדשים לכריית חול בארץ, בהתייעצות עם משרדי הממשלה הרלוונטיים. בנוסף, יגובשו פתרונות לשמירה על אתרי החול, בשיתוף מינהל מקרקעי ישראל ומשטרת ישראל, כאשר ההמלצות..."
+    },
+    {
+      "affected_decision": "29_124",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_63",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "שרים"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "ועדת שרים לשיתוף פעולה אזורי",
+      "affected_title": "אספקת חול - דו\"ח מס' 51ב' של מבקר המדינה",
+      "affected_summary": "הממשלה קיבלה החלטה לקדם תוכנית לפיתוח אתרים חדשים לכריית חול בארץ, בהתייעצות עם משרדי הממשלה הרלוונטיים. בנוסף, יגובשו פתרונות לשמירה על אתרי החול, בשיתוף מינהל מקרקעי ישראל ומשטרת ישראל, כאשר ההמלצות..."
+    },
+    {
+      "affected_decision": "29_667",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "29_678",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "יום"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "מעונות יום",
+      "affected_title": "רישום תרופות",
+      "affected_summary": "החלטת הממשלה קובעת כי רישום תכשיר רפואי זהה לתכשיר רשום בישראל, אשר אושר על-ידי ה-FDA או רשויות האיחוד האירופי, ידרוש רק הוכחת אישור כאמור. משרד הבריאות יהיה מחויב להעניק היתר שיווק או סירוב מנומק בתו..."
+    },
+    {
+      "affected_decision": "29_667",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_655",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד",
+        "איחוד"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "איחוד יחידות התביעה של משרד המשפטים ושל משטרת ישראל",
+      "affected_title": "רישום תרופות",
+      "affected_summary": "החלטת הממשלה קובעת כי רישום תכשיר רפואי זהה לתכשיר רשום בישראל, אשר אושר על-ידי ה-FDA או רשויות האיחוד האירופי, ידרוש רק הוכחת אישור כאמור. משרד הבריאות יהיה מחויב להעניק היתר שיווק או סירוב מנומק בתו..."
+    },
+    {
+      "affected_decision": "29_795",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "29_823",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "דו\"ח פורום מדענים במשרדי הממשלה לשנת 2000",
+      "affected_title": "ועדות חקירה לענין גבולות לישובי הבדואים בצפון",
+      "affected_summary": "הממשלה החליטה לאפשר לראשי רשויות מקומיות במגזר הבדואי בצפון להגיש בקשות להרחבת שטח השיפוט של ישוביהם. שר הפנים יידרש לדווח לוועדת השרים על תוצאות טיפולו בבקשות בתוך חודשיים...."
+    },
+    {
+      "affected_decision": "29_795",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "29_779",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "שרים"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "הקמת ועדת שרים לפיתוח הנגב והגליל",
+      "affected_title": "ועדות חקירה לענין גבולות לישובי הבדואים בצפון",
+      "affected_summary": "הממשלה החליטה לאפשר לראשי רשויות מקומיות במגזר הבדואי בצפון להגיש בקשות להרחבת שטח השיפוט של ישוביהם. שר הפנים יידרש לדווח לוועדת השרים על תוצאות טיפולו בבקשות בתוך חודשיים...."
+    },
+    {
+      "affected_decision": "29_802",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "29_823",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "דו\"ח פורום מדענים במשרדי הממשלה לשנת 2000",
+      "affected_title": "מעמד \"הקהל\" - חול המועד סוכות התשס\"ב",
+      "affected_summary": "תמצית החלטת הממשלה: הממשלה החליטה לקיים את אירוע \"הקהל\" כארוע ממלכתי בכותל המערבי בירושלים ביום י\"ז בתשרי התשס\"ב (4.10.2001), בנוכחות נשיא המדינה. האירוע ינוהל על ידי המשרד לענייני דתות בשיתוף עם מרכז..."
+    },
+    {
+      "affected_decision": "29_851",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "29_904",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "בקר"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "הוצאת בקר וצאן אל מחוץ לישובים הערביים",
+      "affected_title": "דיווח בענין ביצוע החלטה מס' 119(תמ/6) מיום 19.4.2001 בענין תקציב שרותי רווחה ברשויות המקומיות - דו\"ח מס' 51ב' של מבקר המדינה",
+      "affected_summary": "הממשלה קיבלה החלטה להמשיך לבדוק את ביצוע תקציב שירותי הרווחה ברשויות המקומיות, בהתאם לדו\"ח של מבקר המדינה. הוחלט שהוועדה המקצועית תסיים את עבודתה עד סוף דצמבר 2001, והמלצותיה יוצגו בפני ועדת השרים...."
+    },
+    {
+      "affected_decision": "29_851",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "29_823",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "דו\"ח פורום מדענים במשרדי הממשלה לשנת 2000",
+      "affected_title": "דיווח בענין ביצוע החלטה מס' 119(תמ/6) מיום 19.4.2001 בענין תקציב שרותי רווחה ברשויות המקומיות - דו\"ח מס' 51ב' של מבקר המדינה",
+      "affected_summary": "הממשלה קיבלה החלטה להמשיך לבדוק את ביצוע תקציב שירותי הרווחה ברשויות המקומיות, בהתאם לדו\"ח של מבקר המדינה. הוחלט שהוועדה המקצועית תסיים את עבודתה עד סוף דצמבר 2001, והמלצותיה יוצגו בפני ועדת השרים...."
+    },
+    {
+      "affected_decision": "29_851",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "29_925",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "נסיעות שרים",
+      "affected_title": "דיווח בענין ביצוע החלטה מס' 119(תמ/6) מיום 19.4.2001 בענין תקציב שרותי רווחה ברשויות המקומיות - דו\"ח מס' 51ב' של מבקר המדינה",
+      "affected_summary": "הממשלה קיבלה החלטה להמשיך לבדוק את ביצוע תקציב שירותי הרווחה ברשויות המקומיות, בהתאם לדו\"ח של מבקר המדינה. הוחלט שהוועדה המקצועית תסיים את עבודתה עד סוף דצמבר 2001, והמלצותיה יוצגו בפני ועדת השרים...."
+    },
+    {
+      "affected_decision": "29_1017",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "29_1021",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "טקס"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "טקס אזכרה וגילוי מצבה במלאות שלושים למותו של השר רחבעם זאבי ז\"ל",
+      "affected_title": "הנצחת זכרם של הנופלים בהפצצות על העיר תל-אביב במהלך מלחמת העולם השניה",
+      "affected_summary": "הממשלה החליטה להטיל על מנהל מרכז ההסברה לבחון את דרכי ההנצחה של 143 תושבי תל-אביב שנהרגו בהפצצות חיל האוויר האיטלקי במהלך מלחמת העולם השנייה, ויידרש למסור דיווח על כך ליושב-ראש ועדת השרים לענייני סמלי..."
+    },
+    {
+      "affected_decision": "29_1017",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "29_1055",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "השרים"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "הרכב ועדת השרים לענין רשות העיון בחומר ארכיוני מסווג",
+      "affected_title": "הנצחת זכרם של הנופלים בהפצצות על העיר תל-אביב במהלך מלחמת העולם השניה",
+      "affected_summary": "הממשלה החליטה להטיל על מנהל מרכז ההסברה לבחון את דרכי ההנצחה של 143 תושבי תל-אביב שנהרגו בהפצצות חיל האוויר האיטלקי במהלך מלחמת העולם השנייה, ויידרש למסור דיווח על כך ליושב-ראש ועדת השרים לענייני סמלי..."
+    },
+    {
+      "affected_decision": "29_1017",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_975",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תל-אביב"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "קידום זמינות ביצוע רכבת תל-אביב - ראשון לציון מערב",
+      "affected_title": "הנצחת זכרם של הנופלים בהפצצות על העיר תל-אביב במהלך מלחמת העולם השניה",
+      "affected_summary": "הממשלה החליטה להטיל על מנהל מרכז ההסברה לבחון את דרכי ההנצחה של 143 תושבי תל-אביב שנהרגו בהפצצות חיל האוויר האיטלקי במהלך מלחמת העולם השנייה, ויידרש למסור דיווח על כך ליושב-ראש ועדת השרים לענייני סמלי..."
+    },
+    {
+      "affected_decision": "29_1102",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "29_1055",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "השרים"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "הרכב ועדת השרים לענין רשות העיון בחומר ארכיוני מסווג",
+      "affected_title": null,
+      "affected_summary": "החלטת הממשלה כוללת את המעקב והדיווח על ביצוע החלטות קודמות בנוגע לתקציב המדינה ותמיכות לעמותות. ועדת השרים רשמה לפניה את הודעת סגן החשב הכללי במשרד האוצר לגבי קריטריונים שנקבעו להגבלת הוצאות עמותות, ו..."
+    },
+    {
+      "affected_decision": "29_1185",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "29_1161",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "התקציב"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "עדכון הצעת-חוק התקציב לשנת הכספים 2002, הצעת-חוק הפחתת הגרעון והחקיקה הנלווית",
+      "affected_title": "שביתת הנכים",
+      "affected_summary": "הממשלה החליטה להקים צוות בינמשרדי לניהול מו\"מ רציף עם נציגים מטעם הנכים השובתים, בראשות המשנה למנכ\"ל משרד ראש הממשלה. הצוות כולל נציגים ממשרדי העבודה והרווחה, האוצר, הבריאות והמוסד לביטוח לאומי, והמשא..."
+    },
+    {
+      "affected_decision": "29_1227",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_1196",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תיקון",
+        "הצעת-חוק"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "הצעת-חוק רשות הנמלים והרכבות (תיקון מס. 11), התשס\"ב-2001",
+      "affected_title": null,
+      "affected_summary": "ההחלטה נוגעת להצעת-חוק לתיקון פקודת מס הכנסה, העוסקת בזיכוי למעסיקים של עובדים המשרתים במילואים. נציגי משרד הבטחון יפגשו עם ח\"כ אריה אלדד כדי להבהיר את הקשיים בתמיכה בהצעה כפי שהיא, ולממליץ בפני ועדת ..."
+    },
+    {
+      "affected_decision": "29_1229",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_1197",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "פיתוח"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "פרויקט פיתוח \"דרך הבשמים\" בנגב",
+      "affected_title": null,
+      "affected_summary": "ממשלת ישראל אישרה את פירוקה מרצון של חברת ר.פ.ד.ל. בע\"מ, בהתאם להחלטות דירקטוריון ואסיפה כללית קודמות. הפירוק יתבצע בהתאם לחוק החברות, ואחזקות החברה בחברות הבת יועברו לרשות לפיתוח אמצעי לחימה (רפאל)...."
+    },
+    {
+      "affected_decision": "29_1250",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "29_1234",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "לטיפול"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "כללים לטיפול במוסדות ציבור שהפרו את התנאים לקבלת תמיכה",
+      "affected_title": null,
+      "affected_summary": "כותרת: יישום מדיניות רב-שנתית בנושא השבת זכויות ורכוש יהודי\n\nתוכן ההחלטה: הממשלה תגבש מדיניות כוללת בנושא השבת זכויות ורכוש יהודי, תקים ועדת שרים וועדת היגוי לטיפול בנושא, ותפרסם דו\"ח שנתי בנושא לדיון..."
+    },
+    {
+      "affected_decision": "29_1750",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "29_1769",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תוקף",
+        "הארכת"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "הארכת תוקף ההכרזה על מצב החירום לפי סעיף 49 לחוק יסוד: הממשלה",
+      "affected_title": "תיקוני מס אחרים",
+      "affected_summary": "החלטת הממשלה כוללת שתי נקודות עיקריות: \n1. הארכת תוקף הוראת השעה להטבות מס לתושבי הנגב משנת המס 2002 גם לשנת המס 2003.\n2. תיקון פקודת מס הכנסה כך שסעיף 66(ה), המאפשר חישוב נפרד לבני זוג המנהלים עסק מש..."
+    },
+    {
+      "affected_decision": "29_1820",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_1801",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הקמת",
+        "מקלט"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "הקמת מקלט לקורבנות הסחר בזנות",
+      "affected_title": "הטיפול בתופעת האלימות בין בני זוג - דו\"ח מס' 52ב' של מבקר המדינה",
+      "affected_summary": "ההחלטה כוללת סדרי עדיפויות ופעולות למניעת וטיפול באלימות במשפחה, כולל עיבוד נתונים, הקמת ועדות בינמשרדיות, פיקוח על מרכזי טיפול ומחקר על תפקודם של מקלטים לנשים מוכות. כמו כן, נדרשת בדיקת כל מקרה ר..."
+    },
+    {
+      "affected_decision": "29_1981",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "29_1988",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הנחות"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "הנחות בהחכרת קרקע מפותחת לתעשיה",
+      "affected_title": "זרוז תכנונם של פרוייקטים בתחום התחבורה בגליל",
+      "affected_summary": "ממשלת ישראל החליטה להנחות את משרד התחבורה לפעול כך שבמכרזים לתכנון פרויקטים תחבורתיים בגליל, יותנה מתן החלק העיקרי של התשלום למתכנן בגמר התכנון, במטרה לזרז את תהליך התכנון של הפרויקטים...."
+    },
+    {
+      "affected_decision": "29_1981",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "29_1976",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "פרויקטים"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "ניצול תקציבים קיימים בביצוע פרויקטים בתחום התחבורה",
+      "affected_title": "זרוז תכנונם של פרוייקטים בתחום התחבורה בגליל",
+      "affected_summary": "ממשלת ישראל החליטה להנחות את משרד התחבורה לפעול כך שבמכרזים לתכנון פרויקטים תחבורתיים בגליל, יותנה מתן החלק העיקרי של התשלום למתכנן בגמר התכנון, במטרה לזרז את תהליך התכנון של הפרויקטים...."
+    },
+    {
+      "affected_decision": "29_1981",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_1974",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תכנון"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "תכנון בתי-עלמין",
+      "affected_title": "זרוז תכנונם של פרוייקטים בתחום התחבורה בגליל",
+      "affected_summary": "ממשלת ישראל החליטה להנחות את משרד התחבורה לפעול כך שבמכרזים לתכנון פרויקטים תחבורתיים בגליל, יותנה מתן החלק העיקרי של התשלום למתכנן בגמר התכנון, במטרה לזרז את תהליך התכנון של הפרויקטים...."
+    },
+    {
+      "affected_decision": "29_2087",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "29_2084",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "תיקון התקנון לעבודת הממשלה - הצבעות בועדת השרים לעניני חקיקה",
+      "affected_title": "מערך הכבאות",
+      "affected_summary": "הממשלה החליטה להמשיך לסייע לכוחות הכיבוי וההצלה בכיבוי מן האוויר, באמצעות מסוקים, עד לסיכום הנושא בין משרד הפנים למשרד האוצר ולא יאוחר מ-1.9.2002. ההחלטה התקבלה לפי סעיף 21 בתקנון עבודת הממשלה...."
+    },
+    {
+      "affected_decision": "29_2087",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "29_2129",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "מערך הכבאות - ביטול החלטת הממשלה",
+      "affected_title": "מערך הכבאות",
+      "affected_summary": "הממשלה החליטה להמשיך לסייע לכוחות הכיבוי וההצלה בכיבוי מן האוויר, באמצעות מסוקים, עד לסיכום הנושא בין משרד הפנים למשרד האוצר ולא יאוחר מ-1.9.2002. ההחלטה התקבלה לפי סעיף 21 בתקנון עבודת הממשלה...."
+    },
+    {
+      "affected_decision": "29_2305",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "29_2306",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מקורות"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "מקורות - שינוי מבני",
+      "affected_title": "משק המים ופרוייקטים שונים",
+      "affected_summary": "ממשלת ישראל החליטה להקצות 200 מיליון ש\"ח לתמיכה בחברת מקורות ולפיתוח תשתיות במים, וכן הוועדה להקצות 100 מיליון ש\"ח לפרויקטים אחרים, מתוך תוספת של 1 מיליארד ש\"ח להשקעה בתשתיות בשנת 2003...."
+    },
+    {
+      "affected_decision": "29_2305",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "29_2298",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "2003"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "המדיניות הכלכלית לשנת 2003 - מצרפי התקציב, שינויים מבניים והרכב התקציב",
+      "affected_title": "משק המים ופרוייקטים שונים",
+      "affected_summary": "ממשלת ישראל החליטה להקצות 200 מיליון ש\"ח לתמיכה בחברת מקורות ולפיתוח תשתיות במים, וכן הוועדה להקצות 100 מיליון ש\"ח לפרויקטים אחרים, מתוך תוספת של 1 מיליארד ש\"ח להשקעה בתשתיות בשנת 2003...."
+    },
+    {
+      "affected_decision": "29_2305",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_2222",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חבר"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "מינוי חבר למועצת רשות הדואר",
+      "affected_title": "משק המים ופרוייקטים שונים",
+      "affected_summary": "ממשלת ישראל החליטה להקצות 200 מיליון ש\"ח לתמיכה בחברת מקורות ולפיתוח תשתיות במים, וכן הוועדה להקצות 100 מיליון ש\"ח לפרויקטים אחרים, מתוך תוספת של 1 מיליארד ש\"ח להשקעה בתשתיות בשנת 2003...."
+    },
+    {
+      "affected_decision": "29_2306",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "29_2305",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המים"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "משק המים ופרוייקטים שונים",
+      "affected_title": "מקורות - שינוי מבני",
+      "affected_summary": "החלטת הממשלה עוסקת בהקמת חברת מקורות אחזקות בע\"מ וחברת מקורות ייזום ופיתוח בע\"מ, במטרה לשדרג את הנהלת מערכות המים בישראל. ההחלטה כוללת הקצאת הון כתחילת הפעולה, טיפול בהתקשרויות ופרויקטים הקשורים למים,..."
+    },
+    {
+      "affected_decision": "29_2306",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "29_2321",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "העברת"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "העברת משרתי הקבע בצה\"ל למסלול של פנסיה צוברת",
+      "affected_title": "מקורות - שינוי מבני",
+      "affected_summary": "החלטת הממשלה עוסקת בהקמת חברת מקורות אחזקות בע\"מ וחברת מקורות ייזום ופיתוח בע\"מ, במטרה לשדרג את הנהלת מערכות המים בישראל. ההחלטה כוללת הקצאת הון כתחילת הפעולה, טיפול בהתקשרויות ופרויקטים הקשורים למים,..."
+    },
+    {
+      "affected_decision": "29_2317",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "29_2327",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "רשות",
+        "הקמת"
+      ],
+      "confidence": 2,
+      "government_number": "29",
+      "source_title": "רפורמה בשוק העבודה - הקמת רשות הגירה",
+      "affected_title": "התמודדות עם גודש התנועה בכניסה לתל-אביב",
+      "affected_summary": "בהחלטת הממשלה נתקבלה החלטה להקים נתיב מהיר בבעלות זכיין פרטי הכניסה לתל אביב, מכיוון מחלף נתב\"ג ועד למחלף קיבוץ גלויות. ההחלטה כוללת פרסום מכרז להקמה והפעלה של הנתיב המופרד פיזית, כמו גם הקמת מתקן \"חנ..."
+    },
+    {
+      "affected_decision": "29_2317",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_2303",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "רכבת"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "הגברת ההשקעות בתשתית - מסילת רכבת נתב\"ג - מודיעין (ירושלים)",
+      "affected_title": "התמודדות עם גודש התנועה בכניסה לתל-אביב",
+      "affected_summary": "בהחלטת הממשלה נתקבלה החלטה להקים נתיב מהיר בבעלות זכיין פרטי הכניסה לתל אביב, מכיוון מחלף נתב\"ג ועד למחלף קיבוץ גלויות. ההחלטה כוללת פרסום מכרז להקמה והפעלה של הנתיב המופרד פיזית, כמו גם הקמת מתקן \"חנ..."
+    },
+    {
+      "affected_decision": "29_2346",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "29_2362",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "צמצום"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "צמצום זחילת השכר של עובדים בשירות המדינה ושמירה על רמת השירות הציבורי - \"אקדמיזציה\"",
+      "affected_title": "הטלוויזיה החינוכית",
+      "affected_summary": "בשנת 1998, הממשלה החליטה להטיל על שרת החינוך לבצע שינויים בטלוויזיה החינוכית, כולל המרת הפקות עצמאיות ברכישת הפקות מגורמי חוץ וצמצום מצבת כוח האדם, כדי להבטיח את המשך שידורי התוכן החינוכי-תרבותי בערוצ..."
+    },
+    {
+      "affected_decision": "29_2759",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "29_2796",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שימוש"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "עקרונות להסדר שימוש בנכסי חברת בתי זיקוק בע\"מ עם תום תקופת הזיכיון",
+      "affected_title": "מכלול ההיבטים הנוגעים לשינוי ייעודה של קרקע חקלאית",
+      "affected_summary": "החלטת הממשלה עוסקת בשינוי ייעוד קרקע חקלאית ואומצה בעקבות המלצות ועדת מילגרום, בכפוף לפסיקות בית המשפט. הממשלה מחייבת את מינהל מקרקעי ישראל לפעול בהתאם להמלצות ולקבוע מדיניות חדשה בנושא זכויות וחובות ..."
+    },
+    {
+      "affected_decision": "29_2905",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_2889",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "אות"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "הענקת אות מלחמת ההתשה",
+      "affected_title": "הרפורמה בפסיכיאטריה",
+      "affected_summary": "הממשלה החליטה להעביר את האחריות על שירותי בריאות הנפש לקופות החולים, במסגרת חוק ביטוח בריאות ממלכתי. צוותים ממשרדי הבריאות והאוצר יכינו סיכום מפורט עד 15.3.2003, וההעברה תושלם לא יאוחר מ-1.6.2003. בנו..."
+    },
+    {
+      "affected_decision": "29_2934",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "29_2929",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "אישור"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "אישור התקשרות חוזית בין רשות שדות התעופה לבין חברת שירותי תעופה בע\"מ",
+      "affected_title": "הקצאת קרקע לאתר מורשת וזכרון בהר איתן",
+      "affected_summary": "הממשלה קיבלה החלטה להקצות קרקע להקמת המרכז הלאומי למערכות ישראל בהר איתן. מנהל מינהל מקרקעי ישראל יתבקש להביא לאישור מועצת מקרקעי ישראל הצעה להחכיר כ- 17 דונם לעמותת הר איתן, לשימושים כגון אתר הנצחה ו..."
+    },
+    {
+      "affected_decision": "29_2934",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "29_2925",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תנאים"
+      ],
+      "confidence": 1,
+      "government_number": "29",
+      "source_title": "תנאים לשינוי מעמד קיבוץ/מושב שיתופי למעמד מושב עובדים/כפר שיתופי",
+      "affected_title": "הקצאת קרקע לאתר מורשת וזכרון בהר איתן",
+      "affected_summary": "הממשלה קיבלה החלטה להקצות קרקע להקמת המרכז הלאומי למערכות ישראל בהר איתן. מנהל מינהל מקרקעי ישראל יתבקש להביא לאישור מועצת מקרקעי ישראל הצעה להחכיר כ- 17 דונם לעמותת הר איתן, לשימושים כגון אתר הנצחה ו..."
+    },
+    {
+      "affected_decision": "30_18",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_34",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "אישור"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "אישור מינוי עשרה רבנים ועשרה אנשי ציבור לאסיפה הבוחרת את הרבנים הראשיים לישראל",
+      "affected_title": null,
+      "affected_summary": "ממשלת ישראל אישרה לבזק לממש את האופציה לרכישת מלוא האחזקות בפלאפון תקשורת בע\"מ. המימוש יתבצע בתמורה שלא תעלה על 64.3 מיליון דולר, בין אם בתשלום ישיר לקבוצת שמרוק או בדרכים אחרות. האישור אינו מחליף איש..."
+    },
+    {
+      "affected_decision": "30_96",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "30_86",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "האוצר"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "העברת מידע למשרד האוצר לצורך חישוב החבות האקטוארית של המדינה",
+      "affected_title": "השקעות בתשתית תחבורתית",
+      "affected_summary": "החלטת הממשלה עוסקת בהשקעות בתשתיות תחבורה והקציבה תקציב של 4,300 מיליון ש\"ח לפיתוח ואחזקת כבישים בשנת 2003, עם תוספת של 500 מיליון ש\"ח בכל אחת מהשנים 2004–2007. כמו כן, היא מטילה על משרד התחבורה ומשרד..."
+    },
+    {
+      "affected_decision": "30_143",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "30_145",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ומשרד"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הכנסת ומשרד מבקר המדינה",
+      "affected_title": "המשך קידום הפרטת בתי-סוהר",
+      "affected_summary": "הממשלה החליטה להמשיך את הפרטת בתי הסוהר בישראל על ידי רכישת שירותי כליאה מהסקטור הפרטי, כולל בנייה והפעלה של מתקני כליאה. משרד הביטחון הפנים ומשרד האוצר יפעילו את התהליך, והאחריות על פיקוח ובקרה תישאר..."
+    },
+    {
+      "affected_decision": "30_697",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_731",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "חידוש עבודת צוות שרים בנושא הפטריארך היווני-אורתודוקסי של ירושלים",
+      "affected_title": "סוגיית המשפחות החד-הוריות",
+      "affected_summary": "הממשלה החליטה להטיל על שר האוצר, ממלא מקום ראש הממשלה ושר התעשיה, המסחר והתעסוקה ושר הרווחה לגבש המלצות לתכנית שמטרתה לסייע למשפחות חד-הוריות ולזכאים בגימלה להבטחת הכנסה, ולהציג את ההמלצות לוועדת השרי..."
+    },
+    {
+      "affected_decision": "30_697",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "30_753",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תכנית"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תכנית להאצת הבניה - מבצע לעידוד ביקושים לרכישת דירות",
+      "affected_title": "סוגיית המשפחות החד-הוריות",
+      "affected_summary": "הממשלה החליטה להטיל על שר האוצר, ממלא מקום ראש הממשלה ושר התעשיה, המסחר והתעסוקה ושר הרווחה לגבש המלצות לתכנית שמטרתה לסייע למשפחות חד-הוריות ולזכאים בגימלה להבטחת הכנסה, ולהציג את ההמלצות לוועדת השרי..."
+    },
+    {
+      "affected_decision": "30_755",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "30_756",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "בנייה"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "קידום תכניות בנייה למגורים בהיקף העולה על אלף יחידות דיור לתכנית",
+      "affected_title": "תכנית להאצת הבניה - דחיית תשלומים להחזר הוצאות פיתוח",
+      "affected_summary": "הממשלה קיבלה החלטה המאפשרת דחייה של 4 חודשים בתשלום חובות הקבלנים להחזר הוצאות פיתוח, בתוספת ריבית, עבור פרויקטים לבנייה ששווקו עד 1 בינואר 2002. המהלך יבוצע על ידי משרדי הבינוי והשיכון והאוצר, קריטרי..."
+    },
+    {
+      "affected_decision": "30_1441",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "30_1517",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שני"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "אישור מינויים של שני נציגים מטעם הממשלה למועצת הרשות הלאומית לתרבות היידיש",
+      "affected_title": "הצעת-חוק הכניסה לישראל",
+      "affected_summary": "הממשלה החליטה לתמוך בהצעת החוק להארכת אשרות ורשיונות ישיבה לעובדים זרים, בעיקר עבור מטפלים סיעודיים, עם תנאים ספציפיים. הארכת האשרה מעבר ל-7.5 שנים תתאפשר רק אם קיים חשש לפגיעה במצבו של המטופל, ובסיום..."
+    },
+    {
+      "affected_decision": "30_1660",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_1517",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שני"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "אישור מינויים של שני נציגים מטעם הממשלה למועצת הרשות הלאומית לתרבות היידיש",
+      "affected_title": null,
+      "affected_summary": "הממשלה החליטה על תיקון סעיפים בהחלטת ממשלה מס. 779 מ-15.9.2003 בנוגע לפעילות מנהלות המדען הראשי במשרד התעשייה, המסחר והתעסוקה. במסגרת ההחלטה, מספר המועסקים במנהלות יופחת לשלב ראשון ל-45 עובדים ולשלב ש..."
+    },
+    {
+      "affected_decision": "30_1670",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "30_1734",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חבר"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "מינוי חבר במועצה לגנים לאומיים ושמורות טבע",
+      "affected_title": null,
+      "affected_summary": "החלטת הממשלה עוסקת במתן סיוע לחברת אולימפיה בע\"מ באמצעות ההלוואה של עד 875,000 ש\"ח, במסגרת סיוע למפעלים במצוקה. ההלוואה תינתן בתנאים שמטרתם להבטיח את יציבות החברה, כולל דרישות לאי פיטורי עובדים, השקעה..."
+    },
+    {
+      "affected_decision": "30_1670",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "30_1668",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תוכנית"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תוכנית מיתאר ארצית לחופים - תמ\"א 13 - חוף מפרץ אילת",
+      "affected_title": null,
+      "affected_summary": "החלטת הממשלה עוסקת במתן סיוע לחברת אולימפיה בע\"מ באמצעות ההלוואה של עד 875,000 ש\"ח, במסגרת סיוע למפעלים במצוקה. ההלוואה תינתן בתנאים שמטרתם להבטיח את יציבות החברה, כולל דרישות לאי פיטורי עובדים, השקעה..."
+    },
+    {
+      "affected_decision": "30_1670",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_1738",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "במתן"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הסמכת ועדת שרים לדון במתן דרכונים לאזרח ישראלי אשר מרכז חייו אינו בישראל",
+      "affected_title": null,
+      "affected_summary": "החלטת הממשלה עוסקת במתן סיוע לחברת אולימפיה בע\"מ באמצעות ההלוואה של עד 875,000 ש\"ח, במסגרת סיוע למפעלים במצוקה. ההלוואה תינתן בתנאים שמטרתם להבטיח את יציבות החברה, כולל דרישות לאי פיטורי עובדים, השקעה..."
+    },
+    {
+      "affected_decision": "30_1769",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "30_1784",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הקמת"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הקמת מינהל האוכלוסין והכניסה לישראל",
+      "affected_title": null,
+      "affected_summary": "החלטת הממשלה נוגעת להגדלת מספר מקומות העבודה עבור ישראלים באמצעות סיוע בהקמת מרכזי שירות ותמיכה טלפוניים. ההחלטה כוללת את היישוב קרית מלאכי ברשימת המקומות שייהנו מסיוע זה, והפרטים הקשורים להכשרה ייקבע..."
+    },
+    {
+      "affected_decision": "30_1769",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "30_1738",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "שרים"
+      ],
+      "confidence": 2,
+      "government_number": "30",
+      "source_title": "הסמכת ועדת שרים לדון במתן דרכונים לאזרח ישראלי אשר מרכז חייו אינו בישראל",
+      "affected_title": null,
+      "affected_summary": "החלטת הממשלה נוגעת להגדלת מספר מקומות העבודה עבור ישראלים באמצעות סיוע בהקמת מרכזי שירות ותמיכה טלפוניים. ההחלטה כוללת את היישוב קרית מלאכי ברשימת המקומות שייהנו מסיוע זה, והפרטים הקשורים להכשרה ייקבע..."
+    },
+    {
+      "affected_decision": "30_1769",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "30_1734",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חבר"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "מינוי חבר במועצה לגנים לאומיים ושמורות טבע",
+      "affected_title": null,
+      "affected_summary": "החלטת הממשלה נוגעת להגדלת מספר מקומות העבודה עבור ישראלים באמצעות סיוע בהקמת מרכזי שירות ותמיכה טלפוניים. ההחלטה כוללת את היישוב קרית מלאכי ברשימת המקומות שייהנו מסיוע זה, והפרטים הקשורים להכשרה ייקבע..."
+    },
+    {
+      "affected_decision": "30_1795",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_1738",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הסמכת ועדת שרים לדון במתן דרכונים לאזרח ישראלי אשר מרכז חייו אינו בישראל",
+      "affected_title": null,
+      "affected_summary": "ההחלטה עוסקת בחיזוק מעמדם של מכוני המחקר הממשלתיים במטרה לפתח ולשמור על תשתיות מחקר חיוניות בתחומים כמו מים, חקלאות ובריאות. בנוסף, הוקמה ועדת בדיקה ומעקב שתעריך את מצב מכוני המחקר ותדווח אחת לשנה על ..."
+    },
+    {
+      "affected_decision": "30_1796",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_1811",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המלצות"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הצוות לגיבוש המלצות לתגבור מערך ההסברה הישראלית - הארכת מועד",
+      "affected_title": null,
+      "affected_summary": "הממשלה אישרה תקציב לרשויות הניקוז לשנים 2003-2004, כאשר התקציב יינתן לרשויות שהעלו את מכסות הניקוז שלהן לפחות ב-15%. ההחלטה כוללת הקצבה של עד 15 מיליון ש\"ח לשנה לכל רשויות הניקוז שעמדו בקריטריון זה, י..."
+    },
+    {
+      "affected_decision": "30_1799",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_1784",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הקמת"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הקמת מינהל האוכלוסין והכניסה לישראל",
+      "affected_title": null,
+      "affected_summary": "הממשלה החליטה על הקמת יחידה משטרתית ארצית למאבק בפשיעה הכלכלית, שתתמקד בתחילה בעבירות כמו הוצאת כספים במרמה מהביטוח הלאומי ועבירות בתחום המקרקעין. האחריות להקמת היחידה ולהגברת האכיפה הוטלה על השר לביט..."
+    },
+    {
+      "affected_decision": "30_1886",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_1811",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המלצות"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הצוות לגיבוש המלצות לתגבור מערך ההסברה הישראלית - הארכת מועד",
+      "affected_title": null,
+      "affected_summary": "הממשלה רושמת לפניה את עיקרי ההמלצות של התוכנית הלאומית לחינוך ומזהה את יישומה כמשימה לאומית מועדפת. היא מחויבת לבצע רפורמה כוללת במערכת החינוך, תקיים הידברות עם ארגוני המורים והשלטון המקומי, ומטילה על..."
+    },
+    {
+      "affected_decision": "30_2477",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_2505",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שינוי"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "שינוי הקריטריונים להבראת מפעלים עתירי עבודה - סיכום",
+      "affected_title": "תשלומי העברה של המוסד לביטוח לאומי",
+      "affected_summary": "הממשלה החליטה לתקן את חוק הביטוח הלאומי בתחום ביטוח נפגעי עבודה. השינויים המרכזיים הם: 1. גמלה תינתן רק למי שדרגת נכותו היא 15% או יותר, ללא שינוי בכללים הקיימים האחרים לתשלום הגמלה. 2. תקופת הזכאות ה..."
+    },
+    {
+      "affected_decision": "30_2477",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_2457",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "איחוד הנהלות במחוזות משרדי הממשלה",
+      "affected_title": "תשלומי העברה של המוסד לביטוח לאומי",
+      "affected_summary": "הממשלה החליטה לתקן את חוק הביטוח הלאומי בתחום ביטוח נפגעי עבודה. השינויים המרכזיים הם: 1. גמלה תינתן רק למי שדרגת נכותו היא 15% או יותר, ללא שינוי בכללים הקיימים האחרים לתשלום הגמלה. 2. תקופת הזכאות ה..."
+    },
+    {
+      "affected_decision": "30_2490",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "30_2477",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "לאומי",
+        "המוסד",
+        "לביטוח"
+      ],
+      "confidence": 3,
+      "government_number": "30",
+      "source_title": "תשלומי העברה של המוסד לביטוח לאומי",
+      "affected_title": "הפחתה אחידה בתקציב המדינה",
+      "affected_summary": "הממשלה החליטה להפחית את בסיס התקציב של משרדי הממשלה בשנת 2005 בשיעור של 4% ולאחר מכן ב-2% בכל אחת מהשנים 2006 עד 2008. ההפחתות יבוצעו גם על תקציבים שהוקצו בהחלטות קודמות, אך לא יפגעו בסעיפים שנוגעים ל..."
+    },
+    {
+      "affected_decision": "30_2490",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "30_2468",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד",
+        "בתקציב"
+      ],
+      "confidence": 2,
+      "government_number": "30",
+      "source_title": "הפחתה בתקציב משרד התיירות",
+      "affected_title": "הפחתה אחידה בתקציב המדינה",
+      "affected_summary": "הממשלה החליטה להפחית את בסיס התקציב של משרדי הממשלה בשנת 2005 בשיעור של 4% ולאחר מכן ב-2% בכל אחת מהשנים 2006 עד 2008. ההפחתות יבוצעו גם על תקציבים שהוקצו בהחלטות קודמות, אך לא יפגעו בסעיפים שנוגעים ל..."
+    },
+    {
+      "affected_decision": "30_2922",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "30_3065",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "לאומי"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "ועדת השרים לעניני ביטחון לאומי - הרכב חדש",
+      "affected_title": null,
+      "affected_summary": "הממשלה אישרה את מינויו של שמואל הר-נוי לראש המטה ליישום התוכנית הלאומית לחינוך, החל מ-5.12.2004. המינוי מתבצע כהמשך להחלטת ממשלה קודמת...."
+    },
+    {
+      "affected_decision": "30_2965",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "30_2966",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "עקב"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "מתן פיצוי לחקלאים עקב כמות חריגה של משקעים",
+      "affected_title": null,
+      "affected_summary": "הממשלה החליטה לאשר את מינויין של ד\"ר אורית יעקבסון וגב' נינה אדמוני כחברות במועצת הרשות השנייה לטלוויזיה ולרדיו, בהתאם להצעת שר התקשורת והוראות החוק...."
+    },
+    {
+      "affected_decision": "30_2965",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "30_2921",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "החוק"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "הארכת תוקף החוק לעידוד השקעות הון, התשי\"ט 1959",
+      "affected_title": null,
+      "affected_summary": "הממשלה החליטה לאשר את מינויין של ד\"ר אורית יעקבסון וגב' נינה אדמוני כחברות במועצת הרשות השנייה לטלוויזיה ולרדיו, בהתאם להצעת שר התקשורת והוראות החוק...."
+    },
+    {
+      "affected_decision": "30_4076",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "30_4078",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "סיוע"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תוכנית סיוע לבקעת הירדן",
+      "affected_title": "מחקר ופיתוח חקלאי באיזורי הנגב והגליל",
+      "affected_summary": "החלטת הממשלה עוסקת בסיוע למו\"פ חקלאי בנגב ובגליל, כחלק מהמאמץ לפיתוח אזורים אלו. הממשלה מקצה תקציב כולל של 17.5 מיליון ש\"ח למערכות מו\"פ חקלאיות בשנת 2005, עם התחייבות לבחון את המשך התמיכה בתקציב 2006...."
+    },
+    {
+      "affected_decision": "30_4076",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_4080",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "לפיתוח"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תוכנית תלת שנתית לפיתוח החקלאות בבקעת הירדן",
+      "affected_title": "מחקר ופיתוח חקלאי באיזורי הנגב והגליל",
+      "affected_summary": "החלטת הממשלה עוסקת בסיוע למו\"פ חקלאי בנגב ובגליל, כחלק מהמאמץ לפיתוח אזורים אלו. הממשלה מקצה תקציב כולל של 17.5 מיליון ש\"ח למערכות מו\"פ חקלאיות בשנת 2005, עם התחייבות לבחון את המשך התמיכה בתקציב 2006...."
+    },
+    {
+      "affected_decision": "30_4076",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "30_4071",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "סיוע"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "סיוע לישובים בעוטף רצועת עזה - מיגון הישובים",
+      "affected_title": "מחקר ופיתוח חקלאי באיזורי הנגב והגליל",
+      "affected_summary": "החלטת הממשלה עוסקת בסיוע למו\"פ חקלאי בנגב ובגליל, כחלק מהמאמץ לפיתוח אזורים אלו. הממשלה מקצה תקציב כולל של 17.5 מיליון ש\"ח למערכות מו\"פ חקלאיות בשנת 2005, עם התחייבות לבחון את המשך התמיכה בתקציב 2006...."
+    },
+    {
+      "affected_decision": "30_4076",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_4030",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "סיוע"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "סיוע בחונכות עסקית לחקלאי גוש קטיף להיערכות מחדש עקב ההתנתקות",
+      "affected_title": "מחקר ופיתוח חקלאי באיזורי הנגב והגליל",
+      "affected_summary": "החלטת הממשלה עוסקת בסיוע למו\"פ חקלאי בנגב ובגליל, כחלק מהמאמץ לפיתוח אזורים אלו. הממשלה מקצה תקציב כולל של 17.5 מיליון ש\"ח למערכות מו\"פ חקלאיות בשנת 2005, עם התחייבות לבחון את המשך התמיכה בתקציב 2006...."
+    },
+    {
+      "affected_decision": "30_4083",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "30_4080",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תוכנית"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תוכנית תלת שנתית לפיתוח החקלאות בבקעת הירדן",
+      "affected_title": "בחינת הנסיבות ביחס להליך פינוי ישובים ושטחים בהתאם לתוכנית ההתנתקות המתוקנת",
+      "affected_summary": "הממשלה קובעת כי אין שינויים בנסיבות שמחייבים שינוי בהליך פינוי הישובים והשטחים בהתאם לתוכנית ההתנתקות, וכי הפינוי ימשיך בהתאם לצווים הקיימים...."
+    },
+    {
+      "affected_decision": "30_4083",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "30_4078",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תוכנית"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תוכנית סיוע לבקעת הירדן",
+      "affected_title": "בחינת הנסיבות ביחס להליך פינוי ישובים ושטחים בהתאם לתוכנית ההתנתקות המתוקנת",
+      "affected_summary": "הממשלה קובעת כי אין שינויים בנסיבות שמחייבים שינוי בהליך פינוי הישובים והשטחים בהתאם לתוכנית ההתנתקות, וכי הפינוי ימשיך בהתאם לצווים הקיימים...."
+    },
+    {
+      "affected_decision": "30_4083",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "30_4094",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מים"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תאגידי מים וביוב",
+      "affected_title": "בחינת הנסיבות ביחס להליך פינוי ישובים ושטחים בהתאם לתוכנית ההתנתקות המתוקנת",
+      "affected_summary": "הממשלה קובעת כי אין שינויים בנסיבות שמחייבים שינוי בהליך פינוי הישובים והשטחים בהתאם לתוכנית ההתנתקות, וכי הפינוי ימשיך בהתאם לצווים הקיימים...."
+    },
+    {
+      "affected_decision": "30_4091",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "30_4090",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ירושלים"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "סדרי עדיפויות - חיזוק העיר ירושלים",
+      "affected_title": "סדרי עדיפויות - מנועי צמיחה",
+      "affected_summary": "הממשלה החליטה לגבש תוכנית רב שנתית לפיתוח מערכת כבישים בינעירונית בהיקף של לפחות 15 מיליארד ש\"ח, שתבוצע על ידי מע\"צ, ותובא לאישור בתוך 30 יום. בנוסף, הוחלט להקצות תקציב למשרד התיירות לעידוד התיירות הנ..."
+    },
+    {
+      "affected_decision": "30_4091",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_4080",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שנתית",
+        "תוכנית",
+        "לפיתוח"
+      ],
+      "confidence": 3,
+      "government_number": "30",
+      "source_title": "תוכנית תלת שנתית לפיתוח החקלאות בבקעת הירדן",
+      "affected_title": "סדרי עדיפויות - מנועי צמיחה",
+      "affected_summary": "הממשלה החליטה לגבש תוכנית רב שנתית לפיתוח מערכת כבישים בינעירונית בהיקף של לפחות 15 מיליארד ש\"ח, שתבוצע על ידי מע\"צ, ותובא לאישור בתוך 30 יום. בנוסף, הוחלט להקצות תקציב למשרד התיירות לעידוד התיירות הנ..."
+    },
+    {
+      "affected_decision": "30_4108",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_4122",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הציבורי"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "יישום רפורמה בשידור הציבורי ומיקור חוץ של הפקות מקומיות ברשות השידור",
+      "affected_title": "התאמות בתחום הסיוע בדיור",
+      "affected_summary": "סיכום החלטת הממשלה: הממשלה החליטה לבטל את חוק הדיור הציבורי (זכויות רכישה) ולהמשיך במכירת דירות מהדיור הציבורי. בנוסף, הוחלט לעדכן את זכויות הדיירים בדיור הציבורי כך שהזכאות תוגבל לדיירים ממשיכים בהתא..."
+    },
+    {
+      "affected_decision": "30_4108",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "30_4131",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "במשרד"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "צמצום מערך השליחים במשרד התיירות",
+      "affected_title": "התאמות בתחום הסיוע בדיור",
+      "affected_summary": "סיכום החלטת הממשלה: הממשלה החליטה לבטל את חוק הדיור הציבורי (זכויות רכישה) ולהמשיך במכירת דירות מהדיור הציבורי. בנוסף, הוחלט לעדכן את זכויות הדיירים בדיור הציבורי כך שהזכאות תוגבל לדיירים ממשיכים בהתא..."
+    },
+    {
+      "affected_decision": "30_4108",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "30_4094",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מים"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "תאגידי מים וביוב",
+      "affected_title": "התאמות בתחום הסיוע בדיור",
+      "affected_summary": "סיכום החלטת הממשלה: הממשלה החליטה לבטל את חוק הדיור הציבורי (זכויות רכישה) ולהמשיך במכירת דירות מהדיור הציבורי. בנוסף, הוחלט לעדכן את זכויות הדיירים בדיור הציבורי כך שהזכאות תוגבל לדיירים ממשיכים בהתא..."
+    },
+    {
+      "affected_decision": "30_4705",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "30_4731",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "רשות"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "א. הקמת רשות תאגידים במשרד המשפטים ב. פטור ממכרז פומבי למשרת רשם התאגידים",
+      "affected_title": "המערכת הפלסטינית לאחר הבחירות ברשות הפלסטינית - מדיניות ישראל נוכח השבעת המועצה המחוקקת הפלסטינית",
+      "affected_summary": "הממשלה הישראלית מחליטה להפסיק את העברת הכספים לרשות הפלסטינית ולהפנות לקהילה הבינלאומית כדי לעצור סיוע כספי לרשות, עד שהחמאס יקבל את תנאי הסף שנקבעו על ידי ישראל והרביעייה הבינלאומית...."
+    },
+    {
+      "affected_decision": "30_4705",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "30_4669",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "סיוע"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "סיוע לרשויות חינוך מקומיות הקולטות את מפוני חבל עזה וצפון השומרון ולתלמידים מפונים",
+      "affected_title": "המערכת הפלסטינית לאחר הבחירות ברשות הפלסטינית - מדיניות ישראל נוכח השבעת המועצה המחוקקת הפלסטינית",
+      "affected_summary": "הממשלה הישראלית מחליטה להפסיק את העברת הכספים לרשות הפלסטינית ולהפנות לקהילה הבינלאומית כדי לעצור סיוע כספי לרשות, עד שהחמאס יקבל את תנאי הסף שנקבעו על ידי ישראל והרביעייה הבינלאומית...."
+    },
+    {
+      "affected_decision": "30_4705",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "30_4761",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "העברת"
+      ],
+      "confidence": 1,
+      "government_number": "30",
+      "source_title": "העברת סכומים למפרק המסדיר לצורך תשלום פיצויי פיטורין ושכר עובדים",
+      "affected_title": "המערכת הפלסטינית לאחר הבחירות ברשות הפלסטינית - מדיניות ישראל נוכח השבעת המועצה המחוקקת הפלסטינית",
+      "affected_summary": "הממשלה הישראלית מחליטה להפסיק את העברת הכספים לרשות הפלסטינית ולהפנות לקהילה הבינלאומית כדי לעצור סיוע כספי לרשות, עד שהחמאס יקבל את תנאי הסף שנקבעו על ידי ישראל והרביעייה הבינלאומית...."
+    },
+    {
+      "affected_decision": "31_53",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "31_92",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "עבור"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "אתרי הדיור הזמני עבור מתיישבי חבל עזה וצפון השומרון - ביצוע שינויים פנימיים בתקציבי הפיתוח ומוסדות ציבור",
+      "affected_title": "סיוע בתחום הדיור למשפחות בעלות צרכים ייחודיים שפונו מחבל עזה וצפון השומרון",
+      "affected_summary": "הממשלה אישרה תקציב של 500 אלף ש\"ח למינהלת סל\"ע להרחבת מבנים זמניים עבור משפחות בעלות צרכים ייחודיים שפונו מחבל עזה וצפון השומרון, בהתאם להמלצות צוות מקצועי שהוקם בנושא...."
+    },
+    {
+      "affected_decision": "31_53",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "31_11",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "צוות"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "הקמת צוות להכנת תכנית לפיתוח איזור מזרח לכיש",
+      "affected_title": "סיוע בתחום הדיור למשפחות בעלות צרכים ייחודיים שפונו מחבל עזה וצפון השומרון",
+      "affected_summary": "הממשלה אישרה תקציב של 500 אלף ש\"ח למינהלת סל\"ע להרחבת מבנים זמניים עבור משפחות בעלות צרכים ייחודיים שפונו מחבל עזה וצפון השומרון, בהתאם להמלצות צוות מקצועי שהוקם בנושא...."
+    },
+    {
+      "affected_decision": "31_132",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "31_63",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "הקמת ועדת מנכ\"לים קבועה ומינוי מתאם בתחום המאבק בסחר בבני-אדם",
+      "affected_title": "שינוי שמה ותחומי עיסוקה של ועדת השרים לענייני חקיקה",
+      "affected_summary": "הממשלה החליטה לשנות את שם ועדת השרים לענייני חקיקה ל\"ועדת השרים לענייני חקיקה ואכיפת החוק\" ולהוסיף לסמכויותיה את הטיפול בנושאים הקשורים לאכיפת החוק. ההחלטה מתקבלת בהתאם לסעיף 20(ב) בתקנון עבודת הממשלה..."
+    },
+    {
+      "affected_decision": "31_254",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "31_275",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מינוי"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "אישור מינוי הממונה על השכר והסכמי עבודה במשרד האוצר",
+      "affected_title": null,
+      "affected_summary": "ההחלטה היא למנות את השרה יולי תמיר כחברה בוועדה למינוי קאדים מד'הב, בנוסף לשר המשפטים שכבר מכהן בוועדה מכוח תפקידו, בהתאם לחוק בתי הדין הדתיים הדרוזיים...."
+    },
+    {
+      "affected_decision": "31_254",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "31_283",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מינוי"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "מינוי המנהל הכללי של המשרד להגנת הסביבה",
+      "affected_title": null,
+      "affected_summary": "ההחלטה היא למנות את השרה יולי תמיר כחברה בוועדה למינוי קאדים מד'הב, בנוסף לשר המשפטים שכבר מכהן בוועדה מכוח תפקידו, בהתאם לחוק בתי הדין הדתיים הדרוזיים...."
+    },
+    {
+      "affected_decision": "31_254",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "31_225",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "מינוי"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "מינוי מנהלת כללית למשרד החקלאות ופיתוח הכפר",
+      "affected_title": null,
+      "affected_summary": "ההחלטה היא למנות את השרה יולי תמיר כחברה בוועדה למינוי קאדים מד'הב, בנוסף לשר המשפטים שכבר מכהן בוועדה מכוח תפקידו, בהתאם לחוק בתי הדין הדתיים הדרוזיים...."
+    },
+    {
+      "affected_decision": "31_3950",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "31_3823",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "הצעת חוק לתיקון פקודת מסילות הברזל (עידוד השימוש ברכבת - הקמת חניונים במחיר סביר), התשס\"ח-2008 של ח\"כ גלעד ארדן ואופיר פינס-פז (פ/3529)",
+      "affected_title": "הכרה זמנית ומותנית לשלוש שנים במרכז האקדמי פרס בע\"מ כמוסד להשכלה גבוהה",
+      "affected_summary": "הממשלה עשתה החלטה להכיר באופן זמני ומותנה, למשך שלוש שנים, במרכז האקדמי פרס בע\"מ כמוסד להשכלה גבוהה, בהתאם לחוק המועצה להשכלה גבוהה...."
+    },
+    {
+      "affected_decision": "31_3950",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "31_4210",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "להשכלה",
+        "גבוהה"
+      ],
+      "confidence": 2,
+      "government_number": "31",
+      "source_title": "מינוי חברה במועצה להשכלה גבוהה",
+      "affected_title": "הכרה זמנית ומותנית לשלוש שנים במרכז האקדמי פרס בע\"מ כמוסד להשכלה גבוהה",
+      "affected_summary": "הממשלה עשתה החלטה להכיר באופן זמני ומותנה, למשך שלוש שנים, במרכז האקדמי פרס בע\"מ כמוסד להשכלה גבוהה, בהתאם לחוק המועצה להשכלה גבוהה...."
+    },
+    {
+      "affected_decision": "31_3950",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "31_4256",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "31",
+      "source_title": "הצעת חוק בתי המשפט (הקמת בית משפט לערעורים) (תיקוני חקיקה), התשס\"ח-2008 של ח\"כ יוסי ביילין",
+      "affected_title": "הכרה זמנית ומותנית לשלוש שנים במרכז האקדמי פרס בע\"מ כמוסד להשכלה גבוהה",
+      "affected_summary": "הממשלה עשתה החלטה להכיר באופן זמני ומותנה, למשך שלוש שנים, במרכז האקדמי פרס בע\"מ כמוסד להשכלה גבוהה, בהתאם לחוק המועצה להשכלה גבוהה...."
+    },
+    {
+      "affected_decision": "32_2929",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "32_2944",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "הצעת חוק הבנקאות (שירות ללקוח) (תיקון - קביעת גודל מזערי לאותיות בדוחות בנקאיים לאזרח ותיק), התש\"ע-2010 של ח\"כ רוברט אילטוב (פ/2258) - ערר השרה לקליטת העלייה",
+      "affected_title": "הצעת חוק הרשויות המקומיות (בחירות) (תיקון - הגבלת זכות המנהל הכללי להיבחר), התשע\"א-2010 של ח\"כ אלכס מילר ואחרים (פ/2667)",
+      "affected_summary": "ההחלטה עוסקת בתמיכה בחוק שמציע להגביל את זכות המנהל הכללי להיבחר לראשות עירייה או למועצת עירייה, אם שימש בתפקידו במשך השנה האחרונה. התנאים לתמיכה כוללים תיאום עם משרד המשפטים ומשרד הפנים, וכן הסדרת הח..."
+    },
+    {
+      "affected_decision": "32_2929",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "32_2920",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "באמצעות"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "פטור ממכרז (מינוי באמצעות ועדה לאיתור מועמדים) למשרת ממונה רגולציה בתחום תעסוקה במשרד התעשייה, המסחר והתעסוקה - תיקון החלטה",
+      "affected_title": "הצעת חוק הרשויות המקומיות (בחירות) (תיקון - הגבלת זכות המנהל הכללי להיבחר), התשע\"א-2010 של ח\"כ אלכס מילר ואחרים (פ/2667)",
+      "affected_summary": "ההחלטה עוסקת בתמיכה בחוק שמציע להגביל את זכות המנהל הכללי להיבחר לראשות עירייה או למועצת עירייה, אם שימש בתפקידו במשך השנה האחרונה. התנאים לתמיכה כוללים תיאום עם משרד המשפטים ומשרד הפנים, וכן הסדרת הח..."
+    },
+    {
+      "affected_decision": "32_2929",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "32_2950",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "יישום חוק חופש המידע, התשנ\"ח-1998: הגברת השקיפות ברשויות ציבוריות",
+      "affected_title": "הצעת חוק הרשויות המקומיות (בחירות) (תיקון - הגבלת זכות המנהל הכללי להיבחר), התשע\"א-2010 של ח\"כ אלכס מילר ואחרים (פ/2667)",
+      "affected_summary": "ההחלטה עוסקת בתמיכה בחוק שמציע להגביל את זכות המנהל הכללי להיבחר לראשות עירייה או למועצת עירייה, אם שימש בתפקידו במשך השנה האחרונה. התנאים לתמיכה כוללים תיאום עם משרד המשפטים ומשרד הפנים, וכן הסדרת הח..."
+    },
+    {
+      "affected_decision": "32_2929",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "32_2902",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תיקון",
+        "חוק"
+      ],
+      "confidence": 2,
+      "government_number": "32",
+      "source_title": "הצעת חוק מס ערך מוסף (תיקון - מס בשיעור אפס על מוצרי בטיחות בדרכים), התשס\"ט-2009 של ח\"כ סעיד נפאע ואחרים (פ/675)",
+      "affected_title": "הצעת חוק הרשויות המקומיות (בחירות) (תיקון - הגבלת זכות המנהל הכללי להיבחר), התשע\"א-2010 של ח\"כ אלכס מילר ואחרים (פ/2667)",
+      "affected_summary": "ההחלטה עוסקת בתמיכה בחוק שמציע להגביל את זכות המנהל הכללי להיבחר לראשות עירייה או למועצת עירייה, אם שימש בתפקידו במשך השנה האחרונה. התנאים לתמיכה כוללים תיאום עם משרד המשפטים ומשרד הפנים, וכן הסדרת הח..."
+    },
+    {
+      "affected_decision": "32_2929",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "32_2958",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "הצעת חוק הנכים (תגמולים ושיקום) (תיקון - ליווי רפואי ומשפטי במהלך הליכי ההכרה כנכה וקביעת דרגת הנכות), התש\"ע-2010 של ח\"כ ישראל חסון ואחרים (פ/2348)",
+      "affected_title": "הצעת חוק הרשויות המקומיות (בחירות) (תיקון - הגבלת זכות המנהל הכללי להיבחר), התשע\"א-2010 של ח\"כ אלכס מילר ואחרים (פ/2667)",
+      "affected_summary": "ההחלטה עוסקת בתמיכה בחוק שמציע להגביל את זכות המנהל הכללי להיבחר לראשות עירייה או למועצת עירייה, אם שימש בתפקידו במשך השנה האחרונה. התנאים לתמיכה כוללים תיאום עם משרד המשפטים ומשרד הפנים, וכן הסדרת הח..."
+    },
+    {
+      "affected_decision": "32_2985",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "32_3003",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "הצעת חוק התכנון והבניה (תיקון - קרן ייעודית לחינוך), התש\"ע-2010 של ח\"כ יריב לוין (פ/2595)",
+      "affected_title": "שימוש במידע הממשלתי, עיבודו מחדש ופיתוחו על ידי הציבור ולטובת הציבור",
+      "affected_summary": "החלטת הממשלה עוסקת בהגברת שקיפות המידע הממשלתי באמצעות פרסום מאגרי מידע לציבור, תוך קידום ממשל פתוח. במסגרת זאת, משרדי הממשלה ידרשו לפרסם רשימות של מאגרי מידע שברשותם ורצוי שיכללו סדרות נתונים חדשות ש..."
+    },
+    {
+      "affected_decision": "32_2985",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "32_2970",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "הצעת חוק הכניסה לישראל (תיקון - העסקת עובד זר בתחום הסיעוד), התשע\"א-2011 של ח\"כ דוד אזולאי ואחרים (פ/2941)",
+      "affected_title": "שימוש במידע הממשלתי, עיבודו מחדש ופיתוחו על ידי הציבור ולטובת הציבור",
+      "affected_summary": "החלטת הממשלה עוסקת בהגברת שקיפות המידע הממשלתי באמצעות פרסום מאגרי מידע לציבור, תוך קידום ממשל פתוח. במסגרת זאת, משרדי הממשלה ידרשו לפרסם רשימות של מאגרי מידע שברשותם ורצוי שיכללו סדרות נתונים חדשות ש..."
+    },
+    {
+      "affected_decision": "32_2985",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "32_2958",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "הצעת חוק הנכים (תגמולים ושיקום) (תיקון - ליווי רפואי ומשפטי במהלך הליכי ההכרה כנכה וקביעת דרגת הנכות), התש\"ע-2010 של ח\"כ ישראל חסון ואחרים (פ/2348)",
+      "affected_title": "שימוש במידע הממשלתי, עיבודו מחדש ופיתוחו על ידי הציבור ולטובת הציבור",
+      "affected_summary": "החלטת הממשלה עוסקת בהגברת שקיפות המידע הממשלתי באמצעות פרסום מאגרי מידע לציבור, תוך קידום ממשל פתוח. במסגרת זאת, משרדי הממשלה ידרשו לפרסם רשימות של מאגרי מידע שברשותם ורצוי שיכללו סדרות נתונים חדשות ש..."
+    },
+    {
+      "affected_decision": "32_3315",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "32_3336",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "פעולה"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "העברת שטח פעולה ממשרד החקלאות ופיתוח הכפר למשרד ראש הממשלה - החטיבה להתיישבות",
+      "affected_title": null,
+      "affected_summary": "ההחלטה של הממשלה עוסקת באישור פרוטוקול מתקן להסכם בין ישראל לפנמה בתחום הסחר ושיתוף הפעולה הכלכלי. הממשלה מאשרת את הנוסח ומייפה את כוחם של שר התעשייה, המסחר והתעסוקה ושר החוץ לבצע את ההסכם...."
+    },
+    {
+      "affected_decision": "32_3411",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "32_3410",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "נסיעת ראש הממשלה",
+      "affected_title": "הרשאות לפי חוק נכסי המדינה, התשי\"א1951- - לנושאי משרה בכנסת",
+      "affected_summary": "ההחלטה ממשלתית מספר 3411 מתירה לנושאי משרה מסוימים בכנסת לייצג את הממשלה בעסקאות בתחום פעילות הכנסת, למעט במקרקעין, עד לסכומים מוגדרים. המנהל הכללי של הכנסת וחשב הכנסת מורשים לפעול ללא הגבלה, בעוד שמנ..."
+    },
+    {
+      "affected_decision": "32_3598",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "32_3596",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "הצעת"
+      ],
+      "confidence": 2,
+      "government_number": "32",
+      "source_title": "הצעת חוק נכי רדיפות הנאצים (תיקון - הרשות הלאומית לזכויות ניצולי השואה), התשע\"א2011- של ח\"כ זאב בילסקי ואחרים (פ3133/)",
+      "affected_title": null,
+      "affected_summary": "הממשלה החליטה להעביר את הדיון בהצעת חוק-יסוד: הכנסת, אשר עוסקת בקביעת אחוז החסימה, להנהלת הקואליציה לצורך שמיעת עמדתה בנושא...."
+    },
+    {
+      "affected_decision": "32_3598",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "32_3588",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "הצעת"
+      ],
+      "confidence": 2,
+      "government_number": "32",
+      "source_title": "הצעת חוק מרשם האוכלוסין (תיקון - רישום על פי פסק דין), התשע\"א2011- של ח\"כ דוד אזולאי ואחרים (פ3130/)",
+      "affected_title": null,
+      "affected_summary": "הממשלה החליטה להעביר את הדיון בהצעת חוק-יסוד: הכנסת, אשר עוסקת בקביעת אחוז החסימה, להנהלת הקואליציה לצורך שמיעת עמדתה בנושא...."
+    },
+    {
+      "affected_decision": "32_3598",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "32_3581",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "הצעת"
+      ],
+      "confidence": 2,
+      "government_number": "32",
+      "source_title": "הצעת חוק חובת נשיאת תג זיהוי והזדהות של עובד ציבור, התשע\"א2011- של ח\"כ זבולון אורלב (פ2997/) - ערר שר החינוך והשר מיכאל איתן",
+      "affected_title": null,
+      "affected_summary": "הממשלה החליטה להעביר את הדיון בהצעת חוק-יסוד: הכנסת, אשר עוסקת בקביעת אחוז החסימה, להנהלת הקואליציה לצורך שמיעת עמדתה בנושא...."
+    },
+    {
+      "affected_decision": "32_3712",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "32_3722",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "נסיעת ראש הממשלה לארצות הברית",
+      "affected_title": "שיפור מערך ההכשרה המקצועית",
+      "affected_summary": "הממשלה החליטה לדחות את יישום שינוי שיטת תקצוב המכללות להכשרה מקצועית כך שיתבסס על מספר מקבלי הדיפלומות, שיהיה חל מגובה השנה הלימודית תשע\"ג. בנוסף, התקצוב לשנת הלימודים תשע\"ב יתבסס על מספר הסטודנטים שי..."
+    },
+    {
+      "affected_decision": "32_3712",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "32_3702",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "לשנת"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "אישור עדכון תקציב פיתוח מסופי הגבול היבשתיים לשנת 2011 והרשאה להתחייב לשנת 2011 ואילך",
+      "affected_title": "שיפור מערך ההכשרה המקצועית",
+      "affected_summary": "הממשלה החליטה לדחות את יישום שינוי שיטת תקצוב המכללות להכשרה מקצועית כך שיתבסס על מספר מקבלי הדיפלומות, שיהיה חל מגובה השנה הלימודית תשע\"ג. בנוסף, התקצוב לשנת הלימודים תשע\"ב יתבסס על מספר הסטודנטים שי..."
+    },
+    {
+      "affected_decision": "32_3802",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "32_3804",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "אשרור הסכם בין ממשלת מדינת ישראל לבין הממשלה התאית המלכותית בדבר גיוס עובדים תאים לעבודה זמנית במגזר החקלאי בישראל",
+      "affected_title": "תכנית למתן מענקים וסבסוד פיתוח לזכאים לרכישת דירות חדשות בבנייה רוויה ובבנייה עצמית רוויה - תיקון החלטת ממשלה",
+      "affected_summary": "הממשלה החליטה לתקן את החלטת הממשלה מספר 3282 מיום 5.6.2011, כך שיאפשר סבסוד ופיתוח של דירות חדשות הן על קרקע המשווקת על ידי המדינה והן על קרקע המפותחת על ידי רשויות מקומיות, בהתאם למנגנון שיתואם בין ה..."
+    },
+    {
+      "affected_decision": "32_3802",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "32_3806",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "32",
+      "source_title": "הרשאה לפי חוק נכסי המדינה, התשי\"א-1951 - האפוטרופוס הכללי",
+      "affected_title": "תכנית למתן מענקים וסבסוד פיתוח לזכאים לרכישת דירות חדשות בבנייה רוויה ובבנייה עצמית רוויה - תיקון החלטת ממשלה",
+      "affected_summary": "הממשלה החליטה לתקן את החלטת הממשלה מספר 3282 מיום 5.6.2011, כך שיאפשר סבסוד ופיתוח של דירות חדשות הן על קרקע המשווקת על ידי המדינה והן על קרקע המפותחת על ידי רשויות מקומיות, בהתאם למנגנון שיתואם בין ה..."
+    },
+    {
+      "affected_decision": "34_1226",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "34_1573",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "34",
+      "source_title": "הצעת חוק ארגון הפיקוח על העבודה (תיקון - צווים לסגירת אתר בנייה), התשע\"ו-2016 של חה\"כ אלי אלאלוף ואחרים (פ/2789)",
+      "affected_title": null,
+      "affected_summary": "ההחלטה עוסקת בתזכיר חוק לתיקון פקודת מס הכנסה, שמטרתו להעניק נקודות זיכוי למשרתים במילואים. ההחלטה כוללת שינוי במ terminology של המונח \"לוחם\" ל\"חייל המשרת ביחידה של דרג א'\" ומעבירה את טיוטת החוק לדיון..."
+    },
+    {
+      "affected_decision": "34_1226",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "34_107",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 1,
+      "government_number": "34",
+      "source_title": "נסיעות שרים",
+      "affected_title": null,
+      "affected_summary": "ההחלטה עוסקת בתזכיר חוק לתיקון פקודת מס הכנסה, שמטרתו להעניק נקודות זיכוי למשרתים במילואים. ההחלטה כוללת שינוי במ terminology של המונח \"לוחם\" ל\"חייל המשרת ביחידה של דרג א'\" ומעבירה את טיוטת החוק לדיון..."
+    }
+  ],
+  "other_field_issues": {
+    "operativity_shifts": [],
+    "tags_shifts": []
+  },
+  "verified_cases": {
+    "known_case_36_1022_1024": false
+  }
+}

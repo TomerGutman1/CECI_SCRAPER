@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-01-30T11:41:40.848682",
+  "total_records": 14996,
+  "total_issues": 6,
+  "issues_by_severity": {
+    "high": 6
+  },
+  "checks": [
+    {
+      "check_name": "operativity_validity",
+      "total_scanned": 14996,
+      "issues_found": 6,
+      "issue_rate": "0.0%",
+      "summary": {
+        "invalid_values": 6,
+        "known_typos": {
+          "דלקרטיבית": 2,
+          "אופרנטיבית": 1,
+          "אופרייטיבית": 1,
+          "דקלרטיווית": 1
+        },
+        "garbage_values": 1
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_5712",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "דלקרטיבית",
+          "description": "Typo: 'דלקרטיבית' → should be 'דקלרטיבית'"
+        },
+        {
+          "decision_key": "28_2212",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "דלקרטיבית",
+          "description": "Typo: 'דלקרטיבית' → should be 'דקלרטיבית'"
+        },
+        {
+          "decision_key": "29_2319",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרנטיבית",
+          "description": "Typo: 'אופרנטיבית' → should be 'אופרטיבית'"
+        },
+        {
+          "decision_key": "30_101",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרייטיבית",
+          "description": "Typo: 'אופרייטיבית' → should be 'אופרטיבית'"
+        },
+        {
+          "decision_key": "31_4249",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "דקלרטיווית",
+          "description": "Typo: 'דקלרטיווית' → should be 'דקלרטיבית'"
+        },
+        {
+          "decision_key": "36_639",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "'דקלרט��בית'",
+          "description": "Corrupted/unknown operativity value: 'דקלרט��בית'"
+        }
+      ]
+    }
+  ]
+}

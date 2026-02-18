@@ -1,0 +1,77 @@
+{
+  "check_name": "fix_policy_tags",
+  "total_scanned": 10,
+  "issues_found": 9,
+  "issue_rate": "90.0%",
+  "summary": {
+    "total_processed": 10,
+    "changes": 9,
+    "applied": 9,
+    "errors": 0
+  },
+  "sample_issues": [
+    {
+      "decision_key": "34_445",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'חקיקה, משפט ורגולציה; מדיני ביטחוני; מנהלתי'"
+    },
+    {
+      "decision_key": "33_2425",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'חוץ הסברה ותפוצות'"
+    },
+    {
+      "decision_key": "32_3452",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'חוץ הסברה ותפוצות'"
+    },
+    {
+      "decision_key": "32_3387",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'חוץ הסברה ותפוצות; רגולציה'"
+    },
+    {
+      "decision_key": "32_1160",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'חוץ הסברה ותפוצות; חקיקה, משפט ורגולציה'"
+    },
+    {
+      "decision_key": "31_1895",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'תרבות וספורט; מורשת'"
+    },
+    {
+      "decision_key": "30_3582",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'חוץ הסברה ותפוצות; מדיני ביטחוני'"
+    },
+    {
+      "decision_key": "29_2064",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'תקציב, פיננסים, ביטוח ומיסוי; תרבות וספורט; מורשת'"
+    },
+    {
+      "decision_key": "29_1680",
+      "severity": "medium",
+      "field": "tags_policy_area",
+      "current_value": "שונות",
+      "description": "Changed: 'שונות' → 'חוץ הסברה ותפוצות; יוקר המחייה; מדיני ביטחוני'"
+    }
+  ]
+}

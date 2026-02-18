@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-02-08T15:12:34.329970",
+  "total_records": 100,
+  "total_issues": 38,
+  "issues_by_severity": {
+    "high": 38
+  },
+  "checks": [
+    {
+      "check_name": "policy_tag_relevance",
+      "total_scanned": 100,
+      "issues_found": 38,
+      "issue_rate": "38.0%",
+      "summary": {
+        "no_keyword_matches": 38,
+        "low_relevance": 42
+      },
+      "sample_issues": [
+        {
+          "decision_key": "37_3812",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תקציב, פיננסים, ביטוח ומיסוי",
+          "description": "Tag 'תקציב, פיננסים, ביטוח ומיסוי' has 0 keyword matches in content+title (28 keywords checked)"
+        },
+        {
+          "decision_key": "37_3812",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "שיקום הדרום",
+          "description": "Tag 'שיקום הדרום' has 0 keyword matches in content+title (31 keywords checked)"
+        },
+        {
+          "decision_key": "37_3821",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "אזרחים ותיקים",
+          "description": "Tag 'אזרחים ותיקים' has 0 keyword matches in content+title (15 keywords checked)"
+        },
+        {
+          "decision_key": "37_3803",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "החברה הערבית",
+          "description": "Tag 'החברה הערבית' has 0 keyword matches in content+title (26 keywords checked)"
+        },
+        {
+          "decision_key": "37_3800",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "החברה החרדית",
+          "description": "Tag 'החברה החרדית' has 0 keyword matches in content+title (27 keywords checked)"
+        },
+        {
+          "decision_key": "37_3802",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "מורשת",
+          "description": "Tag 'מורשת' has 0 keyword matches in content+title (12 keywords checked)"
+        },
+        {
+          "decision_key": "37_3788",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "חוץ הסברה ותפוצות",
+          "description": "Tag 'חוץ הסברה ותפוצות' has 0 keyword matches in content+title (19 keywords checked)"
+        },
+        {
+          "decision_key": "37_3787",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "שלטון מקומי",
+          "description": "Tag 'שלטון מקומי' has 0 keyword matches in content+title (10 keywords checked)"
+        },
+        {
+          "decision_key": "37_3786",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "שלטון מקומי",
+          "description": "Tag 'שלטון מקומי' has 0 keyword matches in content+title (10 keywords checked)"
+        },
+        {
+          "decision_key": "37_3781",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "מנהלת תקומה",
+          "description": "Tag 'מנהלת תקומה' has 0 keyword matches in content+title (12 keywords checked)"
+        }
+      ]
+    }
+  ]
+}

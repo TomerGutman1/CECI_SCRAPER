@@ -1,0 +1,29 @@
+{
+  "analysis_metadata": {
+    "timestamp": "20260216_210456",
+    "total_records_analyzed": 12,
+    "analysis_version": "1.0",
+    "focus": "URL integrity and data shifting investigation"
+  },
+  "summary_statistics": {
+    "critical_issues": 0,
+    "warnings": 0,
+    "clean_records": 12,
+    "missing_urls": 0,
+    "integrity_score": 100.0
+  },
+  "issue_breakdown": {},
+  "government_distribution": {
+    "36": 12
+  },
+  "url_mismatch_analysis": {
+    "total_mismatches": 0,
+    "adjacent_errors": 0,
+    "nearby_errors": 0,
+    "far_errors": 0,
+    "systematic_shift_detected": false,
+    "common_difference_patterns": []
+  },
+  "critical_examples": [],
+  "recommendations": []
+}

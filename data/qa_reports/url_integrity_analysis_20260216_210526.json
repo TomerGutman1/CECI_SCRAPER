@@ -1,0 +1,48 @@
+{
+  "analysis_metadata": {
+    "timestamp": "20260216_210527",
+    "total_records_analyzed": 7,
+    "analysis_version": "1.0",
+    "focus": "URL integrity and data shifting investigation"
+  },
+  "summary_statistics": {
+    "critical_issues": 1,
+    "warnings": 0,
+    "clean_records": 6,
+    "missing_urls": 0,
+    "integrity_score": 85.71
+  },
+  "issue_breakdown": {
+    "url_decision_mismatch": 1,
+    "adjacent_decision_error": 1
+  },
+  "government_distribution": {
+    "36": 7
+  },
+  "url_mismatch_analysis": {
+    "total_mismatches": 1,
+    "adjacent_errors": 1,
+    "nearby_errors": 0,
+    "far_errors": 0,
+    "systematic_shift_detected": false,
+    "common_difference_patterns": [
+      [
+        -1,
+        1
+      ]
+    ]
+  },
+  "critical_examples": [
+    {
+      "decision_key": "36_1022",
+      "url": "https://www.gov.il/he/pages/dec1021_2022",
+      "decision_from_key": "1022",
+      "decision_from_url": "1021",
+      "title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים"
+    }
+  ],
+  "recommendations": [
+    "CRITICAL: 1 records have URL-decision mismatches requiring immediate investigation",
+    "Data Quality Alert: Only 85.71% of records have clean URL integrity - investigate scraping process"
+  ]
+}

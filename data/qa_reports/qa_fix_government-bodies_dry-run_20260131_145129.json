@@ -1,0 +1,82 @@
+{
+  "check_name": "fix_government_body_tags",
+  "total_scanned": 25016,
+  "issues_found": 12457,
+  "issue_rate": "49.8%",
+  "summary": {
+    "total_processed": 25016,
+    "cleaned": 12457
+  },
+  "sample_issues": [
+    {
+      "decision_key": "37_3823",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד הביטחון; משטרת ישראל; רשות החירום הלאומית (רח\"ל)",
+      "description": "Removed hallucinated bodies: ['משטרת ישראל', 'רשות החירום הלאומית (רח\"ל)']"
+    },
+    {
+      "decision_key": "37_3822",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד הביטחון; משרד החוץ; משטרת ישראל",
+      "description": "Removed hallucinated bodies: ['משרד החוץ']"
+    },
+    {
+      "decision_key": "37_3817",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד התחבורה והבטיחות בדרכים; רשות החדשנות; רשות החברות הממשלתיות",
+      "description": "Removed hallucinated bodies: ['משרד התחבורה והבטיחות בדרכים', 'רשות החדשנות', 'רשות החברות הממשלתיות']"
+    },
+    {
+      "decision_key": "37_3815",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "רשות הרגולציה",
+      "description": "Removed hallucinated bodies: ['רשות הרגולציה']"
+    },
+    {
+      "decision_key": "37_3814",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד הביטחון; רשות החירום הלאומית (רח\"ל)",
+      "description": "Removed hallucinated bodies: ['רשות החירום הלאומית (רח\"ל)']"
+    },
+    {
+      "decision_key": "37_3812",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד הביטחון; משרד הבריאות; משרד העבודה",
+      "description": "Removed hallucinated bodies: ['משרד הביטחון', 'משרד הבריאות', 'משרד העבודה']"
+    },
+    {
+      "decision_key": "37_3804",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "מנהל התכנון; ועדת השרים; ועדת הכספים",
+      "description": "Removed hallucinated bodies: ['מנהל התכנון', 'ועדת הכספים']"
+    },
+    {
+      "decision_key": "37_3803",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד הבריאות; משרד הרווחה; רשות החירום הלאומית (רח\"ל)",
+      "description": "Removed hallucinated bodies: ['משרד הרווחה', 'רשות החירום הלאומית (רח\"ל)']"
+    },
+    {
+      "decision_key": "37_3801",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד הבריאות; ועדת הכספים",
+      "description": "Removed hallucinated bodies: ['משרד הבריאות', 'ועדת הכספים']"
+    },
+    {
+      "decision_key": "37_3800",
+      "severity": "medium",
+      "field": "tags_government_body",
+      "current_value": "משרד הבריאות; ועדת הכספים; ועדת השרים",
+      "description": "Removed hallucinated bodies: ['ועדת הכספים']"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "check_name": "fix_cloudflare",
+  "total_scanned": 24,
+  "issues_found": 24,
+  "issue_rate": "100.0%",
+  "summary": {
+    "total_processed": 24,
+    "re_scraped": 24,
+    "errors": 0,
+    "error_details": [],
+    "applied": 24,
+    "batch_errors": 0
+  },
+  "sample_issues": [
+    {
+      "decision_key": "37_3813",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 1838 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3816",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 1019 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3817",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 1194 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3820",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 1702 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3821",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 1443 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3822",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 1445 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3823",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 1350 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3815",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 804 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3814",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 4877 chars, AI re-processed"
+    },
+    {
+      "decision_key": "37_3796",
+      "severity": "high",
+      "field": "decision_content",
+      "current_value": "Just a moment...www.gov.ilVerify you are human by completing the action below.ww",
+      "description": "Re-scraped: 771 chars, AI re-processed"
+    }
+  ]
+}

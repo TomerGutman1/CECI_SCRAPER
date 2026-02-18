@@ -9,7 +9,7 @@ SRC_DIR := src
 TEST_DIR := tests
 DOCS_DIR := docs
 
-.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30 qa-scan qa-scan-check qa-fix-preview qa-fix-dry qa-fix-execute special-tags-preview special-tags-dry special-tags-year special-tags-all
+.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30 qa-scan qa-scan-check qa-fix-preview qa-fix-dry qa-fix-execute special-tags-preview special-tags-dry special-tags-year special-tags-all incremental-qa-setup incremental-qa-run incremental-qa-status incremental-qa-report incremental-qa-cleanup test-qa test-unit test-integration test-performance test-regression test-property test-all-qa test-coverage test-report install-dev setup-dev format-check security pre-commit install-hooks ci-test health-check
 
 # Default target - show help
 help:
@@ -39,13 +39,38 @@ help:
 	@echo "  make qa-fix-dry check=X          - Dry-run fix"
 	@echo "  make qa-fix-execute check=X      - Execute fix"
 	@echo ""
+	@echo "⚡ Enhanced QA commands:"
+	@echo "  make simple-qa-run               - Run simple incremental QA (working!)"
+	@echo "  make simple-qa-status            - Show incremental QA status"
+	@echo "  make simple-qa-reset             - Reset change tracking"
+	@echo "  make enhanced-qa-run             - Run enhanced incremental QA (optimized)"
+	@echo "  make enhanced-qa-status          - Show enhanced QA status"
+	@echo ""
+	@echo "📊 Real-time Monitoring:"
+	@echo "  make monitor-start               - Start real-time quality monitoring"
+	@echo ""
+	@echo "🚀 Deployment commands:"
+	@echo "  make deploy-check                - Check current issues and prerequisites"
+	@echo "  make deploy-improvements         - Deploy all algorithm improvements"
+	@echo "  make deploy-auto                 - Auto-deploy without confirmations"
+	@echo "  make verify-deployment           - Verify deployment success"
+	@echo "  make monitor-check               - Run single monitoring check"
+	@echo "  make monitor-health              - Show system health score"
+	@echo "  make monitor-alerts              - Show current alerts"
+	@echo ""
+	@echo "📋 Quality Reports:"
+	@echo "  make report-daily                - Generate daily quality report"
+	@echo "  make report-weekly               - Generate weekly quality report"
+	@echo "  make report-monthly              - Generate monthly quality report"
+	@echo "  make report-custom format=html   - Generate report in specific format"
+	@echo ""
 	@echo "🏷️  Special Category Tags (AI-based):"
 	@echo "  make special-tags-preview        - Preview on 10 records"
 	@echo "  make special-tags-dry            - Full dry-run"
 	@echo "  make special-tags-year year=2024 - Process specific year"
 	@echo "  make special-tags-all            - Process all years (25K records)"
 	@echo ""
-	@echo "🏷️  Tag Migration commands:
+	@echo "🏷️  Tag Migration commands:"
 	@echo "  make migrate-preview    - Preview on 10 records"
 	@echo "  make migrate-preview-n n=20  - Preview on N records"
 	@echo "  make migrate-dry        - Full dry-run (no changes)"
@@ -54,6 +79,27 @@ help:
 	@echo "🗓️  Year-by-Year Migration:"
 	@echo "  make migrate-all-years  - Migrate all years (2024-1993)"
 	@echo "  make migrate-year year=2024  - Migrate a specific year"
+	@echo ""
+	@echo "🧪 QA Testing commands:"
+	@echo "  make test-qa                     - Run basic QA tests (unit tests)"
+	@echo "  make test-unit                   - Run unit tests"
+	@echo "  make test-integration            - Run integration tests"
+	@echo "  make test-performance            - Run performance tests"
+	@echo "  make test-regression             - Run regression tests"
+	@echo "  make test-property               - Run property-based tests"
+	@echo "  make test-all-qa                 - Run all QA test suites"
+	@echo "  make test-coverage               - Generate coverage report"
+	@echo "  make test-report                 - Generate comprehensive test report"
+	@echo ""
+	@echo "🔧 Development commands:"
+	@echo "  make install-dev                 - Install development dependencies"
+	@echo "  make setup-dev                   - Set up development environment"
+	@echo "  make format-check                - Check code formatting"
+	@echo "  make security                    - Run security checks"
+	@echo "  make pre-commit                  - Run pre-commit hooks"
+	@echo "  make install-hooks               - Install pre-commit hooks"
+	@echo "  make ci-test                     - Run CI-like test suite"
+	@echo "  make health-check                - Run system health checks"
 	@echo ""
 	@echo "🔧 First time setup:"
 	@echo "  1. Copy .env.example to .env and fill in your credentials"
@@ -274,3 +320,426 @@ special-tags-year:
 special-tags-all:
 	@echo "🚀 Processing special category tags for all years..."
 	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/add_special_tags.py --execute --verbose
+
+# =============================================================================
+# Incremental QA Commands
+# =============================================================================
+
+# Setup change tracking infrastructure
+incremental-qa-setup:
+	@echo "🔧 Setting up incremental QA change tracking..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/incremental_qa.py setup --verbose
+
+# Run incremental QA processing
+incremental-qa-run:
+	@echo "⚡ Running incremental QA processing..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/incremental_qa.py run --verbose
+
+# Show current processing status
+incremental-qa-status:
+	@echo "📊 Checking incremental QA status..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/incremental_qa.py status --verbose
+
+# Generate differential report
+incremental-qa-report:
+	@echo "📈 Generating differential report..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/incremental_qa.py report --verbose
+
+# Clean up old checkpoints (7 days)
+incremental-qa-cleanup:
+	@echo "🗑️  Cleaning up old incremental QA data..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/incremental_qa.py cleanup --days 7 --verbose
+
+# =============================================================================
+# QA Testing Commands (Enhanced)
+# =============================================================================
+
+# Install development dependencies
+install-dev:
+	@echo "📦 Installing development dependencies..."
+	@source $(VENV_DIR)/bin/activate && pip install -r requirements.txt
+	@source $(VENV_DIR)/bin/activate && pip install pytest pytest-cov pytest-html pytest-xdist hypothesis bandit black isort flake8 pre-commit mypy
+
+# Set up development environment
+setup-dev: install-dev
+	@echo "🔧 Setting up development environment..."
+	mkdir -p test-results logs data/qa_reports
+	@echo "✅ Development environment ready!"
+
+# Run basic QA tests (unit tests)
+test-qa:
+	@echo "🧪 Running QA unit tests..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m pytest tests/qa/unit/ \
+		--verbose \
+		--cov=src/gov_scraper/processors/qa \
+		--cov-report=term-missing \
+		--cov-report=html:htmlcov-unit \
+		--junitxml=test-results/unit.xml \
+		--tb=short
+
+# Run unit tests
+test-unit:
+	@echo "🧪 Running unit tests..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m pytest tests/qa/unit/ \
+		--verbose \
+		--cov=src/gov_scraper/processors/qa \
+		--cov-report=term-missing \
+		--cov-report=html:htmlcov-unit \
+		--junitxml=test-results/unit.xml \
+		--tb=short
+
+# Run integration tests
+test-integration:
+	@echo "🔗 Running integration tests..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m pytest tests/qa/integration/ \
+		--verbose \
+		--cov=src/gov_scraper/processors/qa \
+		--cov-report=term-missing \
+		--cov-report=html:htmlcov-integration \
+		--junitxml=test-results/integration.xml \
+		--tb=short
+
+# Run performance tests
+test-performance:
+	@echo "⚡ Running performance tests..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m pytest tests/qa/performance/ \
+		--verbose \
+		--cov=src/gov_scraper/processors/qa \
+		--cov-report=term-missing \
+		--junitxml=test-results/performance.xml \
+		--tb=short \
+		-m performance
+
+# Run regression tests
+test-regression:
+	@echo "🔄 Running regression tests..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m pytest tests/qa/regression/ \
+		--verbose \
+		--cov=src/gov_scraper/processors/qa \
+		--cov-report=term-missing \
+		--junitxml=test-results/regression.xml \
+		--tb=short \
+		-m regression
+
+# Run property-based tests
+test-property:
+	@echo "🎯 Running property-based tests..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m pytest tests/qa/property/ \
+		--verbose \
+		--cov=src/gov_scraper/processors/qa \
+		--cov-report=term-missing \
+		--junitxml=test-results/property.xml \
+		--tb=short \
+		-m property
+
+# Run all QA test suites
+test-all-qa:
+	@echo "🚀 Running all QA test suites..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) tests/qa/test_runner.py --suite all --verbose
+
+# Generate detailed coverage report
+test-coverage:
+	@echo "📊 Generating coverage report..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m pytest tests/qa/unit/ tests/qa/integration/ \
+		--cov=src/gov_scraper/processors/qa \
+		--cov-report=html:htmlcov \
+		--cov-report=xml:coverage.xml \
+		--cov-report=term \
+		--cov-fail-under=80
+
+# Generate comprehensive test report
+test-report:
+	@echo "📋 Generating comprehensive test report..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) tests/qa/test_runner.py --suite all --include-slow
+	@echo "📄 Reports generated in test-results/ directory"
+
+# Check code formatting without making changes
+format-check:
+	@echo "🎨 Checking code formatting..."
+	@if command -v black >/dev/null 2>&1; then \
+		source $(VENV_DIR)/bin/activate && black --check --diff src/gov_scraper/processors/qa.py tests/qa/ --line-length=120; \
+	else \
+		echo "⚠️  black not installed. Install with: make install-dev"; \
+	fi
+	@if command -v isort >/dev/null 2>&1; then \
+		source $(VENV_DIR)/bin/activate && isort --check-only --diff src/gov_scraper/processors/qa.py tests/qa/ --profile=black --line-length=120; \
+	else \
+		echo "⚠️  isort not installed. Install with: make install-dev"; \
+	fi
+
+# Run security checks
+security:
+	@echo "🔒 Running security checks..."
+	@if command -v bandit >/dev/null 2>&1; then \
+		source $(VENV_DIR)/bin/activate && bandit -r src/gov_scraper/processors/qa.py -f text; \
+	else \
+		echo "⚠️  bandit not installed. Install with: make install-dev"; \
+	fi
+
+# Install pre-commit hooks
+install-hooks:
+	@echo "🪝 Installing pre-commit hooks..."
+	@if command -v pre-commit >/dev/null 2>&1; then \
+		pre-commit install; \
+		pre-commit install --hook-type pre-push; \
+		echo "✅ Pre-commit hooks installed"; \
+	else \
+		echo "⚠️  pre-commit not installed. Install with: make install-dev"; \
+	fi
+
+# Run pre-commit hooks on all files
+pre-commit:
+	@echo "🔍 Running pre-commit hooks..."
+	@if command -v pre-commit >/dev/null 2>&1; then \
+		pre-commit run --all-files; \
+	else \
+		echo "⚠️  pre-commit not installed. Install with: make install-dev"; \
+	fi
+
+# Run CI-like test suite
+ci-test:
+	@echo "🤖 Running CI-like test suite..."
+	$(MAKE) lint
+	$(MAKE) format-check
+	$(MAKE) security
+	$(MAKE) test-unit
+
+# =============================================================================
+# Enhanced QA Commands
+# =============================================================================
+
+# Run enhanced incremental QA
+enhanced-qa-run:
+	@echo "⚡ Running enhanced incremental QA (optimized)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.processors.incremental_qa run --verbose
+
+# Show enhanced QA status
+enhanced-qa-status:
+	@echo "📊 Checking enhanced QA status..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.processors.incremental_qa status
+
+# Clean up enhanced QA cache
+enhanced-qa-cleanup:
+	@echo "🗑️  Cleaning up enhanced QA cache..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.processors.incremental_qa cleanup
+
+# =============================================================================
+# Real-time Monitoring Commands
+# =============================================================================
+
+# Start continuous monitoring
+monitor-start:
+	@echo "📊 Starting real-time quality monitoring..."
+	@echo "Press Ctrl+C to stop monitoring"
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.quality_monitor monitor --interval 15
+
+# Run single monitoring check
+monitor-check:
+	@echo "🔍 Running single monitoring check..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.quality_monitor run
+
+# Show system health score
+monitor-health:
+	@echo "💚 Checking system health score..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.quality_monitor health
+
+# Show current alerts
+monitor-alerts:
+	@echo "🚨 Showing current alerts..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.alert_manager status
+
+# Test alert system
+monitor-test-alert:
+	@echo "🧪 Testing alert system..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.alert_manager test --severity warning
+
+# =============================================================================
+# Quality Reports Commands
+# =============================================================================
+
+# Generate daily quality report
+report-daily:
+	@echo "📋 Generating daily quality report..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/generate_quality_report.py daily --format json
+
+# Generate weekly quality report
+report-weekly:
+	@echo "📋 Generating weekly quality report..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/generate_quality_report.py weekly --format html
+
+# Generate monthly quality report
+report-monthly:
+	@echo "📋 Generating monthly quality report..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/generate_quality_report.py monthly --format html
+
+# Generate custom format report
+report-custom:
+	@echo "📋 Generating custom quality report..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/generate_quality_report.py weekly --format $(format)
+
+# Generate all reports
+report-all:
+	@echo "📋 Generating all quality reports..."
+	$(MAKE) report-daily
+	$(MAKE) report-weekly
+	$(MAKE) report-monthly
+
+# =============================================================================
+# Metrics and Analytics Commands
+# =============================================================================
+
+# Export metrics data
+metrics-export:
+	@echo "📊 Exporting metrics data..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.metrics_collector export --format json --hours 168
+
+# Show metrics summary
+metrics-summary:
+	@echo "📈 Showing metrics summary..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.metrics_collector summary --hours 24
+
+# Aggregate metrics
+metrics-aggregate:
+	@echo "📊 Aggregating metrics..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.metrics_collector aggregate --period day
+
+# Clean up old metrics
+metrics-cleanup:
+	@echo "🗑️  Cleaning up old metrics data..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -m src.gov_scraper.monitoring.metrics_collector cleanup
+	$(MAKE) test-integration
+	$(MAKE) test-regression
+	@echo "✅ CI simulation completed"
+
+# Run system health checks
+health-check:
+	@echo "🏥 Running health checks..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -c "
+	import sys
+	try:
+	    from src.gov_scraper.processors.qa import ALL_CHECKS, ALL_FIXERS, run_scan
+	    from src.gov_scraper.db.connector import get_supabase_client
+	    print(f'✅ QA module: {len(ALL_CHECKS)} checks, {len(ALL_FIXERS)} fixers')
+	    client = get_supabase_client()
+	    print('✅ Database connection: OK')
+	    print('✅ All systems operational')
+	except Exception as e:
+	    print(f'❌ Health check failed: {e}')
+	    sys.exit(1)
+	"
+
+# Enhanced cleanup with QA test artifacts
+clean:
+	@echo "🧹 Cleaning up..."
+	@find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	@find . -type f -name "*.pyc" -delete 2>/dev/null || true
+	@find . -type f -name "*.pyo" -delete 2>/dev/null || true
+	@find . -type f -name "*.pyd" -delete 2>/dev/null || true
+	@find . -type f -name ".coverage" -delete 2>/dev/null || true
+	@find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
+	@rm -f nohup.out 2>/dev/null || true
+	@rm -rf htmlcov*/ .pytest_cache/ test-results/ coverage.xml 2>/dev/null || true
+	@echo "✅ Cleanup complete!"
+
+# Simple Incremental QA commands (working with existing DB)
+simple-qa-run:
+	@echo "⚡ Running simple incremental QA..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/simple_incremental_qa.py run
+
+simple-qa-status:
+	@echo "📊 Checking simple incremental QA status..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/simple_incremental_qa.py status
+
+simple-qa-reset:
+	@echo "🔄 Resetting simple incremental QA tracking..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/simple_incremental_qa.py reset
+
+# =============================================================================
+# 🚀 Algorithm Improvement Deployment Commands
+# =============================================================================
+
+# Check current issues and prerequisites
+deploy-check:
+	@echo "🔍 Checking current issues and prerequisites..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/deploy_improvements.py --check-only
+
+# Deploy all improvements with confirmations
+deploy-improvements:
+	@echo "🚀 Starting algorithm improvements deployment..."
+	@echo "This will:"
+	@echo "  - Backup the database"
+	@echo "  - Deploy detection profiles"
+	@echo "  - Enable unified AI processor"
+	@echo "  - Setup monitoring system"
+	@echo ""
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/deploy_improvements.py
+
+# Auto-deploy without confirmations (use with caution!)
+deploy-auto:
+	@echo "🚀 Auto-deploying improvements (no confirmations)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/deploy_improvements.py --auto-confirm
+
+# Verify deployment success
+verify-deployment:
+	@echo "✅ Verifying deployment..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/verify_db_integrity.py --check-all
+
+# Run database migration (manual step)
+deploy-db-migration:
+	@echo "💾 Database migration instructions:"
+	@echo "1. Open Supabase SQL Editor"
+	@echo "2. Run: database/migrations/004_fix_duplicates_and_constraints.sql"
+	@echo "3. Verify with: make verify-deployment"
+
+# Test unified AI processor
+test-unified-ai:
+	@echo "🤖 Testing unified AI processor..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/test_unified_ai.py --test-count 5
+
+# Monitor AI performance
+monitor-ai-performance:
+	@echo "📊 Monitoring AI performance..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/ai_performance_monitor.py --last-hour
+
+# Quick deployment validation
+deploy-validate:
+	@echo "🧪 Running quick deployment validation..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -c "
+import sys
+try:
+    # Check tag profiles
+    from config.tag_detection_profiles import TAG_DETECTION_PROFILES
+    print(f'✅ Tag profiles loaded: {len(TAG_DETECTION_PROFILES)} tags')
+
+    # Check ministry rules
+    from config.ministry_detection_rules import MINISTRY_DETECTION_RULES
+    print(f'✅ Ministry rules loaded: {len(MINISTRY_DETECTION_RULES)} ministries')
+
+    # Check unified AI
+    import os
+    if os.path.exists('src/gov_scraper/processors/unified_ai.py'):
+        print('✅ Unified AI processor found')
+
+    # Check monitoring
+    if os.path.exists('src/gov_scraper/monitoring/quality_monitor.py'):
+        print('✅ Quality monitor found')
+
+    print('\\n✅ All components ready for deployment!')
+except Exception as e:
+    print(f'❌ Validation failed: {e}')
+    sys.exit(1)
+"
+
+# Full deployment workflow
+deploy-full:
+	@echo "🎯 Running full deployment workflow..."
+	$(MAKE) deploy-check
+	@echo ""
+	@read -p "Continue with deployment? (yes/no): " confirm && [ "$$confirm" = "yes" ]
+	$(MAKE) deploy-improvements
+	$(MAKE) deploy-validate
+	@echo ""
+	@echo "✅ Deployment complete! Next steps:"
+	@echo "1. Run database migration: make deploy-db-migration"
+	@echo "2. Test with: make sync-test"
+	@echo "3. Monitor with: make monitor-start"

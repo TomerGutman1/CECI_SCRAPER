@@ -1,0 +1,453 @@
+{
+  "metadata": {
+    "timestamp": "2026-02-16T21:36:49.506597",
+    "confidence_threshold": 0.5,
+    "max_distance": 3,
+    "total_records_analyzed": 1000,
+    "total_shifts_detected": 101,
+    "high_confidence_fixes": 20,
+    "bidirectional_swaps": 0
+  },
+  "summary": {
+    "total_fixes_recommended": 20,
+    "confidence_distribution": {
+      "0.8-0.85": 1,
+      "0.85-0.90": 0,
+      "0.90-0.95": 0,
+      "0.95-1.00": 0
+    },
+    "shift_types": {
+      "forward": 12,
+      "backward": 8
+    },
+    "shift_distances": {
+      "1": 8,
+      "2": 6,
+      "3": 6
+    }
+  },
+  "shifts_found": [
+    {
+      "affected_decision_key": "28_2340",
+      "affected_title": "משרד העבודה והרווחה - דחייה בשנתיים של מועד יישומו של חוק פעוטות בסיכון (הזכות למעון יום), התש\"ס-2000",
+      "current_summary": "הממשלה החליטה לדחות בשנתיים את יישום חוק פעוטות בסיכון (הזכות למעון יום), התש\"ס-2000, שהיה אמור להיכנס לתוקף במאי 2001, זאת במסגרת הדיון על תקציב המדינה לשנת 2001.",
+      "should_have_summary_from": "28_2317",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - הרכב התקציב",
+      "source_summary": "במסגרת החלטת הממשלה בנושא המדיניות הכלכלית לשנת 2001, אושרו החלטות שמטרתן לקדם צמיחה בת-קיימא לצמצום אי-השוויון בהכנסות. ההחלטה מקשרת להחלטות קודמות ומפרטת תוכניות לפיתוח כלכלי ושיפוטי בתחום התקציב.",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "matched_keywords": [
+        "2001",
+        "לשנת"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 2,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "28_2342",
+      "affected_title": "תחולת ההתחייבות של קופת-חולים כלפי ספק שירותי בריאות",
+      "current_summary": "החלטת הממשלה היא לתקן את חוק ביטוח בריאות ממלכתי כך שהתחייבות קופת חולים לתשלום לספקי שירותי בריאות תהיה מותנית בכך שלא ידרשו תשלום נוסף מהמבוטח או מגורמים אחרים. אם יימשך תשלום נוסף עבור השירותים, קופת החולים לא תשלם לספקים בעבור אותם שירותים. ייקבעו הוראות מעבר למבוטחים קיימים בהסדרי הביטוח המשלים. ההחלטה התקבלה בהקשר לדיון על תקציב המדינה לשנת 2001.",
+      "should_have_summary_from": "28_2317",
+      "source_title": "המדיניות הכלכלית לשנת 2001 - הרכב התקציב",
+      "source_summary": "במסגרת החלטת הממשלה בנושא המדיניות הכלכלית לשנת 2001, אושרו החלטות שמטרתן לקדם צמיחה בת-קיימא לצמצום אי-השוויון בהכנסות. ההחלטה מקשרת להחלטות קודמות ומפרטת תוכניות לפיתוח כלכלי ושיפוטי בתחום התקציב.",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "matched_keywords": [
+        "2001",
+        "לשנת"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 2,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "28_2407",
+      "affected_title": "הנח\"ל - תמורות ויעדים - דו\"ח מס' 51א' של מבקר המדינה",
+      "current_summary": "הממשלה החליטה לקיים דיון על עתידו ותפקודו של הנח\"ל, תוך שלושה חודשים להכין נהלים ופקודות לשירות הצבאי בנח\"ל ולהציגם למועמדים לגיוס. כמו כן, משרד הבטחון יציע תשתית חוקית להפעלת גרעיני נח\"ל במשימות לאומיות ויכין נוהל לגיוס גרעינים עם אמות מידה ברורות. דיווח על ביצוע ההחלטות יישלח תוך שלושה חודשים לראש ועדת השרים ולאגף לביקורת המדינה.",
+      "should_have_summary_from": "28_2421",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה קיבלה החלטה לגבי נסיעות שרים לארצות הברית בין התאריכים 29.9.2000 עד 5.10.2000. במהלך ההעדרות, השר בנימין בן-אליעזר ימלא את מקום שר הבריאות. ההחלטה לא כוללת ליווי של עובדי מדינה.",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "29_111",
+      "affected_title": "מינוי שרים למועצת יד-ושם",
+      "current_summary": "ממשלת ישראל החליטה למנות ארבעה שרים כחברי מועצת יד ושם: שר החוץ, שרת החינוך, שר המדע, התרבות והספורט ושר הפנים.",
+      "should_have_summary_from": "29_114",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה אישרה את נסיעת שר הבינוי והשיכון, ראובן ריבלין, לארצות הברית מ-22.4.2001 עד 26.4.2001, עם מינוי שר אחר למלא את מקומו. כמו כן, אושרה נסיעתו של השר רענן כהן לבולגריה, הונגריה ורומניה מ-24.4.2001 עד 2.5.2001, גם כאן עם מינוי שר אחר לתפקידו בעת העדרו.",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 1,
+        "likely_bidirectional_swap": true
+      }
+    },
+    {
+      "affected_decision_key": "29_111",
+      "affected_title": "מינוי שרים למועצת יד-ושם",
+      "current_summary": "ממשלת ישראל החליטה למנות ארבעה שרים כחברי מועצת יד ושם: שר החוץ, שרת החינוך, שר המדע, התרבות והספורט ושר הפנים.",
+      "should_have_summary_from": "29_61",
+      "source_title": "נסיעות שרים",
+      "source_summary": "החלטת הממשלה מתייחסת לנסיעות שרים ותאורן. אושרה נסיעת שר החוץ לשטוקהולם ולאתונה בין 1 ל-5 באפריל 2001, כאשר ראש הממשלה ימלא את מקומו בעת העדרו. כמו כן, אושרו נסיעותיו של השר סאלח טריף לירדן (בין 7-9 באפריל 2001) ולקהיר (בין 12-15 באפריל 2001), עם תיאום מראש, אך נסיעתו לקהיר בוטלה. בנוסף, אושרה נסיעת השר המתחבורה לקפריסין בין 9 ל-12 באפריל 2001, וראש הממשלה קבע שנציגים אחרים ימלאו את מקומות השרים בעת העדרם.",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 1,
+        "likely_bidirectional_swap": true
+      }
+    },
+    {
+      "affected_decision_key": "29_111",
+      "affected_title": "מינוי שרים למועצת יד-ושם",
+      "current_summary": "ממשלת ישראל החליטה למנות ארבעה שרים כחברי מועצת יד ושם: שר החוץ, שרת החינוך, שר המדע, התרבות והספורט ושר הפנים.",
+      "should_have_summary_from": "29_135",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה אישרה את נסיעותיהם של שר החוץ ושר האוצר לארצות הברית וללונדון, בהתאמה, לצורך דיונים בענייני משרדיהם. התקופות שהוקצו לנסיעות הן בין 30.4.2001 ל-4.5.2001 עבור שר החוץ ובין 6.5.2001 ל-12.5.2001 עבור שר האוצר. ראש הממשלה ימלא את מקומם במהלך העדרם.",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "matched_keywords": [
+        "שרים"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "29_135",
+      "affected_title": "נסיעות שרים",
+      "current_summary": "הממשלה אישרה את נסיעותיהם של שר החוץ ושר האוצר לארצות הברית וללונדון, בהתאמה, לצורך דיונים בענייני משרדיהם. התקופות שהוקצו לנסיעות הן בין 30.4.2001 ל-4.5.2001 עבור שר החוץ ובין 6.5.2001 ל-12.5.2001 עבור שר האוצר. ראש הממשלה ימלא את מקומם במהלך העדרם.",
+      "should_have_summary_from": "29_114",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה אישרה את נסיעת שר הבינוי והשיכון, ראובן ריבלין, לארצות הברית מ-22.4.2001 עד 26.4.2001, עם מינוי שר אחר למלא את מקומו. כמו כן, אושרה נסיעתו של השר רענן כהן לבולגריה, הונגריה ורומניה מ-24.4.2001 עד 2.5.2001, גם כאן עם מינוי שר אחר לתפקידו בעת העדרו.",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "29_447",
+      "affected_title": "הצעת-חוק ביטוח בריאות ממלכתי (תיקון - הסכמי הבראה כסיוע למימון שירותי בריאות), התשס\"א-2001 של חה\"כ ע. פרץ (פ/2688) - ערר",
+      "current_summary": "הממשלה החליטה לדחות את ערר שר האוצר על החלטת ועדת השרים לענייני חקיקה ולשאת בהליך להעברת הצעת החוק של חה\"כ עמיר פרץ בקריאה ראשונה. עם זאת, הובהר כי המשך החקיקה (קריאה שנייה ושלישית) יוכל להתעכב במטרה לאפשר הסדר לסוגיה ללא חקיקה. שר המשפטים הוסמך לפעול להשגת הסדר זה.",
+      "should_have_summary_from": "29_555",
+      "source_title": "נסיעת ראש הממשלה ונסיעות שרים",
+      "source_summary": "החלטת הממשלה עוסקת בנסיעות של ראש הממשלה, שרים ועמיתי ממשלה. ראש הממשלה ייצא לתורכיה ליום אחד, עם מיטב השרים בסביבתו. בנוסף, אושרו נסיעות של שר הפנים לצרפת, השרה לשיתוף פעולה אזורי ליוון, שר הבריאות לשוויץ וצרפת, ושר המשפטים לאוסטרליה. לכל אחד מהשרים המוזכרים הוקצו ממלאי מקום במהלך נעדרותם מהארץ.",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "matched_keywords": [
+        "שרים",
+        "הממשלה",
+        "ראש"
+      ],
+      "confidence": 0.75,
+      "analysis": {
+        "source_keywords_in_affected_summary": 3,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 1,
+        "likely_bidirectional_swap": true
+      }
+    },
+    {
+      "affected_decision_key": "32_5346",
+      "affected_title": "נסיעות שרים וקביעת ממלא-מקום של שר",
+      "current_summary": "הממשלה אישרה את נסיעתו של שר הביטחון לגרמניה בין התאריכים 31.1.2013 עד 3.2.2013, וקבעה כי השר אבי דיכטר ימלא את מקומו במבצעי התקופה. כמו כן, אושרה נסיעתו של שר התעשייה, המסחר והתעסוקה לארצות הברית בין התאריכים 2.2.2013 עד 10.2.2013.",
+      "should_have_summary_from": "32_5379",
+      "source_title": "נסיעת שר הביטחון וקביעת מילוי מקום של שר",
+      "source_summary": "הממשלה אישרה את נסיעתו של שר הביטחון לארצות הברית בין התאריכים 3.3.2013 עד 7.3.2013, ומינתה את השר אבי דיכטר לממלא מקום שר הביטחון במהלך ההיעדרות.",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "נסיעת",
+        "הביטחון"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 2,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "33_94",
+      "affected_title": null,
+      "current_summary": "הממשלה החליטה למנות את דביר כהנא למנהל הכללי של המשרד לירושלים והתפוצות, בהתאם לחוק שירות המדינה.",
+      "should_have_summary_from": "33_60",
+      "source_title": "מינוי המנהל הכללי של משרד החקלאות ופיתוח הכפר - תיקון החלטת ממשלה",
+      "source_summary": "בהחלטת הממשלה הוחלט כי המנהל הכללי החדש של משרד החקלאות ופיתוח הכפר ייכנס לתפקידו ארבעה שבועות מיום המינוי, כלומר בתאריך 19.5.2013. ההחלטה מתקבלת בהתאם לסעיף 19(א) בתקנון העבודה של הממשלה.",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "matched_keywords": [
+        "משרד",
+        "הכללי"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 2,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "34_173",
+      "affected_title": "נסיעות שרים",
+      "current_summary": "החלטת הממשלה מאשרת את נסיעותיהם של שר הכלכלה והתעשייה ושרת התרבות והספורט. השר ייצא לארצות הברית ולקנדה בין ה-27 ל-31 במאי 2018, והשרה תשתתף בחגיגות 70 שנה למדינת ישראל בארצות הברית בין ה-30 במאי ל-5 ביוני 2018. במהלך הנסיעות, שניהם יקוזזו בכנסת עם חברי כנסת שונים.",
+      "should_have_summary_from": "34_177",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה אישרה לשר לשיתוף פעולה אזורי לנסוע לסין בין התאריכים 28.6.2018 ל-5.7.2018 לפגישות עם גורמי ממשלה ואנשי עסקים. כמו כן, השר יקוזז בכנסת עם חה\"כ עיסאווי פריג'.",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "34_173",
+      "affected_title": "נסיעות שרים",
+      "current_summary": "החלטת הממשלה מאשרת את נסיעותיהם של שר הכלכלה והתעשייה ושרת התרבות והספורט. השר ייצא לארצות הברית ולקנדה בין ה-27 ל-31 במאי 2018, והשרה תשתתף בחגיגות 70 שנה למדינת ישראל בארצות הברית בין ה-30 במאי ל-5 ביוני 2018. במהלך הנסיעות, שניהם יקוזזו בכנסת עם חברי כנסת שונים.",
+      "should_have_summary_from": "34_169",
+      "source_title": "נסיעות שרים",
+      "source_summary": "החלטת הממשלה מאשרת מספר נסיעות של שרים. בין היתר, מדובר בנסיעות של שרי האנרגיה, התקשורת ומדע והטכנולוגיה לקפריסין לצורך השתתפות במפגש טרילטרלי יחד עם ראש הממשלה, וכן נסיעת שר הכלכלה והתעשייה לגיאורגיה, בה הקטנה תשתתף באירועים לציון 70 שנה למדינת ישראל. כל הנסיעות יתקיימו במועדים שאינם בזמן מליאת הכנסת.",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 2,
+        "likely_bidirectional_swap": true
+      }
+    },
+    {
+      "affected_decision_key": "34_173",
+      "affected_title": "נסיעות שרים",
+      "current_summary": "החלטת הממשלה מאשרת את נסיעותיהם של שר הכלכלה והתעשייה ושרת התרבות והספורט. השר ייצא לארצות הברית ולקנדה בין ה-27 ל-31 במאי 2018, והשרה תשתתף בחגיגות 70 שנה למדינת ישראל בארצות הברית בין ה-30 במאי ל-5 ביוני 2018. במהלך הנסיעות, שניהם יקוזזו בכנסת עם חברי כנסת שונים.",
+      "should_have_summary_from": "34_182",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה אישרה שתי נסיעות של שרים: השר לשיתוף פעולה אזורי ייסע לארצות הברית בין 25 ל-27 ביולי 2018 למפגש שרים בקידום חופש הדת, והשרה לשוויון חברתי תיסע לאוסטריה בין 29 ביולי ל-3 באוגוסט 2018 בענייני משרדה. כנסת ישראל נמצאת בפגרה ולכן אין צורך בקיזוז.",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 1,
+        "affected_keywords_in_source_summary": 2,
+        "likely_bidirectional_swap": true
+      }
+    },
+    {
+      "affected_decision_key": "34_183",
+      "affected_title": null,
+      "current_summary": "הממשלה אישרה את הנסיעות הבאות: 1. השר לשיתוף פעולה אזורי ייסע לקולומביה להשתתף בטקס השבעת הנשיא בין 6 ל-9 באוגוסט 2018. 2. שר הבינוי והשיכון ייסע לברזיל להרצות בכנס ולפגש עם קהילות יהודיות בין 12 ל-20 באוגוסט 2018. הכנסות לא דורשות קיזוז עקב פגרת הכנסת.",
+      "should_have_summary_from": "34_182",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה אישרה שתי נסיעות של שרים: השר לשיתוף פעולה אזורי ייסע לארצות הברית בין 25 ל-27 ביולי 2018 למפגש שרים בקידום חופש הדת, והשרה לשוויון חברתי תיסע לאוסטריה בין 29 ביולי ל-3 באוגוסט 2018 בענייני משרדה. כנסת ישראל נמצאת בפגרה ולכן אין צורך בקיזוז.",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "34_183",
+      "affected_title": null,
+      "current_summary": "הממשלה אישרה את הנסיעות הבאות: 1. השר לשיתוף פעולה אזורי ייסע לקולומביה להשתתף בטקס השבעת הנשיא בין 6 ל-9 באוגוסט 2018. 2. שר הבינוי והשיכון ייסע לברזיל להרצות בכנס ולפגש עם קהילות יהודיות בין 12 ל-20 באוגוסט 2018. הכנסות לא דורשות קיזוז עקב פגרת הכנסת.",
+      "should_have_summary_from": "34_188",
+      "source_title": "נסיעות שרים",
+      "source_summary": "החלטת הממשלה אושרה על ידי ראש הממשלה, המתירה לשר להגנת הסביבה ושר ירושלים ומורשת לצאת לנסיעה לרוסיה כדי להשתתף בקבלת פנים של הקונגרס היהודי העולמי, בין ה-6 ל-7 בספטמבר 2018, ללא צורך בקיזוז מאחר שהכנסת בפגרה.",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "34_183",
+      "affected_title": null,
+      "current_summary": "הממשלה אישרה את הנסיעות הבאות: 1. השר לשיתוף פעולה אזורי ייסע לקולומביה להשתתף בטקס השבעת הנשיא בין 6 ל-9 באוגוסט 2018. 2. שר הבינוי והשיכון ייסע לברזיל להרצות בכנס ולפגש עם קהילות יהודיות בין 12 ל-20 באוגוסט 2018. הכנסות לא דורשות קיזוז עקב פגרת הכנסת.",
+      "should_have_summary_from": "34_177",
+      "source_title": "נסיעות שרים",
+      "source_summary": "הממשלה אישרה לשר לשיתוף פעולה אזורי לנסוע לסין בין התאריכים 28.6.2018 ל-5.7.2018 לפגישות עם גורמי ממשלה ואנשי עסקים. כמו כן, השר יקוזז בכנסת עם חה\"כ עיסאווי פריג'.",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "34_183",
+      "affected_title": null,
+      "current_summary": "הממשלה אישרה את הנסיעות הבאות: 1. השר לשיתוף פעולה אזורי ייסע לקולומביה להשתתף בטקס השבעת הנשיא בין 6 ל-9 באוגוסט 2018. 2. שר הבינוי והשיכון ייסע לברזיל להרצות בכנס ולפגש עם קהילות יהודיות בין 12 ל-20 באוגוסט 2018. הכנסות לא דורשות קיזוז עקב פגרת הכנסת.",
+      "should_have_summary_from": "34_173",
+      "source_title": "נסיעות שרים",
+      "source_summary": "החלטת הממשלה מאשרת את נסיעותיהם של שר הכלכלה והתעשייה ושרת התרבות והספורט. השר ייצא לארצות הברית ולקנדה בין ה-27 ל-31 במאי 2018, והשרה תשתתף בחגיגות 70 שנה למדינת ישראל בארצות הברית בין ה-30 במאי ל-5 ביוני 2018. במהלך הנסיעות, שניהם יקוזזו בכנסת עם חברי כנסת שונים.",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "matched_keywords": [
+        "נסיעות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 1,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "34_2845",
+      "affected_title": null,
+      "current_summary": "הממשלה החליטה לתמוך בתיקון מתוך הצעת החוק המוצעת על ידי ח\"כ דוד ביטן ואחרים, אשר קובע כי כהונה של שר במשך 3 שנים ומעלה וכהונה של ראש רשות מקומית עם מעל 50,000 תושבים במשך 5 שנים ברציפות ייחשבו כתנאי כשירות לתפקיד דירקטור בחברה ממשלתית.",
+      "should_have_summary_from": "34_2841",
+      "source_title": "הצעת חוק הבנקאות (שירות ללקוח) (תיקון - דחיית מועד פירעון של הלוואה לדיור ללקוח מובטל), התשע\"ו-2016 של חה\"כ רועי פולקמן ואחרים (פ/3291)",
+      "source_summary": "ממשלת ישראל החליטה לתמוך בהצעת חוק הבנקאות (שירות ללקוח) שמטרתה לדחות את מועד פירעון הלוואות דיור ללקוחות מובטלים. ההחלטה בכפוף להסכמה של משרד המשפטים, משרד האוצר ובנק ישראל, וההצעה תוחזר לדיון בוועדת השרים לענייני חקיקה לפני הקריאה הראשונה.",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "matched_keywords": [
+        "חוק",
+        "הצעת",
+        "שירות"
+      ],
+      "confidence": 0.75,
+      "analysis": {
+        "source_keywords_in_affected_summary": 3,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "37_1370",
+      "affected_title": "הקמת מנהלת החטופים, הנעדרים, השבים ארצה ומשפחותיהם - הארכת ההסדרה בעניין פעילות משל\"ט 'מהלב'",
+      "current_summary": "הממשלה החליטה להאריך את ההסדרה לפעילות משל\"ט 'מהלב' בנושא חטופים, נעדרים, שבים ארצה ובני משפחותיהם עד ל-29 בפברואר 2024. במסגרת זאת, שר הביטחון יקדיש 55 חיילים בשירות מילואים לסיוע במעבר, עם אפשרות להפחתת מספר החיילים לפי הצורך. נוסף על כך, הוקצו עד 1,659,000 ₪ ממשרד ראש הממשלה למימון הפעילות עד המועד הנקוב.",
+      "should_have_summary_from": "37_1343",
+      "source_title": "טיוטת חוק שירות ביטחון (תיקון מס' 25-הוראת שעה-חרבות ברזל)(העלאת גיל הפטור משירות מילואים)(תיקון), התשפ\"ד-2024 - אישור החלטת ועדת שרים לענייני חקיקה",
+      "source_summary": "הממשלה אישרה את החלטת ועדת השרים לענייני חקיקה לגבי טיוטת תיקון לחוק שירות ביטחון, שמטרתה להעלות את גיל הפטור משירות מילואים. הממשלה גם ביקשה לזרז את הדיון בכנסת ולהתיר את קריאת החוק השנייה כבר ביום הנחתו על שולחן הכנסת.",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "matched_keywords": [
+        "ביטחון",
+        "שירות"
+      ],
+      "confidence": 0.5,
+      "analysis": {
+        "source_keywords_in_affected_summary": 2,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    },
+    {
+      "affected_decision_key": "37_3658",
+      "affected_title": "תוכנית להצלה, לשימור, לפיתוח ולמניעת שוד והרס עתיקות באתרי מורשת במדבר יהודה, ביהודה, שומרון ובקעת הירדן - תיקון החלטות ממשלה",
+      "current_summary": "ההחלטה הממשלתית מתייחסת לתיקון החלטות קודמות בנושא שימור והצלת עתיקות באתרי מורשת במדבר יהודה, ביהודה, שומרון ובקעת הירדן, על ידי שינוי סדרי עדיפויות ויישום הסכמים קואליציוניים.",
+      "should_have_summary_from": "37_3641",
+      "source_title": "יישום הסכמים קואליציוניים בשנת הכספים 2025 ותיקון החלטת הממשלה מס' 2825 מיום 4.3.2025",
+      "source_summary": "ההחלטה הממשלתית מספר 3641 מתאריך 14.12.2025 מתקן את החלטת הממשלה מס' 2825 מיום 4.3.2025 בנוגע ליישום הסכמים קואליציוניים בשנת הכספים 2025 ומפרט תקציבים לפרויקטים ותוכניות בירושלים ומסורת ישראל בסכומים מסוימים",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "matched_keywords": [
+        "הסכמים",
+        "קואליציוניים",
+        "יישום"
+      ],
+      "confidence": 0.8,
+      "analysis": {
+        "source_keywords_in_affected_summary": 3,
+        "affected_keywords_in_affected_summary": 0,
+        "affected_keywords_in_source_summary": 0,
+        "likely_bidirectional_swap": false
+      }
+    }
+  ],
+  "bidirectional_swaps": [],
+  "instructions": {
+    "note": "DO NOT UPDATE DATABASE - This is analysis only",
+    "next_steps": [
+      "Review high-confidence fixes manually",
+      "Verify sample cases by reading actual summaries",
+      "Create database update script after manual verification",
+      "Apply fixes in batches with rollback capability"
+    ],
+    "sql_template": "\n            -- Example fix template (DO NOT RUN YET):\n            UPDATE israeli_government_decisions\n            SET summary = (\n                SELECT summary FROM israeli_government_decisions\n                WHERE decision_key = '{should_have_summary_from}'\n            )\n            WHERE decision_key = '{affected_decision_key}';\n            "
+  }
+}

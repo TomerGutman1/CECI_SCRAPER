@@ -1,0 +1,209 @@
+{
+  "timestamp": "2026-02-16T20:37:03.022941",
+  "total_records_analyzed": 100,
+  "total_governments_analyzed": 1,
+  "total_shifts_found": 11,
+  "summary": {
+    "shift_patterns": {
+      "backward": 7,
+      "forward": 4
+    },
+    "fields_affected": {
+      "summary": 11,
+      "operativity": 0,
+      "tags": 0
+    },
+    "governments_with_issues": 1
+  },
+  "government_stats": {
+    "36": {
+      "total_decisions": 100,
+      "shifts_found": 11,
+      "shift_rate": "11.0%"
+    }
+  },
+  "detected_shifts": [
+    {
+      "affected_decision": "36_11",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "36_105",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "תיקון",
+        "טיוטת"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "טיוטת חוק השיפוט הצבאי (תיקון מס') (הבניית שיקול הדעת השיפוטי בענישה), התשפ\"א-2021",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "החלטת הממשלה מתייחסת לאישור טיוטת חוק חדלות פירעון ושיקום כלכלי (תיקון מס' 5), אשר כולל הוראת שעה להארכת תוקף מינוי נאמן. הממשלה החליטה גם לבקש מוועדת הכנסת לקצר את תקופת ההנחה ולהקדים את הדיון בהצעת ..."
+    },
+    {
+      "affected_decision": "36_11",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_10",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "תיקון",
+        "טיוטת"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "טיוטת חוק חומרי נפץ (תיקון מס' 4 והוראת שעה) (תיקון מס' 2), התשפ\"א-2021",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "החלטת הממשלה מתייחסת לאישור טיוטת חוק חדלות פירעון ושיקום כלכלי (תיקון מס' 5), אשר כולל הוראת שעה להארכת תוקף מינוי נאמן. הממשלה החליטה גם לבקש מוועדת הכנסת לקצר את תקופת ההנחה ולהקדים את הדיון בהצעת ..."
+    },
+    {
+      "affected_decision": "36_11",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "36_106",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "תיקון",
+        "טיוטת"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "טיוטת חוק השיפוט הצבאי (תיקון מס'), התשפ\"א-2021",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "החלטת הממשלה מתייחסת לאישור טיוטת חוק חדלות פירעון ושיקום כלכלי (תיקון מס' 5), אשר כולל הוראת שעה להארכת תוקף מינוי נאמן. הממשלה החליטה גם לבקש מוועדת הכנסת לקצר את תקופת ההנחה ולהקדים את הדיון בהצעת ..."
+    },
+    {
+      "affected_decision": "36_11",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "36_107",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "טיוטת"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "טיוטת חוק השיפוט הצבאי (סייגים לתחולת סימן ב'1 בפרק ו' לחוק העונשין) (הוראת שעה), התשפ\"א-2021",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "החלטת הממשלה מתייחסת לאישור טיוטת חוק חדלות פירעון ושיקום כלכלי (תיקון מס' 5), אשר כולל הוראת שעה להארכת תוקף מינוי נאמן. הממשלה החליטה גם לבקש מוועדת הכנסת לקצר את תקופת ההנחה ולהקדים את הדיון בהצעת ..."
+    },
+    {
+      "affected_decision": "36_1013",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "36_1018",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלתית"
+      ],
+      "confidence": 1,
+      "government_number": "36",
+      "source_title": "מינוי חברים לוועדת השמות הממשלתית ותיקון החלטת ממשלה",
+      "affected_title": "סיוע צבא הגנה לישראל למערכת הבריאות בהתמודדות עם נגד נגיף הקורונה - אשפוז ביתי",
+      "affected_summary": "ההחלטה הממשלתית מתקשרת להקצאת כוח אדם של צה\"ל לסיוע בטיפול במקרי קורונה במערך האשפוז הביתי, עם דגש על סודיות רפואית והתאמה לנוהלי משרד הבריאות...."
+    },
+    {
+      "affected_decision": "36_1022",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_1019",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "הקמת"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "הקמת ועדת חקירה ממלכתית בעניין עסקאות ו/או הליכי רכש של ספינות המגן סער 6, צוללות AIP, ספינות נגד צוללות, הפרטת מספנות חיל הים וכן בעניין הסכמה למכר צוללות לצד ג' על ידי גרמניה",
+      "affected_title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים",
+      "affected_summary": "הממשלה החליטה על הקמת קרן מחקר ופיתוח תעשייתי דו-לאומית עם איחוד האמירויות הערביות, בשיתוף פעולה בין המדינות. תקציב הקרן יתחלק שווה בשווה, לא יעלה על 50 מיליון דולר, ויתקצב מתקציב הרשות הלאומית לחדשנו..."
+    },
+    {
+      "affected_decision": "36_1022",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "36_1024",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "איחוד"
+      ],
+      "confidence": 1,
+      "government_number": "36",
+      "source_title": "אשרור מזכר הבנות בין ממשלת מדינת ישראל וממשלת איחוד האמירויות הערביות בדבר שיתוף פעולה בחקר ובניצול של החלל החיצון למטרות שלום",
+      "affected_title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים",
+      "affected_summary": "הממשלה החליטה על הקמת קרן מחקר ופיתוח תעשייתי דו-לאומית עם איחוד האמירויות הערביות, בשיתוף פעולה בין המדינות. תקציב הקרן יתחלק שווה בשווה, לא יעלה על 50 מיליון דולר, ויתקצב מתקציב הרשות הלאומית לחדשנו..."
+    },
+    {
+      "affected_decision": "36_1061",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "36_1062",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקנות",
+        "נגיף"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה) (חובת ביצוע בדיקה בכניסה לישראל) (תיקון מס' 7), התשפ\"ב - 2022",
+      "affected_title": "טיוטת תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה) (הגבלות על הפעלת שדות תעופה וטיסות) (תיקון מס' 7), התשפ\"ב-2022",
+      "affected_summary": "הממשלה אישרה התקנת תקנות נוספות להנחיות בנוגע להגבלות על הפעלת שדות תעופה וטיסות בישראל עקב נגיף הקורונה. התקנות כוללות שינויים בהגדרות ובדרישות בדיקות קורונה לנוסעים ולצוות מטוס. הממשלה תביא את התקנו..."
+    },
+    {
+      "affected_decision": "36_1061",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "36_1057",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקנות",
+        "נגיף"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה)(תו ירוק לעובדים)(תיקון מס' 9), התשפ\"ב-2022",
+      "affected_title": "טיוטת תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה) (הגבלות על הפעלת שדות תעופה וטיסות) (תיקון מס' 7), התשפ\"ב-2022",
+      "affected_summary": "הממשלה אישרה התקנת תקנות נוספות להנחיות בנוגע להגבלות על הפעלת שדות תעופה וטיסות בישראל עקב נגיף הקורונה. התקנות כוללות שינויים בהגדרות ובדרישות בדיקות קורונה לנוסעים ולצוות מטוס. הממשלה תביא את התקנו..."
+    },
+    {
+      "affected_decision": "36_1093",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "36_1094",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "36",
+      "source_title": "טיוטת חוק האזרחות והכניסה לישראל (הוראת שעה), התשפ\"ב-2021",
+      "affected_title": "עדכון בנושא \"התו הסגול\"",
+      "affected_summary": "הממשלה החליטה לבטל את החלת ה\"תו הסגול\" בבתי עסק ובמקומות אחרים שדרשו אותו עד כה. במידת הצורך, יוקמו תקנות חדשות בהתאם לחוק...."
+    },
+    {
+      "affected_decision": "36_1093",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "36_1090",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק"
+      ],
+      "confidence": 1,
+      "government_number": "36",
+      "source_title": "הצעת חוק האזרחות והכניסה לישראל (הוראות שעה), התשפ\"ב-2021 של חה\"כ שמחה רוטמן ואחרים (פ/2276) - ערר ראש הממשלה החליפי על החלטת ועדת השרים לענייני חקיקה",
+      "affected_title": "עדכון בנושא \"התו הסגול\"",
+      "affected_summary": "הממשלה החליטה לבטל את החלת ה\"תו הסגול\" בבתי עסק ובמקומות אחרים שדרשו אותו עד כה. במידת הצורך, יוקמו תקנות חדשות בהתאם לחוק...."
+    }
+  ],
+  "other_field_issues": {
+    "operativity_shifts": [],
+    "tags_shifts": []
+  },
+  "verified_cases": {
+    "known_case_36_1022_1024": true
+  }
+}

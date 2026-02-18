@@ -1,0 +1,191 @@
+# QA Configuration File
+# Configuration for the refactored QA engine
+
+# Global QA settings
+global:
+  batch_size: 1000
+  enable_progress_tracking: true
+  checkpoint_dir: "data/qa_checkpoints"
+  max_workers: 1
+  default_severity_threshold: "medium"
+
+# Check-specific configurations
+checks:
+  content_quality:
+    duplicate_threshold: 0.85
+    min_content_length: 50
+    max_repetition_ratio: 0.3
+    enabled: true
+    severity_overrides:
+      short_content: "medium"
+      placeholder_text: "high"
+      html_remnants: "medium"
+
+  duplicate_detection:
+    similarity_threshold: 0.85
+    fields_to_check:
+      - "decision_content"
+      - "title"
+      - "decision_summary"
+    enabled: true
+
+  url_integrity:
+    check_accessibility: true
+    request_timeout: 10
+    max_redirects: 5
+    expected_domains:
+      - "www.gov.il"
+      - "gov.il"
+      - "pmo.gov.il"
+      - "mof.gov.il"
+    enabled: true
+
+  domain_consistency:
+    expected_domains:
+      - "gov.il"
+    require_same_domain: false
+    enabled: true
+
+  tag_validation:
+    min_relevance_score: 0.1
+    check_content_relevance: true
+    enabled: true
+    severity_overrides:
+      unauthorized_tags: "high"
+      low_relevance: "medium"
+      missing_tags: "medium"
+
+  tag_consistency:
+    enabled: true
+
+  date_consistency:
+    min_valid_date: "1948-05-14"  # Israel independence
+    max_future_days: 365
+    enabled: true
+    severity_overrides:
+      invalid_format: "high"
+      range_errors: "high"
+      weekend_meetings: "low"
+
+  temporal_consistency:
+    enabled: true
+
+  department_validation:
+    similarity_threshold: 0.8
+    check_aliases: true
+    enabled: true
+    severity_overrides:
+      unauthorized_department: "high"
+      non_canonical_naming: "low"
+
+  department_consistency:
+    enabled: true
+
+# Predefined check suites
+suites:
+  essential:
+    description: "Essential checks for basic quality assurance"
+    checks:
+      - "content_quality"
+      - "tag_validation"
+      - "date_consistency"
+      - "department_validation"
+
+  comprehensive:
+    description: "Complete quality assurance suite"
+    checks:
+      - "content_quality"
+      - "duplicate_detection"
+      - "url_integrity"
+      - "tag_validation"
+      - "date_consistency"
+      - "department_validation"
+
+  consistency_focused:
+    description: "Focus on cross-record consistency"
+    checks:
+      - "tag_consistency"
+      - "temporal_consistency"
+      - "department_consistency"
+      - "domain_consistency"
+
+  content_focused:
+    description: "Focus on content quality"
+    checks:
+      - "content_quality"
+      - "duplicate_detection"
+
+  metadata_focused:
+    description: "Focus on metadata quality"
+    checks:
+      - "tag_validation"
+      - "date_consistency"
+      - "department_validation"
+
+  integrity_focused:
+    description: "Focus on data integrity"
+    checks:
+      - "url_integrity"
+      - "domain_consistency"
+
+# Reporting configuration
+reporting:
+  output_dir: "data/qa_reports"
+  formats:
+    - "json"
+    - "summary"
+  include_sample_issues: true
+  max_sample_issues: 10
+  auto_cleanup_reports: true
+  keep_latest_reports: 50
+
+# Progress tracking configuration
+progress:
+  auto_save_checkpoints: true
+  checkpoint_interval: 1000  # Save every N records
+  cleanup_old_checkpoints: true
+  keep_latest_checkpoints: 10
+
+# Performance settings
+performance:
+  batch_processing: true
+  cache_validation_results: true
+  parallel_processing: false  # Future enhancement
+  memory_limit_mb: 1024
+
+# Integration settings
+integration:
+  database:
+    connection_timeout: 30
+    max_records_per_query: 5000
+
+  legacy_compatibility:
+    enabled: true
+    check_name_mapping:
+      "operativity": "tag_validation"
+      "policy-relevance": "tag_validation"
+      "content-quality": "content_quality"
+      "date-validity": "date_consistency"
+
+# Alert thresholds
+alerts:
+  critical_issue_threshold: 10  # Alert if more than N critical issues
+  high_issue_rate_threshold: 0.2  # Alert if issue rate > 20%
+  failed_check_threshold: 3  # Alert if more than N checks fail
+
+  notification:
+    enabled: false
+    email_recipients: []
+    webhook_url: ""
+
+# Quality targets
+targets:
+  max_acceptable_issue_rate: 0.15  # 15%
+  target_issue_rate: 0.05  # 5%
+  min_data_quality_score: 0.8  # 80%
+
+  by_severity:
+    critical: 0.001  # 0.1%
+    high: 0.01  # 1%
+    medium: 0.05  # 5%
+    low: 0.15  # 15%

@@ -1,0 +1,1233 @@
+{
+  "timestamp": "2026-02-16T20:36:32.221050",
+  "total_records_analyzed": 1000,
+  "summary": {
+    "total_duplicate_groups": 47,
+    "total_affected_records": 124,
+    "sequential_patterns": 3,
+    "cross_government_duplicates": 0,
+    "largest_duplicate_group": 7
+  },
+  "duplicate_summaries": {
+    "total_groups": 2,
+    "total_duplicates": 2,
+    "affected_records": 4,
+    "groups": [
+      {
+        "hash": "df24e138356e1187",
+        "count": 2,
+        "decision_keys": [
+          "37_3789",
+          "37_3789"
+        ],
+        "sample_value": "הממשלה החליטה להשלים חקיקה להטבות מס לקרנות גידור וחברות הייטק, ולהקצות 460 מיליון ש\"ח בשנים 2026 ואילך לצורך זה, תוך תיקון החלטות ממשלה קודמות.",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3789",
+          "3789"
+        ],
+        "dates": [
+          "2026-01-18",
+          "2026-01-18"
+        ]
+      },
+      {
+        "hash": "72a0f61d6115979e",
+        "count": 2,
+        "decision_keys": [
+          "37_2998",
+          "37_2998"
+        ],
+        "sample_value": "אישור בקשת תחבורה לשם הזחת שכר טעונה.",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2998",
+          "2998"
+        ],
+        "dates": [
+          "2025-05-07",
+          "2025-05-07"
+        ]
+      }
+    ]
+  },
+  "duplicate_content": {
+    "total_groups": 7,
+    "total_duplicates": 7,
+    "affected_records": 14,
+    "groups": [
+      {
+        "hash": "c6632c964c52d1d8",
+        "count": 2,
+        "decision_keys": [
+          "37_3812",
+          "37_3783"
+        ],
+        "sample_value": "דלג לתוכן האתרחפשו שירות או מידעאולי יעניין אותך רשות המסים בישראלזימון תור להנפקת דרכונים ותעודות זהות (תיעוד ביומטרי) ברשות האוכלוסין וההגירה רשות האוכלוסין וההגירהקבלת קהל ועמדות שירותעריכת תיאום מ",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3812",
+          "3783"
+        ],
+        "dates": [
+          "2026-01-25",
+          "2026-01-18"
+        ]
+      },
+      {
+        "hash": "05000a5aa643be1c",
+        "count": 2,
+        "decision_keys": [
+          "37_3789",
+          "37_3789"
+        ],
+        "sample_value": "מזכירות הממשלההגדלת הוודאות המיסויית בפעילות קרנות גידור בישראל ושיפור הסביבה העסקית עבור חברות ומשקיעי הייטק ותיקון החלטות ממשלההחלטה מספר 3789 של ממשלה מיום 18.01.2026סוג: החלטות ממשלהמספר החלטה: 37",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3789",
+          "3789"
+        ],
+        "dates": [
+          "2026-01-18",
+          "2026-01-18"
+        ]
+      },
+      {
+        "hash": "b7ae8be7f7d7105e",
+        "count": 2,
+        "decision_keys": [
+          "37_3171",
+          "37_3171"
+        ],
+        "sample_value": "מזכירות הממשלהמינוי המנהל הכללי של המשרד לעניינים אסטרטגייםהחלטה מספר 3171 של הממשלה מיום 25.06.2025סוג: החלטות ממשלהמספר החלטה: 3171יחידות: מזכירות הממשלהתאריך תחולה: 25.06.2025ממשלה: הממשלה ה- 37תאר",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3171",
+          "3171"
+        ],
+        "dates": [
+          "2025-06-25",
+          "2025-06-25"
+        ]
+      },
+      {
+        "hash": "6330e48b41b63e92",
+        "count": 2,
+        "decision_keys": [
+          "37_3172",
+          "37_3172"
+        ],
+        "sample_value": "מזכירות הממשלהטיוטת חוק לתיקון פקודת בתי הסוהר (מס' 64 - הוראת שעה - חרבות ברזל) (מצב חירום כליאתי) (תיקון מס' 4), התשפ\"ה-2025 - הסמכת ועדת השרים לענייני חקיקההחלטה מספר 3172 של הממשלה מיום 25.06.2025",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3172",
+          "3172"
+        ],
+        "dates": [
+          "2025-06-25",
+          "2025-06-25"
+        ]
+      },
+      {
+        "hash": "2424d5dd94575a21",
+        "count": 2,
+        "decision_keys": [
+          "37_2825",
+          "37_2826"
+        ],
+        "sample_value": "מצורף קובץ.",
+        "is_sequential": true,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2825",
+          "2826"
+        ],
+        "dates": [
+          "2025-03-04",
+          "2025-03-04"
+        ]
+      },
+      {
+        "hash": "172a63aea9bf7714",
+        "count": 2,
+        "decision_keys": [
+          "37_2570",
+          "37_2571"
+        ],
+        "sample_value": "לאשר, על דעת הממשלה בהתאם להחלטתה מיום 15.12.2024, את טיוטת חוק לתיקון פקודת בתי הסוהר (מס' 64 - הוראת שעה - חרבות ברזל) (מצב חירום כליאתי) (תיקון מס' 3), התשפ\"ה-2024 המצורפת.",
+        "is_sequential": true,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2570",
+          "2571"
+        ],
+        "dates": [
+          "2024-12-15",
+          "2024-12-15"
+        ]
+      },
+      {
+        "hash": "55f393bd8e5346d2",
+        "count": 2,
+        "decision_keys": [
+          "37_2417",
+          "37_2418"
+        ],
+        "sample_value": "לאשר, על דעת הממשלה, בהתאם להחלטתה מס' 2325 מיום 31.10.2024, את טיוטת חוק התוכנית הכלכלית (תיקוני חקיקה ליישום המדיניות הכלכלית לשנת 2025), התשפ\"ה-2024 - פרק ___': גבייה המצורפת כפוף לכך שבנוסח החוק י",
+        "is_sequential": true,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2417",
+          "2418"
+        ],
+        "dates": [
+          "2024-11-13",
+          "2024-11-13"
+        ]
+      }
+    ]
+  },
+  "duplicate_titles": {
+    "total_groups": 38,
+    "total_duplicates": 68,
+    "affected_records": 106,
+    "groups": [
+      {
+        "hash": "bc53a6cb8375f938",
+        "count": 5,
+        "decision_keys": [
+          "37_3814",
+          "37_3310",
+          "37_3075",
+          "37_2811",
+          "37_2465"
+        ],
+        "sample_value": "הארכת גיוס המילואים לפי סעיף 8 לחוק שירות המילואים, התשס\"ח-2008",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3814",
+          "3310",
+          "3075",
+          "2811",
+          "2465"
+        ],
+        "dates": [
+          "2026-01-25",
+          "2025-08-10",
+          "2025-05-26",
+          "2025-03-02",
+          "2024-11-24"
+        ]
+      },
+      {
+        "hash": "5564777bbb8ab469",
+        "count": 2,
+        "decision_keys": [
+          "37_3788",
+          "37_2691"
+        ],
+        "sample_value": "נסיעת נשיא המדינה לשווייץ",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3788",
+          "2691"
+        ],
+        "dates": [
+          "2026-01-18",
+          "2025-01-20"
+        ]
+      },
+      {
+        "hash": "c32c9039986f152b",
+        "count": 3,
+        "decision_keys": [
+          "37_3787",
+          "37_3668",
+          "37_3638"
+        ],
+        "sample_value": "העברת סמכויות הנתונות לפי חוק משר הפנים לראש הממשלה בנושאים דחופים",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3787",
+          "3668",
+          "3638"
+        ],
+        "dates": [
+          "2026-01-18",
+          "2025-12-22",
+          "2025-12-14"
+        ]
+      },
+      {
+        "hash": "75636d273c1b88df",
+        "count": 2,
+        "decision_keys": [
+          "37_3789",
+          "37_3789"
+        ],
+        "sample_value": "הגדלת הוודאות המיסויית בפעילות קרנות גידור בישראל ושיפור הסביבה העסקית עבור חברות ומשקיעי הייטק ותיקון החלטות ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3789",
+          "3789"
+        ],
+        "dates": [
+          "2026-01-18",
+          "2026-01-18"
+        ]
+      },
+      {
+        "hash": "60c344d85308d58e",
+        "count": 2,
+        "decision_keys": [
+          "37_3769",
+          "37_3726"
+        ],
+        "sample_value": "העברת סמכות הנתונה לפי חוק משר הפנים לראש הממשלה בנושא דחוף",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3769",
+          "3726"
+        ],
+        "dates": [
+          "2026-01-11",
+          "2026-01-04"
+        ]
+      },
+      {
+        "hash": "2f9fe48324cbf62c",
+        "count": 3,
+        "decision_keys": [
+          "37_3764",
+          "37_3718",
+          "37_3126"
+        ],
+        "sample_value": "מינוי בשירות החוץ",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3764",
+          "3718",
+          "3126"
+        ],
+        "dates": [
+          "2026-01-11",
+          "2026-01-04",
+          "2025-06-08"
+        ]
+      },
+      {
+        "hash": "e97dd675694c21e2",
+        "count": 2,
+        "decision_keys": [
+          "37_3716",
+          "37_3716"
+        ],
+        "sample_value": "הארכת מענים מטעם מנהלת החטופים, הנעדרים, השבים ארצה ומשפחותיהם - תיקון החלטות ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3716",
+          "3716"
+        ],
+        "dates": [
+          "2026-01-01",
+          "2025-12-31"
+        ]
+      },
+      {
+        "hash": "65780a7855e7e0df",
+        "count": 4,
+        "decision_keys": [
+          "37_3700",
+          "37_3204",
+          "37_2958",
+          "37_2274"
+        ],
+        "sample_value": "נסיעת ראש הממשלה לארצות הברית",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3700",
+          "3204",
+          "2958",
+          "2274"
+        ],
+        "dates": [
+          "2025-12-28",
+          "2025-07-06",
+          "2025-04-06",
+          "2025-02-01"
+        ]
+      },
+      {
+        "hash": "904bb9824a124e2c",
+        "count": 2,
+        "decision_keys": [
+          "37_3686",
+          "37_3342"
+        ],
+        "sample_value": "המשך סיוע בהסדרי נסיעה בתחבורה ציבורית לתושבים שביתם ניזוק ואינו ראוי למגורים, לתושבי יישובים מפונים ולמשפחות החטופים, הנעדרים והשבים ארצה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3686",
+          "3342"
+        ],
+        "dates": [
+          "2025-12-24",
+          "2025-08-31"
+        ]
+      },
+      {
+        "hash": "3555bfe44a615f86",
+        "count": 2,
+        "decision_keys": [
+          "37_3671",
+          "37_2512"
+        ],
+        "sample_value": "הקצאת תקציבים לרשויות המקומיות הנדרשות לסיוע בהתמודדות עם מצב החירום - תיקון החלטת ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3671",
+          "2512"
+        ],
+        "dates": [
+          "2025-12-22",
+          "2024-12-03"
+        ]
+      },
+      {
+        "hash": "5d90957a8a59e4f3",
+        "count": 2,
+        "decision_keys": [
+          "37_3677",
+          "37_3557"
+        ],
+        "sample_value": "יישום הסכמים קואליציוניים בשנת הכספים 2025 - תיקון החלטות ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3677",
+          "3557"
+        ],
+        "dates": [
+          "2025-12-22",
+          "2025-12-04"
+        ]
+      },
+      {
+        "hash": "de48830cc9bbfa46",
+        "count": 2,
+        "decision_keys": [
+          "37_3555",
+          "37_2876"
+        ],
+        "sample_value": "הקצאת סכום ההקצאה השנתי מהקרן לאזרחי ישראל - תיקון החלטת ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3555",
+          "2876"
+        ],
+        "dates": [
+          "2025-12-04",
+          "2025-03-12"
+        ]
+      },
+      {
+        "hash": "1a460bb571cfaf20",
+        "count": 2,
+        "decision_keys": [
+          "37_3550",
+          "37_2700"
+        ],
+        "sample_value": "נסיעת נשיא המדינה לארצות הברית",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3550",
+          "2700"
+        ],
+        "dates": [
+          "2025-12-04",
+          "2025-01-23"
+        ]
+      },
+      {
+        "hash": "0f6480671be1afe8",
+        "count": 2,
+        "decision_keys": [
+          "37_3400",
+          "37_3398"
+        ],
+        "sample_value": "מתווה לשחרור כל החטופים הישראלים - תיקון החלטת ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3400",
+          "3398"
+        ],
+        "dates": [
+          "2025-10-13",
+          "2025-10-10"
+        ]
+      },
+      {
+        "hash": "0f35f67186b5d320",
+        "count": 2,
+        "decision_keys": [
+          "37_3379",
+          "37_2620"
+        ],
+        "sample_value": "קביעת ממלא מקום לראש הממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3379",
+          "2620"
+        ],
+        "dates": [
+          "2025-09-22",
+          "2024-12-29"
+        ]
+      },
+      {
+        "hash": "64c50269ffe32c38",
+        "count": 6,
+        "decision_keys": [
+          "37_3372",
+          "37_3288",
+          "37_3076",
+          "37_2936",
+          "37_2704",
+          "37_2461"
+        ],
+        "sample_value": "מניעת פגיעה בביטחון המדינה מגוף שידורים זר - ערוץ אלג'זירה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37",
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3372",
+          "3288",
+          "3076",
+          "2936",
+          "2704",
+          "2461"
+        ],
+        "dates": [
+          "2025-09-21",
+          "2025-07-27",
+          "2025-05-26",
+          "2025-03-30",
+          "2025-01-26",
+          "2024-11-24"
+        ]
+      },
+      {
+        "hash": "dd62ad9a2a1f7987",
+        "count": 5,
+        "decision_keys": [
+          "37_3371",
+          "37_3287",
+          "37_3077",
+          "37_2935",
+          "37_2703"
+        ],
+        "sample_value": "מניעת פגיעה בביטחון המדינה מגוף שידורים זר - ערוץ אלמיאדין",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3371",
+          "3287",
+          "3077",
+          "2935",
+          "2703"
+        ],
+        "dates": [
+          "2025-09-21",
+          "2025-07-27",
+          "2025-05-26",
+          "2025-03-30",
+          "2025-01-26"
+        ]
+      },
+      {
+        "hash": "abd07a268676d589",
+        "count": 3,
+        "decision_keys": [
+          "37_3359",
+          "37_3309",
+          "37_3237"
+        ],
+        "sample_value": "הארכת תוקף ההכרזה על מצב מיוחד בעורף",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3359",
+          "3309",
+          "3237"
+        ],
+        "dates": [
+          "2025-09-14",
+          "2025-08-13",
+          "2025-07-14"
+        ]
+      },
+      {
+        "hash": "4057ef7993835428",
+        "count": 3,
+        "decision_keys": [
+          "37_3360",
+          "37_3167",
+          "37_2985"
+        ],
+        "sample_value": "הארכת תקופת תוקפה של ההכרזה על מצב חירום כליאתי",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3360",
+          "3167",
+          "2985"
+        ],
+        "dates": [
+          "2025-09-14",
+          "2025-06-22",
+          "2025-04-27"
+        ]
+      },
+      {
+        "hash": "7a2e8fea0efef9c7",
+        "count": 3,
+        "decision_keys": [
+          "37_3338",
+          "37_3189",
+          "37_2473"
+        ],
+        "sample_value": "יישום הסכמים קואליציוניים - תיקון החלטות ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3338",
+          "3189",
+          "2473"
+        ],
+        "dates": [
+          "2025-08-31",
+          "2025-07-01",
+          "2024-11-24"
+        ]
+      },
+      {
+        "hash": "b3e357e90cae18a0",
+        "count": 5,
+        "decision_keys": [
+          "37_3335",
+          "37_2843",
+          "37_2702",
+          "37_2671",
+          "37_2510"
+        ],
+        "sample_value": "מינויים בשירות החוץ",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3335",
+          "2843",
+          "2702",
+          "2671",
+          "2510"
+        ],
+        "dates": [
+          "2025-08-31",
+          "2025-03-09",
+          "2025-01-26",
+          "2025-01-12",
+          "2024-12-03"
+        ]
+      },
+      {
+        "hash": "f3bdfa523036e1fd",
+        "count": 2,
+        "decision_keys": [
+          "37_3329",
+          "37_2969"
+        ],
+        "sample_value": "הכרזה על מטבעות זיכרון וקביעת ערכם הנקוב, תרכובתם, משקלם, תבניתם ושאר פרטיהם",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3329",
+          "2969"
+        ],
+        "dates": [
+          "2025-08-21",
+          "2025-04-17"
+        ]
+      },
+      {
+        "hash": "e0fa3a92612646d8",
+        "count": 2,
+        "decision_keys": [
+          "37_3324",
+          "37_3057"
+        ],
+        "sample_value": "יישום הסכמים קואליציוניים - תיקון החלטת ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3324",
+          "3057"
+        ],
+        "dates": [
+          "2025-08-17",
+          "2025-06-04"
+        ]
+      },
+      {
+        "hash": "cdd4e4ae968f8b9f",
+        "count": 2,
+        "decision_keys": [
+          "37_3317",
+          "37_2932"
+        ],
+        "sample_value": "מינוי חברים לוועדת שירות המדינה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3317",
+          "2932"
+        ],
+        "dates": [
+          "2025-08-14",
+          "2025-03-30"
+        ]
+      },
+      {
+        "hash": "fac4286c5f898726",
+        "count": 2,
+        "decision_keys": [
+          "37_3286",
+          "37_3169"
+        ],
+        "sample_value": "תקנות שעת חירום (חרבות ברזל) (סמכויות נוספות לשם התמודדות עם תקיפות סייבר חמורות במגזר השירותים הדיגיטליים ושירותי האחסון), התשפ\"ה-2025",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3286",
+          "3169"
+        ],
+        "dates": [
+          "2025-07-24",
+          "2025-06-23"
+        ]
+      },
+      {
+        "hash": "ffc4a5e3cc2cb423",
+        "count": 2,
+        "decision_keys": [
+          "37_3271",
+          "37_3099"
+        ],
+        "sample_value": "מתן היתר לקבלת תרומה לרשות הארצית לכבאות והצלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3271",
+          "3099"
+        ],
+        "dates": [
+          "2025-07-24",
+          "2025-05-30"
+        ]
+      },
+      {
+        "hash": "9864e0ca8bd47d0a",
+        "count": 4,
+        "decision_keys": [
+          "37_3233",
+          "37_3008",
+          "37_2846",
+          "37_2672"
+        ],
+        "sample_value": "הכרזה על שעת חירום במשק הגז הטבעי",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3233",
+          "3008",
+          "2846",
+          "2672"
+        ],
+        "dates": [
+          "2025-07-11",
+          "2025-05-11",
+          "2025-03-09",
+          "2025-01-12"
+        ]
+      },
+      {
+        "hash": "426a136e17d735c7",
+        "count": 2,
+        "decision_keys": [
+          "37_3171",
+          "37_3171"
+        ],
+        "sample_value": "מינוי המנהל הכללי של המשרד לעניינים אסטרטגיים",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3171",
+          "3171"
+        ],
+        "dates": [
+          "2025-06-25",
+          "2025-06-25"
+        ]
+      },
+      {
+        "hash": "e3cb80daeeb8c7ac",
+        "count": 2,
+        "decision_keys": [
+          "37_3172",
+          "37_3172"
+        ],
+        "sample_value": "טיוטת חוק לתיקון פקודת בתי הסוהר (מס' 64 - הוראת שעה - חרבות ברזל) (מצב חירום כליאתי) (תיקון מס' 4), התשפ\"ה-2025 - הסמכת ועדת השרים לענייני חקיקה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3172",
+          "3172"
+        ],
+        "dates": [
+          "2025-06-25",
+          "2025-06-25"
+        ]
+      },
+      {
+        "hash": "b1ceeae6f701e55c",
+        "count": 7,
+        "decision_keys": [
+          "37_3123",
+          "37_2984",
+          "37_2934",
+          "37_2810",
+          "37_2725",
+          "37_2652",
+          "37_2464"
+        ],
+        "sample_value": "הארכת ההכרזה על מצב מיוחד בעורף",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37",
+          "37",
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3123",
+          "2984",
+          "2934",
+          "2810",
+          "2725",
+          "2652",
+          "2464"
+        ],
+        "dates": [
+          "2025-06-17",
+          "2025-04-27",
+          "2025-03-30",
+          "2025-03-02",
+          "2025-02-04",
+          "2025-01-05",
+          "2024-11-24"
+        ]
+      },
+      {
+        "hash": "3fdbcafa33a1e898",
+        "count": 3,
+        "decision_keys": [
+          "37_3149",
+          "37_3034",
+          "37_2982"
+        ],
+        "sample_value": "הארכת ההכרזה בעניין תחולה של הוראות חוק כליאתם של לוחמים בלתי חוקיים בשינויים המחויבים המפורטים בסעיף 10א(א) לחוק",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "3149",
+          "3034",
+          "2982"
+        ],
+        "dates": [
+          "2025-06-15",
+          "2025-05-20",
+          "2025-04-27"
+        ]
+      },
+      {
+        "hash": "adb1f035550ece5a",
+        "count": 2,
+        "decision_keys": [
+          "37_2968",
+          "37_2715"
+        ],
+        "sample_value": "פרויקט תגלית \"זכות מלידה\" - תיקון החלטת הממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2968",
+          "2715"
+        ],
+        "dates": [
+          "2025-04-14",
+          "2025-01-30"
+        ]
+      },
+      {
+        "hash": "4d1eb269d5134112",
+        "count": 3,
+        "decision_keys": [
+          "37_2782",
+          "37_2739",
+          "37_2701"
+        ],
+        "sample_value": "מתווה לשחרור חטופים ישראלים - תיקון החלטת ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2782",
+          "2739",
+          "2701"
+        ],
+        "dates": [
+          "2025-02-20",
+          "2025-02-06",
+          "2025-01-24"
+        ]
+      },
+      {
+        "hash": "6d0625897d7a57dc",
+        "count": 2,
+        "decision_keys": [
+          "37_2685",
+          "37_2571"
+        ],
+        "sample_value": "טיוטת חוק התכנון והבנייה (תיקון מס'), התשפ\"ה-2024",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2685",
+          "2571"
+        ],
+        "dates": [
+          "2025-01-16",
+          "2024-12-15"
+        ]
+      },
+      {
+        "hash": "54abe73d4d8acc1b",
+        "count": 3,
+        "decision_keys": [
+          "37_2628",
+          "37_2614",
+          "37_2372"
+        ],
+        "sample_value": "יישום הסכמים קואליציוניים בשנת הכספים 2024 - תיקון החלטת ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2628",
+          "2614",
+          "2372"
+        ],
+        "dates": [
+          "2024-12-29",
+          "2024-12-27",
+          "2024-11-10"
+        ]
+      },
+      {
+        "hash": "30f8fc055197fbe1",
+        "count": 2,
+        "decision_keys": [
+          "37_2612",
+          "37_2598"
+        ],
+        "sample_value": "תוכנית לפיתוח העיר ירושלים - תקציבי פיתוח - תיקון החלטת ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2612",
+          "2598"
+        ],
+        "dates": [
+          "2024-12-25",
+          "2024-12-20"
+        ]
+      },
+      {
+        "hash": "68be4001f12b5453",
+        "count": 2,
+        "decision_keys": [
+          "37_2601",
+          "37_2539"
+        ],
+        "sample_value": "יישום הסכמים קואליציוניים בשנת הכספים 2024 - תיקון החלטות ממשלה",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2601",
+          "2539"
+        ],
+        "dates": [
+          "2024-12-24",
+          "2024-12-09"
+        ]
+      },
+      {
+        "hash": "18b4b4b7deeb22f6",
+        "count": 2,
+        "decision_keys": [
+          "37_2445",
+          "37_2405"
+        ],
+        "sample_value": "הצעת חוק לתיקון דיני הבחירות לרשויות המקומיות (הוראת שעה), התשפ\"ה-2024 של חה\"כ יעקב אשר (פ/4964)",
+        "is_sequential": false,
+        "same_government": true,
+        "government_numbers": [
+          "37",
+          "37"
+        ],
+        "decision_numbers": [
+          "2445",
+          "2405"
+        ],
+        "dates": [
+          "2024-11-21",
+          "2024-11-14"
+        ]
+      }
+    ]
+  }
+}

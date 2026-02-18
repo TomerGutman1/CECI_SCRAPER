@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "timestamp": "20260216_211955",
+    "total_records": 25021,
+    "total_mismatches": 0,
+    "total_missing_urls": 0,
+    "mismatch_rate": 0.0
+  },
+  "mismatches": [],
+  "missing_urls": [],
+  "statistics": {
+    "by_government": {},
+    "by_difference": {},
+    "difference_range": {
+      "min": 0,
+      "max": 0
+    }
+  }
+}

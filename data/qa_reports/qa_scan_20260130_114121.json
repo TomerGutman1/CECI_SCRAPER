@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-01-30T11:41:21.757650",
+  "total_records": 14996,
+  "total_issues": 2717,
+  "issues_by_severity": {
+    "high": 2642,
+    "low": 75
+  },
+  "checks": [
+    {
+      "check_name": "body_default_patterns",
+      "total_scanned": 2797,
+      "issues_found": 2717,
+      "issue_rate": "97.1%",
+      "summary": {
+        "records_with_suspicious_combos": 2797,
+        "high_severity_flagged": 2642,
+        "low_severity_partial": 75,
+        "combo_breakdown": {
+          "משרד הרווחה; משרד החינוך; משרד הבריאות": {
+            "total": 253,
+            "flagged": 235
+          },
+          "משרד הרווחה": {
+            "total": 1673,
+            "flagged": 1594
+          },
+          "משרד הרווחה; משרד הבריאות; משרד העבודה": {
+            "total": 871,
+            "flagged": 813
+          }
+        }
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_1900",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        },
+        {
+          "decision_key": "25_1741",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        },
+        {
+          "decision_key": "25_1912",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Partial match — found 1/3 bodies in content"
+        },
+        {
+          "decision_key": "25_2195",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        },
+        {
+          "decision_key": "25_1699",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        },
+        {
+          "decision_key": "25_2207",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        },
+        {
+          "decision_key": "25_1780",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        },
+        {
+          "decision_key": "25_1501",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        },
+        {
+          "decision_key": "25_2292",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Partial match — found 1/3 bodies in content"
+        },
+        {
+          "decision_key": "25_1856",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה; משרד החינוך; משרד הבריאות",
+          "description": "Suspected default body combo — no body keywords found in content"
+        }
+      ]
+    }
+  ]
+}

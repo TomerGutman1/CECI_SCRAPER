@@ -1,0 +1,47 @@
+{
+  "analysis_metadata": {
+    "timestamp": "20260216_210606",
+    "total_records_analyzed": 498,
+    "analysis_version": "1.0",
+    "focus": "URL integrity and data shifting investigation"
+  },
+  "summary_statistics": {
+    "critical_issues": 1,
+    "warnings": 0,
+    "clean_records": 497,
+    "missing_urls": 0,
+    "integrity_score": 99.8
+  },
+  "issue_breakdown": {
+    "url_decision_mismatch": 1,
+    "nearby_decision_error": 1
+  },
+  "government_distribution": {
+    "36": 498
+  },
+  "url_mismatch_analysis": {
+    "total_mismatches": 1,
+    "adjacent_errors": 0,
+    "nearby_errors": 1,
+    "far_errors": 0,
+    "systematic_shift_detected": false,
+    "common_difference_patterns": [
+      [
+        4,
+        1
+      ]
+    ]
+  },
+  "critical_examples": [
+    {
+      "decision_key": "36_1740",
+      "url": "https://www.gov.il/he/pages/dec1744_2022",
+      "decision_from_key": "1740",
+      "decision_from_url": "1744",
+      "title": "הכרה במכללה האקדמית צפת כמוסד להשכלה גבוהה (הכרה שאינה מוגבלת בזמן)"
+    }
+  ],
+  "recommendations": [
+    "CRITICAL: 1 records have URL-decision mismatches requiring immediate investigation"
+  ]
+}

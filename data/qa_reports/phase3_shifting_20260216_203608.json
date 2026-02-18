@@ -1,0 +1,364 @@
+{
+  "timestamp": "2026-02-16T20:36:08.726751",
+  "total_records_analyzed": 1000,
+  "total_governments_analyzed": 1,
+  "total_shifts_found": 20,
+  "summary": {
+    "shift_patterns": {
+      "backward": 10,
+      "forward": 10
+    },
+    "fields_affected": {
+      "summary": 20,
+      "operativity": 0,
+      "tags": 0
+    },
+    "governments_with_issues": 1
+  },
+  "government_stats": {
+    "36": {
+      "total_decisions": 1000,
+      "shifts_found": 20,
+      "shift_rate": "2.0%"
+    }
+  },
+  "detected_shifts": [
+    {
+      "affected_decision": "36_11",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_10",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תיקון",
+        "חוק",
+        "טיוטת"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "טיוטת חוק חומרי נפץ (תיקון מס' 4 והוראת שעה) (תיקון מס' 2), התשפ\"א-2021",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "החלטת הממשלה מתייחסת לאישור טיוטת חוק חדלות פירעון ושיקום כלכלי (תיקון מס' 5), אשר כולל הוראת שעה להארכת תוקף מינוי נאמן. הממשלה החליטה גם לבקש מוועדת הכנסת לקצר את תקופת ההנחה ולהקדים את הדיון בהצעת ..."
+    },
+    {
+      "affected_decision": "36_15",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_14",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה",
+        "ראש"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "נסיעת ראש הממשלה למצרים",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "החלטת הממשלה עוסקת במינוי ועדת שרים שתתמודד עם משבר הקורונה והשלכותיו. הוועדה, בראשות ראש הממשלה וכוללת שרים נוספים, תהיה אחראית על קביעת תקנות, תיאום בין גורמים ממשלתיים, ריכוז אסטרטגיות היציאה מהמשב..."
+    },
+    {
+      "affected_decision": "36_18",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_19",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה",
+        "ראש"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "נסיעת ראש הממשלה החליפי ונסיעות שרים",
+      "affected_title": "נסיעת שרה",
+      "affected_summary": "החלטת הממשלה מינה את שלום שלמה למזכיר הממשלה, בהמלצת ראש הממשלה, והשיב את יצחק-צחי ברוורמן מתפקידו...."
+    },
+    {
+      "affected_decision": "36_20",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_19",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה",
+        "ראש",
+        "החליפי"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "נסיעת ראש הממשלה החליפי ונסיעות שרים",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "ממשלת ישראל החליטה למנות את נעמה שולץ לתפקיד המנהלת הכללית של משרד ראש הממשלה החליפי, בהתאם לסעיף 12 לחוק שירות המדינה (מינויים) לפי הצעת ראש הממשלה החליפי...."
+    },
+    {
+      "affected_decision": "36_20",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_21",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה",
+        "ראש",
+        "החליפי"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "נסיעת ראש הממשלה החליפי ושר החוץ",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "ממשלת ישראל החליטה למנות את נעמה שולץ לתפקיד המנהלת הכללית של משרד ראש הממשלה החליפי, בהתאם לסעיף 12 לחוק שירות המדינה (מינויים) לפי הצעת ראש הממשלה החליפי...."
+    },
+    {
+      "affected_decision": "36_22",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_21",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה",
+        "ראש",
+        "ושר",
+        "החליפי"
+      ],
+      "confidence": 4,
+      "government_number": "36",
+      "source_title": "נסיעת ראש הממשלה החליפי ושר החוץ",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "ההחלטה מאשרת את מינוי סגני השרים המפורטים על ידי ראש הממשלה ושרים אחרים, בהתאם לחוק יסוד: הממשלה. המינויים כוללים את חברי הכנסת אביר קארה, עידן רול, אלון שוסטר ויואב סגלוביץ' למשרות שונות במשרדים ממשל..."
+    },
+    {
+      "affected_decision": "36_24",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_25",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הכללי",
+        "משרד"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "מינוי המנהל הכללי של משרד המשפטים",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "ההחלטה היא למנות את שמעון (מוני) מעתוק למנהל הכללי של המשרד לשירותי דת, על פי הצעת השר לשירותי דת ובהתאם לחוק שירות המדינה...."
+    },
+    {
+      "affected_decision": "36_28",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_26",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה",
+        "ראש"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "נסיעת ראש הממשלה לסקוטלנד ונסיעות שרים",
+      "affected_title": "נסיעת שר",
+      "affected_summary": "הממשלה החליטה על מינוי ועדת שרים לענייני שירות הביטחון הכללי, בראשות ראש הממשלה, עם סמכויות שנועדו לפעול בהתאם לחוק ובשם הממשלה בנושאים הקשורים לשירות הביטחון הכללי, כגון פעילותו, אבטחת אישים, בניית כ..."
+    },
+    {
+      "affected_decision": "36_34",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_33",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "טיוטת"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "טיוטת חוק קיום דיונים בהיוועדות חזותית בהשתתפות עצורים, אסירים וכלואים בתקופת התפשטות נגיף הקורונה החדש (הוראת שעה)(תיקון), התשפ\"א-2021 - הסמכת ועדת השרים לענייני חקיקה",
+      "affected_title": "נסיעת שרה",
+      "affected_summary": "הממשלה מאשרה עקרונית את טיוטת חוק רישוי שירותים ומקצועות בענף הרכב (תיקון מס' 7) ומסמיכה את ועדת השרים לענייני חקיקה לאשר את הנוסח הסופי של הצעת החוק. בנוסף, הממשלה מבקשת לקצר את תקופת ההנחה ולהקדים א..."
+    },
+    {
+      "affected_decision": "36_34",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_35",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "טיוטת"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "טיוטת חוק לתיקון פקודת התעבורה (מס' 120), התשע\"ח-2018 (תיקון מס' 2), התשפ\"א-2021 - הסמכת ועדת השרים לענייני חקיקה",
+      "affected_title": "נסיעת שרה",
+      "affected_summary": "הממשלה מאשרה עקרונית את טיוטת חוק רישוי שירותים ומקצועות בענף הרכב (תיקון מס' 7) ומסמיכה את ועדת השרים לענייני חקיקה לאשר את הנוסח הסופי של הצעת החוק. בנוסף, הממשלה מבקשת לקצר את תקופת ההנחה ולהקדים א..."
+    },
+    {
+      "affected_decision": "36_218",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_219",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "רגולציה",
+        "חכמה"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "בחינת רגולציה חכמה בסייבר וכללים והסמכות למתן הנחיות בזמן תקיפת סייבר שעודנה בעיצומה תוך שקילת שיקולים כלכליים",
+      "affected_title": "תכנית לאומית לשיפור הרגולציה ותיקון החלטות ממשלה",
+      "affected_summary": "ההחלטה הממשלתית עוסקת בקידום רגולציה חכמה והפחתת הנטל הרגולטורי על מנת לקדם התחרות, להוריד יוקר המחיה ולסייע למשק הישראלי להתאושש ממשבר הקורונה...."
+    },
+    {
+      "affected_decision": "36_288",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_289",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הסכמים",
+        "קואליציוניים",
+        "יישום"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "יישום הסכמים קואליציוניים בשנים 2021 ואילך",
+      "affected_title": "כבישים ביהודה ושומרון",
+      "affected_summary": "ממשלת ישראל קיבלה החלטה להקצות 250 מיליון ש\"ח בשנת 2022 לביצוע כביש 437 מחיזמה לאזור התעשייה שער בנימין, וכן 50 מיליון ש\"ח לתכנון מפורט של מקטעים בכביש 60, במסגרת יישום הסכמים קואליציוניים...."
+    },
+    {
+      "affected_decision": "36_1022",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_1019",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "הקמת"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "הקמת ועדת חקירה ממלכתית בעניין עסקאות ו/או הליכי רכש של ספינות המגן סער 6, צוללות AIP, ספינות נגד צוללות, הפרטת מספנות חיל הים וכן בעניין הסכמה למכר צוללות לצד ג' על ידי גרמניה",
+      "affected_title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים",
+      "affected_summary": "הממשלה החליטה על הקמת קרן מחקר ופיתוח תעשייתי דו-לאומית עם איחוד האמירויות הערביות, בשיתוף פעולה בין המדינות. תקציב הקרן יתחלק שווה בשווה, לא יעלה על 50 מיליון דולר, ויתקצב מתקציב הרשות הלאומית לחדשנו..."
+    },
+    {
+      "affected_decision": "36_1061",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_1062",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקנות",
+        "נגיף"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה) (חובת ביצוע בדיקה בכניסה לישראל) (תיקון מס' 7), התשפ\"ב - 2022",
+      "affected_title": "טיוטת תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה) (הגבלות על הפעלת שדות תעופה וטיסות) (תיקון מס' 7), התשפ\"ב-2022",
+      "affected_summary": "הממשלה אישרה התקנת תקנות נוספות להנחיות בנוגע להגבלות על הפעלת שדות תעופה וטיסות בישראל עקב נגיף הקורונה. התקנות כוללות שינויים בהגדרות ובדרישות בדיקות קורונה לנוסעים ולצוות מטוס. הממשלה תביא את התקנו..."
+    },
+    {
+      "affected_decision": "36_1128",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_1127",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "עבירה",
+        "חוק",
+        "נפגעי",
+        "הצעת"
+      ],
+      "confidence": 4,
+      "government_number": "36",
+      "source_title": "הצעת חוק זכויות נפגעי עבירה (תיקון - חובת יידוע נפגעי עבירה בדבר זכויותיהם), התשפ\"א-2021 של חה\"כ גלעד קריב (פ/1044)",
+      "affected_title": null,
+      "affected_summary": "ממשלת ישראל החליטה לתמוך בהצעת חוק להגבלת חזרת עברייני מין לסביבת נפגעי העבירה, אשר כוללת הרחבת סמכות בית המשפט בנושא קטינים. ההחלטה כוללת תנאים להמשך הליכי החקיקה, הכוללים הסכמה עם משרדי המשפטים והרו..."
+    },
+    {
+      "affected_decision": "36_1128",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_1129",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "הצעת",
+        "מין"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "הצעת חוק מגבלות על חזרתו של עבריין מין לסביבת נפגע העבירה (תיקון - הגבלת אזור מגורים לעבריין מין שנשלח למעון), התשפ\"ב-2021 של חה\"כ עידית סילמן (פ/2601)",
+      "affected_title": null,
+      "affected_summary": "ממשלת ישראל החליטה לתמוך בהצעת חוק להגבלת חזרת עברייני מין לסביבת נפגעי העבירה, אשר כוללת הרחבת סמכות בית המשפט בנושא קטינים. ההחלטה כוללת תנאים להמשך הליכי החקיקה, הכוללים הסכמה עם משרדי המשפטים והרו..."
+    },
+    {
+      "affected_decision": "36_1129",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_1130",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "חוק",
+        "הצעת"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "הצעת חוק הכנסת (תיקון - חובת התייצבות בפני ועדות הכנסת), התשפ\"א-2021 של חה\"כ שמחה רוטמן ואחרים (פ/1843)",
+      "affected_title": "הצעת חוק מגבלות על חזרתו של עבריין מין לסביבת נפגע העבירה (תיקון - הגבלת אזור מגורים לעבריין מין שנשלח למעון), התשפ\"ב-2021 של חה\"כ עידית סילמן (פ/2601)",
+      "affected_summary": "הממשלה החליטה לתמוך בקריאה הטרומית בהצעת החוק המגבילה את חזרתו של עבריין מין לסביבת נפגע העבירה, תוך שמירה על הסכמות עם משרדי המשפטים והרווחה והביטחון החברתי, והצעת החוק תוחזר לדיון בוועדת השרים לפני ..."
+    },
+    {
+      "affected_decision": "36_1313",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "36_1314",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקנות",
+        "נגיף"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה) (חובת ביצוע בדיקה בכניסה לישראל) (תיקון מס' 10), התשפ\"ב-2022",
+      "affected_title": "טיוטת תקנות סמכויות מיוחדות להתמודדות עם נגיף הקורונה החדש (הוראת שעה) (הגבלות על הפעלת שדות תעופה וטיסות) (תיקון מס' 9), התשפ\"ב-2022",
+      "affected_summary": "הממשלה החליטה להתקין תקנות חדשות המיועדות להתמודד עם נגיף הקורונה בהקשר להפעילות של שדות תעופה וטיסות, וכעת גם הפלגות נופש. התקנות כוללות הגבלות והוראות למפעילי טיסות והפלגות, כגון דרישות לבדיקות קורו..."
+    },
+    {
+      "affected_decision": "36_1335",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_1334",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "פטור",
+        "הסכם"
+      ],
+      "confidence": 2,
+      "government_number": "36",
+      "source_title": "אשרור הסכם בין ממשלת מדינת ישראל לבין ממשלת טובלו בדבר פטור מאשרה למחזיקים בדרכונים דיפלומטיים, דרכוני שירות/רשמיים ודרכונים לאומיים/רגילים",
+      "affected_title": "אשרור הסכם בין ממשלת מדינת ישראל לבין ממשלת המדינה העצמאית של סמואה בדבר פטור מאשרה למחזיקים בדרכונים דיפלומטיים, דרכוני שירות/דרכונים רשמיים ודרכונים לאומיים / רגילים",
+      "affected_summary": "החלטת הממשלה מאשרת הסכם בין מדינת ישראל לממשלת סמואה, המעניק פטור מאשרה למחזיקים בדרכונים דיפלומטיים, דרכוני שירות ודרכונים רגילים. בנוסף, לייפות את כוחו של שר החוץ לבצע את ההחלטה. ההסכם נחתם ב-4.3.20..."
+    },
+    {
+      "affected_decision": "36_1920",
+      "shift_type": "backward",
+      "shift_distance": -1,
+      "source_decision": "36_1919",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "עדיפות",
+        "לאומית",
+        "אזורי"
+      ],
+      "confidence": 3,
+      "government_number": "36",
+      "source_title": "קביעת אזורי עדיפות לאומית לעניין מתן הטבות בתחום הבינוי והשיכון",
+      "affected_title": "הגדרת יישובים ואזורים כבעלי עדיפות לאומית - תיקון החלטת ממשלה",
+      "affected_summary": "החלטת הממשלה משנת 2022 הוחלטה להאריך את תוקפה של החלטה 1371 עד ל-31 בדצמבר 2022, במטרה למנוע פגיעות בהטבות שניתנות לאזורי עדיפות לאומית ולאפשר ניצול תקציב שהוקצה לכך. הארכה זו נועדה להשלמת פעולות משרד..."
+    }
+  ],
+  "other_field_issues": {
+    "operativity_shifts": [],
+    "tags_shifts": []
+  },
+  "verified_cases": {
+    "known_case_36_1022_1024": false
+  }
+}

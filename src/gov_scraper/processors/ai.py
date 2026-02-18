@@ -8,7 +8,7 @@ import time
 import os
 from typing import Dict, Optional, List, Set
 
-from ..config import GEMINI_API_KEY, GEMINI_MODEL, MAX_RETRIES, RETRY_DELAY
+from ..config import GEMINI_API_KEY, GEMINI_MODEL, MAX_RETRIES, RETRY_DELAY, USE_UNIFIED_AI
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -263,10 +263,23 @@ def generate_operativity(decision_content: str) -> str:
 ענה במילה אחת בלבד: "אופרטיבית" או "דקלרטיבית".
 
 הגדרות:
-- אופרטיבית: החלטה שמחייבת פעולה מעשית, כמו הקצאת תקציב, מינוי, הקמת גוף, שינוי מדיניות, הוראה לביצוע.
-  דוגמאות: "להקצות 50 מיליון ש"ח", "למנות ועדה", "לפעול להקמת...", "מטיל על משרד..."
-- דקלרטיבית: החלטה עקרונית, הכרזה, הבעת עמדה, או רישום לפני הממשלה ללא חיוב לפעולה ספציפית.
-  דוגמאות: "הממשלה רושמת בפניה", "מכירה בחשיבות", "קוראת לציבור", "מביעה הערכה"
+- אופרטיבית: החלטה שמחייבת פעולה מעשית עם השפעה תקציבית, מדינית, או מבצעית.
+  דוגמאות אופרטיביות:
+  1. "להקצות 50 מיליון ש"ח לפיתוח תשתיות" - הקצאת תקציב
+  2. "מטיל על משרד הבריאות לגבש תוכנית" - הוראת ביצוע
+  3. "לאשר את ההסכם הקיבוצי עם ההסתדרות" - אישור הסכם מחייב
+  4. "לשנות את כללי הרגולציה בתחום הבנקאות" - שינוי מדיניות
+  5. "להגדיל את מספר המלגות ל-500 בשנה" - שינוי כמותי מחייב
+
+- דקלרטיבית: החלטה פורמלית, הכרזה, הבעת עמדה, מינוי, הקמת ועדה לבחינה, או רישום.
+  דוגמאות דקלרטיביות:
+  1. "למנות את ד"ר שרה כהן למנהלת המחלקה" - מינוי לתפקיד (פעולה רישומית)
+  2. "הממשלה רושמת בפניה את חשיבות החינוך" - רישום
+  3. "להקים ועדה לבחינת הנושא" - הקמת ועדה (אינה יוצרת שינוי מעשי)
+  4. "הממשלה מביעה הערכה לפעילות הארגונים" - הבעת עמדה
+  5. "הממשלה מכירה בחשיבות שיתוף הציבור" - הכרה עקרונית
+
+שים לב: מינויים לתפקידים והקמת ועדות לבחינה הן פעולות פורמליות/רישומיות ולכן דקלרטיביות.
 
 תוכן ההחלטה:
 {decision_content}
@@ -732,13 +745,16 @@ def generate_location_tags(decision_content: str, decision_title: str) -> str:
     return ""
 
 
-def process_decision_with_ai(decision_data: Dict[str, str]) -> Dict[str, str]:
+def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = None) -> Dict[str, str]:
     """
     Process a decision with AI to generate all required fields.
-    Uses validated tags from new_tags.md and new_departments.md.
+
+    NEW: Now uses unified AI processing by default (1-2 API calls vs 5-6).
+    Falls back to individual calls if unified processing fails.
 
     Args:
         decision_data: Dictionary containing basic decision data
+        use_unified: Whether to use new unified processing (default: from config)
 
     Returns:
         Updated dictionary with AI-generated fields
@@ -751,9 +767,69 @@ def process_decision_with_ai(decision_data: Dict[str, str]) -> Dict[str, str]:
 
     decision_content = decision_data.get('decision_content', '')
     decision_title = decision_data.get('decision_title', '')
+    decision_date = decision_data.get('decision_date', '')
 
     if not decision_content:
         raise ValueError(f"Decision {decision_data.get('decision_number', 'unknown')} has no content")
+
+    # Use config default if not specified
+    if use_unified is None:
+        use_unified = USE_UNIFIED_AI
+
+    if use_unified:
+        try:
+            # NEW UNIFIED PROCESSING (1 API call)
+            from .unified_ai import create_unified_processor
+
+            processor = create_unified_processor(POLICY_AREAS, GOVERNMENT_BODIES)
+            result = processor.process_decision_unified(
+                decision_content, decision_title, decision_date
+            )
+
+            # Convert unified result to legacy format
+            policy_areas_str = "; ".join(result.policy_areas) if result.policy_areas else "שונות"
+            government_bodies_str = "; ".join(result.government_bodies) if result.government_bodies else ""
+            locations_str = ", ".join(result.locations) if result.locations else ""
+
+            # Include special categories in policy areas if found
+            all_policy_tags = result.policy_areas + result.special_categories
+            policy_areas_str = "; ".join(all_policy_tags[:4]) if all_policy_tags else "שונות"  # Max 4 tags
+
+            # Combine all tags
+            all_tags_parts = []
+            if policy_areas_str:
+                all_tags_parts.append(policy_areas_str)
+            if government_bodies_str:
+                all_tags_parts.append(government_bodies_str)
+            if locations_str:
+                all_tags_parts.append(locations_str)
+            all_tags = '; '.join(all_tags_parts)
+
+            # Update decision data with unified results
+            decision_data.update({
+                'summary': result.summary,
+                'operativity': result.operativity,
+                'tags_policy_area': policy_areas_str,
+                'tags_government_body': government_bodies_str,
+                'tags_location': locations_str,
+                'all_tags': all_tags,
+                # Add metadata for monitoring
+                '_ai_processing_time': result.processing_time,
+                '_ai_confidence': result.tags_confidence,
+                '_ai_api_calls': result.api_calls_used
+            })
+
+            logger.info(f"Unified AI processing completed in {result.processing_time:.2f}s with {result.api_calls_used} API calls")
+            logger.info(f"Results: policy={policy_areas_str}, govt={government_bodies_str}")
+
+            return decision_data
+
+        except Exception as e:
+            logger.warning(f"Unified processing failed: {e}, falling back to individual calls")
+            # Fall through to legacy processing
+
+    # LEGACY PROCESSING (5-6 API calls)
+    logger.info("Using legacy individual AI calls")
 
     # Step 1: Generate summary (needed for validation)
     summary = generate_summary(decision_content, decision_title)
@@ -799,12 +875,22 @@ def process_decision_with_ai(decision_data: Dict[str, str]) -> Dict[str, str]:
         'tags_policy_area': policy_areas,
         'tags_government_body': government_bodies,
         'tags_location': locations,
-        'all_tags': all_tags
+        'all_tags': all_tags,
+        # Add metadata for comparison
+        '_ai_processing_time': 0.0,  # Not tracked in legacy
+        '_ai_confidence': 0.7,       # Default confidence
+        '_ai_api_calls': 6           # Approximate legacy calls
     })
 
-    logger.info(f"AI processing completed: policy={policy_areas}, govt={government_bodies}")
+    logger.info(f"Legacy AI processing completed: policy={policy_areas}, govt={government_bodies}")
 
     return decision_data
+
+
+# LEGACY WRAPPER - Maintains backward compatibility
+def process_decision_with_ai_legacy(decision_data: Dict[str, str]) -> Dict[str, str]:
+    """Legacy wrapper for backward compatibility."""
+    return process_decision_with_ai(decision_data, use_unified=False)
 
 
 if __name__ == "__main__":

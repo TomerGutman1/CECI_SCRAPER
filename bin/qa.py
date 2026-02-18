@@ -18,6 +18,13 @@ Usage:
     python bin/qa.py fix policy-tags-defaults preview    # Preview default policy fix
     python bin/qa.py fix government-bodies-ai preview --from-report data/qa_reports/flagged_body_hallucination.json
 
+    # Special category tags (AI-based):
+    python bin/qa.py fix special-category preview       # Preview (10 records)
+    python bin/qa.py fix special-category dry-run       # Full dry-run
+    python bin/qa.py fix special-category execute       # Execute with tag review
+    python bin/qa.py fix special-category execute --no-review  # Only add special tags
+    python bin/qa.py fix special-category execute --year 2024  # Specific year
+
 Options:
     --count N              Limit to N records
     --start-date YYYY-MM-DD
@@ -27,6 +34,8 @@ Options:
     --verbose              Enable verbose logging
     --yes                  Skip confirmation for execute
     --from-report PATH     Load decision_keys from JSON report to filter records
+    --year YYYY            Filter by specific year
+    --no-review            For special-category: only add tags, don't review existing
 """
 
 import sys
@@ -184,11 +193,19 @@ def cmd_fix(args):
             print(f"  Error loading report: {e}")
             return
 
+    # Handle --year filter
+    start_date = args.start_date
+    end_date = args.end_date
+    if hasattr(args, 'year') and args.year:
+        start_date = f"{args.year}-01-01"
+        end_date = f"{args.year}-12-31"
+        print(f"\n  Filtering to year {args.year}")
+
     # Fetch records
     print(f"\n  Fetching records...", end=" ", flush=True)
     records = fetch_records_for_qa(
-        start_date=args.start_date,
-        end_date=args.end_date,
+        start_date=start_date,
+        end_date=end_date,
         max_records=max_records,
         decision_key_prefix=args.prefix,
     )
@@ -289,6 +306,11 @@ def cmd_fix(args):
             print("  No Cloudflare records found.")
             return
 
+    elif fix_name == "special-category":
+        # No pre-filtering - process all records
+        review_existing = not getattr(args, 'no_review', False)
+        print(f"  Review mode: {'full review + special tags' if review_existing else 'only add special tags'}")
+
     # Determine dry_run mode
     dry_run = mode != "execute"
 
@@ -301,7 +323,13 @@ def cmd_fix(args):
     # Run fixer
     fixer_fn = ALL_FIXERS[fix_name]
     print(f"\n  Running {fix_name} fixer on {len(records)} records...")
-    updates, scan_result = fixer_fn(records, dry_run=dry_run)
+
+    # Special handling for special-category fixer
+    if fix_name == "special-category":
+        review_existing = not getattr(args, 'no_review', False)
+        updates, scan_result = fixer_fn(records, dry_run=dry_run, review_existing=review_existing)
+    else:
+        updates, scan_result = fixer_fn(records, dry_run=dry_run)
 
     # Display results
     print(f"\n  Results:")
@@ -400,6 +428,14 @@ Examples:
     fix_parser.add_argument(
         "--from-report", type=str, default=None,
         help="Load decision_keys from a JSON report file to filter records"
+    )
+    fix_parser.add_argument(
+        "--year", type=int, default=None,
+        help="Filter by year (e.g., 2024)"
+    )
+    fix_parser.add_argument(
+        "--no-review", action="store_true",
+        help="For special-category: only add special tags, don't review existing tags"
     )
 
     args = parser.parse_args()

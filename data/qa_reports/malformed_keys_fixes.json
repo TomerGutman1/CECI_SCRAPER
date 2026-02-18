@@ -1,0 +1,751 @@
+{
+  "total_malformed_keys": 25,
+  "unique_patterns": 4,
+  "malformed_keys": [
+    {
+      "current_key": "35_גבל/18",
+      "new_key": "35_GBL_18",
+      "government_number": "35",
+      "decision_number": "גבל/18",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/5",
+      "new_key": "35_MH_5",
+      "government_number": "35",
+      "decision_number": "מח/5",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/16",
+      "new_key": "35_GBL_16",
+      "government_number": "35",
+      "decision_number": "גבל/16",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/15",
+      "new_key": "35_GBL_15",
+      "government_number": "35",
+      "decision_number": "גבל/15",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/11",
+      "new_key": "35_GBL_11",
+      "government_number": "35",
+      "decision_number": "גבל/11",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/10",
+      "new_key": "35_GBL_10",
+      "government_number": "35",
+      "decision_number": "גבל/10",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/6",
+      "new_key": "35_GBL_6",
+      "government_number": "35",
+      "decision_number": "גבל/6",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/2",
+      "new_key": "35_MH_2",
+      "government_number": "35",
+      "decision_number": "מח/2",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/32",
+      "new_key": "36_RHM_32",
+      "government_number": "36",
+      "decision_number": "רהמ/32",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/30",
+      "new_key": "35_GBL_30",
+      "government_number": "35",
+      "decision_number": "גבל/30",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/24",
+      "new_key": "35_GBL_24",
+      "government_number": "35",
+      "decision_number": "גבל/24",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/14",
+      "new_key": "35_GBL_14",
+      "government_number": "35",
+      "decision_number": "גבל/14",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/13",
+      "new_key": "35_GBL_13",
+      "government_number": "35",
+      "decision_number": "גבל/13",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/12",
+      "new_key": "35_GBL_12",
+      "government_number": "35",
+      "decision_number": "גבל/12",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/3",
+      "new_key": "35_MH_3",
+      "government_number": "35",
+      "decision_number": "מח/3",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/4",
+      "new_key": "36_RHM_4",
+      "government_number": "36",
+      "decision_number": "רהמ/4",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/2",
+      "new_key": "36_RHM_2",
+      "government_number": "36",
+      "decision_number": "רהמ/2",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/22",
+      "new_key": "35_GBL_22",
+      "government_number": "35",
+      "decision_number": "גבל/22",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/20",
+      "new_key": "35_GBL_20",
+      "government_number": "35",
+      "decision_number": "גבל/20",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/18",
+      "new_key": "35_GBL_18",
+      "government_number": "35",
+      "decision_number": "גבל/18",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/5",
+      "new_key": "35_MH_5",
+      "government_number": "35",
+      "decision_number": "מח/5",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/16",
+      "new_key": "35_GBL_16",
+      "government_number": "35",
+      "decision_number": "גבל/16",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/15",
+      "new_key": "35_GBL_15",
+      "government_number": "35",
+      "decision_number": "גבל/15",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/11",
+      "new_key": "35_GBL_11",
+      "government_number": "35",
+      "decision_number": "גבל/11",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/10",
+      "new_key": "35_GBL_10",
+      "government_number": "35",
+      "decision_number": "גבל/10",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/6",
+      "new_key": "35_GBL_6",
+      "government_number": "35",
+      "decision_number": "גבל/6",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/2",
+      "new_key": "35_MH_2",
+      "government_number": "35",
+      "decision_number": "מח/2",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/4",
+      "new_key": "36_RHM_4",
+      "government_number": "36",
+      "decision_number": "רהמ/4",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/47",
+      "new_key": "36_RHM_47",
+      "government_number": "36",
+      "decision_number": "רהמ/47",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "37_מח/2",
+      "new_key": "37_MH_2",
+      "government_number": "37",
+      "decision_number": "מח/2",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "37_מח/3",
+      "new_key": "37_MH_3",
+      "government_number": "37",
+      "decision_number": "מח/3",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "37_3173יחידות: מזכירות הממשלהתאריך תחולה: 25.06.2025ממשלה: הממשלה ה- 37תאריך פרסום: 25.06.2025 נושא ההחלטה:ניהול בית-הכנסת \"תפארת ישראל\" ברובע היהודי בירושליםמחליטים:בהמשך להחלטות הממשלה מספר 1629 מיום 28.5.14, מספר 1518 מיום 29.5.22, מספר 615 מיום 11.11.2021, מספר 60 מיום 22.1.2023 ומספר 1829 מיום 5.6.2024:1. הממשלה רושמת לפניה את הודעת החברה לשיקום ופיתוח הרובע היהודי בעיר העתיקה בירושלים בע\"מ שלפיה ניהולו של בית הכנסת \"תפארת ישראל\" ייעשה על-ידיה בשיתוף עם הקרן למורשת הכותל המערבי בהתאם להסכם שייחתם ביניהן בתוך 120 יום ממועד קבלת החלטה זו.2. בהתאם להוראות סעיף 11 וסעיף 60 לחוק החברות הממשלתיות, התשל\"ה-1975, לאשר את שינוי סעיף המטרות בתקנון עמותת הקרן למורשת הכותל המערבי (ע.ר. 580137594) בדרך של הוספת מטרה כדלקמן:\"י\". ניהול של בית–הכנסת \"תפארת ישראל\" שברובע היהודי בעיר העתיקה בירושלים\".3. יובהר כי משרד ראש הממשלה לא יישא בכל עלות תקציבית הנובעת מיישום החלטה זו.4. החלטות עקרוניות בנושא ניהול בית הכנסת \"תפארת ישראל\" כנכס לאומי יהיו כפופות לאישור ראש הממשלה.הנוסח המחייב של החלטות הממשלה הינו הנוסח השמור במזכירות הממשלה. הנוסח המחייב של הצעות חוק ודברי חקיקה הנזכרים בהחלטות הינו הנוסח המתפרסם ברשומות. החלטות תקציביות כפופות לחוק התקציב השנתי",
+      "new_key": "37_3173",
+      "government_number": "37",
+      "decision_number": "3173יחידות: מזכירות הממשלהתאריך תחולה: 25.06.2025ממשלה: הממשלה ה- 37תאריך פרסום: 25.06.2025 נושא ההחלטה:ניהול בית-הכנסת \"תפארת ישראל\" ברובע היהודי בירושליםמחליטים:בהמשך להחלטות הממשלה מספר 1629 מיום 28.5.14, מספר 1518 מיום 29.5.22, מספר 615 מיום 11.11.2021, מספר 60 מיום 22.1.2023 ומספר 1829 מיום 5.6.2024:1. הממשלה רושמת לפניה את הודעת החברה לשיקום ופיתוח הרובע היהודי בעיר העתיקה בירושלים בע\"מ שלפיה ניהולו של בית הכנסת \"תפארת ישראל\" ייעשה על-ידיה בשיתוף עם הקרן למורשת הכותל המערבי בהתאם להסכם שייחתם ביניהן בתוך 120 יום ממועד קבלת החלטה זו.2. בהתאם להוראות סעיף 11 וסעיף 60 לחוק החברות הממשלתיות, התשל\"ה-1975, לאשר את שינוי סעיף המטרות בתקנון עמותת הקרן למורשת הכותל המערבי (ע.ר. 580137594) בדרך של הוספת מטרה כדלקמן:\"י\". ניהול של בית–הכנסת \"תפארת ישראל\" שברובע היהודי בעיר העתיקה בירושלים\".3. יובהר כי משרד ראש הממשלה לא יישא בכל עלות תקציבית הנובעת מיישום החלטה זו.4. החלטות עקרוניות בנושא ניהול בית הכנסת \"תפארת ישראל\" כנכס לאומי יהיו כפופות לאישור ראש הממשלה.הנוסח המחייב של החלטות הממשלה הינו הנוסח השמור במזכירות הממשלה. הנוסח המחייב של הצעות חוק ודברי חקיקה הנזכרים בהחלטות הינו הנוסח המתפרסם ברשומות. החלטות תקציביות כפופות לחוק התקציב השנתי",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "corrupted_key_field"
+    },
+    {
+      "current_key": "36_רהמ/2",
+      "new_key": "36_RHM_2",
+      "government_number": "36",
+      "decision_number": "רהמ/2",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/22",
+      "new_key": "35_GBL_22",
+      "government_number": "35",
+      "decision_number": "גבל/22",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/20",
+      "new_key": "35_GBL_20",
+      "government_number": "35",
+      "decision_number": "גבל/20",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/18",
+      "new_key": "35_GBL_18",
+      "government_number": "35",
+      "decision_number": "גבל/18",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/5",
+      "new_key": "35_MH_5",
+      "government_number": "35",
+      "decision_number": "מח/5",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/16",
+      "new_key": "35_GBL_16",
+      "government_number": "35",
+      "decision_number": "גבל/16",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/15",
+      "new_key": "35_GBL_15",
+      "government_number": "35",
+      "decision_number": "גבל/15",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/11",
+      "new_key": "35_GBL_11",
+      "government_number": "35",
+      "decision_number": "גבל/11",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/10",
+      "new_key": "35_GBL_10",
+      "government_number": "35",
+      "decision_number": "גבל/10",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/6",
+      "new_key": "35_GBL_6",
+      "government_number": "35",
+      "decision_number": "גבל/6",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/2",
+      "new_key": "35_MH_2",
+      "government_number": "35",
+      "decision_number": "מח/2",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/4",
+      "new_key": "36_RHM_4",
+      "government_number": "36",
+      "decision_number": "רהמ/4",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/47",
+      "new_key": "36_RHM_47",
+      "government_number": "36",
+      "decision_number": "רהמ/47",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/2",
+      "new_key": "36_RHM_2",
+      "government_number": "36",
+      "decision_number": "רהמ/2",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/22",
+      "new_key": "35_GBL_22",
+      "government_number": "35",
+      "decision_number": "גבל/22",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/20",
+      "new_key": "35_GBL_20",
+      "government_number": "35",
+      "decision_number": "גבל/20",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/18",
+      "new_key": "35_GBL_18",
+      "government_number": "35",
+      "decision_number": "גבל/18",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/5",
+      "new_key": "35_MH_5",
+      "government_number": "35",
+      "decision_number": "מח/5",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/16",
+      "new_key": "35_GBL_16",
+      "government_number": "35",
+      "decision_number": "גבל/16",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/15",
+      "new_key": "35_GBL_15",
+      "government_number": "35",
+      "decision_number": "גבל/15",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/11",
+      "new_key": "35_GBL_11",
+      "government_number": "35",
+      "decision_number": "גבל/11",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/10",
+      "new_key": "35_GBL_10",
+      "government_number": "35",
+      "decision_number": "גבל/10",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/6",
+      "new_key": "35_GBL_6",
+      "government_number": "35",
+      "decision_number": "גבל/6",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/2",
+      "new_key": "35_MH_2",
+      "government_number": "35",
+      "decision_number": "מח/2",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/32",
+      "new_key": "36_RHM_32",
+      "government_number": "36",
+      "decision_number": "רהמ/32",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/30",
+      "new_key": "35_GBL_30",
+      "government_number": "35",
+      "decision_number": "גבל/30",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/24",
+      "new_key": "35_GBL_24",
+      "government_number": "35",
+      "decision_number": "גבל/24",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "37_3173יחידות: מזכירות הממשלהתאריך תחולה: 25.06.2025ממשלה: הממשלה ה- 37תאריך פרסום: 25.06.2025 נושא ההחלטה:ניהול בית-הכנסת \"תפארת ישראל\" ברובע היהודי בירושליםמחליטים:בהמשך להחלטות הממשלה מספר 1629 מיום 28.5.14, מספר 1518 מיום 29.5.22, מספר 615 מיום 11.11.2021, מספר 60 מיום 22.1.2023 ומספר 1829 מיום 5.6.2024:1. הממשלה רושמת לפניה את הודעת החברה לשיקום ופיתוח הרובע היהודי בעיר העתיקה בירושלים בע\"מ שלפיה ניהולו של בית הכנסת \"תפארת ישראל\" ייעשה על-ידיה בשיתוף עם הקרן למורשת הכותל המערבי בהתאם להסכם שייחתם ביניהן בתוך 120 יום ממועד קבלת החלטה זו.2. בהתאם להוראות סעיף 11 וסעיף 60 לחוק החברות הממשלתיות, התשל\"ה-1975, לאשר את שינוי סעיף המטרות בתקנון עמותת הקרן למורשת הכותל המערבי (ע.ר. 580137594) בדרך של הוספת מטרה כדלקמן:\"י\". ניהול של בית–הכנסת \"תפארת ישראל\" שברובע היהודי בעיר העתיקה בירושלים\".3. יובהר כי משרד ראש הממשלה לא יישא בכל עלות תקציבית הנובעת מיישום החלטה זו.4. החלטות עקרוניות בנושא ניהול בית הכנסת \"תפארת ישראל\" כנכס לאומי יהיו כפופות לאישור ראש הממשלה.הנוסח המחייב של החלטות הממשלה הינו הנוסח השמור במזכירות הממשלה. הנוסח המחייב של הצעות חוק ודברי חקיקה הנזכרים בהחלטות הינו הנוסח המתפרסם ברשומות. החלטות תקציביות כפופות לחוק התקציב השנתי",
+      "new_key": "37_3173",
+      "government_number": "37",
+      "decision_number": "3173יחידות: מזכירות הממשלהתאריך תחולה: 25.06.2025ממשלה: הממשלה ה- 37תאריך פרסום: 25.06.2025 נושא ההחלטה:ניהול בית-הכנסת \"תפארת ישראל\" ברובע היהודי בירושליםמחליטים:בהמשך להחלטות הממשלה מספר 1629 מיום 28.5.14, מספר 1518 מיום 29.5.22, מספר 615 מיום 11.11.2021, מספר 60 מיום 22.1.2023 ומספר 1829 מיום 5.6.2024:1. הממשלה רושמת לפניה את הודעת החברה לשיקום ופיתוח הרובע היהודי בעיר העתיקה בירושלים בע\"מ שלפיה ניהולו של בית הכנסת \"תפארת ישראל\" ייעשה על-ידיה בשיתוף עם הקרן למורשת הכותל המערבי בהתאם להסכם שייחתם ביניהן בתוך 120 יום ממועד קבלת החלטה זו.2. בהתאם להוראות סעיף 11 וסעיף 60 לחוק החברות הממשלתיות, התשל\"ה-1975, לאשר את שינוי סעיף המטרות בתקנון עמותת הקרן למורשת הכותל המערבי (ע.ר. 580137594) בדרך של הוספת מטרה כדלקמן:\"י\". ניהול של בית–הכנסת \"תפארת ישראל\" שברובע היהודי בעיר העתיקה בירושלים\".3. יובהר כי משרד ראש הממשלה לא יישא בכל עלות תקציבית הנובעת מיישום החלטה זו.4. החלטות עקרוניות בנושא ניהול בית הכנסת \"תפארת ישראל\" כנכס לאומי יהיו כפופות לאישור ראש הממשלה.הנוסח המחייב של החלטות הממשלה הינו הנוסח השמור במזכירות הממשלה. הנוסח המחייב של הצעות חוק ודברי חקיקה הנזכרים בהחלטות הינו הנוסח המתפרסם ברשומות. החלטות תקציביות כפופות לחוק התקציב השנתי",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "corrupted_key_field"
+    },
+    {
+      "current_key": "36_ביו/1",
+      "new_key": "36_BYU_1",
+      "government_number": "36",
+      "decision_number": "ביו/1",
+      "hebrew_abbreviation": "ביו",
+      "hebrew_meaning": "ביום/ביוטכנולוגיה",
+      "english_meaning": "Daily/Biotechnology",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "36_רהמ/2",
+      "new_key": "36_RHM_2",
+      "government_number": "36",
+      "decision_number": "רהמ/2",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/22",
+      "new_key": "35_GBL_22",
+      "government_number": "35",
+      "decision_number": "גבל/22",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/20",
+      "new_key": "35_GBL_20",
+      "government_number": "35",
+      "decision_number": "גבל/20",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/18",
+      "new_key": "35_GBL_18",
+      "government_number": "35",
+      "decision_number": "גבל/18",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/5",
+      "new_key": "35_MH_5",
+      "government_number": "35",
+      "decision_number": "מח/5",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/16",
+      "new_key": "35_GBL_16",
+      "government_number": "35",
+      "decision_number": "גבל/16",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/15",
+      "new_key": "35_GBL_15",
+      "government_number": "35",
+      "decision_number": "גבל/15",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/11",
+      "new_key": "35_GBL_11",
+      "government_number": "35",
+      "decision_number": "גבל/11",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/10",
+      "new_key": "35_GBL_10",
+      "government_number": "35",
+      "decision_number": "גבל/10",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_גבל/6",
+      "new_key": "35_GBL_6",
+      "government_number": "35",
+      "decision_number": "גבל/6",
+      "hebrew_abbreviation": "גבל",
+      "hebrew_meaning": "גבול/מועצת הביטחון הלאומי",
+      "english_meaning": "Border/National Security Council",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "35_מח/2",
+      "new_key": "35_MH_2",
+      "government_number": "35",
+      "decision_number": "מח/2",
+      "hebrew_abbreviation": "מח",
+      "hebrew_meaning": "משרד החוץ",
+      "english_meaning": "Foreign Ministry",
+      "malformation_type": "slash_in_key"
+    },
+    {
+      "current_key": "32_רהמ/3",
+      "new_key": "32_RHM_3",
+      "government_number": "32",
+      "decision_number": "רהמ/3",
+      "hebrew_abbreviation": "רהמ",
+      "hebrew_meaning": "ראש הממשלה",
+      "english_meaning": "Prime Minister",
+      "malformation_type": "slash_in_key"
+    }
+  ],
+  "standardization_rules": {
+    "רהמ": "RHM",
+    "גבל": "GBL",
+    "מח": "MH",
+    "ביו": "BYU"
+  },
+  "analysis_summary": {
+    "most_common_patterns": [
+      "רהמ",
+      "גבל",
+      "מח",
+      "ביו"
+    ],
+    "total_records_affected": 73
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "check_name": "fix_summaries",
+  "total_scanned": 591,
+  "issues_found": 591,
+  "issue_rate": "100.0%",
+  "summary": {
+    "total_processed": 591,
+    "regenerated": 591,
+    "applied": 590,
+    "errors": 1
+  },
+  "sample_issues": [
+    {
+      "decision_key": "37_2998",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "סיכום החלטה",
+      "description": "Re-generated summary (11 → 37 chars)"
+    },
+    {
+      "decision_key": "37_2983",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "הממשלה אישרה תוכנית רב-שנתית בשם \"ישראל ריאלית\", שנועדה למענה למצב החירום הלאומי במקצועות ה-STEM (מד",
+      "description": "Re-generated summary (545 → 215 chars)"
+    },
+    {
+      "decision_key": "37_2957",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "ההחלטה עוסקת באישור עקרונות הסכם מסגרת בין ממשלת ישראל לחברת חוצה ישראל בע\"מ, שמטרתו להסדיר את היחסי",
+      "description": "Re-generated summary (544 → 205 chars)"
+    },
+    {
+      "decision_key": "37_2821",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "ההחלטה נוגעת להשתתפות המדינה בהוצאות הביטחון של חברות התעופה הישראליות, ומביאה לתיקון החלטות ממשלה ק",
+      "description": "Re-generated summary (618 → 161 chars)"
+    },
+    {
+      "decision_key": "37_2761",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "החלטת הממשלה עוסקת בהסרת חסמים לתעסוקת עולים ועושה זאת על ידי שורה של פעולות שמטרתן להקל על השתלבותם",
+      "description": "Re-generated summary (516 → 199 chars)"
+    },
+    {
+      "decision_key": "37_2689",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "ההחלטה של הממשלה עוסקת במתווה לשחרור חטופים ישראלים, חיים וחללים, בעקבות חוות דעת ביטחונית-מדינית שג",
+      "description": "Re-generated summary (516 → 134 chars)"
+    },
+    {
+      "decision_key": "37_2632",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "ההחלטה מעוגנת את תפקידי השירות המטאורולוגי הישראלי במסגרת משרדי הממשלה, במטרה לשפר את ההתמודדות עם ש",
+      "description": "Re-generated summary (514 → 196 chars)"
+    },
+    {
+      "decision_key": "37_2305",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "החלטת הממשלה עוסקת בהסרת חסמים לפיתוח כלכלי ולמינוף תקציבי בשלטון המקומי. מטרת ההחלטה היא לחולל צמיח",
+      "description": "Re-generated summary (539 → 198 chars)"
+    },
+    {
+      "decision_key": "37_2273",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "החלטת הממשלה עוסקת בייעול המגזר הציבורי, תוך האצת השירותים הדיגיטליים לאזרח ושיפור התשתיות והמדיניות",
+      "description": "Re-generated summary (571 → 168 chars)"
+    },
+    {
+      "decision_key": "37_2281",
+      "severity": "medium",
+      "field": "summary",
+      "current_value": "החלטת הממשלה עוסקת בהקמת רשויות תחבורה מטרופוליניות בישראל, במטרה לשפר את תכנון, ניהול ופיתוח התחבור",
+      "description": "Re-generated summary (537 → 137 chars)"
+    }
+  ]
+}

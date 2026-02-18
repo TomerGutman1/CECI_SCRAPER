@@ -1,0 +1,158 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 5000,
+    "debug": false,
+    "secret_key": "change-this-in-production-use-env-var"
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "db": 0,
+    "password": null
+  },
+  "monitoring": {
+    "scan_interval_minutes": 15,
+    "metrics_update_minutes": 5,
+    "cache_ttl_seconds": 300,
+    "alert_threshold_critical": 50,
+    "alert_threshold_warning": 25,
+    "enable_real_time_monitoring": true,
+    "anomaly_detection_enabled": true,
+    "health_score_calculation": true
+  },
+  "reporting": {
+    "daily_report_hour": 9,
+    "weekly_report_hour": 9,
+    "monthly_report_hour": 9,
+    "enable_email_reports": false,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "smtp_username": "",
+    "smtp_password": "",
+    "report_recipients": [],
+    "auto_generate_quality_reports": true,
+    "report_retention_days": 90
+  },
+  "dashboard": {
+    "max_alerts_display": 100,
+    "default_sample_size": 1000,
+    "stratified_sample_seed": 42,
+    "pagination_size": 10,
+    "chart_colors": {
+      "health_score": "#10B981",
+      "issue_rate": "#EF4444",
+      "warning": "#F59E0B",
+      "critical": "#DC2626",
+      "info": "#3B82F6",
+      "duplicate_rate": "#F97316",
+      "tag_confidence": "#8B5CF6",
+      "missing_fields": "#EC4899",
+      "processing_performance": "#06B6D4",
+      "trend_improving": "#22C55E",
+      "trend_degrading": "#EF4444",
+      "trend_stable": "#6B7280"
+    },
+    "real_time_metrics": {
+      "enabled": true,
+      "update_interval_seconds": 30,
+      "display_trends": true,
+      "show_anomaly_indicators": true
+    },
+    "quality_metrics": {
+      "duplicate_rate": {
+        "enabled": true,
+        "display_name": "Duplicate Rate",
+        "unit": "%",
+        "warning_threshold": 3.0,
+        "critical_threshold": 5.0,
+        "chart_type": "line",
+        "description": "Percentage of potentially duplicate records"
+      },
+      "tag_confidence": {
+        "enabled": true,
+        "display_name": "Tag Confidence",
+        "unit": "%",
+        "warning_threshold": 65.0,
+        "critical_threshold": 60.0,
+        "chart_type": "line",
+        "description": "Average AI confidence in tag assignments"
+      },
+      "missing_fields_rate": {
+        "enabled": true,
+        "display_name": "Missing Fields",
+        "unit": "%",
+        "warning_threshold": 5.0,
+        "critical_threshold": 10.0,
+        "chart_type": "line",
+        "description": "Percentage of records with missing critical fields"
+      },
+      "processing_performance": {
+        "enabled": true,
+        "display_name": "Processing Time",
+        "unit": "seconds",
+        "warning_threshold": 300,
+        "critical_threshold": 600,
+        "chart_type": "line",
+        "description": "Time taken for QA processing"
+      }
+    },
+    "historical_charts": {
+      "enabled": true,
+      "time_ranges": ["1h", "6h", "24h", "7d", "30d"],
+      "default_range": "24h",
+      "aggregation_periods": {
+        "1h": "1m",
+        "6h": "5m",
+        "24h": "1h",
+        "7d": "6h",
+        "30d": "1d"
+      }
+    }
+  },
+  "qa_checks": {
+    "enabled_checks": [
+      "operativity",
+      "policy-relevance",
+      "policy-fallback",
+      "operativity-vs-content",
+      "tag-body",
+      "committee-tag",
+      "location-hallucination",
+      "government-body-hallucination",
+      "summary-quality",
+      "summary-vs-tags",
+      "location-vs-body",
+      "date-vs-government",
+      "title-vs-content",
+      "date-validity",
+      "content-quality",
+      "tag-consistency",
+      "content-completeness",
+      "body-default-patterns",
+      "policy-default-patterns",
+      "operativity-validity"
+    ],
+    "priority_checks": [
+      "operativity",
+      "policy-relevance",
+      "government-body-hallucination",
+      "location-hallucination"
+    ]
+  },
+  "security": {
+    "enable_cors": true,
+    "cors_origins": ["*"],
+    "rate_limiting": {
+      "enabled": false,
+      "requests_per_minute": 60
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "logs/qa_dashboard.log",
+    "max_file_size_mb": 10,
+    "backup_count": 5,
+    "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+  }
+}

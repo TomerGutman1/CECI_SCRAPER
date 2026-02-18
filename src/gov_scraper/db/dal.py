@@ -1,7 +1,8 @@
 import os
 import logging
 import time
-from typing import List, Dict, Set, Tuple
+import re
+from typing import List, Dict, Set, Tuple, Optional
 import pandas as pd
 from .connector import get_supabase_client
 from .utils import read_decisions_csv, remove_unwanted_columns, drop_incomplete_rows, filter_new_rows
@@ -126,7 +127,9 @@ def filter_duplicate_decisions(decisions: List[Dict]) -> Tuple[List[Dict], List[
 
 def insert_decisions_batch(decisions: List[Dict], batch_size: int = 50) -> Tuple[int, List[str]]:
     """
-    Insert decisions to database in batches with duplicate prevention and retry logic.
+    Insert decisions to database in batches with duplicate prevention, unique constraint handling, and retry logic.
+
+    UPDATED: Now handles unique constraint violations gracefully after migration 004.
 
     Args:
         decisions: List of decision dictionaries to insert
@@ -152,11 +155,24 @@ def insert_decisions_batch(decisions: List[Dict], batch_size: int = 50) -> Tuple
     inserted_count = 0
     error_messages = []
 
+    # Validate decision keys before insertion
+    invalid_decisions = []
+    for decision in unique_decisions:
+        decision_key = decision.get('decision_key')
+        if not decision_key or not _is_valid_decision_key_format(decision_key):
+            invalid_decisions.append(decision)
+            error_messages.append(f"Invalid decision_key format: {decision_key}")
+
+    # Remove invalid decisions
+    valid_decisions = [d for d in unique_decisions if d not in invalid_decisions]
+    if invalid_decisions:
+        logging.warning(f"Removed {len(invalid_decisions)} decisions with invalid key formats")
+
     # Process in batches
-    for i in range(0, len(unique_decisions), batch_size):
-        batch = unique_decisions[i:i + batch_size]
+    for i in range(0, len(valid_decisions), batch_size):
+        batch = valid_decisions[i:i + batch_size]
         batch_num = (i // batch_size) + 1
-        total_batches = (len(unique_decisions) + batch_size - 1) // batch_size
+        total_batches = (len(valid_decisions) + batch_size - 1) // batch_size
 
         # Clean the batch data once
         clean_batch = [{k: v for k, v in d.items() if v is not None} for d in batch]
@@ -173,39 +189,260 @@ def insert_decisions_batch(decisions: List[Dict], batch_size: int = 50) -> Tuple
                 break
 
             except Exception as e:
-                logging.warning(f"Batch {batch_num} insert failed (attempt {attempt + 1}/3): {e}")
-                if attempt < 2:
-                    time.sleep(RETRY_DELAY * (attempt + 1))
+                error_str = str(e).lower()
 
-        # If batch still failed after retries, try individual insertion
+                # Handle unique constraint violations specifically
+                if 'unique constraint' in error_str or 'duplicate key' in error_str:
+                    logging.warning(f"Batch {batch_num} failed due to unique constraint violation: {e}")
+                    error_messages.append(f"Batch {batch_num}: Unique constraint violation")
+                    # Don't retry batch - fall back to individual inserts immediately
+                    break
+                else:
+                    logging.warning(f"Batch {batch_num} insert failed (attempt {attempt + 1}/3): {e}")
+                    if attempt < 2:
+                        time.sleep(RETRY_DELAY * (attempt + 1))
+
+        # If batch still failed after retries, try individual insertion with constraint handling
         if not batch_inserted:
-            logging.warning(f"Batch {batch_num} failed after 3 attempts. Falling back to individual insertion.")
-            error_messages.append(f"Batch {batch_num} failed after 3 attempts, falling back to individual insertion")
+            logging.warning(f"Batch {batch_num} failed. Falling back to individual insertion with constraint handling.")
 
             for decision in batch:
                 clean_decision = {k: v for k, v in decision.items() if v is not None}
                 decision_key = decision.get('decision_key', 'unknown')
 
-                # 2 retries per individual record
-                for attempt in range(2):
-                    try:
-                        client.table("israeli_government_decisions").insert([clean_decision]).execute()
-                        inserted_count += 1
-                        logging.info(f"Successfully inserted individual decision: {decision_key}")
-                        break
-                    except Exception as e:
-                        if attempt == 1:  # Last attempt
-                            error_msg = f"Failed to insert {decision_key}: {e}"
-                            logging.error(error_msg)
-                            error_messages.append(error_msg)
-                        else:
-                            time.sleep(RETRY_DELAY)
+                # Try individual insert with unique constraint handling
+                success = _insert_single_decision_with_constraint_handling(
+                    client, clean_decision, decision_key
+                )
+
+                if success:
+                    inserted_count += 1
+                    logging.info(f"Successfully inserted individual decision: {decision_key}")
+                else:
+                    error_msg = f"Failed to insert {decision_key} after constraint handling"
+                    logging.error(error_msg)
+                    error_messages.append(error_msg)
 
     logging.info(f"Batch insertion complete: {inserted_count} inserted, {len(duplicate_keys)} duplicates skipped")
     if error_messages:
         logging.warning(f"Encountered {len(error_messages)} errors during insertion")
 
     return inserted_count, error_messages
+
+
+def _is_valid_decision_key_format(decision_key: str) -> bool:
+    """
+    Validate decision_key format against database constraints.
+
+    Valid formats after migration 004:
+    - Standard: {gov_num}_{decision_num} (e.g., "37_1234")
+    - Special: {gov_num}_{type}_{num} (e.g., "37_COMMITTEE_5")
+    """
+    if not decision_key or not isinstance(decision_key, str):
+        return False
+
+    # Standard format: digits_digits
+    if re.match(r'^\d+_\d+$', decision_key):
+        return True
+
+    # Special format: digits_TYPE_digits
+    if re.match(r'^\d+_(COMMITTEE|SECURITY|ECON|SPECIAL)_\d+$', decision_key):
+        return True
+
+    return False
+
+
+def _insert_single_decision_with_constraint_handling(
+    client, clean_decision: Dict, decision_key: str
+) -> bool:
+    """
+    Insert a single decision with proper unique constraint violation handling.
+
+    Returns:
+        bool: True if successfully inserted, False otherwise
+    """
+    for attempt in range(2):
+        try:
+            client.table("israeli_government_decisions").insert([clean_decision]).execute()
+            return True
+
+        except Exception as e:
+            error_str = str(e).lower()
+
+            if 'unique constraint' in error_str or 'duplicate key' in error_str:
+                if 'decision_key' in error_str:
+                    logging.warning(f"Decision {decision_key} already exists (unique constraint)")
+                    # This is expected - record already exists, don't retry
+                    return False
+                else:
+                    logging.warning(f"Unique constraint violation on different field for {decision_key}: {e}")
+                    return False
+            else:
+                # Other errors - retry once
+                if attempt == 0:
+                    logging.warning(f"Retrying individual insert for {decision_key}: {e}")
+                    time.sleep(RETRY_DELAY)
+                else:
+                    logging.error(f"Failed to insert {decision_key} after retry: {e}")
+                    return False
+
+    return False
+
+
+def batch_deduplicate_decisions() -> Tuple[int, List[str]]:
+    """
+    Find and remove duplicate decisions from the database.
+    CRITICAL: Run this before migration 004 or it will fail due to unique constraints.
+
+    Returns:
+        Tuple of (removed_count, error_messages)
+    """
+    client = get_supabase_client()
+    error_messages = []
+    removed_count = 0
+
+    try:
+        # Find all duplicates
+        response = client.rpc(
+            'find_duplicate_decision_keys'
+        ).execute()
+
+        if response.data:
+            duplicate_keys = [row['decision_key'] for row in response.data]
+            logging.info(f"Found {len(duplicate_keys)} decision_keys with duplicates")
+
+            for decision_key in duplicate_keys[:10]:  # Process in small batches
+                try:
+                    # Get all records for this key
+                    records_response = (
+                        client.table("israeli_government_decisions")
+                        .select("*")
+                        .eq("decision_key", decision_key)
+                        .order("created_at", desc=True)
+                        .order("id", desc=True)
+                        .execute()
+                    )
+
+                    records = records_response.data
+                    if len(records) > 1:
+                        # Keep the newest record (first in sorted list)
+                        keep_record = records[0]
+                        remove_records = records[1:]
+
+                        logging.info(f"Removing {len(remove_records)} duplicates for {decision_key}, keeping record ID {keep_record['id']}")
+
+                        # Remove duplicates
+                        for record in remove_records:
+                            client.table("israeli_government_decisions").delete().eq("id", record["id"]).execute()
+                            removed_count += 1
+
+                except Exception as e:
+                    error_msg = f"Failed to deduplicate {decision_key}: {e}"
+                    logging.error(error_msg)
+                    error_messages.append(error_msg)
+
+        logging.info(f"Batch deduplication complete: {removed_count} duplicates removed")
+        return removed_count, error_messages
+
+    except Exception as e:
+        error_msg = f"Batch deduplication failed: {e}"
+        logging.error(error_msg)
+        return 0, [error_msg]
+
+
+def validate_decision_urls(limit: int = 1000) -> Dict[str, any]:
+    """
+    Validate URLs against decision keys in the database.
+
+    Args:
+        limit: Maximum number of records to validate
+
+    Returns:
+        Dict with validation statistics and problematic records
+    """
+    client = get_supabase_client()
+
+    try:
+        # Fetch records for validation
+        response = (
+            client.table("israeli_government_decisions")
+            .select("id, decision_key, decision_url, government_number, decision_number")
+            .order("id", desc=True)
+            .limit(limit)
+            .execute()
+        )
+
+        records = response.data
+        logging.info(f"Validating URLs for {len(records)} records")
+
+        validation_results = {
+            'total_checked': len(records),
+            'valid_urls': 0,
+            'invalid_urls': 0,
+            'missing_urls': 0,
+            'problematic_records': [],
+            'url_patterns': {},
+            'systematic_issues': []
+        }
+
+        for record in records:
+            record_id = record['id']
+            decision_key = record['decision_key']
+            url = record['decision_url']
+
+            if not url:
+                validation_results['missing_urls'] += 1
+                continue
+
+            # Import validation function
+            try:
+                from ..scrapers.decision import validate_url_against_decision_key
+                validation = validate_url_against_decision_key(url, decision_key)
+
+                if validation['valid']:
+                    validation_results['valid_urls'] += 1
+                else:
+                    validation_results['invalid_urls'] += 1
+                    validation_results['problematic_records'].append({
+                        'id': record_id,
+                        'decision_key': decision_key,
+                        'url': url,
+                        'issues': validation['issues'],
+                        'difference': validation.get('difference', 0)
+                    })
+
+                # Track URL patterns
+                pattern = validation.get('url_pattern', 'unknown')
+                validation_results['url_patterns'][pattern] = validation_results['url_patterns'].get(pattern, 0) + 1
+
+                # Detect systematic issues
+                if validation.get('difference', 0) > 1000000:
+                    validation_results['systematic_issues'].append({
+                        'decision_key': decision_key,
+                        'difference': validation['difference'],
+                        'type': 'large_offset'
+                    })
+
+            except ImportError:
+                logging.warning("Could not import URL validation function")
+                break
+
+        # Calculate statistics
+        validation_results['validity_rate'] = (
+            validation_results['valid_urls'] / validation_results['total_checked']
+            if validation_results['total_checked'] > 0 else 0
+        )
+
+        logging.info(
+            f"URL validation complete: {validation_results['valid_urls']}/{validation_results['total_checked']} "
+            f"valid ({validation_results['validity_rate']:.2%})"
+        )
+
+        return validation_results
+
+    except Exception as e:
+        logging.error(f"URL validation failed: {e}")
+        return {'error': str(e)}
 
 
 def _insert_rows_to_db(rows):

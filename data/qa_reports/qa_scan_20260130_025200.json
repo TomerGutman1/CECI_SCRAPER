@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-01-30T02:52:00.590230",
+  "total_records": 2487,
+  "total_issues": 2,
+  "issues_by_severity": {
+    "high": 2
+  },
+  "checks": [
+    {
+      "check_name": "operativity_validity",
+      "total_scanned": 2487,
+      "issues_found": 2,
+      "issue_rate": "0.1%",
+      "summary": {
+        "invalid_values": 2,
+        "known_typos": {
+          "דלקרטיבית": 1,
+          "אופרטיבי": 1
+        },
+        "garbage_values": 0
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_5712",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "דלקרטיבית",
+          "description": "Typo: 'דלקרטיבית' → should be 'דקלרטיבית'"
+        },
+        {
+          "decision_key": "30_2302",
+          "severity": "high",
+          "field": "operativity",
+          "current_value": "אופרטיבי",
+          "description": "Typo: 'אופרטיבי' → should be 'אופרטיבית'"
+        }
+      ]
+    }
+  ]
+}

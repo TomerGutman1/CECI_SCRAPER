@@ -1,0 +1,82 @@
+{
+  "check_name": "fix_location_tags",
+  "total_scanned": 5074,
+  "issues_found": 390,
+  "issue_rate": "7.7%",
+  "summary": {
+    "total_processed": 5074,
+    "cleaned": 390
+  },
+  "sample_issues": [
+    {
+      "decision_key": "37_2998",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "ממשלה",
+      "description": "Removed hallucinated locations: ['ממשלה']"
+    },
+    {
+      "decision_key": "37_2969",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "ירושלים, תל אביב",
+      "description": "Removed hallucinated locations: ['תל אביב']"
+    },
+    {
+      "decision_key": "37_2781",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "אבו דאבי",
+      "description": "Removed hallucinated locations: ['אבו דאבי']"
+    },
+    {
+      "decision_key": "37_2753",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "רםא, בר אילן, האוניברסיטה הפתוחה",
+      "description": "Removed hallucinated locations: ['רםא']"
+    },
+    {
+      "decision_key": "37_2736",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "ירושלים, הר הרצל",
+      "description": "Removed hallucinated locations: ['ירושלים']"
+    },
+    {
+      "decision_key": "37_2461",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "ירושלים, שטח ישראל",
+      "description": "Removed hallucinated locations: ['ירושלים']"
+    },
+    {
+      "decision_key": "37_2463",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "ירושלים, לונדון, עזה",
+      "description": "Removed hallucinated locations: ['ירושלים', 'עזה']"
+    },
+    {
+      "decision_key": "37_2425",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "בארי, חבל תקומה, ישראל",
+      "description": "Removed hallucinated locations: ['ישראל']"
+    },
+    {
+      "decision_key": "37_2366",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "ניו-יורק, ארצות הברית, וושינגטון",
+      "description": "Removed hallucinated locations: ['וושינגטון']"
+    },
+    {
+      "decision_key": "37_2324",
+      "severity": "medium",
+      "field": "tags_location",
+      "current_value": "חדרה, ירושלים, תל אביב",
+      "description": "Removed hallucinated locations: ['ירושלים', 'תל אביב']"
+    }
+  ]
+}

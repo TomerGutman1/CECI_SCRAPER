@@ -1,0 +1,473 @@
+{
+  "analysis_metadata": {
+    "timestamp": "2026-02-16T20:41:02.170572",
+    "total_records_analyzed": 1000,
+    "total_governments_analyzed": 9,
+    "data_coverage": "First 1000 records with summaries from database",
+    "algorithm_version": "1.0 - Distance 1-3, keyword overlap detection"
+  },
+  "known_case_verification": {
+    "case_36_1022_1024": {
+      "detected": true,
+      "details": {
+        "record_1022_title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים",
+        "record_1024_title": "אשרור מזכר הבנות בין ממשלת מדינת ישראל וממשלת איחוד האמירויות הערביות בדבר שיתוף פעולה בחקר ובניצול של החלל החיצון למטרות שלום",
+        "record_1022_summary": "הממשלה החליטה על הקמת קרן מחקר ופיתוח תעשייתי דו-לאומית עם איחוד האמירויות הערביות, בשיתוף פעולה בין המדינות. תקציב הקרן יתחלק שווה בשווה, לא יעלה על 50 מיליון דולר, ויתקצב מתקציב הרשות הלאומית לחדשנו...",
+        "keywords_1024": [
+          "איחוד",
+          "אשרור",
+          "הבנות",
+          "מזכר",
+          "וממשלת"
+        ],
+        "keywords_1022": [
+          "הצללה",
+          "המרחב",
+          "העירוני",
+          "וקירור",
+          "באמצעות"
+        ],
+        "matched_keywords": [
+          "איחוד"
+        ],
+        "own_title_matches": [],
+        "shift_detected": true
+      }
+    }
+  },
+  "overall_findings": {
+    "total_shifts_detected": 95,
+    "overall_shift_rate": "9.5%",
+    "governments_with_shifts": 7,
+    "governments_analyzed": 9
+  },
+  "shift_patterns": {
+    "by_type": {
+      "backward": 40,
+      "forward": 55
+    },
+    "by_distance": {
+      "3": 26,
+      "1": 33,
+      "2": 36
+    },
+    "by_confidence": {
+      "2": 16,
+      "1": 76,
+      "3": 3
+    }
+  },
+  "fields_affected": {
+    "summary_field": 95,
+    "operativity_field": 0,
+    "tags_field": 0,
+    "summary": "Primary impact on summary field (95 cases), minimal impact on other fields"
+  },
+  "government_analysis": {
+    "most_affected": [
+      [
+        "25",
+        40,
+        "13.8%"
+      ],
+      [
+        "27",
+        28,
+        "10.9%"
+      ],
+      [
+        "32",
+        8,
+        "3.4%"
+      ],
+      [
+        "37",
+        8,
+        "10.4%"
+      ],
+      [
+        "26",
+        4,
+        "6.0%"
+      ],
+      [
+        "28",
+        4,
+        "10.3%"
+      ],
+      [
+        "33",
+        3,
+        "60.0%"
+      ],
+      [
+        "29",
+        0,
+        "0.0%"
+      ],
+      [
+        "34",
+        0,
+        "0.0%"
+      ]
+    ],
+    "statistics": {
+      "25": {
+        "total_decisions": 289,
+        "shifts_found": 40,
+        "shift_rate": "13.8%"
+      },
+      "26": {
+        "total_decisions": 67,
+        "shifts_found": 4,
+        "shift_rate": "6.0%"
+      },
+      "27": {
+        "total_decisions": 258,
+        "shifts_found": 28,
+        "shift_rate": "10.9%"
+      },
+      "28": {
+        "total_decisions": 39,
+        "shifts_found": 4,
+        "shift_rate": "10.3%"
+      },
+      "29": {
+        "total_decisions": 26,
+        "shifts_found": 0,
+        "shift_rate": "0.0%"
+      },
+      "32": {
+        "total_decisions": 238,
+        "shifts_found": 8,
+        "shift_rate": "3.4%"
+      },
+      "33": {
+        "total_decisions": 5,
+        "shifts_found": 3,
+        "shift_rate": "60.0%"
+      },
+      "34": {
+        "total_decisions": 1,
+        "shifts_found": 0,
+        "shift_rate": "0.0%"
+      },
+      "37": {
+        "total_decisions": 77,
+        "shifts_found": 8,
+        "shift_rate": "10.4%"
+      }
+    }
+  },
+  "sample_detected_shifts": [
+    {
+      "affected_decision": "25_1946",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_2042",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הסביבה",
+        "איכות"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "הפרטת החברה לשירותי איכות הסביבה (רמת חובב) בע\"מ",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעותיהם של שר החוץ ושר לאיכות הסביבה למצרים על מנת לדון בתהליך השלום, ביום 13.10.93, למשך יום אחד. במהלך העדרם, ימלאו את מקומותיהם שר המשטרה ושר התקשורת, וכן שר הבריאות, בהתאמה. ההחל..."
+    },
+    {
+      "affected_decision": "25_2234",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_2208",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "סקירת משרד העבודה והרווחה על פעילותו בתחום קליטת העליה:- - האגף להכשרה מקצועית - המוסד לביטוח לאומי",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה החליטה לאשר את נסיעת שר האנרגיה והתשתית ושר המשטרה ללונדון וללוס אנג'לס בעניינים משרדיים, מה-13 עד ה-19 בדצמבר 1993. במהלך שהותם בחו\"ל, שר החינוך והתרבות ימלא את מקומם...."
+    },
+    {
+      "affected_decision": "25_2234",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_2300",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "נסיעת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעת נשיא המדינה לתורכיה",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה החליטה לאשר את נסיעת שר האנרגיה והתשתית ושר המשטרה ללונדון וללוס אנג'לס בעניינים משרדיים, מה-13 עד ה-19 בדצמבר 1993. במהלך שהותם בחו\"ל, שר החינוך והתרבות ימלא את מקומם...."
+    },
+    {
+      "affected_decision": "25_2338",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_2330",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "משרד",
+        "הכללי"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "מינוי המנהל הכללי של משרד התעשיה והמסחר",
+      "affected_title": "אישור ייצוא ידע",
+      "affected_summary": "הממשלה קבעה שעליה להגן על ידע וטכנולוגיה הקשורים לפיתוח או ייצור של אמצעי ייצור שהושקעו בהם משאבי המדינה. הוחלט לאסור את העברת הידע לגורמים מחוץ לישראל ללא פיקוח ולסדיר זאת בחקיקה. לשם כך תוקם ועדה בי..."
+    },
+    {
+      "affected_decision": "25_2338",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_2300",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעת נשיא המדינה לתורכיה",
+      "affected_title": "אישור ייצוא ידע",
+      "affected_summary": "הממשלה קבעה שעליה להגן על ידע וטכנולוגיה הקשורים לפיתוח או ייצור של אמצעי ייצור שהושקעו בהם משאבי המדינה. הוחלט לאסור את העברת הידע לגורמים מחוץ לישראל ללא פיקוח ולסדיר זאת בחקיקה. לשם כך תוקם ועדה בי..."
+    },
+    {
+      "affected_decision": "25_2719",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_2767",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "דיווח משרדי הממשלה על פעילותם בענין בדיקת עמידות מבנים הנמצאים באחריותם בפני רעידות אדמה",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעת שרת העבודה והרווחה ללונדון בשליחות הפדרציה הציונית והמגבית בין התאריכים 11-14 במרץ 1994. במהלך העדרה, שר האנרגיה והתשתית ושר המשטרה ימלאו את מקומה...."
+    },
+    {
+      "affected_decision": "25_3497",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_3445",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "דין-וחשבון ועדת החקירה לענין הטבח במערת המכפלה בחברון (\"ועדת שמגר\")",
+      "affected_title": "ארץ המכתשים",
+      "affected_summary": "הממשלה קיבלה החלטה לשמר את אזור המכתשים בנגב כנכס טבעי ייחודי, תוך מניעת פגיעות מהכרייה והחציבה עד להמלצות ועדת מנהלים שתוקם למטרה זו. הוועדה, הכוללת נציגים ממשרדי ממשלה שונים, תבחן את המשמעויות הכלכל..."
+    },
+    {
+      "affected_decision": "25_3979",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_3991",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "בניה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "היתרי בניה",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעת שר הבינוי והשיכון למרוקו ולצרפת בחודש אוקטובר 1994, לצורך השתתפות בקונגרס לבניה אורבנית ופגישה עם השר הצרפתי. השר יוסי שריד יחליף אותו בזמן העדרו, ואם יהיה צורך, ישוב השר מוקדם מ..."
+    },
+    {
+      "affected_decision": "25_4169",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_4048",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה ונסיעות שרים",
+      "affected_title": "מינוי חברים למועצת המים",
+      "affected_summary": "בהחלטת הממשלה מונו נלו רובין, אברהם רפאלי וגיורא רוזנטל כנציגי השלטון המקומי במועצת המים, במקומם של דוד מלמדוביץ, יעקב ברדוגו ואברהם מרמורשטיין...."
+    },
+    {
+      "affected_decision": "25_4705",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_4651",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "המדינה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הצעת חוק ההסדרים במשק המדינה (תיקוני חקיקה), התשנ\"ה-1994 - חידוש הקריאה בכנסת",
+      "affected_title": "מספנות ישראל",
+      "affected_summary": "הממשלה החליטה להמשיך במשא-ומתן למכירת מספנות ישראל, תוך שאיפה לשפר את תנאי המכירה. המו\"מ יתייחס, בין היתר, להמשך הפעלת המספנות, תקבולי המדינה מהכנסות בעתיד, וכיסוי הוצאות הפרישה של העובדים. בשום מקרה,..."
+    },
+    {
+      "affected_decision": "25_4705",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_4759",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת",
+        "שרים"
+      ],
+      "confidence": 2,
+      "government_number": "25",
+      "source_title": "ועדת שרים לעניין הצעת תקציב רשות השידור לשנת 1995",
+      "affected_title": "מספנות ישראל",
+      "affected_summary": "הממשלה החליטה להמשיך במשא-ומתן למכירת מספנות ישראל, תוך שאיפה לשפר את תנאי המכירה. המו\"מ יתייחס, בין היתר, להמשך הפעלת המספנות, תקבולי המדינה מהכנסות בעתיד, וכיסוי הוצאות הפרישה של העובדים. בשום מקרה,..."
+    },
+    {
+      "affected_decision": "25_4705",
+      "shift_type": "forward",
+      "shift_distance": 2,
+      "source_decision": "25_4647",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ועדת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הקמת ועדת חקירה לעניין פרשת היעלמם של ילדים מבין עולי תימן בשנים 1954-1948",
+      "affected_title": "מספנות ישראל",
+      "affected_summary": "הממשלה החליטה להמשיך במשא-ומתן למכירת מספנות ישראל, תוך שאיפה לשפר את תנאי המכירה. המו\"מ יתייחס, בין היתר, להמשך הפעלת המספנות, תקבולי המדינה מהכנסות בעתיד, וכיסוי הוצאות הפרישה של העובדים. בשום מקרה,..."
+    },
+    {
+      "affected_decision": "25_5106",
+      "shift_type": "forward",
+      "shift_distance": 3,
+      "source_decision": "25_5090",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "קביעת"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "קביעת \"יום חג לחייל\"",
+      "affected_title": "דו\"ח מבקר המדינה מס. 45 - סיוע להשקעות בתיירות",
+      "affected_summary": "ממשלת ישראל החליטה על שורת צעדים לשדרוג סיוע ההשקעות בענף התיירות. ההחלטות כוללות: עדכון מענקי ההון בהתבסס על ירידת הריבית, גיבוש תיקון לחוק לעידוד השקעות הון שיאפשר מתן הטבות גם לשיפוט בתי מלון, קביע..."
+    },
+    {
+      "affected_decision": "25_5190",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_5243",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "דוד"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "דו\"ח מבקר המדינה מס' 45, מגן דוד אדום - תכנית הבראה",
+      "affected_title": "מינוי יושב ראש וחברי מועצת הרשות השניה לטלוויזיה ולרדיו",
+      "affected_summary": "הממשלה החליטה למנות את גב' גילה אלמגור, מר דוד בוחניק, מר דניאל בלוך, גב' זיוה בן-דור, פרופ' גדעון דורון, מר יעקב יונה, מר יצחק לוי הירושלמי, גב' חנה לויט, עו\"ד שמעון מור-יוסף, ד\"ר מרים מרעי, מר זייד ..."
+    },
+    {
+      "affected_decision": "25_5389",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_5377",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "הממשלה"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הצעת-חוק יסוד: הממשלה (תיקון מס.) (השעיית שר) - ערר על החלטת ועדת השרים לעניני חקיקה ואכיפת החוק",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה מאשרת את נסיעת שר החוץ למצרים לוועידת הקישור העליונה עם הפלסטינים, שתיערך בין 7 ל-8 במאי 1995. במהלך העדרו, ימלא השר ישראל קיסר את תפקידו של שר החוץ וראש הממשלה...."
+    },
+    {
+      "affected_decision": "25_5389",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_5410",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ראש"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "מינוי ממלא-מקום ראש המטה הכללי של צה\"ל",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה מאשרת את נסיעת שר החוץ למצרים לוועידת הקישור העליונה עם הפלסטינים, שתיערך בין 7 ל-8 במאי 1995. במהלך העדרו, ימלא השר ישראל קיסר את תפקידו של שר החוץ וראש הממשלה...."
+    },
+    {
+      "affected_decision": "25_5585",
+      "shift_type": "backward",
+      "shift_distance": 2,
+      "source_decision": "25_5636",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "נסיעת",
+        "הממשלה",
+        "ראש"
+      ],
+      "confidence": 3,
+      "government_number": "25",
+      "source_title": "נסיעת ראש הממשלה ונסיעות שרים",
+      "affected_title": "נסיעות שרים",
+      "affected_summary": "הממשלה אישרה את נסיעת שר החוץ לארצות הברית ולספרד בין ה-8 ל-11 ביוני 1995, ובראש הממשלה ימלא את מקומו בזמן שהותו בחו\"ל...."
+    },
+    {
+      "affected_decision": "25_5732",
+      "shift_type": "backward",
+      "shift_distance": 3,
+      "source_decision": "25_5838",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "ביצוע"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "כנסים של ניצולי מחנות דכאו: ביצוע החלטות ועדת השרים לעניני סמלים וטקסים מס. סט/100 וסט/106",
+      "affected_title": "אפרידר - חברה לשיכון ולפיתוח אשקלון בע\"מ",
+      "affected_summary": "ההחלטה נוגעת לחברת אפרידר בע\"מ ונועדה לתקן מועד סופי לביצוע סקר נכסים ובדיקת עסקאות קודמות עד ה-30.6.96. בנוסף, אם ימצאו חריגות או אי-סדרים בבדיקות, הם יועברו לבדיקה על ידי הרשויות המוסמכות...."
+    },
+    {
+      "affected_decision": "25_6033",
+      "shift_type": "backward",
+      "shift_distance": 1,
+      "source_decision": "25_6043",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקציב"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הצעת תקציב המדינה לשנת 1996 קביעת תקני איכות הסביבה - שיקולים כלכליים",
+      "affected_title": "הצעת תקציב המדינה לשנת 1996 א. נקודות זיכוי בגין ילדים ב. התרת הוצאה לעצמאים בשל הפרשת סכומים לקרן השתלמות ג. הקטנת ניכוי דמי הביטוח הלאומי לעצמאיים",
+      "affected_summary": "הממשלה החליטה להטיל על ראש הממשלה ושר האוצר להגיש הצעה לשינויים במערכת המיסוי ונקודות הזיכוי, בהתייחס לנושאים כמו נקודות זיכוי בגין ילדים, הוצאות לעצמאים על הפקדות לקרן השתלמות והקטנת ניכוי דמי הביטוח..."
+    },
+    {
+      "affected_decision": "25_6033",
+      "shift_type": "forward",
+      "shift_distance": 1,
+      "source_decision": "25_6029",
+      "field_affected": "summary",
+      "matched_keywords": [
+        "תקציב"
+      ],
+      "confidence": 1,
+      "government_number": "25",
+      "source_title": "הצעת תקציב המדינה לשנת 1996 הפחתות תקציב בנושאים שונים",
+      "affected_title": "הצעת תקציב המדינה לשנת 1996 א. נקודות זיכוי בגין ילדים ב. התרת הוצאה לעצמאים בשל הפרשת סכומים לקרן השתלמות ג. הקטנת ניכוי דמי הביטוח הלאומי לעצמאיים",
+      "affected_summary": "הממשלה החליטה להטיל על ראש הממשלה ושר האוצר להגיש הצעה לשינויים במערכת המיסוי ונקודות הזיכוי, בהתייחס לנושאים כמו נקודות זיכוי בגין ילדים, הוצאות לעצמאים על הפקדות לקרן השתלמות והקטנת ניכוי דמי הביטוח..."
+    }
+  ],
+  "other_field_issues": {
+    "operativity_shifts": [],
+    "tags_shifts": []
+  }
+}

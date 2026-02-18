@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-01-30T02:51:51.677070",
+  "total_records": 2487,
+  "total_issues": 92,
+  "issues_by_severity": {
+    "high": 92
+  },
+  "checks": [
+    {
+      "check_name": "policy_default_patterns",
+      "total_scanned": 106,
+      "issues_found": 92,
+      "issue_rate": "86.8%",
+      "summary": {
+        "records_with_suspicious_tags": 106,
+        "high_severity_flagged": 92,
+        "tag_breakdown": {
+          "תרבות וספורט": {
+            "total": 106,
+            "flagged": 92
+          }
+        }
+      },
+      "sample_issues": [
+        {
+          "decision_key": "25_1856",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "25_2363",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "25_5926",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "26_479",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "26_746",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "27_1636",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "27_5018",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "28_201",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "28_2304",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        },
+        {
+          "decision_key": "30_4267",
+          "severity": "high",
+          "field": "tags_policy_area",
+          "current_value": "תרבות וספורט",
+          "description": "Suspected default policy tag — no 'תרבות וספורט' keywords found in content"
+        }
+      ]
+    }
+  ]
+}

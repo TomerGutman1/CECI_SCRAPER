@@ -1,0 +1,3870 @@
+[
+  {
+    "decision_key": "37_1211",
+    "tags_policy_area": "מורשת; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_1207",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1206",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1205",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1203",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1202",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1198",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1197",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1196",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם; אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_1191",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_1204",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1210",
+    "tags_policy_area": "מדיני ביטחוני; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1208",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1209",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1212",
+    "tags_policy_area": "רווחה ושירותים חברתיים; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_1192",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1193",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; חינוך"
+  },
+  {
+    "decision_key": "37_1190",
+    "tags_policy_area": "מורשת; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_1188",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1183",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_1180",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1189",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_1184",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_1179",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_1162",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_1164",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1165",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_1167",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_1168",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1170",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1171",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1172",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_1176",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1177",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_1178",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1169",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1173",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1161",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1158",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_1159",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_1157",
+    "tags_policy_area": "תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_1153",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; משפטים"
+  },
+  {
+    "decision_key": "37_1142",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_1143",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_1144",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_1146",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_1148",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1149",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1150",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1152",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1141",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1147",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1145",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_1138",
+    "tags_policy_area": "חינוך; תרבות וספורט; חוץ הסברה ותפוצות; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_1137",
+    "tags_policy_area": "תרבות וספורט; חוץ הסברה ותפוצות"
+  },
+  {
+    "decision_key": "37_1136",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_1135",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1123",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_1121",
+    "tags_policy_area": "מינויים; מנהלתי; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_1122",
+    "tags_policy_area": "רווחה ושירותים חברתיים; תיירות"
+  },
+  {
+    "decision_key": "37_1127",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_1128",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1129",
+    "tags_policy_area": "מיעוטים; שוויון חברתי וזכויות אדם; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_1130",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_1131",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1124",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_1112",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1117",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות; ביטחון פנים; רגולציה"
+  },
+  {
+    "decision_key": "37_1118",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_1111",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1108",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1109",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1107",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_1110",
+    "tags_policy_area": "רווחה ושירותים חברתיים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1105",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1104",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_1103",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_1099",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1085",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1086",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1095",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1089",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1090",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות; ביטחון פנים; רגולציה"
+  },
+  {
+    "decision_key": "37_1094",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1097",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; בריאות ורפואה; חינוך"
+  },
+  {
+    "decision_key": "37_1098",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חינוך; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_1088",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1096",
+    "tags_policy_area": "בריאות ורפואה; מדיני ביטחוני; חינוך"
+  },
+  {
+    "decision_key": "37_1091",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1087",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_1084",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_1079",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_1078",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_1077",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1075",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_1074",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1073",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1067",
+    "tags_policy_area": "מינויים; מנהלתי; מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1071",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1068",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1069",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_1070",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1065",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1060",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1061",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1059",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1054",
+    "tags_policy_area": "מדיני ביטחוני; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1055",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_1058",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1057",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1056",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1049",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_1052",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1051",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1047",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1048",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1038",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1022",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1025",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1027",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1028",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1031",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_1033",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1034",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1037",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_1036",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1035",
+    "tags_policy_area": "מדיני ביטחוני; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_1032",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1030",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1029",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1026",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_1020",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_1023",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1024",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_1011",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1012",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1006",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1007",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1008",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1009",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_1003",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_1004",
+    "tags_policy_area": "מנהלתי; מינויים; משפטים"
+  },
+  {
+    "decision_key": "37_1005",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_1002",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_1000",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_998",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_999",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_1001",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_996",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_997",
+    "tags_policy_area": "רווחה ושירותים חברתיים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_990",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_989",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_988",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_1021",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_982",
+    "tags_policy_area": "מדיני ביטחוני; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_984",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_985",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_986",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_983",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_987",
+    "tags_policy_area": "מדיני ביטחוני; רווחה ושירותים חברתיים; מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_981",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_974",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_978",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_980",
+    "tags_policy_area": "מדיני ביטחוני; רווחה ושירותים חברתיים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_979",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_969",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_975",
+    "tags_policy_area": "מדיני ביטחוני; ביטחון פנים; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_976",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_977",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_968",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_965",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_966",
+    "tags_policy_area": "מדיני ביטחוני; מדע, טכנולוגיה וחדשנות; ביטחון פנים; רגולציה"
+  },
+  {
+    "decision_key": "37_967",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_964",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_963",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_958",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_959",
+    "tags_policy_area": "מדיני ביטחוני; רווחה ושירותים חברתיים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_962",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_960",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_957",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_954",
+    "tags_policy_area": "מדיני ביטחוני; מדע, טכנולוגיה וחדשנות; ביטחון פנים; רגולציה"
+  },
+  {
+    "decision_key": "37_952",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_953",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_951",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_949",
+    "tags_policy_area": "בריאות ורפואה; פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_950",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_947",
+    "tags_policy_area": "מדיני ביטחוני; ביטחון פנים"
+  },
+  {
+    "decision_key": "37_948",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_945",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_946",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_942",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_943",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_940",
+    "tags_policy_area": "דיור, נדלן ותכנון; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_938",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_941",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_944",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_937",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_932",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_929",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_930",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_931",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_934",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_933",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_927",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_925",
+    "tags_policy_area": "מינויים; מנהלתי"
+  },
+  {
+    "decision_key": "37_924",
+    "tags_policy_area": "תרבות וספורט; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_926",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_923",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_921",
+    "tags_policy_area": "דת ומוסדות דת; קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_916",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_919",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_918",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_920",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_917",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_914",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_913",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_910",
+    "tags_policy_area": "אנרגיה מים ותשתיות; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_912",
+    "tags_policy_area": "אנרגיה מים ותשתיות; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_909",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_908",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_911",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_906",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_904",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_903",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_902",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_901",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_900",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_899",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_898",
+    "tags_policy_area": "רווחה ושירותים חברתיים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_897",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_893",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_891",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_895",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_892",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; תקציב, פיננסים, ביטוח ומיסוי; חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_890",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_887",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_888",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_880",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_883",
+    "tags_policy_area": "אנרגיה מים ותשתיות; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_881",
+    "tags_policy_area": "בריאות ורפואה; קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_878",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_877",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_874",
+    "tags_policy_area": "חוץ הסברה ותפוצות; מדיני ביטחוני; מנהלתי"
+  },
+  {
+    "decision_key": "37_872",
+    "tags_policy_area": "הגנת הסביבה ואקלים; פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_871",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_868",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_867",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_864",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_865",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_863",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_866",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_862",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_848",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_849",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_850",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_851",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; אנרגיה מים ותשתיות; הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_853",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; תיירות"
+  },
+  {
+    "decision_key": "37_854",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_856",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים; חינוך"
+  },
+  {
+    "decision_key": "37_858",
+    "tags_policy_area": "פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_859",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_861",
+    "tags_policy_area": "דת ומוסדות דת; חינוך"
+  },
+  {
+    "decision_key": "37_855",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_860",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים; תעסוקה ועבודה; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_857",
+    "tags_policy_area": "פיתוח כלכלי ותחרות; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_852",
+    "tags_policy_area": "מדיני ביטחוני; חינוך; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_834",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_840",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_816",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_817",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_818",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_820",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_822",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_841",
+    "tags_policy_area": "בריאות ורפואה; חינוך; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_825",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_827",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_828",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_830",
+    "tags_policy_area": "מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_831",
+    "tags_policy_area": "מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_832",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מינויים"
+  },
+  {
+    "decision_key": "37_833",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_836",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_837",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_838",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_839",
+    "tags_policy_area": "רווחה ושירותים חברתיים; חינוך; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_829",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_823",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_824",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; תעסוקה ועבודה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_835",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_826",
+    "tags_policy_area": "תעשייה מסחר ומשק; תקשורת ומדיה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_821",
+    "tags_policy_area": "בריאות ורפואה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_819",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_815",
+    "tags_policy_area": "חינוך; חקיקה, משפט ורגולציה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_813",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_814",
+    "tags_policy_area": "תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_789",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_791",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_793",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_794",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_795",
+    "tags_policy_area": "חינוך; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_797",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_798",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_801",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_802",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_805",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_806",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_807",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_808",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_800",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_792",
+    "tags_policy_area": "רווחה ושירותים חברתיים; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_809",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_804",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_803",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_796",
+    "tags_policy_area": "תעסוקה ועבודה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_790",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_799",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_786",
+    "tags_policy_area": "מורשת; תרבות וספורט; תיירות; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_788",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_787",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם; חינוך; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_773",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_772",
+    "tags_policy_area": "רווחה ושירותים חברתיים; חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_774",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מדיני ביטחוני; מנהלתי"
+  },
+  {
+    "decision_key": "37_760",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_759",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה; מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_761",
+    "tags_policy_area": "בריאות ורפואה; חינוך"
+  },
+  {
+    "decision_key": "37_762",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_769",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_765",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_767",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; תעסוקה ועבודה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_768",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_771",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_763",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_770",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_766",
+    "tags_policy_area": "בריאות ורפואה; חינוך"
+  },
+  {
+    "decision_key": "37_764",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_758",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_782",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_750",
+    "tags_policy_area": "הגנת הסביבה ואקלים; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_742",
+    "tags_policy_area": "תעסוקה ועבודה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_744",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_757",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_746",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_747",
+    "tags_policy_area": "חינוך; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_748",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_751",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_752",
+    "tags_policy_area": "חינוך; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_753",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_754",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_755",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_756",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_749",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_745",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_743",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_741",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_735",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_732",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_731",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_727",
+    "tags_policy_area": "מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_725",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_722",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_721",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_720",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_734",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_714",
+    "tags_policy_area": "חינוך; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_716",
+    "tags_policy_area": "רווחה ושירותים חברתיים; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_717",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_724",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_736",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_718",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; חקיקה, משפט ורגולציה; תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_726",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_723",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_715",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_713",
+    "tags_policy_area": "תיירות"
+  },
+  {
+    "decision_key": "37_728",
+    "tags_policy_area": "מדיני ביטחוני; חקיקה, משפט ורגולציה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_729",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_730",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_733",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_737",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_מח/1",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_710",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_708",
+    "tags_policy_area": "דיור, נדלן ותכנון; פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_712",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_709",
+    "tags_policy_area": "פיתוח כלכלי ותחרות; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_711",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_705",
+    "tags_policy_area": "מיעוטים; שוויון חברתי וזכויות אדם; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_704",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_703",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_696",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_695",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_694",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מנהלתי; מינויים"
+  },
+  {
+    "decision_key": "37_689",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_693",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_691",
+    "tags_policy_area": "חינוך; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_692",
+    "tags_policy_area": "פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_697",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_690",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_698",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_699",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_686",
+    "tags_policy_area": "דת ומוסדות דת; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_685",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_682",
+    "tags_policy_area": "מדיני ביטחוני; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_683",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_666",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_664",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_665",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_668",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_669",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_672",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_673",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מדיני ביטחוני; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_674",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_675",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_670",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_676",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_671",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_667",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_663",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_656",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_655",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_658",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_653",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_654",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_659",
+    "tags_policy_area": "בריאות ורפואה; רווחה ושירותים חברתיים; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_661",
+    "tags_policy_area": "רווחה ושירותים חברתיים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_662",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_657",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_652",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם; רווחה ושירותים חברתיים; חינוך"
+  },
+  {
+    "decision_key": "37_635",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_630",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_627",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_628",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_631",
+    "tags_policy_area": "דיור, נדלן ותכנון; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_633",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_634",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_637",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_638",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_639",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_640",
+    "tags_policy_area": "חינוך; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_641",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_643",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_644",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_645",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_646",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_647",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_632",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_642",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_636",
+    "tags_policy_area": "תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_629",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_621",
+    "tags_policy_area": "מינויים; מנהלתי; הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_625",
+    "tags_policy_area": "תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_622",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_620",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_599",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_596",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_597",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_601",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_602",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; הגנת הסביבה ואקלים; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_603",
+    "tags_policy_area": "בריאות ורפואה; חינוך; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_604",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_605",
+    "tags_policy_area": "חינוך; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_612",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_607",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_608",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_609",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_610",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_614",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_618",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_598",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_613",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_611",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; תעסוקה ועבודה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_606",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_600",
+    "tags_policy_area": "פיתוח כלכלי ותחרות; תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_590",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_591",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_594",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_592",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_577",
+    "tags_policy_area": "מורשת; תרבות וספורט; חינוך"
+  },
+  {
+    "decision_key": "37_579",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_581",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_583",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם; קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_584",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_585",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_587",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_588",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_586",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_582",
+    "tags_policy_area": "רווחה ושירותים חברתיים; חינוך; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_580",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_578",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_566",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_565",
+    "tags_policy_area": "בריאות ורפואה; חינוך; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_567",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_569",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_570",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_571",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_572",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_574",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_575",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_573",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_568",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; חינוך"
+  },
+  {
+    "decision_key": "37_564",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_563",
+    "tags_policy_area": "מנהלתי; מדע, טכנולוגיה וחדשנות; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_562",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חינוך"
+  },
+  {
+    "decision_key": "37_541",
+    "tags_policy_area": "חינוך; תקציב, פיננסים, ביטוח ומיסוי; בינוי ושיכון; מנהלתי; תיירות"
+  },
+  {
+    "decision_key": "37_543",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_545",
+    "tags_policy_area": "תיירות; חינוך; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_546",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_548",
+    "tags_policy_area": "מורשת; תרבות וספורט; חינוך"
+  },
+  {
+    "decision_key": "37_549",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_551",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_553",
+    "tags_policy_area": "דיור, נדלן ותכנון; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_554",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_555",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_556",
+    "tags_policy_area": "תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_558",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_561",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_557",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_547",
+    "tags_policy_area": "הגנת הסביבה ואקלים; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_560",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_552",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; רווחה ושירותים חברתיים; פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_550",
+    "tags_policy_area": "פיתוח כלכלי ותחרות; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_521",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_514",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_516",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_517",
+    "tags_policy_area": "בריאות ורפואה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_518",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_519",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_523",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_524",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_525",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_526",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_528",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_530",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_531",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_533",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_534",
+    "tags_policy_area": "אנרגיה מים ותשתיות; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_535",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_536",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_529",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_532",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_527",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_522",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_520",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_515",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_513",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_512",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_508",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_509",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_511",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; בריאות ורפואה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_500",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_502",
+    "tags_policy_area": "תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_498",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_499",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_504",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_505",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_506",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_501",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_503",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_495",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_496",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_497",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_491",
+    "tags_policy_area": "הגנת הסביבה ואקלים; תיירות; מורשת; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_492",
+    "tags_policy_area": "מורשת; תרבות וספורט; מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_493",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם; מיעוטים"
+  },
+  {
+    "decision_key": "37_490",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_488",
+    "tags_policy_area": "רווחה ושירותים חברתיים; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_483",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_484",
+    "tags_policy_area": "דיור, נדלן ותכנון; תיירות"
+  },
+  {
+    "decision_key": "37_482",
+    "tags_policy_area": "אנרגיה מים ותשתיות; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_481",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_477",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_478",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_480",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_475",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_474",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_476",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_467",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_469",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_471",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_470",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_468",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות; תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_466",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_462",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_460",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_458",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; בריאות ורפואה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_459",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_457",
+    "tags_policy_area": "מורשת; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_452",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_447",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_448",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_450",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; הגנת הסביבה ואקלים; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_454",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; בריאות ורפואה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_455",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_446",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_445",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_451",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_453",
+    "tags_policy_area": "תעסוקה ועבודה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_449",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_443",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_444",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_437",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_438",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_432",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_433",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_436",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_442",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_440",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_439",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_435",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; בריאות ורפואה; חינוך"
+  },
+  {
+    "decision_key": "37_431",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_403",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_400",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_401",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_402",
+    "tags_policy_area": "תיירות"
+  },
+  {
+    "decision_key": "37_405",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_406",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_407",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_409",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_412",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; תקציב, פיננסים, ביטוח ומיסוי; הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_413",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; הגנת הסביבה ואקלים; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_414",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_417",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם; חקיקה, משפט ורגולציה; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_419",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_421",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_422",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_425",
+    "tags_policy_area": "מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_426",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מנהלתי; מינויים"
+  },
+  {
+    "decision_key": "37_411",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; תקציב, פיננסים, ביטוח ומיסוי; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_415",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_418",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_424",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מדיני ביטחוני; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_423",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_420",
+    "tags_policy_area": "דיור, נדלן ותכנון; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_416",
+    "tags_policy_area": "חינוך; חקיקה, משפט ורגולציה; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_410",
+    "tags_policy_area": "חינוך; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_408",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_404",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_399",
+    "tags_policy_area": "מדיני ביטחוני; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_397",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_396",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_377",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_373",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_375",
+    "tags_policy_area": "בריאות ורפואה; מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_376",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_379",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; רווחה ושירותים חברתיים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_380",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_381",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם; חינוך; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_383",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_384",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_385",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_390",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_382",
+    "tags_policy_area": "משטרת ישראל; ביטחון פנים"
+  },
+  {
+    "decision_key": "37_378",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_374",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; תקציב, פיננסים, ביטוח ומיסוי; תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_387",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_388",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_389",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_386",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_345",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_353",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_354",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_355",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_358",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_360",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_361",
+    "tags_policy_area": "מדיני ביטחוני; ביטחון פנים"
+  },
+  {
+    "decision_key": "37_366",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_367",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_368",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_370",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_369",
+    "tags_policy_area": "בריאות ורפואה; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_365",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_359",
+    "tags_policy_area": "תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_357",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_356",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; פיתוח כלכלי ותחרות; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_352",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה; מנהלתי; תקציב, פיננסים, ביטוח ומיסוי; מינויים"
+  },
+  {
+    "decision_key": "37_346",
+    "tags_policy_area": "אנרגיה מים ותשתיות; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_329",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_343",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_324",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_325",
+    "tags_policy_area": "תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_326",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_327",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_328",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_331",
+    "tags_policy_area": "רווחה ושירותים חברתיים; תעסוקה ועבודה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_332",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_333",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_334",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_337",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_338",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מינויים; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_339",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מינויים"
+  },
+  {
+    "decision_key": "37_340",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_341",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_335",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_342",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_344",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_336",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_330",
+    "tags_policy_area": "חינוך; חקיקה, משפט ורגולציה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_347",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_349",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_348",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; בריאות ורפואה; חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_312",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה; פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_311",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_316",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_318",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_314",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_313",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_307",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_308",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חינוך; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_306",
+    "tags_policy_area": "מינויים; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_288",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_289",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_291",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_298",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_293",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_294",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_295",
+    "tags_policy_area": "בריאות ורפואה; חינוך"
+  },
+  {
+    "decision_key": "37_296",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_300",
+    "tags_policy_area": "רווחה ושירותים חברתיים; חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_301",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_303",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_302",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_299",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; רווחה ושירותים חברתיים; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_292",
+    "tags_policy_area": "דיור, נדלן ותכנון; הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_290",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים; בריאות ורפואה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_297",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_287",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_285",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חקלאות ופיתוח הכפר; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_286",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_273",
+    "tags_policy_area": "דת ומוסדות דת; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_274",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; מדיני ביטחוני; קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_278",
+    "tags_policy_area": "דת ומוסדות דת; מדיני ביטחוני; שלטון מקומי"
+  },
+  {
+    "decision_key": "37_279",
+    "tags_policy_area": "דת ומוסדות דת; ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_284",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_281",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_277",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_276",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_275",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_256",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_246",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_247",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_248",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_250",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_257",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_252",
+    "tags_policy_area": "רווחה ושירותים חברתיים; שוויון חברתי וזכויות אדם; חינוך"
+  },
+  {
+    "decision_key": "37_253",
+    "tags_policy_area": "דיור, נדלן ותכנון; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_254",
+    "tags_policy_area": "דיור, נדלן ותכנון; הגנת הסביבה ואקלים; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_264",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_259",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; ביטחון פנים; שונות"
+  },
+  {
+    "decision_key": "37_261",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_262",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_263",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_266",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_267",
+    "tags_policy_area": "דיור, נדלן ותכנון; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_265",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_260",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_258",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_255",
+    "tags_policy_area": "אנרגיה מים ותשתיות; הגנת הסביבה ואקלים; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_251",
+    "tags_policy_area": "בריאות ורפואה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_249",
+    "tags_policy_area": "בריאות ורפואה; חינוך"
+  },
+  {
+    "decision_key": "37_245",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_210",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_169",
+    "tags_policy_area": "מינויים; מנהלתי; חינוך"
+  },
+  {
+    "decision_key": "37_171",
+    "tags_policy_area": "תעסוקה ועבודה; חינוך"
+  },
+  {
+    "decision_key": "37_173",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_174",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_176",
+    "tags_policy_area": "אנרגיה מים ותשתיות; תחבורה ובטיחות בדרכים; חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_178",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_179",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_180",
+    "tags_policy_area": "אנרגיה מים ותשתיות; דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_183",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_184",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_185",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_186",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_187",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_190",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_191",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם; חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_192",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם; פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_195",
+    "tags_policy_area": "חקלאות ופיתוח הכפר; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_196",
+    "tags_policy_area": "יוקר המחייה; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_197",
+    "tags_policy_area": "תיירות"
+  },
+  {
+    "decision_key": "37_198",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_200",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_202",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_205",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_208",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_209",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_212",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_213",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות; מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_214",
+    "tags_policy_area": "רווחה ושירותים חברתיים; חינוך"
+  },
+  {
+    "decision_key": "37_218",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_219",
+    "tags_policy_area": "תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_220",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_223",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_224",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_225",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_231",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_227",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_228",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_229",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_230",
+    "tags_policy_area": "תעסוקה ועבודה; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_242",
+    "tags_policy_area": "חינוך; בריאות ורפואה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_233",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_235",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_243",
+    "tags_policy_area": "רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_238",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_240",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_241",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_206",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_239",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_236",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_226",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_201",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_199",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_216",
+    "tags_policy_area": "מדיני ביטחוני; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_175",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_215",
+    "tags_policy_area": "מדיני ביטחוני; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_237",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_234",
+    "tags_policy_area": "דיור, נדלן ותכנון; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_232",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_222",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_221",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_217",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_211",
+    "tags_policy_area": "אזרחים ותיקים; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_204",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_203",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_193",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_189",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_188",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_182",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_181",
+    "tags_policy_area": "אנרגיה מים ותשתיות; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_177",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_172",
+    "tags_policy_area": "חינוך; מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_167",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_163",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_162",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_160",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_159",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_158",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; מינויים; מנהלתי"
+  },
+  {
+    "decision_key": "37_157",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_155",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_153",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_152",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_151",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; דיור, נדלן ותכנון; בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_150",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_148",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_140",
+    "tags_policy_area": "תיירות"
+  },
+  {
+    "decision_key": "37_141",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_142",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_144",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_145",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_154",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_146",
+    "tags_policy_area": "חינוך; רווחה ושירותים חברתיים; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_143",
+    "tags_policy_area": "תרבות וספורט; חינוך; תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_139",
+    "tags_policy_area": "תיירות"
+  },
+  {
+    "decision_key": "37_147",
+    "tags_policy_area": "בריאות ורפואה; שוויון חברתי וזכויות אדם; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_149",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_156",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_161",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_168",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_207",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_137",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; חינוך"
+  },
+  {
+    "decision_key": "37_134",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_133",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_132",
+    "tags_policy_area": "מורשת; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_131",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_130",
+    "tags_policy_area": "אנרגיה מים ותשתיות; תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_135",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_138",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_128",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_122",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_120",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_118",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_117",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_116",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_115",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_114",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_113",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה; חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_123",
+    "tags_policy_area": "תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_119",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_121",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_125",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_127",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_111",
+    "tags_policy_area": "תיירות"
+  },
+  {
+    "decision_key": "37_110",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_98",
+    "tags_policy_area": "חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_108",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_105",
+    "tags_policy_area": "פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_104",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_103",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_100",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_102",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_109",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; רווחה ושירותים חברתיים; חקלאות ופיתוח הכפר"
+  },
+  {
+    "decision_key": "37_101",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_106",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_107",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_99",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_95",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים"
+  },
+  {
+    "decision_key": "37_72",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_73",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_71",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_76",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_77",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_79",
+    "tags_policy_area": "רווחה ושירותים חברתיים; מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_81",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_82",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_87",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_88",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_90",
+    "tags_policy_area": "מורשת; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_89",
+    "tags_policy_area": "הגנת הסביבה ואקלים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_84",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_93",
+    "tags_policy_area": "תעסוקה ועבודה"
+  },
+  {
+    "decision_key": "37_86",
+    "tags_policy_area": "בריאות ורפואה"
+  },
+  {
+    "decision_key": "37_83",
+    "tags_policy_area": "תקשורת ומדיה"
+  },
+  {
+    "decision_key": "37_80",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_75",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_74",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_69",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_68",
+    "tags_policy_area": "בריאות ורפואה; רווחה ושירותים חברתיים; דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_55",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_50",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_51",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_52",
+    "tags_policy_area": "מדע, טכנולוגיה וחדשנות"
+  },
+  {
+    "decision_key": "37_57",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_58",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי; פיתוח כלכלי ותחרות"
+  },
+  {
+    "decision_key": "37_59",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_61",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_63",
+    "tags_policy_area": "ביטחון פנים; מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_65",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_62",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_60",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות; תיירות; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_56",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_54",
+    "tags_policy_area": "הגנת הסביבה ואקלים"
+  },
+  {
+    "decision_key": "37_31",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_32",
+    "tags_policy_area": "תעשייה מסחר ומשק"
+  },
+  {
+    "decision_key": "37_33",
+    "tags_policy_area": "חינוך"
+  },
+  {
+    "decision_key": "37_34",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_29",
+    "tags_policy_area": "מינויים; מנהלתי; תרבות וספורט"
+  },
+  {
+    "decision_key": "37_30",
+    "tags_policy_area": "אנרגיה מים ותשתיות"
+  },
+  {
+    "decision_key": "37_39",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_40",
+    "tags_policy_area": "שוויון חברתי וזכויות אדם; חינוך"
+  },
+  {
+    "decision_key": "37_42",
+    "tags_policy_area": "חקיקה, משפט ורגולציה; ביטחון פנים; חוץ הסברה ותפוצות"
+  },
+  {
+    "decision_key": "37_44",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  },
+  {
+    "decision_key": "37_45",
+    "tags_policy_area": "קליטת עלייה; רווחה ושירותים חברתיים"
+  },
+  {
+    "decision_key": "37_46",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_48",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_43",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_37",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_35",
+    "tags_policy_area": "דת ומוסדות דת"
+  },
+  {
+    "decision_key": "37_28",
+    "tags_policy_area": "תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_26",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_25",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_16",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_17",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_18",
+    "tags_policy_area": "תרבות וספורט"
+  },
+  {
+    "decision_key": "37_11",
+    "tags_policy_area": "מינויים"
+  },
+  {
+    "decision_key": "37_12",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_13",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_15",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_21",
+    "tags_policy_area": "דיור, נדלן ותכנון; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_22",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_23",
+    "tags_policy_area": "חקיקה, משפט ורגולציה"
+  },
+  {
+    "decision_key": "37_20",
+    "tags_policy_area": "דיור, נדלן ותכנון"
+  },
+  {
+    "decision_key": "37_24",
+    "tags_policy_area": "תחבורה ובטיחות בדרכים; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_14",
+    "tags_policy_area": "בריאות ורפואה; מינהל ציבורי ושירות המדינה"
+  },
+  {
+    "decision_key": "37_9",
+    "tags_policy_area": "מינויים; מנהלתי; רגולציה"
+  },
+  {
+    "decision_key": "37_5",
+    "tags_policy_area": "מינהל ציבורי ושירות המדינה; תקציב, פיננסים, ביטוח ומיסוי"
+  },
+  {
+    "decision_key": "37_7",
+    "tags_policy_area": "מדיני ביטחוני"
+  },
+  {
+    "decision_key": "37_6",
+    "tags_policy_area": "מדיני ביטחוני; שוויון חברתי וזכויות אדם"
+  },
+  {
+    "decision_key": "37_2",
+    "tags_policy_area": "פיתוח הפריפריה ואוכלוסיות"
+  }
+]

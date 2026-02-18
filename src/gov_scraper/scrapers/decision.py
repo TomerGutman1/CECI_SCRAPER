@@ -18,6 +18,220 @@ def extract_decision_number_from_url(url: str) -> Optional[str]:
     return match.group(1) if match else None
 
 
+def build_deterministic_decision_url(
+    government_number: str,
+    decision_number: str,
+    decision_date: str = None,
+    try_variations: bool = False
+) -> List[str]:
+    """
+    Build deterministic decision URLs based on known patterns.
+
+    CRITICAL: Do not trust catalog API URLs - they have systematic errors.
+    Government 28 decisions have +20M offset issues in catalog URLs.
+
+    Args:
+        government_number: Government number (e.g., "37", "28")
+        decision_number: Decision number (e.g., "3173", "275")
+        decision_date: Decision date in YYYY-MM-DD format (optional, for year extraction)
+        try_variations: If True, return multiple URL variations to try
+
+    Returns:
+        List of URLs to try in order of preference
+
+    URL Patterns Observed:
+    - Standard: https://www.gov.il/he/pages/{gov_num}_des{decision_num}
+    - Alternative: https://www.gov.il/he/pages/dec{decision_num}-{year}
+    - Variations: a, b, c suffixes for multiple decisions same number
+    """
+    if not government_number or not decision_number:
+        logger.warning(f"Invalid parameters: gov={government_number}, decision={decision_number}")
+        return []
+
+    # Clean inputs
+    gov_num = str(government_number).strip()
+    dec_num = str(decision_number).strip()
+
+    # Extract year from date if available
+    year = None
+    if decision_date and decision_date.count('-') >= 2:
+        try:
+            year = decision_date.split('-')[0]
+        except (ValueError, IndexError):
+            year = None
+
+    urls = []
+
+    # Pattern 1: Primary deterministic format based on government
+    # This is the most reliable pattern we've observed
+    primary_url = f"https://www.gov.il/he/pages/{gov_num}_des{dec_num}"
+    urls.append(primary_url)
+
+    # Pattern 2: Alternative dec format (with year if available)
+    if year:
+        alt_url_with_year = f"https://www.gov.il/he/pages/dec{dec_num}-{year}"
+        urls.append(alt_url_with_year)
+
+    # Pattern 3: Alternative without year (fallback)
+    alt_url = f"https://www.gov.il/he/pages/dec{dec_num}"
+    urls.append(alt_url)
+
+    # Pattern 4: Government-specific corrections for known issues
+    if gov_num == "28":
+        # Gov 28 has systematic +20M offset issues in some URLs
+        # Try the offset correction
+        try:
+            offset_dec = int(dec_num) + 20000000
+            offset_url = f"https://www.gov.il/he/pages/{gov_num}_des{offset_dec}"
+            urls.append(offset_url)
+
+            if year:
+                offset_year_url = f"https://www.gov.il/he/pages/dec{offset_dec}-{year}"
+                urls.append(offset_year_url)
+        except ValueError:
+            pass
+
+    if try_variations:
+        # Pattern 5: Suffix variations (a, b, c) for duplicate decision numbers
+        base_patterns = [
+            f"https://www.gov.il/he/pages/{gov_num}_des{dec_num}",
+            f"https://www.gov.il/he/pages/dec{dec_num}",
+        ]
+
+        if year:
+            base_patterns.append(f"https://www.gov.il/he/pages/dec{dec_num}-{year}")
+
+        for pattern in base_patterns:
+            for suffix in ['a', 'b', 'c']:
+                # Add suffix before file extension or at end
+                variation_url = pattern + suffix
+                urls.append(variation_url)
+
+                # Also try with year suffix
+                if year and 'dec' in pattern and '-' not in pattern:
+                    year_suffix_url = f"{pattern}{suffix}-{year}"
+                    urls.append(year_suffix_url)
+
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_urls = []
+    for url in urls:
+        if url not in seen:
+            seen.add(url)
+            unique_urls.append(url)
+
+    logger.info(f"Generated {len(unique_urls)} URL candidates for {gov_num}_{dec_num}")
+    return unique_urls
+
+
+def validate_url_against_decision_key(url: str, decision_key: str) -> Dict[str, any]:
+    """
+    Validate that a URL matches the expected decision key.
+
+    Args:
+        url: The URL to validate
+        decision_key: Expected decision key format: {gov_num}_{decision_num}
+
+    Returns:
+        Dict with validation results:
+        {
+            'valid': bool,
+            'url_decision_number': str,
+            'expected_decision_number': str,
+            'difference': int,
+            'url_pattern': str,
+            'issues': List[str]
+        }
+    """
+    result = {
+        'valid': False,
+        'url_decision_number': None,
+        'expected_decision_number': None,
+        'difference': 0,
+        'url_pattern': 'unknown',
+        'issues': []
+    }
+
+    # Parse decision key
+    if not decision_key or '_' not in decision_key:
+        result['issues'].append(f"Invalid decision_key format: {decision_key}")
+        return result
+
+    try:
+        gov_num, expected_dec_num = decision_key.split('_', 1)
+        result['expected_decision_number'] = expected_dec_num
+    except ValueError:
+        result['issues'].append(f"Cannot parse decision_key: {decision_key}")
+        return result
+
+    # Extract decision number from URL
+    url_dec_num = extract_decision_number_from_url(url)
+    if not url_dec_num:
+        # Try alternative patterns
+        patterns = [
+            r'_des(\d+)',  # gov_num_des123
+            r'/(\d+)_des',  # /123_des
+            r'dec(\d+)',   # dec123
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, url)
+            if match:
+                url_dec_num = match.group(1)
+                break
+
+    if not url_dec_num:
+        result['issues'].append(f"Cannot extract decision number from URL: {url}")
+        return result
+
+    result['url_decision_number'] = url_dec_num
+
+    # Identify URL pattern
+    if '_des' in url:
+        result['url_pattern'] = 'gov_des'
+    elif '/dec' in url and '-' in url:
+        result['url_pattern'] = 'dec_year'
+    elif '/dec' in url:
+        result['url_pattern'] = 'dec_simple'
+    else:
+        result['url_pattern'] = 'unknown'
+
+    # Compare numbers
+    # Check if decision numbers match (handle letters like 2433א)
+    if expected_dec_num == url_dec_num:
+        # Exact match (including letters)
+        result['valid'] = True
+        result['difference'] = 0
+    else:
+        # Try numeric comparison if both are purely numeric
+        try:
+            expected_num = int(expected_dec_num)
+            url_num = int(url_dec_num)
+            result['difference'] = url_num - expected_num
+
+            # Validation logic for numeric differences
+            if result['difference'] == 0:
+                result['valid'] = True
+            else:
+                result['issues'].append(
+                    f"Number mismatch: URL has {url_num}, expected {expected_num} "
+                    f"(difference: {result['difference']:+d})"
+                )
+
+                # Check for known systematic errors
+                if abs(result['difference']) > 1000000:
+                    result['issues'].append("Systematic offset detected (>1M difference)")
+
+        except ValueError:
+            # At least one contains letters - check for exact match
+            if expected_dec_num != url_dec_num:
+                result['issues'].append(
+                    f"Decision number mismatch: URL has '{url_dec_num}', expected '{expected_dec_num}'"
+                )
+
+    return result
+
+
 def clean_hebrew_text(text: str) -> str:
     """Clean and normalize Hebrew text."""
     if not text:
@@ -360,8 +574,8 @@ def _build_result_from_meta(decision_meta: dict, content: str) -> Dict[str, str]
 
 def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15, swd=None) -> Optional[Dict[str, str]]:
     """
-    Scrape a decision's content with automatic URL recovery if the initial URL fails.
-    Metadata (title, date, number, committee) comes from the catalog API via decision_meta.
+    Scrape a decision's content with deterministic URL construction and recovery.
+    CRITICAL: Uses deterministic URL building instead of trusting catalog URLs.
 
     Args:
         decision_meta: Dict with keys: url, title, decision_number, decision_date, committee
@@ -371,30 +585,117 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15, 
     Returns:
         Dictionary containing decision data, or None if all attempts fail
     """
-    url = decision_meta['url']
-    decision_number = decision_meta.get('decision_number', '') or extract_decision_number_from_url(url)
-    logger.info(f"Attempting to scrape decision {decision_number} with URL recovery: {url}")
+    original_url = decision_meta['url']
+    decision_number = decision_meta.get('decision_number', '') or extract_decision_number_from_url(original_url)
+    government_number = decision_meta.get('government_number')
+    decision_date = decision_meta.get('decision_date')
+
+    logger.info(f"Scraping decision {decision_number} with deterministic URL recovery")
 
     if not decision_number:
-        logger.error(f"Cannot determine decision number for: {url}")
+        logger.error(f"Cannot determine decision number for: {original_url}")
         return None
 
-    # First attempt: scrape content from the original URL
-    content = scrape_decision_content_only(url, wait_time=wait_time, swd=swd)
+    # Build decision key for validation
+    decision_key = f"{government_number}_{decision_number}" if government_number else None
+
+    # Validate original URL if we have the decision key
+    url_validation = None
+    if decision_key:
+        url_validation = validate_url_against_decision_key(original_url, decision_key)
+        if not url_validation['valid']:
+            logger.warning(
+                f"Original URL validation failed for {decision_key}: "
+                f"{url_validation['issues']}"
+            )
+
+    # First attempt: Try the original URL (even if validation failed)
+    content = scrape_decision_content_only(original_url, wait_time=wait_time, swd=swd)
     if content and len(content) > 50:
         logger.info(f"Original URL worked for decision {decision_number}")
+        if url_validation and not url_validation['valid']:
+            logger.warning(f"URL validation failed but content retrieved for {decision_key}")
         return _build_result_from_meta(decision_meta, content)
 
     logger.warning(f"Original URL returned empty content for decision {decision_number}")
 
-    # Second attempt: search catalog for correct URL
+    # Second attempt: Use deterministic URL construction
+    if government_number:
+        logger.info(f"Building deterministic URLs for {government_number}_{decision_number}")
+        candidate_urls = build_deterministic_decision_url(
+            government_number=government_number,
+            decision_number=decision_number,
+            decision_date=decision_date,
+            try_variations=False  # Start with primary patterns only
+        )
+
+        for i, candidate_url in enumerate(candidate_urls):
+            if candidate_url == original_url:
+                # Skip original URL since we already tried it
+                continue
+
+            logger.info(f"Trying deterministic URL {i+1}/{len(candidate_urls)}: {candidate_url}")
+
+            # Validate the candidate URL
+            validation = validate_url_against_decision_key(candidate_url, decision_key)
+            if validation['valid']:
+                logger.info(f"URL validation passed for {candidate_url}")
+            else:
+                logger.info(f"URL validation issues: {validation['issues']}")
+
+            content = scrape_decision_content_only(candidate_url, wait_time=wait_time, swd=swd)
+            if content and len(content) > 50:
+                logger.info(f"Deterministic URL worked: {candidate_url}")
+                meta_with_url = {**decision_meta, 'url': candidate_url}
+                return _build_result_from_meta(meta_with_url, content)
+
+    # Third attempt: Try variations if basic patterns failed
+    if government_number:
+        logger.info(f"Trying URL variations for {government_number}_{decision_number}")
+        variation_urls = build_deterministic_decision_url(
+            government_number=government_number,
+            decision_number=decision_number,
+            decision_date=decision_date,
+            try_variations=True
+        )
+
+        # Filter out URLs we already tried
+        already_tried = {original_url}
+        if government_number:
+            candidate_urls = build_deterministic_decision_url(
+                government_number, decision_number, decision_date, False
+            )
+            already_tried.update(candidate_urls)
+
+        for i, variation_url in enumerate(variation_urls):
+            if variation_url in already_tried:
+                continue
+
+            logger.info(f"Trying variation URL {i+1}: {variation_url}")
+            content = scrape_decision_content_only(variation_url, wait_time=wait_time, swd=swd)
+            if content and len(content) > 50:
+                logger.info(f"Variation URL worked: {variation_url}")
+                meta_with_url = {**decision_meta, 'url': variation_url}
+                return _build_result_from_meta(meta_with_url, content)
+
+    # Fourth attempt: Legacy fallback to catalog search (as last resort)
     try:
         from .catalog import find_correct_url_in_catalog
-        logger.info(f"Second attempt: searching catalog for correct URL for decision {decision_number}")
+        logger.info(f"Fallback: searching catalog for correct URL for decision {decision_number}")
         correct_url = find_correct_url_in_catalog(decision_number, swd=swd)
 
-        if correct_url and correct_url != url:
+        if correct_url and correct_url != original_url:
             logger.info(f"Found different URL in catalog: {correct_url}")
+
+            # Validate catalog URL before using it
+            if decision_key:
+                catalog_validation = validate_url_against_decision_key(correct_url, decision_key)
+                if not catalog_validation['valid']:
+                    logger.warning(
+                        f"Catalog URL validation failed: {catalog_validation['issues']} "
+                        f"- using anyway as last resort"
+                    )
+
             content = scrape_decision_content_only(correct_url, wait_time=wait_time, swd=swd)
             if content and len(content) > 50:
                 logger.info(f"Catalog URL worked for decision {decision_number}")
@@ -402,21 +703,6 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15, 
                 return _build_result_from_meta(meta_with_url, content)
     except Exception as e:
         logger.warning(f"Catalog search failed for decision {decision_number}: {e}")
-
-    # Third attempt: try minimal URL variations
-    try:
-        from .catalog import try_url_variations
-        logger.info(f"Third attempt: trying URL variations for decision {decision_number}")
-        working_url = try_url_variations(url, decision_number, swd=swd)
-
-        if working_url:
-            content = scrape_decision_content_only(working_url, wait_time=wait_time, swd=swd)
-            if content and len(content) > 50:
-                logger.info(f"URL variation worked for decision {decision_number}")
-                meta_with_url = {**decision_meta, 'url': working_url}
-                return _build_result_from_meta(meta_with_url, content)
-    except Exception as e:
-        logger.warning(f"URL variation attempts failed for decision {decision_number}: {e}")
 
     logger.error(f"All URL recovery attempts failed for decision {decision_number}")
     return None

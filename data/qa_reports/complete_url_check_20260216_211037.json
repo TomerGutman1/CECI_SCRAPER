@@ -1,0 +1,270 @@
+{
+  "metadata": {
+    "timestamp": "20260216_211037",
+    "total_records": 25021,
+    "total_mismatches": 26,
+    "total_missing_urls": 0,
+    "mismatch_rate": 0.1
+  },
+  "mismatches": [
+    {
+      "decision_key": "37_3789",
+      "url": "https://www.gov.il/he/pages/dec3798-2026",
+      "decision_from_key": "3789",
+      "decision_from_url": "3798",
+      "difference": 9,
+      "title": "הגדלת הוודאות המיסויית בפעילות קרנות גידור בישראל ושיפור הסביבה העסקית עבור חברות ומשקיעי הייטק ותיק",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "35_218",
+      "url": "https://www.gov.il/he/pages/dec2018_2020",
+      "decision_from_key": "218",
+      "decision_from_url": "2018",
+      "difference": 1800,
+      "title": "הצעת חוק דמי מחלה (היעדרות בשל מחלת ילד) (תיקון - בן זוג לומד), התש\"ף-2020 של חה\"כ משה גפני ויעקב אש",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2478",
+      "url": "https://www.gov.il/he/pages/dec4278-2024",
+      "decision_from_key": "2478",
+      "decision_from_url": "4278",
+      "difference": 1800,
+      "title": "טיוטת חוק לתיקון פקודת התעבורה (תיקון מס' 138), התשפ\"ה-2024",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_2345",
+      "url": "https://www.gov.il/he/pages/dec-2354-2024",
+      "decision_from_key": "2345",
+      "decision_from_url": "2354",
+      "difference": 9,
+      "title": "יישום הסכמים קואליציוניים בשנת הכספים 2024 - תיקון החלטת ממשלה",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "35_759",
+      "url": "https://www.gov.il/he/pages/dec579_2021",
+      "decision_from_key": "759",
+      "decision_from_url": "579",
+      "difference": -180,
+      "title": "קביעת ממלא מקום שר המדע והטכנולוגיה",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "34_4684",
+      "url": "https://www.gov.il/he/pages/dec5684_2019",
+      "decision_from_key": "4684",
+      "decision_from_url": "5684",
+      "difference": 1000,
+      "title": "חיזוק איתנותה התקציבית של עיריית ירושלים ועידוד היצע התעסוקה בעיר",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "35_218",
+      "url": "https://www.gov.il/he/pages/dec2018_2020",
+      "decision_from_key": "218",
+      "decision_from_url": "2018",
+      "difference": 1800,
+      "title": "הצעת חוק דמי מחלה (היעדרות בשל מחלת ילד) (תיקון - בן זוג לומד), התש\"ף-2020 של חה\"כ משה גפני ויעקב אש",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_127",
+      "url": "https://www.gov.il/he/pages/dec27-2023",
+      "decision_from_key": "127",
+      "decision_from_url": "27",
+      "difference": -100,
+      "title": "טיוטת חוק תכנון משק החלב (תיקון מס' 5), התשפ\"ג-2023",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_373",
+      "url": "https://www.gov.il/he/pages/dec737-2023",
+      "decision_from_key": "373",
+      "decision_from_url": "737",
+      "difference": 364,
+      "title": "אישור מינוי חבר למועצת רשות שדות התעופה",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_370",
+      "url": "https://www.gov.il/he/pages/dec270-2023",
+      "decision_from_key": "370",
+      "decision_from_url": "270",
+      "difference": -100,
+      "title": "טיוטת חוק התוכנית הכלכלית (תיקוני חקיקה להשגת יעדי התקציב לשנות התקציב 2023 ו-2024), התשפ\"ג-2023",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1740",
+      "url": "https://www.gov.il/he/pages/dec1744_2022",
+      "decision_from_key": "1740",
+      "decision_from_url": "1744",
+      "difference": 4,
+      "title": "הכרה במכללה האקדמית צפת כמוסד להשכלה גבוהה (הכרה שאינה מוגבלת בזמן)",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1022",
+      "url": "https://www.gov.il/he/pages/dec1021_2022",
+      "decision_from_key": "1022",
+      "decision_from_url": "1021",
+      "difference": -1,
+      "title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1179",
+      "url": "https://www.gov.il/he/pages/dec117_2022",
+      "decision_from_key": "1179",
+      "decision_from_url": "117",
+      "difference": -1062,
+      "title": "הצעת חוק חיסיון על טיפול נפשי בהליכים משפטיים שעניינם עבירות מין (תיקוני חקיקה), התשפ\"א-2021 של חה\"כ",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "35_218",
+      "url": "https://www.gov.il/he/pages/dec2018_2020",
+      "decision_from_key": "218",
+      "decision_from_url": "2018",
+      "difference": 1800,
+      "title": "הצעת חוק דמי מחלה (היעדרות בשל מחלת ילד) (תיקון - בן זוג לומד), התש\"ף-2020 של חה\"כ משה גפני ויעקב אש",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_373",
+      "url": "https://www.gov.il/he/pages/dec737-2023",
+      "decision_from_key": "373",
+      "decision_from_url": "737",
+      "difference": 364,
+      "title": "אישור מינוי חבר למועצת רשות שדות התעופה",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_370",
+      "url": "https://www.gov.il/he/pages/dec270-2023",
+      "decision_from_key": "370",
+      "decision_from_url": "270",
+      "difference": -100,
+      "title": "טיוטת חוק התוכנית הכלכלית (תיקוני חקיקה להשגת יעדי התקציב לשנות התקציב 2023 ו-2024), התשפ\"ג-2023",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1740",
+      "url": "https://www.gov.il/he/pages/dec1744_2022",
+      "decision_from_key": "1740",
+      "decision_from_url": "1744",
+      "difference": 4,
+      "title": "הכרה במכללה האקדמית צפת כמוסד להשכלה גבוהה (הכרה שאינה מוגבלת בזמן)",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1022",
+      "url": "https://www.gov.il/he/pages/dec1021_2022",
+      "decision_from_key": "1022",
+      "decision_from_url": "1021",
+      "difference": -1,
+      "title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_127",
+      "url": "https://www.gov.il/he/pages/dec27-2023",
+      "decision_from_key": "127",
+      "decision_from_url": "27",
+      "difference": -100,
+      "title": "טיוטת חוק תכנון משק החלב (תיקון מס' 5), התשפ\"ג-2023",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1179",
+      "url": "https://www.gov.il/he/pages/dec117_2022",
+      "decision_from_key": "1179",
+      "decision_from_url": "117",
+      "difference": -1062,
+      "title": "הצעת חוק חיסיון על טיפול נפשי בהליכים משפטיים שעניינם עבירות מין (תיקוני חקיקה), התשפ\"א-2021 של חה\"כ",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "35_218",
+      "url": "https://www.gov.il/he/pages/dec2018_2020",
+      "decision_from_key": "218",
+      "decision_from_url": "2018",
+      "difference": 1800,
+      "title": "הצעת חוק דמי מחלה (היעדרות בשל מחלת ילד) (תיקון - בן זוג לומד), התש\"ף-2020 של חה\"כ משה גפני ויעקב אש",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1022",
+      "url": "https://www.gov.il/he/pages/dec1021_2022",
+      "decision_from_key": "1022",
+      "decision_from_url": "1021",
+      "difference": -1,
+      "title": "הצללה וקירור של המרחב העירוני באמצעות עצי רחוב במסגרת היערכות לשינויי האקלים",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "35_759",
+      "url": "https://www.gov.il/he/pages/dec579_2021",
+      "decision_from_key": "759",
+      "decision_from_url": "579",
+      "difference": -180,
+      "title": "קביעת ממלא מקום שר המדע והטכנולוגיה",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "36_1179",
+      "url": "https://www.gov.il/he/pages/dec117_2022",
+      "decision_from_key": "1179",
+      "decision_from_url": "117",
+      "difference": -1062,
+      "title": "הצעת חוק חיסיון על טיפול נפשי בהליכים משפטיים שעניינם עבירות מין (תיקוני חקיקה), התשפ\"א-2021 של חה\"כ",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "35_218",
+      "url": "https://www.gov.il/he/pages/dec2018_2020",
+      "decision_from_key": "218",
+      "decision_from_url": "2018",
+      "difference": 1800,
+      "title": "הצעת חוק דמי מחלה (היעדרות בשל מחלת ילד) (תיקון - בן זוג לומד), התש\"ף-2020 של חה\"כ משה גפני ויעקב אש",
+      "issue": "url_mismatch"
+    },
+    {
+      "decision_key": "37_3661",
+      "url": "https://www.gov.il/he/pages/dec3361-2025",
+      "decision_from_key": "3661",
+      "decision_from_url": "3361",
+      "difference": -300,
+      "title": "סגירת תחנת השידור הצבאית \"גלי צה\"ל\"",
+      "issue": "url_mismatch"
+    }
+  ],
+  "missing_urls": [],
+  "statistics": {
+    "by_government": {
+      "37": 10,
+      "35": 7,
+      "34": 1,
+      "36": 8
+    },
+    "by_difference": {
+      "9": 2,
+      "1800": 6,
+      "-180": 2,
+      "1000": 1,
+      "-100": 4,
+      "364": 2,
+      "4": 2,
+      "-1": 3,
+      "-1062": 3,
+      "-300": 1
+    },
+    "difference_range": {
+      "min": -1062,
+      "max": 1800
+    }
+  }
+}

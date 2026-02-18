@@ -1,0 +1,242 @@
+# GOV2DB Monitoring and Alerting Configuration
+# ==============================================
+
+# Alert Thresholds
+# ----------------
+thresholds:
+  # Duplicate Rate Monitoring (percentage of potentially duplicate records)
+  duplicate_rate_warning: 3.0     # Alert if >3% duplicate rate
+  duplicate_rate_critical: 5.0    # Critical if >5% duplicate rate
+
+  # Tag Confidence Monitoring (average AI confidence in tag assignment)
+  tag_confidence_warning: 65.0    # Alert if average confidence <65%
+  tag_confidence_critical: 60.0   # Critical if average confidence <60%
+
+  # Missing Fields Monitoring (percentage of records with missing critical fields)
+  missing_fields_warning: 5.0     # Alert if >5% have missing fields
+  missing_fields_critical: 10.0   # Critical if >10% have missing fields
+
+  # Processing Performance Monitoring (seconds for QA processing)
+  processing_time_warning: 300    # Alert if QA takes >5 minutes
+  processing_time_critical: 600   # Critical if QA takes >10 minutes
+
+  # Error Rate Monitoring (percentage of failed operations)
+  error_rate_warning: 2.0         # Alert if >2% error rate
+  error_rate_critical: 5.0        # Critical if >5% error rate
+
+  # Database Health Monitoring
+  db_connection_timeout_warning: 5.0     # Alert if DB queries >5s
+  db_connection_timeout_critical: 10.0   # Critical if DB queries >10s
+
+  # Sync Performance Monitoring
+  sync_rate_warning: 0.5          # Alert if sync rate <0.5 decisions/sec
+  sync_rate_critical: 0.2         # Critical if sync rate <0.2 decisions/sec
+
+# Anomaly Detection Settings
+# --------------------------
+anomaly_detection:
+  enabled: true                   # Enable statistical anomaly detection
+  sensitivity: 2.0               # Standard deviations for anomaly threshold
+  min_samples: 10                # Minimum historical samples needed
+  window_hours: 24               # Time window for anomaly analysis
+
+# Monitoring Intervals
+# -------------------
+monitoring_intervals:
+  quality_check_minutes: 15      # Run quality checks every 15 minutes
+  performance_check_minutes: 5   # Check performance metrics every 5 minutes
+  anomaly_check_minutes: 30      # Run anomaly detection every 30 minutes
+  health_check_minutes: 2        # System health checks every 2 minutes
+
+# Alert Channels Configuration
+# ----------------------------
+channels:
+  # Logging Channel (always enabled)
+  log:
+    enabled: true
+    level: INFO                   # Log level for alerts (DEBUG, INFO, WARNING, ERROR)
+    file: logs/monitoring_alerts.log
+
+  # Email Channel
+  email:
+    enabled: false                # Set to true to enable email alerts
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    username: ""                  # Set your email username
+    password: ""                  # Set your email password (use app-specific password)
+    recipients: []                # List of email addresses to receive alerts
+    subject_prefix: "[GOV2DB Alert]"
+
+  # Dashboard Channel (for web dashboard display)
+  dashboard:
+    enabled: true
+    max_alerts_display: 100       # Maximum alerts to keep in dashboard
+    alert_retention_hours: 168    # Keep alerts for 1 week
+
+  # Webhook Channel (for external integrations)
+  webhook:
+    enabled: false                # Set to true to enable webhook alerts
+    url: ""                       # Webhook URL
+    method: POST                  # HTTP method
+    headers:                      # Custom headers
+      Content-Type: application/json
+    timeout: 30                   # Request timeout in seconds
+    retry_attempts: 3             # Number of retry attempts on failure
+
+# Alert Rules and Behavior
+# ------------------------
+rules:
+  # Cooldown periods to prevent alert spam
+  cooldown_minutes:
+    critical: 30                  # Critical alerts cooldown for 30 minutes
+    warning: 60                   # Warning alerts cooldown for 60 minutes
+    info: 120                     # Info alerts cooldown for 120 minutes
+
+  # Escalation settings
+  escalation_hours:
+    critical: 1                   # Escalate critical alerts after 1 hour
+    warning: 4                    # Escalate warning alerts after 4 hours
+    info: 24                      # Escalate info alerts after 24 hours
+
+  # Auto-resolution settings
+  auto_resolve_hours: 24          # Auto-resolve alerts after 24 hours if not manually resolved
+  batch_similar_alerts: true      # Group similar alerts together
+
+  # Alert suppression during maintenance
+  maintenance_mode: false         # Set to true during maintenance to suppress alerts
+  suppress_during_sync: false     # Suppress alerts during sync operations
+
+# Alert Message Templates
+# -----------------------
+templates:
+  email:
+    critical: |
+      🚨 CRITICAL ALERT: {message}
+
+      System: GOV2DB Quality Monitoring
+      Metric: {metric}
+      Current Value: {value}
+      Threshold: {threshold}
+      Time: {timestamp}
+
+      This issue requires immediate attention.
+
+      Additional Details:
+      {metadata}
+
+    warning: |
+      ⚠️ WARNING: {message}
+
+      System: GOV2DB Quality Monitoring
+      Metric: {metric}
+      Current Value: {value}
+      Threshold: {threshold}
+      Time: {timestamp}
+
+      Please investigate when convenient.
+
+      Additional Details:
+      {metadata}
+
+    info: |
+      ℹ️ INFORMATION: {message}
+
+      System: GOV2DB Quality Monitoring
+      Metric: {metric}
+      Current Value: {value}
+      Time: {timestamp}
+
+      This is for your information.
+
+  log:
+    critical: "🚨 CRITICAL: {message} | Metric: {metric} | Value: {value} | Threshold: {threshold}"
+    warning: "⚠️ WARNING: {message} | Metric: {metric} | Value: {value} | Threshold: {threshold}"
+    info: "ℹ️ INFO: {message} | Metric: {metric} | Value: {value}"
+
+  dashboard:
+    critical: "{message}"
+    warning: "{message}"
+    info: "{message}"
+
+# Recovery Actions
+# ---------------
+recovery_actions:
+  # Automated recovery actions for specific alert types
+  duplicate_rate_critical:
+    - "Run duplicate detection analysis"
+    - "Generate duplicate removal script"
+    - "Review recent sync operations"
+
+  tag_confidence_critical:
+    - "Check AI model performance"
+    - "Review recent tag assignments"
+    - "Consider tag reprocessing"
+
+  missing_fields_critical:
+    - "Identify records with missing fields"
+    - "Schedule field completion process"
+    - "Review data ingestion pipeline"
+
+  processing_time_critical:
+    - "Check system resource usage"
+    - "Review processing queue"
+    - "Consider performance optimization"
+
+# Notification Preferences
+# ------------------------
+preferences:
+  # Time-based alert preferences
+  quiet_hours:
+    enabled: false                # Enable quiet hours
+    start_time: "22:00"          # Start of quiet hours (24h format)
+    end_time: "08:00"            # End of quiet hours (24h format)
+    severity_override: "critical" # Still send alerts of this severity during quiet hours
+
+  # Grouping preferences
+  group_similar_alerts: true     # Group alerts of the same type
+  group_time_window_minutes: 15  # Time window for grouping similar alerts
+
+  # Frequency limits
+  max_alerts_per_hour: 20        # Maximum alerts per hour across all channels
+  max_critical_per_hour: 10      # Maximum critical alerts per hour
+
+# Integration Settings
+# -------------------
+integrations:
+  # Slack integration (if webhook configured for Slack)
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#gov2db-alerts"
+    username: "GOV2DB Monitor"
+
+  # PagerDuty integration
+  pagerduty:
+    enabled: false
+    integration_key: ""
+
+  # Custom webhook payloads
+  custom_webhook_format:
+    enabled: false
+    template: |
+      {
+        "alert_id": "{alert_id}",
+        "severity": "{severity}",
+        "metric": "{metric}",
+        "value": {value},
+        "message": "{message}",
+        "timestamp": "{timestamp}",
+        "system": "GOV2DB"
+      }
+
+# Monitoring Health Settings
+# --------------------------
+health_monitoring:
+  # Monitor the monitoring system itself
+  self_monitor: true
+  heartbeat_interval_minutes: 5   # Send heartbeat every 5 minutes
+  max_processing_time_seconds: 300 # Alert if monitoring cycle takes >5 minutes
+
+  # Data freshness monitoring
+  max_data_age_hours: 2          # Alert if metrics data is >2 hours old
+  min_data_points_per_hour: 4    # Alert if <4 data points collected per hour

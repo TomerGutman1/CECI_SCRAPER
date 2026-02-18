@@ -1,0 +1,11 @@
+{
+  "check_name": "fix_operativity_typos",
+  "total_scanned": 10,
+  "issues_found": 0,
+  "issue_rate": "0.0%",
+  "summary": {
+    "total_processed": 10,
+    "fixed": 0
+  },
+  "sample_issues": []
+}

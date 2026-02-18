@@ -1,0 +1,24 @@
+{
+  "check_name": "fix_cloudflare",
+  "total_scanned": 24,
+  "issues_found": 0,
+  "issue_rate": "0.0%",
+  "summary": {
+    "total_processed": 24,
+    "re_scraped": 0,
+    "errors": 24,
+    "error_details": [
+      "37_3813: no URL",
+      "37_3816: no URL",
+      "37_3817: no URL",
+      "37_3820: no URL",
+      "37_3821: no URL",
+      "37_3822: no URL",
+      "37_3823: no URL",
+      "37_3815: no URL",
+      "37_3814: no URL",
+      "37_3796: no URL"
+    ]
+  },
+  "sample_issues": []
+}
