@@ -3041,6 +3041,15 @@ def apply_inline_fixes(decision_data: Dict) -> Dict:
         if len(valid_bodies) < len(bodies):
             decision_data["tags_government_body"] = "; ".join(valid_bodies) if valid_bodies else ""
 
+    # Rebuild all_tags deterministically after any modifications to individual fields
+    all_individual_tags = []
+    for field, sep in [('tags_policy_area', ';'), ('tags_government_body', ';'), ('tags_location', ',')]:
+        val = (decision_data.get(field, '') or '').strip()
+        if val:
+            all_individual_tags.extend([t.strip() for t in val.split(sep) if t.strip()])
+    unique_all_tags = list(dict.fromkeys(all_individual_tags))
+    decision_data['all_tags'] = '; '.join(unique_all_tags)
+
     return decision_data
 
 

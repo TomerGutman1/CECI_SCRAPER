@@ -105,10 +105,10 @@ def test_full_post_processing():
     decision_data = {
         'decision_key': '37_3861',
         'summary': 'החלטה על תקציב ומבקשת מוועדת הכ',
-        'tags_policy_area': 'ביטחון; ביטחון',
+        'tags_policy_area': 'ביטחון פנים; ביטחון פנים',
         'tags_government_body': 'משטרת ישראל; משטרת ישראל; וועדת שרים לתיקוני חקיקה (תחק)',
         'tags_location': 'ישראל, ירושלים',
-        'all_tags': 'ביטחון; ביטחון; משטרת ישראל; משטרת ישראל'
+        'all_tags': 'ביטחון פנים; ביטחון פנים; משטרת ישראל; משטרת ישראל'
     }
 
     military_content = "החלטה בנושא גלי צה\"ל והרדיו הצבאי"
@@ -117,12 +117,12 @@ def test_full_post_processing():
 
     print(f"  Original policy tags: {decision_data['tags_policy_area']}")
     print(f"  Cleaned policy tags:  {result['tags_policy_area']}")
-    assert "ביטחון; ביטחון" not in result['tags_policy_area'], "Expected deduplication"
+    assert result['tags_policy_area'] == "ביטחון פנים", "Expected deduplication"
 
     print(f"  Original govt bodies: {decision_data['tags_government_body']}")
     print(f"  Cleaned govt bodies:  {result['tags_government_body']}")
     assert "משטרת ישראל" not in result['tags_government_body'], "Expected police exclusion for military content"
-    assert "וועדת שרים לתיקוני חקיקה" in result['tags_government_body'], "Expected committee normalization"
+    assert "ועדת השרים" in result['tags_government_body'], "Expected committee normalization to ועדת השרים"
 
     print(f"  Original locations:   {decision_data['tags_location']}")
     print(f"  Cleaned locations:    {result['tags_location']}")
@@ -131,6 +131,12 @@ def test_full_post_processing():
     print(f"  Original summary:     {decision_data['summary']}")
     print(f"  Cleaned summary:      {result['summary']}")
     assert result['summary'].endswith('...'), "Expected truncation fix"
+
+    # Verify all_tags is rebuilt correctly from cleaned fields
+    assert "ביטחון פנים" in result['all_tags'], "Expected policy tag in all_tags"
+    assert "ועדת השרים" in result['all_tags'], "Expected gov body in all_tags"
+    assert "ירושלים" in result['all_tags'], "Expected location in all_tags"
+    assert "משטרת ישראל" not in result['all_tags'], "Excluded body should not be in all_tags"
 
     print("  ✅ Full post-processing works correctly")
 
