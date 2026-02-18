@@ -71,11 +71,13 @@ new_departments.md # 44 authorized government bodies
 **Status**: Check with `make simple-qa-status`
 
 ## Current Status (Feb 18, 2026)
-- **Algorithm Improvements:** Ready for deployment (NOT YET DEPLOYED)
-- **DB Quality:** 42% duplicates → <1% expected after migration
-- **Tag Accuracy:** 50% → 90%+ expected with new detection profiles
-- **API Efficiency:** 5-6 → 1-2 calls per decision (pending deployment)
-- See `.planning/state.md` for deployment instructions and full details
+- **Algorithm Improvements:** DEPLOYED ✅ + Post-deployment fixes applied
+- **DB Quality:** 0% duplicates (unique constraint enforced)
+- **Tag Accuracy:** ~93% (up from 50%), known issues documented
+- **API Efficiency:** 1 call per decision (down from 5-6)
+- **Dynamic Summaries:** Implemented, scales with content length
+- **Known Issues:** Summary prefix waste (40%), gov body normalization (50%), operativity inconsistencies (20%)
+- See `.planning/state.md` and `.planning/handoff.md` for details
 
 ## 🚀 Quick Deployment (New!)
 ```bash

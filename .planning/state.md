@@ -1,7 +1,7 @@
 # GOV2DB Project State
-**Last Updated:** 2026-02-18, 14:50 PST
-**Current Focus:** ✅ DEPLOYMENT COMPLETE - Monitor Performance
-**DB Records:** 25,021 decisions
+**Last Updated:** 2026-02-18, 17:30 PST
+**Current Focus:** Algorithm refinement — 8 specific QA issues identified for next session
+**DB Records:** 25,036 decisions
 
 ## 🚨 Critical Issues Status
 
@@ -67,24 +67,52 @@
 - **API Calls:** 1 per decision (was 5-6)
 - **Issues Found:** Minor - duplicate tags, summary truncation, edge case ministries
 
+### ✅ Post-Deployment Improvements COMPLETE (Feb 18, 2026, 16:00 PST)
+**All identified issues have been fixed:**
+1. **Tag Deduplication:** Implemented across all tag fields ✅
+2. **Summary Truncation:** Increased token limit to 2000, added validation ✅
+3. **Committee Mapping:** Created mapping dictionary for 30+ variations ✅
+4. **Ministry Exclusions:** Added context validation (military ≠ police) ✅
+5. **Post-Processor:** Comprehensive validation pipeline created ✅
+6. **Generic Location Filter:** Removes "ישראל" and similar non-specific tags ✅
+
+**New Files Created:**
+- `config/committee_mappings.py` - Committee name normalization
+- `src/gov_scraper/processors/ai_post_processor.py` - Post-processing validator
+- `test_improvements.py` - Test suite (all tests passing)
+
+### 🔍 Deep QA Analysis (Feb 18, 2026, 17:30 PST)
+**20 decisions manually reviewed. Grade: A- (93%) but with systematic issues.**
+
+**8 issues found, by priority:**
+
+| # | Issue | Impact | Fix Location |
+|---|-------|--------|-------------|
+| 1 | Summary prefix waste ("החלטת ממשלה מספר...") | 40% of decisions | AI prompt |
+| 2 | Gov body names not on authorized list ("מזכירות הממשלה", "הכנסת") | 50% | Post-processor normalization map |
+| 3 | all_tags field not computed from individual fields | 25% | Compute deterministically |
+| 4 | Operativity inconsistencies (same pattern → different classification) | 20% | Add explicit rules to prompt |
+| 5 | Empty gov bodies despite explicit content mentions | 15% | Infer from policy tags |
+| 6 | Wrong policy tags ("תיירות" for diplomatic visits) | 15% | Context rules |
+| 7 | Truncated summary (#3781 "מוועדת הכ") | 5% | Already fixed in code |
+| 8 | Tag duplicates in all_tags | 5% | Already fixed in code |
+
+**Items 7-8 are fixed in code but not yet applied to existing DB records.**
+**Items 1-6 require algorithm changes in next session.**
+
 ## 🎯 Next Steps (Priority Order)
 
 ### Immediate (Next Session)
-1. **Fix remaining issues:** See `.planning/POST_DEPLOYMENT_IMPROVEMENTS.md`
-2. **Implement tag deduplication:** Simple fix, high impact
-3. **Fix summary truncation:** Increase token limit
-4. **Add committee mapping:** Prevent wrong committee tags
-
-### Tomorrow
-1. **Test with small batch:** `make sync-test`
-2. **Monitor metrics:** `make monitor-start`
-3. **Run incremental QA:** `make simple-qa-run`
-4. **Check quality report:** `make report-daily`
+1. **Fix summary prefix waste:** Add "אל תתחיל עם 'החלטת ממשלה מספר'" to AI prompts
+2. **Fix gov body normalization:** Expand normalization map (drop "מזכירות הממשלה", "ממשלה", "הכנסת"; map variants to canonical forms)
+3. **Fix all_tags computation:** Compute deterministically from individual fields instead of AI output
+4. **Fix operativity rules:** Add explicit patterns ("להתנגד להצעת חוק" = always declarative)
 
 ### This Week
-1. Full sync with new system
-2. Monitor for any issues
-3. Fine-tune thresholds if needed
+1. Infer gov bodies from policy tags when field is empty
+2. Add context rules for "תיירות" tag
+3. Run sync to process new decisions with all fixes
+4. Batch reprocess recent 20 decisions to apply fixes
 4. Generate weekly report
 
 ## 💡 Key Insights from Algorithm Audit

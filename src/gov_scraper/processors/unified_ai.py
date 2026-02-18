@@ -18,6 +18,17 @@ from .ai_prompts import (
 )
 from .ai_validator import AIResponseValidator
 
+# Try to import committee mappings if available
+try:
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
+    from config.committee_mappings import normalize_committee_name
+except ImportError:
+    logger.warning("Committee mappings not found, using direct mapping")
+    def normalize_committee_name(name):
+        return name
+
 # Set up logging
 logger = logging.getLogger(__name__)
 
@@ -151,6 +162,33 @@ class UnifiedAIProcessor:
                 if field not in parsed:
                     raise ValueError(f"Missing required field: {field}")
 
+            # Fix truncated summaries - ensure they end properly
+            if 'summary' in parsed and parsed['summary']:
+                summary = parsed['summary'].strip()
+                # Check if summary ends mid-word or without proper punctuation
+                if summary and not summary[-1] in '.!?׃:':
+                    # If it looks truncated, add ellipsis
+                    if len(summary) > 50 and not summary.endswith('...'):
+                        # Check if last word might be incomplete (no space before it within last 10 chars)
+                        last_space = summary.rfind(' ')
+                        if last_space > len(summary) - 15:
+                            # Remove potential incomplete word
+                            summary = summary[:last_space].rstrip()
+                        # Add proper ending
+                        summary = summary + '...'
+                        logger.debug(f"Fixed truncated summary: {summary[-50:]}")
+                    parsed['summary'] = summary
+
+            # Normalize committee names in government bodies
+            if 'government_bodies' in parsed and parsed['government_bodies']:
+                normalized_bodies = []
+                for body in parsed['government_bodies']:
+                    normalized = normalize_committee_name(body)
+                    if normalized != body:
+                        logger.debug(f"Normalized committee: '{body}' -> '{normalized}'")
+                    normalized_bodies.append(normalized)
+                parsed['government_bodies'] = normalized_bodies
+
             return parsed
 
         except json.JSONDecodeError as e:
@@ -225,7 +263,11 @@ class UnifiedAIProcessor:
             # Prepare content for processing
             smart_content = self._get_smart_content(decision_content, 4000)
 
-            # Build unified prompt
+            # Calculate dynamic summary parameters based on content length
+            from .ai import calculate_dynamic_summary_params
+            summary_instructions, max_tokens_for_summary = calculate_dynamic_summary_params(len(decision_content))
+
+            # Build unified prompt with dynamic summary instructions
             prompt = UNIFIED_PROCESSING_PROMPT.format(
                 policy_areas=" | ".join(self.policy_areas),
                 government_bodies=" | ".join(self.government_bodies),
@@ -233,11 +275,18 @@ class UnifiedAIProcessor:
                 policy_examples=POLICY_TAG_EXAMPLES,
                 decision_title=decision_title,
                 decision_content=smart_content,
-                decision_date=f"תאריך: {decision_date}" if decision_date else ""
+                decision_date=f"תאריך: {decision_date}" if decision_date else "",
+                summary_instructions=summary_instructions
             )
 
-            # Make unified API call
-            response = self._make_unified_request(prompt, max_tokens=1500)
+            # Calculate total max tokens (summary + other fields)
+            # Other fields need ~500 tokens, so add that to summary tokens
+            total_max_tokens = max_tokens_for_summary + 500
+
+            logger.debug(f"Content length: {len(decision_content)} -> summary: {summary_instructions}, tokens: {total_max_tokens}")
+
+            # Make unified API call with dynamic token limit
+            response = self._make_unified_request(prompt, max_tokens=total_max_tokens)
 
             # Parse response
             parsed = self._parse_unified_response(response)

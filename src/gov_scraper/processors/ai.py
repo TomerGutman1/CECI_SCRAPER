@@ -10,9 +10,40 @@ from typing import Dict, Optional, List, Set
 
 from ..config import GEMINI_API_KEY, GEMINI_MODEL, MAX_RETRIES, RETRY_DELAY, USE_UNIFIED_AI
 
+# Try importing post-processor if available
+try:
+    from .ai_post_processor import post_process_ai_results
+except ImportError:
+    logger.warning("Post-processor not found, using direct processing")
+    def post_process_ai_results(data, content=""):
+        return data
+
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def deduplicate_tags(tags_string: str, separator: str = ';') -> str:
+    """Remove duplicate tags from a separated string while preserving order.
+
+    Args:
+        tags_string: String of tags separated by separator
+        separator: The separator used (default ';')
+
+    Returns:
+        String with unique tags, preserving original order
+    """
+    if not tags_string:
+        return ""
+
+    # Split and strip whitespace
+    tags = [t.strip() for t in tags_string.split(separator)]
+
+    # Remove duplicates while preserving order
+    unique_tags = list(dict.fromkeys(tags))
+
+    # Rejoin with separator and space
+    return f"{separator} ".join(unique_tags)
 
 
 def _load_tag_list(filename: str) -> List[str]:
@@ -247,23 +278,82 @@ def validate_tag_3_steps(
     return "שונות" if tag_type == "policy" else ""
 
 
+def calculate_dynamic_summary_params(content_length: int) -> tuple[str, int]:
+    """Calculate appropriate summary instructions and token limit based on content size.
+
+    Args:
+        content_length: Number of characters in the decision content
+
+    Returns:
+        Tuple of (summary_instructions, max_tokens)
+    """
+    # Define thresholds (in characters)
+    SHORT = 2000      # ~1 page
+    MEDIUM = 5000     # ~2-3 pages
+    LONG = 10000      # ~4-6 pages
+    VERY_LONG = 20000 # ~8-12 pages
+
+    if content_length < SHORT:
+        # Very short decision - 1-2 sentences
+        instructions = "משפט או שניים קצרים ומדויקים"
+        max_tokens = 200
+    elif content_length < MEDIUM:
+        # Medium decision - 2-3 sentences
+        instructions = "2-3 משפטים המתארים את עיקר ההחלטה"
+        max_tokens = 300
+    elif content_length < LONG:
+        # Long decision - 3-4 sentences
+        instructions = "3-4 משפטים המכסים את הנקודות העיקריות"
+        max_tokens = 400
+    elif content_length < VERY_LONG:
+        # Very long decision - 4-5 sentences
+        instructions = "4-5 משפטים המפרטים את ההיבטים החשובים ביותר"
+        max_tokens = 500
+    else:
+        # Extremely long decision - full paragraph
+        instructions = "פסקה מלאה (5-7 משפטים) המכסה את כל ההיבטים המרכזיים של ההחלטה"
+        max_tokens = 700
+
+    return instructions, max_tokens
+
+
 def generate_summary(decision_content: str, decision_title: str) -> str:
-    """Generate a concise summary of the decision.
+    """Generate a summary of the decision with dynamic length based on content size.
 
     Note: Full content is passed to Gemini (no truncation).
     Gemini 2.0 Flash supports 1M tokens - max decision is ~15K tokens.
+
+    Summary length adapts to content size:
+    - Short decisions (<2K chars): 1-2 sentences
+    - Medium decisions (2-5K chars): 2-3 sentences
+    - Long decisions (5-10K chars): 3-4 sentences
+    - Very long decisions (10-20K chars): 4-5 sentences
+    - Extremely long decisions (>20K chars): Full paragraph (5-7 sentences)
     """
+    # Calculate appropriate summary parameters
+    content_length = len(decision_content)
+    summary_instructions, max_tokens = calculate_dynamic_summary_params(content_length)
+
+    # Log the decision about summary length
+    logger.debug(f"Decision content length: {content_length} chars -> using {max_tokens} tokens")
+
     prompt = f"""
-נא לסכם את ההחלטה הממשלתית הבאה במשפט או שניים קצרים ומדויקים:
+נא לסכם את ההחלטה הממשלתית הבאה ב{summary_instructions}:
 
 כותרת: {decision_title}
 
 תוכן ההחלטה:
 {decision_content}
 
+הנחיות:
+- התאם את אורך הסיכום לאורך ומורכבות ההחלטה
+- אם יש מספר נושאים או החלטות - ציין את כולם
+- שמור על בהירות ודיוק
+- אל תחתוך באמצע משפט
+
 סיכום:"""
 
-    return make_openai_request_with_retry(prompt, max_tokens=200)
+    return make_openai_request_with_retry(prompt, max_tokens=max_tokens)
 
 
 def generate_operativity(decision_content: str) -> str:
@@ -796,23 +886,30 @@ def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = 
             )
 
             # Convert unified result to legacy format
-            policy_areas_str = "; ".join(result.policy_areas) if result.policy_areas else "שונות"
-            government_bodies_str = "; ".join(result.government_bodies) if result.government_bodies else ""
-            locations_str = ", ".join(result.locations) if result.locations else ""
-
-            # Include special categories in policy areas if found
+            # First combine policy areas with special categories, then deduplicate
             all_policy_tags = result.policy_areas + result.special_categories
-            policy_areas_str = "; ".join(all_policy_tags[:4]) if all_policy_tags else "שונות"  # Max 4 tags
+            unique_policy_tags = list(dict.fromkeys(all_policy_tags))  # Remove duplicates while preserving order
+            policy_areas_str = "; ".join(unique_policy_tags[:4]) if unique_policy_tags else "שונות"  # Max 4 tags
 
-            # Combine all tags
-            all_tags_parts = []
+            # Deduplicate government bodies and locations
+            unique_gov_bodies = list(dict.fromkeys(result.government_bodies))
+            government_bodies_str = "; ".join(unique_gov_bodies) if unique_gov_bodies else ""
+
+            unique_locations = list(dict.fromkeys(result.locations))
+            locations_str = ", ".join(unique_locations) if unique_locations else ""
+
+            # Combine all tags and deduplicate across all categories
+            all_individual_tags = []
             if policy_areas_str:
-                all_tags_parts.append(policy_areas_str)
+                all_individual_tags.extend([t.strip() for t in policy_areas_str.split(';')])
             if government_bodies_str:
-                all_tags_parts.append(government_bodies_str)
+                all_individual_tags.extend([t.strip() for t in government_bodies_str.split(';')])
             if locations_str:
-                all_tags_parts.append(locations_str)
-            all_tags = '; '.join(all_tags_parts)
+                all_individual_tags.extend([t.strip() for t in locations_str.split(',')])
+
+            # Remove duplicates while preserving order
+            unique_all_tags = list(dict.fromkeys(all_individual_tags))
+            all_tags = '; '.join(unique_all_tags)
 
             # Update decision data with unified results
             decision_data.update({
@@ -827,6 +924,9 @@ def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = 
                 '_ai_confidence': result.tags_confidence,
                 '_ai_api_calls': result.api_calls_used
             })
+
+            # Apply post-processing cleanup
+            decision_data = post_process_ai_results(decision_data, decision_content)
 
             logger.info(f"Unified AI processing completed in {result.processing_time:.2f}s with {result.api_calls_used} API calls")
             logger.info(f"Results: policy={policy_areas_str}, govt={government_bodies_str}")
@@ -890,6 +990,9 @@ def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = 
         '_ai_confidence': 0.7,       # Default confidence
         '_ai_api_calls': 6           # Approximate legacy calls
     })
+
+    # Apply post-processing cleanup
+    decision_data = post_process_ai_results(decision_data, decision_content)
 
     logger.info(f"Legacy AI processing completed: policy={policy_areas}, govt={government_bodies}")
 
