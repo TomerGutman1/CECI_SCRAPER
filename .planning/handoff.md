@@ -1,46 +1,38 @@
 # Session Handoff
-**Date:** February 18, 2026
-**Focus:** Implemented post-deployment improvements (dedup, dynamic summaries, committee mapping, post-processor), then deep QA on 20 decisions found 8 systematic issues — top 4 still need fixing.
+**Date:** 2026-02-18
+**Focus:** Implemented whitelist enforcement, QA fixes, and planned server deployment
 
 ## Done
-- **Tag deduplication** — `deduplicate_tags()` in `ai.py` + full dedup in unified result conversion
-- **Dynamic summary length** — `calculate_dynamic_summary_params()` scales 200-700 tokens based on content length (5 tiers)
-- **Summary truncation fix** — detects mid-word cutoffs, removes incomplete words, adds "..."
-- **Committee mapping** — `config/committee_mappings.py` with 30+ variations → canonical forms
-- **Post-processor pipeline** — `src/gov_scraper/processors/ai_post_processor.py` — dedup, committee normalization, generic location filter ("ישראל"), ministry context validation (military≠police)
-- **Unified prompt updated** — `ai_prompts.py` now accepts `{summary_instructions}` for dynamic summary
-- **Deep QA on 20 decisions** — graded each on 4 axes, found 8 systematic issues with impact percentages
-- **CLAUDE.md** — fixed stale "NOT YET DEPLOYED" status section
-- **Tests** — `test_improvements.py` (6 tests all passing), `test_dynamic_summary.py`
+- **Summary prefix fix** — anti-prefix instructions added to all 3 prompts (legacy, unified, fallback) + post-processor regex safety net in `ai_post_processor.py`
+- **Gov body normalization** — expanded `BODY_NORMALIZATION` map with Knesset committees, single-yod variants, וו→ו handling
+- **Whitelist enforcement** — `enforce_policy_whitelist()` and `enforce_body_whitelist()` in `ai_post_processor.py` — loads authorized lists from `new_tags.md` / `new_departments.md` at module level, fuzzy match (Jaccard >=0.5), unauthorized tags dropped
+- **Operativity rules** — pattern-based override for bill opposition (→declarative) and principle approval patterns
+- **all_tags desync fix** — deterministic rebuild added at end of `apply_inline_fixes()` in `qa.py`
+- **Authorized list expansion** — added "השכלה גבוהה" to `new_tags.md` (46 tags), "המוסד לביטוח לאומי" to `new_departments.md` (45 bodies)
+- **Test sync** — 15 decisions synced and QA'd, all fixes confirmed working
+- **All 7 tests pass**
+- **Deployment plan written** — full plan at `.claude/plans/nifty-squishing-valiant.md`
 
 ## Not Done
-**8 issues identified in QA, top 4 NOT yet fixed:**
-
-1. **Summary prefix waste (40%)** — 8/20 summaries start with "החלטת ממשלה מספר XXXX". Need to add explicit instruction to AI prompt: "אל תתחיל עם מספר ההחלטה"
-2. **Gov body normalization (50%)** — AI returns names not on authorized list: "מזכירות הממשלה" (drop), "ועדת השרים לענייני חקיקה" (→"ועדת השרים"), "ממשלה" (drop), "הכנסת" (drop). Expand map in `ai_post_processor.py`
-3. **all_tags mismatch (25%)** — Field has tags not in individual fields and missing ones that are. Fix: compute deterministically from `tags_policy_area + tags_government_body + tags_location`
-4. **Operativity inconsistency (20%)** — "oppose bill" = declarative in #3871 but operative in #3873. Add rules: "להתנגד להצעת חוק"=declarative, "לאשר עקרונית+להסמיך"=operative
-
-**Lower priority (not started):**
-5. Empty gov bodies — infer from policy tags when empty (15%)
-6. "תיירות" on diplomatic visits (15%)
-
-**No new decisions processed** — DB was up to date. Fixes will apply to next sync.
+- **Commit & push** — 8 modified files uncommitted, 5 commits unpushed to origin
+- **Docker build & push** — image not yet rebuilt with new code
+- **Server deployment** — new image not deployed to `ceci` (178.62.39.248)
+- **Full re-sync** — all ~25K decisions need re-processing with improved AI pipeline
 
 ## Warnings
-- Gemini API rate limits hit 429 frequently. Backoff logic handles it but processing is slow.
-- Post-processor integrated but not yet tested on live sync — only unit tests.
-- `recent_decisions_sample.json` has the 20 decisions used for QA — use as test reference.
+- **Do NOT commit** `recent_decisions_qa.json` or `recent_sync_qa.json` — temporary QA exports
+- **5 commits already unpushed** — push all together with the new commit
+- `new_tags.md` and `new_departments.md` are copied into Docker image by Dockerfile — must rebuild image after changes
+- Full re-sync will take hours — run detached on server (tmux or `docker exec -d`)
 
 ## Next Session Priorities
-1. **Fix summary prefix** — add "אל תתחיל את התקציר עם 'החלטת ממשלה מספר...'" to prompts in `ai.py:340` and `ai_prompts.py:119`
-2. **Fix gov body normalization** — expand `BODY_NORMALIZATION` map in `ai_post_processor.py` to drop/remap unauthorized names
-3. **Fix all_tags** — compute from individual fields deterministically (replace AI-generated all_tags)
-4. **Fix operativity rules** — add pattern-based rules to prompt or post-processor
+1. **Commit, push, build, deploy** — follow the plan in `.claude/plans/nifty-squishing-valiant.md` steps 1-3
+2. **Test sync from server** — 1 decision to verify Docker image works (step 4)
+3. **Full re-sync from server** — unlimited sync, run detached (step 5)
+4. **Verify results** — QA after full sync completes (step 6)
 
 ## Read First
-- `.planning/state.md` — full issue table with impact percentages
-- `src/gov_scraper/processors/ai_post_processor.py` — post-processor to expand
-- `src/gov_scraper/processors/ai.py` — main AI processing (lines 340-356 for summary prompt)
-- `src/gov_scraper/processors/ai_prompts.py` — unified prompt (line 119 for summary instructions)
-- `recent_decisions_sample.json` — 20 QA decisions for testing
+- `.planning/state.md`
+- `.claude/plans/nifty-squishing-valiant.md` — the deployment plan (follow it step by step)
+- `SERVER-OPERATIONS.md` — server SSH/Docker commands reference
+- `Dockerfile` — confirms `new_tags.md` / `new_departments.md` are copied into image

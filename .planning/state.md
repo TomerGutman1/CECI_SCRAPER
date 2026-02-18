@@ -1,6 +1,6 @@
 # GOV2DB Project State
-**Last Updated:** 2026-02-18, 17:30 PST
-**Current Focus:** Algorithm refinement — 8 specific QA issues identified for next session
+**Last Updated:** 2026-02-18, 21:00 PST
+**Current Focus:** All QA fixes done + whitelist enforcement added. Ready for server deployment & full re-sync.
 **DB Records:** 25,036 decisions
 
 ## 🚨 Critical Issues Status
@@ -88,32 +88,51 @@
 
 | # | Issue | Impact | Fix Location |
 |---|-------|--------|-------------|
-| 1 | Summary prefix waste ("החלטת ממשלה מספר...") | 40% of decisions | AI prompt |
-| 2 | Gov body names not on authorized list ("מזכירות הממשלה", "הכנסת") | 50% | Post-processor normalization map |
-| 3 | all_tags field not computed from individual fields | 25% | Compute deterministically |
-| 4 | Operativity inconsistencies (same pattern → different classification) | 20% | Add explicit rules to prompt |
-| 5 | Empty gov bodies despite explicit content mentions | 15% | Infer from policy tags |
-| 6 | Wrong policy tags ("תיירות" for diplomatic visits) | 15% | Context rules |
-| 7 | Truncated summary (#3781 "מוועדת הכ") | 5% | Already fixed in code |
-| 8 | Tag duplicates in all_tags | 5% | Already fixed in code |
+| # | Issue | Impact | Status |
+|---|-------|--------|--------|
+| 1 | Summary prefix waste ("החלטת ממשלה מספר...") | 40% | ✅ FIXED — prompt instruction + regex strip in post-processor |
+| 2 | Gov body names not on authorized list | 50% | ✅ FIXED — BODY_NORMALIZATION map (50+ entries) in post-processor |
+| 3 | all_tags not computed from individual fields | 25% | ✅ FIXED — deterministic rebuild + special_categories support |
+| 4 | Operativity inconsistencies | 20% | ✅ FIXED — prompt rules + pattern-based override in post-processor |
+| 5 | Empty gov bodies despite explicit content mentions | 15% | Pending |
+| 6 | Wrong policy tags ("תיירות" for diplomatic visits) | 15% | Pending |
+| 7 | Truncated summary (#3781 "מוועדת הכ") | 5% | ✅ FIXED (prev session) |
+| 8 | Tag duplicates in all_tags | 5% | ✅ FIXED (prev session) |
 
-**Items 7-8 are fixed in code but not yet applied to existing DB records.**
-**Items 1-6 require algorithm changes in next session.**
+**Items 1-4, 7-8 are fixed in code. Items 5-6 are lower priority.**
+**Fixes apply to new decisions automatically. Existing DB records need batch reprocessing.**
+
+### 🔍 Post-Fix Sync QA (Feb 18, 2026, 19:00 PST)
+**15 new decisions synced and verified. Grade: A- (93%).**
+
+**Fixes confirmed working:**
+- 0/15 summaries start with forbidden prefix (was 40%)
+- "מזכירות הממשלה" dropped everywhere
+- Committee variants normalized to "ועדת השרים"
+- Bill opposition → declarative (3/3 correct)
+
+**New issues found and fixed:**
+| # | Issue | Impact | Status |
+|---|-------|--------|--------|
+| A | all_tags desync (qa.py strips bodies after all_tags built) | 20% | ✅ FIXED — rebuild all_tags at end of apply_inline_fixes() |
+| B | Missing BODY_NORMALIZATION entries | 13% | ✅ FIXED — added ועדת החוץ והביטחון של הכנסת (DROP) + variant without ה |
+| C | Duplicate decisions (committee/gov number) | 7% | Known — 2421/3847 are same decision |
+| D | "תיירות" tag on air agreements | 7% | Known issue #6, low priority |
 
 ## 🎯 Next Steps (Priority Order)
 
-### Immediate (Next Session)
-1. **Fix summary prefix waste:** Add "אל תתחיל עם 'החלטת ממשלה מספר'" to AI prompts
-2. **Fix gov body normalization:** Expand normalization map (drop "מזכירות הממשלה", "ממשלה", "הכנסת"; map variants to canonical forms)
-3. **Fix all_tags computation:** Compute deterministically from individual fields instead of AI output
-4. **Fix operativity rules:** Add explicit patterns ("להתנגד להצעת חוק" = always declarative)
+### Immediate — Server Deployment
+1. **Commit & push** all 8 modified files + 5 unpushed commits to GitHub
+2. **Build Docker image** (linux/amd64) and push to Docker Hub
+3. **Deploy to server** (`ssh ceci`) — pull image, restart container
+4. **Test sync** — 1 decision from server to verify
+5. **Full re-sync** — all ~25K decisions, run detached on server
+
+**Full deployment plan:** `.claude/plans/nifty-squishing-valiant.md`
 
 ### This Week
-1. Infer gov bodies from policy tags when field is empty
-2. Add context rules for "תיירות" tag
-3. Run sync to process new decisions with all fixes
-4. Batch reprocess recent 20 decisions to apply fixes
-4. Generate weekly report
+6. Infer gov bodies from policy tags when field is empty (issue #5)
+7. Add context rules for "תיירות" tag (issue #6)
 
 ## 💡 Key Insights from Algorithm Audit
 
