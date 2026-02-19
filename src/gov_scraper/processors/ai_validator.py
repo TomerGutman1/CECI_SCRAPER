@@ -98,33 +98,159 @@ class AIResponseValidator:
 
         return intersection / union if union > 0 else 0.0
 
-    def _validate_tag_content_relevance(self, tags: List[str], content: str, title: str) -> float:
-        """Validate that tags are relevant to content (30% keyword overlap target)."""
-        if not tags:
-            return 0.0
+    def _validate_tag_content_relevance(self, policy_tags: List[str], decision_content: str,
+                                      decision_title: str) -> Tuple[List[str], List[str]]:
+        """
+        Enhanced validation to check tag-content relevance using detection profiles.
 
-        # Combine title and content for analysis
-        full_text = f"{title} {content}"
-        content_keywords = self._extract_keywords(full_text)
+        Returns:
+            Tuple of (validated_tags, rejected_tags_with_reasons)
+        """
+        try:
+            # Import tag detection profiles
+            from config.tag_detection_profiles import TAG_DETECTION_PROFILES
+        except ImportError:
+            logger.warning("Tag detection profiles not available, using basic validation")
+            return policy_tags, []
 
-        if not content_keywords:
-            return 0.0
+        combined_content = f"{decision_title} {decision_content}".lower()
+        validated_tags = []
+        rejected_tags = []
 
-        tag_relevance_scores = []
-
-        for tag in tags:
-            tag_keywords = self._extract_keywords(tag)
-            if not tag_keywords:
-                tag_relevance_scores.append(0.0)
+        for tag in policy_tags:
+            tag = tag.strip()
+            if not tag:
                 continue
 
-            # Calculate overlap
-            overlap = self._calculate_keyword_overlap(tag, full_text)
-            tag_relevance_scores.append(overlap)
+            # Get detection profile for this tag
+            profile = TAG_DETECTION_PROFILES.get(tag, {})
+            if not profile:
+                # No profile means we can't validate - keep the tag
+                validated_tags.append(tag)
+                continue
 
-        # Return average relevance
-        avg_relevance = sum(tag_relevance_scores) / len(tag_relevance_scores)
-        return avg_relevance
+            # Check keyword overlap
+            keywords = profile.get('keywords', [])
+            priority_keywords = profile.get('priority_keywords', [])
+            negative_indicators = profile.get('negative_indicators', [])
+
+            # Count matches for different keyword types
+            keyword_matches = sum(1 for kw in keywords if kw.lower() in combined_content)
+            priority_matches = sum(1 for kw in priority_keywords if kw.lower() in combined_content)
+            negative_matches = sum(1 for kw in negative_indicators if kw.lower() in combined_content)
+
+            # Relevance scoring
+            total_keywords = len(keywords)
+            total_priority = len(priority_keywords)
+
+            keyword_score = keyword_matches / total_keywords if total_keywords > 0 else 0
+            priority_score = priority_matches / total_priority if total_priority > 0 else 0
+
+            # Enhanced relevance criteria
+            has_strong_relevance = (
+                priority_score >= 0.2 or  # At least 20% priority keyword match
+                keyword_score >= 0.1      # At least 10% keyword match
+            )
+
+            has_negative_indicators = negative_matches > 0
+
+            # Special rules for specific tag types
+            tag_specific_validation = self._apply_tag_specific_rules(
+                tag, decision_title, decision_content
+            )
+
+            # Final decision
+            if tag_specific_validation == "reject":
+                rejected_tags.append(f"{tag} (specific rule violation)")
+            elif tag_specific_validation == "accept":
+                validated_tags.append(tag)
+            elif has_negative_indicators and not has_strong_relevance:
+                rejected_tags.append(f"{tag} (negative indicators present)")
+            elif has_strong_relevance:
+                validated_tags.append(tag)
+            else:
+                rejected_tags.append(f"{tag} (insufficient relevance: kw={keyword_score:.2f}, pri={priority_score:.2f})")
+
+        return validated_tags, rejected_tags
+
+    def _apply_tag_specific_rules(self, tag: str, decision_title: str, decision_content: str) -> str:
+        """
+        Apply specific validation rules for certain tags.
+
+        Returns:
+            "accept" - Force accept the tag
+            "reject" - Force reject the tag
+            "neutral" - Use standard validation
+        """
+        content_lower = f"{decision_title} {decision_content}".lower()
+
+        # Appointment-related rules
+        if any(word in content_lower for word in ["מינוי", "למנות", "הארכת כהונת"]):
+            if tag == "מינויים":
+                return "accept"  # Always accept מינויים for appointments
+            elif tag not in ["מנהלתי", "מינויים"]:
+                return "reject"  # Reject domain tags for pure appointments
+
+        # Administrative/procedural rules
+        if any(word in content_lower for word in ["נסיעת", "הקמת ועדה", "רושמת לפניה"]):
+            if tag == "מנהלתי":
+                return "accept"  # Always accept מנהלתי for admin actions
+            elif tag not in ["מנהלתי", "מינויים"]:
+                return "reject"  # Reject domain tags for admin actions
+
+        # Budget/operative rules
+        if any(word in content_lower for word in ["להקצות", "תקציב", "מיליון", "אלף"]):
+            if tag in ["תקציב, פיננסים, ביטוח ומיסוי"]:
+                return "accept"  # Budget decisions should have budget tags
+
+        return "neutral"
+
+    def validate_policy_tags_with_profiles(self, policy_tags: List[str], decision_content: str,
+                                         decision_title: str) -> ValidationResult:
+        """
+        Public method to validate policy tags using detection profiles.
+
+        Returns ValidationResult with validated tags and rejection reasons.
+        """
+        if not policy_tags:
+            return ValidationResult(
+                is_valid=True,
+                confidence_score=1.0,
+                errors=[],
+                warnings=[],
+                suggestions=[]
+            )
+
+        validated_tags, rejected_tags = self._validate_tag_content_relevance(
+            policy_tags, decision_content, decision_title
+        )
+
+        # Calculate validation scores
+        total_tags = len(policy_tags)
+        validated_count = len(validated_tags)
+        rejection_rate = (total_tags - validated_count) / total_tags if total_tags > 0 else 0
+
+        is_valid = rejection_rate <= 0.3  # Accept if less than 30% rejected
+        confidence_score = validated_count / total_tags if total_tags > 0 else 0
+
+        # Generate warnings and suggestions
+        warnings = []
+        suggestions = []
+
+        if rejected_tags:
+            warnings.append(f"Rejected {len(rejected_tags)} irrelevant tags")
+            suggestions.append("Consider using tag detection profiles for better accuracy")
+
+        if len(validated_tags) > 2:
+            warnings.append("More than 2 policy tags assigned - consider focusing on primary tag")
+
+        return ValidationResult(
+            is_valid=is_valid,
+            confidence_score=confidence_score,
+            errors=rejected_tags,
+            warnings=warnings,
+            suggestions=suggestions
+        )
 
     def _validate_summary_tag_alignment(self, summary: str, tags: List[str]) -> float:
         """Validate that summary aligns with selected tags."""

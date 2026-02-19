@@ -358,32 +358,44 @@ def generate_summary(decision_content: str, decision_title: str) -> str:
 
 
 def generate_operativity(decision_content: str) -> str:
-    """Determine the operational status of the decision."""
+    """Determine the operational status of the decision with bias correction."""
     prompt = f"""נא לקבוע את סוג הפעילות של ההחלטה הממשלתית הבאה.
 ענה במילה אחת בלבד: "אופרטיבית" או "דקלרטיבית".
 
-הגדרות:
-- אופרטיבית: החלטה שמחייבת פעולה מעשית עם השפעה תקציבית, מדינית, או מבצעית.
-  דוגמאות אופרטיביות:
-  1. "להקצות 50 מיליון ש"ח לפיתוח תשתיות" - הקצאת תקציב
-  2. "מטיל על משרד הבריאות לגבש תוכנית" - הוראת ביצוע
-  3. "לאשר את ההסכם הקיבוצי עם ההסתדרות" - אישור הסכם מחייב
-  4. "לשנות את כללי הרגולציה בתחום הבנקאות" - שינוי מדיניות
-  5. "להגדיל את מספר המלגות ל-500 בשנה" - שינוי כמותי מחייב
+🚨 אזהרת הטיה: רוב החלטות הממשלה הן דקלרטיביות! אל תפלטר כל החלטה כאופרטיבית.
+בחן בקפדנות האם יש פעולה מעשית נדרשת או שמדובר בהכרזה/מינוי/עמדה.
 
-- דקלרטיבית: החלטה פורמלית, הכרזה, הבעת עמדה, מינוי, הקמת ועדה לבחינה, או רישום.
-  דוגמאות דקלרטיביות:
-  1. "למנות את ד"ר שרה כהן למנהלת המחלקה" - מינוי לתפקיד (פעולה רישומית)
-  2. "הממשלה רושמת בפניה את חשיבות החינוך" - רישום
-  3. "להקים ועדה לבחינת הנושא" - הקמת ועדה (אינה יוצרת שינוי מעשי)
-  4. "הממשלה מביעה הערכה לפעילות הארגונים" - הבעת עמדה
-  5. "הממשלה מכירה בחשיבות שיתוף הציבור" - הכרה עקרונית
+## שלב 1: זיהוי מילות מפתח
 
-כללים חשובים:
-- מינויים לתפקידים והקמת ועדות לבחינה = דקלרטיביות (פעולות רישומיות)
-- "להתנגד להצעת חוק" / "לתמוך בהצעת חוק" = דקלרטיבית (הבעת עמדה, לא פעולה)
-- "לאשר עקרונית" בלבד = דקלרטיבית (אישור עקרוני ללא פעולה)
-- "לאשר עקרונית" + "להסמיך" + תקציב/פעולה = אופרטיבית
+### מילות מפתח דקלרטיביות (רשימה חלקית):
+מינוי, אישור מינוי, למנות, הסמכת, ועדת השרים, ועדת הכנסת, להקים ועדה, הממשלה מביעה, הממשלה רושמת, הממשלה מכירה, להכיר ב-, אישור עקרוני, הבעת עמדה, רישום בפניה, הכרה ב-, להתנגד להצעת חוק, לתמוך בהצעת חוק
+
+### מילות מפתח אופרטיביות (רשימה חלקית):
+הקצאת תקציב, להקצות, הקמת יישובים, לבנות, לפתח, להטיל מס, לשנות את כללי, להגדיל את מספר, לקבוע תעריף, ביצוע פרויקט, יישום התוכנית
+
+## שלב 2: הגדרות מדויקות
+
+**אופרטיבית:** החלטה הדורשת פעולה מעשית עם השפעה תקציבית/מבצעית.
+דוגמאות:
+- הקצאת 50 מיליון ש"ח לתשתיות (תקציב)
+- הטלת מס חדש (שינוי כלכלי)
+- בניית כבישים/בתי ספר (פעולה פיזית)
+- שינוי תקנות/חוקים (שינוי משפטי)
+
+**דקלרטיבית:** החלטה רישומית, הכרזה, הבעת עמדה, מינוי, או הקמת ועדה.
+דוגמאות:
+- מינוי מנהל/דירקטור (פעולה רישומית)
+- הקמת ועדת בחינה (לא יוצרת שינוי מיידי)
+- הבעת תמיכה/התנגדות לחוק כנסת (עמדה)
+- הכרה בארגון/גורם (הכרה רישומית)
+- רישום חשיבות נושא (הצהרה)
+
+## כללי החלטה:
+1. מינויים = תמיד דקלרטיביות (גם מנהלים בכירים)
+2. הקמת ועדות = דקלרטיביות (אלא אם מוקצה תקציב לפעולה)
+3. עמדות כלפי חקיקת כנסת = דקלרטיביות
+4. "אישור עקרוני" ללא תקציב = דקלרטיבית
+5. בספק - העדף דקלרטיבית (רוב החלטות הממשלה)
 
 תוכן ההחלטה:
 {decision_content}
@@ -403,6 +415,70 @@ def generate_operativity(decision_content: str) -> str:
     # Flag as unclear instead of defaulting to operative
     logger.warning("Operativity classification unclear — flagging as 'לא ברור'")
     return "לא ברור"
+
+
+def validate_operativity_classification(operativity: str, decision_content: str, decision_title: str) -> str:
+    """
+    Rule-based validation to override AI operativity classification for high-confidence patterns.
+
+    This function corrects systematic AI bias by applying deterministic rules
+    for patterns that have >90% confidence of correct classification.
+
+    Args:
+        operativity: AI-generated operativity classification
+        decision_content: Full decision text
+        decision_title: Decision title
+
+    Returns:
+        Validated/corrected operativity classification
+    """
+    combined_text = (decision_title + " " + decision_content).lower()
+
+    # High-confidence DECLARATIVE patterns (>95% confidence)
+    declarative_patterns = [
+        # Appointments - always declarative
+        "מינוי", "למנות", "אישור מינוי", "מינויו של", "מינויה של",
+        # Committee establishment/delegation - declarative unless budget involved
+        "להקים ועדה", "הקמת ועדה", "ועדה לבחינת", "ועדה לטיפול",
+        # Legislative positions - declarative
+        "להתנגד להצעת חוק", "לתמוך בהצעת חוק", "הממשלה מתנגדת", "הממשלה תומכת",
+        # Government statements/positions - declarative
+        "הממשלה מביעה", "הממשלה רושמת", "הממשלה מכירה", "רישום בפניה",
+        "הבעת עמדה", "הכרה ב", "להכיר ב",
+        # Delegation without budget - declarative
+        "הסמכת שר", "הסמכת שרה", "להסמיך את השר"
+    ]
+
+    # High-confidence OPERATIVE patterns (>90% confidence)
+    operative_patterns = [
+        # Budget allocation - always operative
+        "הקצאת תקציב", "להקצות תקציב", "הקצאה תקציבית", "מיליון שח",
+        # Construction/development - operative
+        "בניית", "הקמת יישובים", "פיתוח תשתית", "הקמת מפעל",
+        # Tax/regulation changes - operative
+        "להטיל מס", "לשנות את כללי", "תיקון תקנה", "קביעת תעריף",
+        # Quantitative changes - operative
+        "להגדיל את מספר", "להקטין את מספר", "לקבוע מכסת"
+    ]
+
+    # Check for high-confidence declarative patterns
+    for pattern in declarative_patterns:
+        if pattern in combined_text:
+            if operativity == "אופרטיבית":
+                logger.info(f"Operativity override: '{pattern}' → DECLARATIVE (was {operativity})")
+                return "דקלרטיבית"
+            break
+
+    # Check for high-confidence operative patterns
+    for pattern in operative_patterns:
+        if pattern in combined_text:
+            if operativity == "דקלרטיבית":
+                logger.info(f"Operativity override: '{pattern}' → OPERATIVE (was {operativity})")
+                return "אופרטיבית"
+            break
+
+    # No high-confidence pattern found, return AI classification
+    return operativity
 
 
 def generate_policy_area_tags_strict(
@@ -508,14 +584,36 @@ def generate_government_body_tags_validated(
 גופים ממשלתיים מורשים:
 {bodies_str}
 
-נא לזהות את הגופים הרלוונטיים להחלטה הבאה:
+זהה את הגופים הרלוונטיים להחלטה הבאה:
 
 כותרת: {decision_title}
 תוכן: {decision_content}
 
-הנחיות:
+🎯 כללי זיהוי (לפי סדר עדיפות):
+
+1. **מפורש בטקסט** - גופים הנזכרים במפורש בהחלטה:
+   - "משרד החינוך מחליט על..."
+   - "ועדת השרים אישרה..."
+   - "שר הבריאות ימנה..."
+
+2. **אחריות ישירה** - הגוף האחראי לנושא אם יש קשר ברור:
+   - החלטות תקציביות → משרד האוצר
+   - חקיקה/רגולציה → משרד המשפטים
+   - מינויים בכירים → נציבות שירות המדינה
+   - ביטוח לאומי → המוסד לביטוח לאומי
+
+3. **אל תכלול**:
+   - גופים לא ממשלתיים (חברות פרטיות, ארגוני חברה אזרחית)
+   - גופים כלליים מדי ("הממשלה", "מזכירות הממשלה")
+   - גופים שאינם קשורים לנושא ההחלטה
+
+🚫 **אזהרות חשובות**:
+- אל תמציא גופים שאינם ברשימה המורשת
+- אל תוסיף "משרד" לפני שמות שאין להם משרד (כמו "משטרת ישראל")
+- העתק שמות בדיוק מהרשימה המורשת
+
+הנחיות טכניות:
 - בחר 1-3 גופים מהרשימה למעלה
-- בחר רק גופים שמוזכרים במפורש בהחלטה
 - העתק את השם המדויק מהרשימה
 - הפרד גופים ב-;
 
@@ -948,8 +1046,9 @@ def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = 
     # Step 1: Generate summary (needed for validation)
     summary = generate_summary(decision_content, decision_title)
 
-    # Step 2: Generate operativity
+    # Step 2: Generate operativity with validation
     operativity = generate_operativity(decision_content)
+    operativity = validate_operativity_classification(operativity, decision_content, decision_title)
 
     # Step 3: Policy area tags (with summary for validation)
     policy_areas = generate_policy_area_tags_strict(

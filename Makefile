@@ -9,7 +9,7 @@ SRC_DIR := src
 TEST_DIR := tests
 DOCS_DIR := docs
 
-.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30 qa-scan qa-scan-check qa-fix-preview qa-fix-dry qa-fix-execute special-tags-preview special-tags-dry special-tags-year special-tags-all incremental-qa-setup incremental-qa-run incremental-qa-status incremental-qa-report incremental-qa-cleanup test-qa test-unit test-integration test-performance test-regression test-property test-all-qa test-coverage test-report install-dev setup-dev format-check security pre-commit install-hooks ci-test health-check
+.PHONY: help install sync overnight large-batch test test-connection clean docs lint format setup migrate-preview migrate-preview-n migrate-dry migrate-execute migrate-execute-yes migrate-all-years migrate-year monitor monitor-30 qa-scan qa-scan-check qa-fix-preview qa-fix-dry qa-fix-execute special-tags-preview special-tags-dry special-tags-year special-tags-all incremental-qa-setup incremental-qa-run incremental-qa-status incremental-qa-report incremental-qa-cleanup test-qa test-unit test-integration test-performance test-regression test-property test-all-qa test-coverage test-report install-dev setup-dev format-check security pre-commit install-hooks ci-test health-check discover discover-resume discover-test full-scrape full-scrape-test push-local push-local-qa
 
 # Default target - show help
 help:
@@ -45,6 +45,17 @@ help:
 	@echo "  make simple-qa-reset             - Reset change tracking"
 	@echo "  make enhanced-qa-run             - Run enhanced incremental QA (optimized)"
 	@echo "  make enhanced-qa-status          - Show enhanced QA status"
+	@echo ""
+	@echo "📋 3-Phase Pipeline commands:"
+	@echo "  make discover                    - Phase 1: Discover all decision URLs"
+	@echo "  make discover-resume             - Resume discovery from checkpoint"
+	@echo "  make discover-test               - Test discovery (3 pages only)"
+	@echo "  make full-scrape                 - Phase 2: Scrape all from manifest (local)"
+	@echo "  make full-scrape-resume          - Resume scrape from checkpoint"
+	@echo "  make full-scrape-test            - Test scrape (5 decisions from manifest)"
+	@echo "  make full-scrape-ai-only         - Re-run AI on existing raw data (no Chrome)"
+	@echo "  make push-local                  - Phase 3: Push local data to Supabase"
+	@echo "  make push-local-qa               - QA check local data before pushing"
 	@echo ""
 	@echo "📊 Real-time Monitoring:"
 	@echo "  make monitor-start               - Start real-time quality monitoring"
@@ -154,17 +165,7 @@ test-conn:
 	@echo "🔌 Testing database connection..."
 	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(TEST_DIR)/test_connection.py
 
-# Clean up generated files
-clean:
-	@echo "🧹 Cleaning up..."
-	@find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-	@find . -type f -name "*.pyc" -delete 2>/dev/null || true
-	@find . -type f -name "*.pyo" -delete 2>/dev/null || true
-	@find . -type f -name "*.pyd" -delete 2>/dev/null || true
-	@find . -type f -name ".coverage" -delete 2>/dev/null || true
-	@find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
-	@rm -f nohup.out 2>/dev/null || true
-	@echo "✅ Cleanup complete!"
+# Clean up generated files (see enhanced version in QA section)
 
 # View documentation
 docs:
@@ -655,6 +656,79 @@ simple-qa-reset:
 	@source $(VENV_DIR)/bin/activate && $(PYTHON) bin/simple_incremental_qa.py reset
 
 # =============================================================================
+# 📋 3-Phase Pipeline Commands (Discovery → Scraping → Push)
+# =============================================================================
+
+# Phase 1: Discovery - Find all decision URLs from gov.il catalog
+discover:
+	@echo "🔍 Starting catalog discovery (full scan)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/discover_all.py --no-headless
+
+# Resume discovery from where it left off
+discover-resume:
+	@echo "🔄 Resuming catalog discovery..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/discover_all.py --resume --no-headless
+
+# Test discovery with limited pages
+discover-test:
+	@echo "🧪 Testing discovery (3 pages only)..."
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/discover_all.py --max-pages 3 --no-headless
+
+# Phase 2: Full Scrape - Process all URLs from manifest (local storage)
+full-scrape:
+	@echo "📦 Starting full scrape from manifest (local storage)..."
+	@if [ ! -f "data/catalog_manifest.json" ]; then \
+		echo "❌ Manifest not found! Run 'make discover' first"; \
+		exit 1; \
+	fi
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/full_local_scraper.py --manifest data/catalog_manifest.json --output data/scraped/latest.json --no-headless --verbose
+
+# Resume full scrape from checkpoint
+full-scrape-resume:
+	@echo "🔄 Resuming full scrape from checkpoint..."
+	@if [ ! -f "data/catalog_manifest.json" ]; then \
+		echo "❌ Manifest not found! Run 'make discover' first"; \
+		exit 1; \
+	fi
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/full_local_scraper.py --manifest data/catalog_manifest.json --output data/scraped/latest.json --no-headless --resume --verbose
+
+# Test full scrape with limited decisions
+full-scrape-test:
+	@echo "🧪 Testing full scrape (5 decisions from manifest)..."
+	@if [ ! -f "data/catalog_manifest.json" ]; then \
+		echo "❌ Manifest not found! Run 'make discover-test' first"; \
+		exit 1; \
+	fi
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/full_local_scraper.py --manifest data/catalog_manifest.json --output data/scraped/latest.json --no-headless --max-decisions 5 --verbose
+
+# AI-only mode: skip scraping, run AI on existing raw data
+full-scrape-ai-only:
+	@echo "🤖 Running AI processing on existing raw data (no Chrome)..."
+	@if [ ! -f "data/scraped/latest_raw.json" ]; then \
+		echo "❌ No raw data found! Run 'make full-scrape' first to scrape"; \
+		exit 1; \
+	fi
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/full_local_scraper.py --manifest data/catalog_manifest.json --output data/scraped/latest.json --ai-only --verbose
+
+# Phase 3: Push Local Data - Upload scraped data to Supabase
+push-local:
+	@echo "📤 Pushing local scraped data to Supabase..."
+	@if [ ! -f "data/scraped/latest.json" ]; then \
+		echo "❌ No scraped data found! Run 'make full-scrape' first"; \
+		exit 1; \
+	fi
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/push_local.py --file data/scraped/latest.json --push
+
+# QA check local data before pushing
+push-local-qa:
+	@echo "🔍 Running QA on local scraped data..."
+	@if [ ! -f "data/scraped/latest.json" ]; then \
+		echo "❌ No scraped data found! Run 'make full-scrape' first"; \
+		exit 1; \
+	fi
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) $(BIN_DIR)/push_local.py --file data/scraped/latest.json --qa-only
+
+# =============================================================================
 # 🚀 Algorithm Improvement Deployment Commands
 # =============================================================================
 
@@ -704,30 +778,20 @@ monitor-ai-performance:
 # Quick deployment validation
 deploy-validate:
 	@echo "🧪 Running quick deployment validation..."
-	@source $(VENV_DIR)/bin/activate && $(PYTHON) -c "
-import sys
-try:
-    # Check tag profiles
-    from config.tag_detection_profiles import TAG_DETECTION_PROFILES
-    print(f'✅ Tag profiles loaded: {len(TAG_DETECTION_PROFILES)} tags')
-
-    # Check ministry rules
-    from config.ministry_detection_rules import MINISTRY_DETECTION_RULES
-    print(f'✅ Ministry rules loaded: {len(MINISTRY_DETECTION_RULES)} ministries')
-
-    # Check unified AI
-    import os
-    if os.path.exists('src/gov_scraper/processors/unified_ai.py'):
-        print('✅ Unified AI processor found')
-
-    # Check monitoring
-    if os.path.exists('src/gov_scraper/monitoring/quality_monitor.py'):
-        print('✅ Quality monitor found')
-
-    print('\\n✅ All components ready for deployment!')
-except Exception as e:
-    print(f'❌ Validation failed: {e}')
-    sys.exit(1)
+	@source $(VENV_DIR)/bin/activate && $(PYTHON) -c "\
+import sys; \
+try: \
+    from config.tag_detection_profiles import TAG_DETECTION_PROFILES; \
+    print(f'✅ Tag profiles loaded: {len(TAG_DETECTION_PROFILES)} tags'); \
+    from config.ministry_detection_rules import MINISTRY_DETECTION_RULES; \
+    print(f'✅ Ministry rules loaded: {len(MINISTRY_DETECTION_RULES)} ministries'); \
+    import os; \
+    print('✅ Unified AI processor found' if os.path.exists('src/gov_scraper/processors/unified_ai.py') else '⚠️ Unified AI not found'); \
+    print('✅ Quality monitor found' if os.path.exists('src/gov_scraper/monitoring/quality_monitor.py') else '⚠️ Quality monitor not found'); \
+    print('✅ All components ready for deployment!'); \
+except Exception as e: \
+    print(f'❌ Validation failed: {e}'); \
+    sys.exit(1) \
 "
 
 # Full deployment workflow

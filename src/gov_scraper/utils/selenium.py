@@ -3,6 +3,7 @@
 import time
 import random
 import logging
+import platform
 import subprocess
 from typing import Optional
 import undetected_chromedriver as uc
@@ -11,6 +12,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from bs4 import BeautifulSoup
+
+# Fix: undetected_chromedriver hardcodes mac-x64, breaks on Apple Silicon (arm64)
+if platform.system() == "Darwin" and platform.machine() == "arm64":
+    _orig_set_platform_name = uc.patcher.Patcher._set_platform_name
+    def _patched_set_platform_name(self):
+        _orig_set_platform_name(self)
+        if self.platform_name == "mac-x64":
+            self.platform_name = "mac-arm64"
+    uc.patcher.Patcher._set_platform_name = _patched_set_platform_name
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -172,7 +182,21 @@ class SeleniumWebDriver:
             logger.info(f"Session fingerprint: resolution={resolution}, lang={language.split(',')[0]}")
 
             chrome_version = _detect_chrome_version()
-            self.driver = uc.Chrome(options=options, version_main=chrome_version)
+
+            # Use pre-patched chromedriver if available (avoids IPv6 download hang)
+            import os as _os
+            patched_path = _os.path.expanduser(
+                "~/Library/Application Support/undetected_chromedriver/patched_chromedriver"
+            )
+            if _os.path.exists(patched_path):
+                logger.info(f"Using pre-patched chromedriver: {patched_path}")
+                self.driver = uc.Chrome(
+                    options=options,
+                    version_main=chrome_version,
+                    driver_executable_path=patched_path,
+                )
+            else:
+                self.driver = uc.Chrome(options=options, version_main=chrome_version)
             self.driver.set_page_load_timeout(timeout)
 
             logger.info("Undetected Chrome WebDriver initialized successfully")

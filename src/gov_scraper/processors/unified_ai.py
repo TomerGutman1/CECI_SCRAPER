@@ -17,6 +17,7 @@ from .ai_prompts import (
     validate_confidence_scores
 )
 from .ai_validator import AIResponseValidator
+from .alignment_validator import create_alignment_validator
 
 # Try to import committee mappings if available
 try:
@@ -43,10 +44,16 @@ class AIProcessingResult:
     locations: List[str]
     special_categories: List[str]
 
+    # New alignment fields
+    core_theme: str  # The main theme/essence of the decision
+    alignment_check: str  # AI's self-assessment of alignment
+    alignment_score: float  # Quantitative alignment measure
+
     # Confidence scores (0.0-1.0)
     summary_confidence: float
     operativity_confidence: float
     tags_confidence: float
+    alignment_confidence: float  # New alignment confidence
 
     # Evidence tracking
     summary_evidence: str  # Quote from source
@@ -76,6 +83,7 @@ class UnifiedAIProcessor:
         self.policy_areas = policy_areas
         self.government_bodies = government_bodies
         self.validator = AIResponseValidator(policy_areas, government_bodies)
+        self.alignment_validator = create_alignment_validator(policy_areas)
         self.client = genai.Client(api_key=GEMINI_API_KEY)
         self.response_cache = {}  # Simple cache for retries
 
@@ -157,6 +165,8 @@ class UnifiedAIProcessor:
                 'summary', 'operativity', 'policy_areas', 'government_bodies',
                 'locations', 'special_categories', 'confidence_scores', 'evidence'
             ]
+            # New optional fields for enhanced alignment
+            optional_fields = ['core_theme', 'alignment_check']
 
             for field in required_fields:
                 if field not in parsed:
@@ -196,40 +206,108 @@ class UnifiedAIProcessor:
             logger.error(f"Response was: {response[:500]}")
             raise ValueError(f"Invalid JSON response from AI: {e}")
 
-    def _extract_confidence_scores(self, parsed: Dict[str, Any]) -> Tuple[float, float, float]:
-        """Extract and validate confidence scores."""
+    def _extract_confidence_scores(self, parsed: Dict[str, Any]) -> Tuple[float, float, float, float]:
+        """Extract and validate confidence scores including new alignment confidence."""
         confidence = parsed.get('confidence_scores', {})
+        if not isinstance(confidence, dict):
+            confidence = {}
 
-        summary_conf = confidence.get('summary', 0.5)
-        operativity_conf = confidence.get('operativity', 0.5)
-        tags_conf = confidence.get('tags', 0.5)
+        def _safe_float(val, default=0.5):
+            """Coerce value to float, handling dicts/lists/strings from AI."""
+            if isinstance(val, (int, float)):
+                return max(0.0, min(1.0, float(val)))
+            if isinstance(val, str):
+                try:
+                    return max(0.0, min(1.0, float(val)))
+                except ValueError:
+                    return default
+            return default
 
-        # Validate confidence scores are in range [0, 1]
-        summary_conf = max(0.0, min(1.0, summary_conf))
-        operativity_conf = max(0.0, min(1.0, operativity_conf))
-        tags_conf = max(0.0, min(1.0, tags_conf))
+        summary_conf = _safe_float(confidence.get('summary', 0.5))
+        operativity_conf = _safe_float(confidence.get('operativity', 0.5))
+        tags_conf = _safe_float(confidence.get('tags', 0.5))
+        alignment_conf = _safe_float(confidence.get('alignment', 0.5))
 
-        return summary_conf, operativity_conf, tags_conf
+        return summary_conf, operativity_conf, tags_conf, alignment_conf
+
+    def _calculate_alignment_score(self, parsed: Dict[str, Any], alignment_check: str) -> float:
+        """Calculate quantitative alignment score based on AI assessment and validation."""
+        # Base score from AI assessment
+        if "כן" in alignment_check:
+            base_score = 0.8
+        elif "חלקי" in alignment_check or "ברוב" in alignment_check:
+            base_score = 0.6
+        elif "לא" in alignment_check:
+            base_score = 0.3
+        else:
+            base_score = 0.5  # Unknown/unclear
+
+        # Cross-validate by checking semantic overlap
+        try:
+            summary_words = set(parsed.get('summary', '').lower().split())
+            tag_words = set()
+
+            # Extract words from policy tags
+            for tag in parsed.get('policy_areas', []):
+                tag_words.update(tag.lower().split())
+
+            # Calculate word overlap (simplified semantic alignment)
+            if summary_words and tag_words:
+                overlap = len(summary_words.intersection(tag_words))
+                total = len(summary_words.union(tag_words))
+                semantic_overlap = overlap / total if total > 0 else 0
+
+                # Adjust base score based on semantic overlap
+                if semantic_overlap > 0.2:  # Good overlap
+                    base_score = min(1.0, base_score + 0.1)
+                elif semantic_overlap < 0.1:  # Poor overlap
+                    base_score = max(0.0, base_score - 0.2)
+
+        except Exception as e:
+            logger.debug(f"Could not calculate semantic overlap: {e}")
+
+        return base_score
 
     def _create_processing_result(self, parsed: Dict[str, Any], processing_time: float) -> AIProcessingResult:
         """Create structured result from parsed response."""
 
-        # Extract confidence scores
-        summary_conf, operativity_conf, tags_conf = self._extract_confidence_scores(parsed)
+        # Extract confidence scores including alignment
+        summary_conf, operativity_conf, tags_conf, alignment_conf = self._extract_confidence_scores(parsed)
 
         # Extract evidence
         evidence = parsed.get('evidence', {})
 
+        # Extract alignment fields (optional)
+        core_theme = parsed.get('core_theme', '')
+        alignment_check = parsed.get('alignment_check', '')
+
+        # Calculate alignment score based on AI assessment
+        alignment_score = self._calculate_alignment_score(parsed, alignment_check)
+
+        # Import validation function from ai.py
+        from .ai import validate_operativity_classification
+
+        # Apply operativity validation
+        validated_operativity = validate_operativity_classification(
+            parsed['operativity'],
+            self.decision_content,
+            self.decision_title
+        )
+
         return AIProcessingResult(
             summary=parsed['summary'],
-            operativity=parsed['operativity'],
+            operativity=validated_operativity,
             policy_areas=parsed['policy_areas'],
             government_bodies=parsed['government_bodies'],
             locations=parsed['locations'],
             special_categories=parsed['special_categories'],
+            core_theme=core_theme,
+            alignment_check=alignment_check,
+            alignment_score=alignment_score,
             summary_confidence=summary_conf,
             operativity_confidence=operativity_conf,
             tags_confidence=tags_conf,
+            alignment_confidence=alignment_conf,
             summary_evidence=evidence.get('summary_quote', ''),
             operativity_evidence=evidence.get('operativity_quote', ''),
             tags_evidence=evidence.get('tags_quotes', []),
@@ -244,6 +322,9 @@ class UnifiedAIProcessor:
         decision_title: str,
         decision_date: str = None
     ) -> AIProcessingResult:
+        # Store for validation use
+        self.decision_content = decision_content
+        self.decision_title = decision_title
         """
         Process decision with unified AI call.
 
@@ -295,16 +376,50 @@ class UnifiedAIProcessor:
             processing_time = time.time() - start_time
             result = self._create_processing_result(parsed, processing_time)
 
-            # Validate result with semantic checks
+            # Enhanced validation with tag-content relevance checking
             validation_result = self.validator.validate_unified_result(
                 result, decision_content, decision_title
             )
 
-            if not validation_result.is_valid:
-                logger.warning(f"Validation failed: {validation_result.errors}")
-                # Could trigger fallback here if needed
+            # Additional policy tag validation using detection profiles
+            tag_validation = self.validator.validate_policy_tags_with_profiles(
+                result.policy_areas, decision_content, decision_title
+            )
 
-            logger.info(f"Unified processing completed in {processing_time:.2f}s")
+            # NEW: Summary-Tag Alignment Validation
+            alignment_validation = self.alignment_validator.validate_alignment(
+                result.summary, result.policy_areas, decision_title, decision_content
+            )
+
+            if not validation_result.is_valid:
+                logger.warning(f"General validation failed: {validation_result.errors}")
+
+            if not tag_validation.is_valid:
+                logger.warning(f"Policy tag validation failed: {tag_validation.errors}")
+                logger.info(f"Tag validation suggestions: {tag_validation.suggestions}")
+
+                # Update tags with validated ones if available
+                validated_tags, _ = self.validator._validate_tag_content_relevance(
+                    result.policy_areas, decision_content, decision_title
+                )
+                if validated_tags != result.policy_areas:
+                    logger.info(f"Updating tags from {result.policy_areas} to {validated_tags}")
+                    result.policy_areas = validated_tags
+
+            # Apply alignment corrections if needed
+            if not alignment_validation.is_aligned:
+                logger.warning(f"Summary-tag alignment issues found (score: {alignment_validation.alignment_score:.2f})")
+                logger.info(f"Alignment issues: {alignment_validation.issues}")
+                logger.info(f"Alignment suggestions: {alignment_validation.suggestions}")
+
+                # Auto-fix alignment if corrected tags available
+                if alignment_validation.corrected_tags:
+                    logger.info(f"Auto-correcting tags for alignment: {result.policy_areas} → {alignment_validation.corrected_tags}")
+                    result.policy_areas = alignment_validation.corrected_tags
+                    result.alignment_score = alignment_validation.alignment_score
+                    result.alignment_check = f"Auto-corrected: {'; '.join(alignment_validation.issues)}"
+
+            logger.info(f"Unified processing completed in {processing_time:.2f}s (alignment score: {result.alignment_score:.2f})")
             return result
 
         except Exception as e:
@@ -338,6 +453,9 @@ class UnifiedAIProcessor:
             # Make individual calls (5-6 API calls)
             summary = generate_summary(decision_content, decision_title)
             operativity = generate_operativity(decision_content)
+            # Apply operativity validation
+            from .ai import validate_operativity_classification
+            operativity = validate_operativity_classification(operativity, decision_content, decision_title)
             policy_areas = generate_policy_area_tags_strict(decision_content, decision_title, summary)
             government_bodies = generate_government_body_tags_validated(decision_content, decision_title, summary)
             locations = generate_location_tags(decision_content, decision_title)
@@ -353,9 +471,13 @@ class UnifiedAIProcessor:
                 government_bodies=government_bodies.split(';') if government_bodies else [],
                 locations=locations.split(',') if locations else [],
                 special_categories=special_categories,
+                core_theme="",  # Not available in fallback
+                alignment_check="Fallback processing - no alignment check",
+                alignment_score=0.5,  # Default for fallback
                 summary_confidence=0.7,  # Default confidence for fallback
                 operativity_confidence=0.7,
                 tags_confidence=0.7,
+                alignment_confidence=0.5,  # Default for fallback
                 summary_evidence="",  # No evidence tracking for fallback
                 operativity_evidence="",
                 tags_evidence=[],

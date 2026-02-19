@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-02-19T06:17:54.263993",
+  "total_records": 4993,
+  "total_issues": 141,
+  "issues_by_severity": {
+    "low": 98,
+    "high": 43
+  },
+  "checks": [
+    {
+      "check_name": "government_body_hallucination",
+      "total_scanned": 3095,
+      "issues_found": 141,
+      "issue_rate": "4.6%",
+      "summary": {
+        "hallucinated_bodies": 141,
+        "records_all_missing": 25,
+        "records_some_missing": 73
+      },
+      "sample_issues": [
+        {
+          "decision_key": "27_494",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "משרד האוצר",
+          "description": "Government body 'משרד האוצר' not in content (checked: ['האוצר', 'משרד האוצר', 'שר האוצר', 'שרת האוצר'])"
+        },
+        {
+          "decision_key": "27_749",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "ועדת הכספים",
+          "description": "Government body 'ועדת הכספים' not in content (checked: ['ועדת הכספים'])"
+        },
+        {
+          "decision_key": "27_749",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "ועדת השרים",
+          "description": "Government body 'ועדת השרים' not in content (checked: ['ועדת השרים', 'ועדת שרים'])"
+        },
+        {
+          "decision_key": "26_548",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "משרד הפנים",
+          "description": "Government body 'משרד הפנים' not in content (checked: ['הפנים', 'משרד הפנים', 'שר הפנים', 'שרת הפנים'])"
+        },
+        {
+          "decision_key": "26_548",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "ועדת השרים",
+          "description": "Government body 'ועדת השרים' not in content (checked: ['ועדת השרים', 'ועדת שרים'])"
+        },
+        {
+          "decision_key": "27_2634",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "המשרד לביטחון לאומי",
+          "description": "Government body 'המשרד לביטחון לאומי' not in content (checked: ['ביטחון לאומי', 'השר לביטחון לאומי'])"
+        },
+        {
+          "decision_key": "27_2634",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "המשרד לשוויון חברתי",
+          "description": "Government body 'המשרד לשוויון חברתי' not in content (checked: ['שוויון חברתי', 'השר לשוויון חברתי', 'השרה לשוויון חברתי'])"
+        },
+        {
+          "decision_key": "27_2973",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "המשרד לביטחון לאומי",
+          "description": "ALL bodies missing: 'המשרד לביטחון לאומי' not in content (checked: ['ביטחון לאומי', 'השר לביטחון לאומי'])"
+        },
+        {
+          "decision_key": "27_2774",
+          "severity": "low",
+          "field": "tags_government_body",
+          "current_value": "משרד החוץ",
+          "description": "Government body 'משרד החוץ' not in content (checked: ['החוץ', 'משרד החוץ', 'שר החוץ', 'שרת החוץ'])"
+        },
+        {
+          "decision_key": "27_2436",
+          "severity": "high",
+          "field": "tags_government_body",
+          "current_value": "משרד הרווחה",
+          "description": "ALL bodies missing: 'משרד הרווחה' not in content (checked: ['הרווחה', 'משרד הרווחה', 'שר הרווחה', 'שרת הרווחה', 'הרווחה והביטחון החברתי', 'משרד הרווחה והשירותים החברתיים', 'השירותים החברתיים'])"
+        }
+      ]
+    }
+  ]
+}

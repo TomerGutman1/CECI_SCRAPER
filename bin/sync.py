@@ -137,6 +137,9 @@ def main():
                 print("Get your API key from: https://aistudio.google.com/app/apikey\n")
                 return False
 
+        # Import selenium modules when needed
+        extract_decision_urls_from_catalog_selenium, scrape_decision_with_url_recovery, SeleniumWebDriver, CloudflareBlockedError = _import_selenium_modules()
+
         # Open a single Chrome session for all scraping (reduces Cloudflare detection risk)
         headless_mode = not args.no_headless
         logger.info(f"🌐 Opening shared Chrome session for scraping... (headless={headless_mode})")

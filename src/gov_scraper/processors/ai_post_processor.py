@@ -131,6 +131,34 @@ BODY_NORMALIZATION = {
     "מל\"ג": "מל\"ג/ות\"ת",
     "ות\"ת": "מל\"ג/ות\"ת",
     "המועצה להשכלה גבוהה": "מל\"ג/ות\"ת",
+
+    # Additional common variants and edge cases
+    "משרד ביטחון לאומי": "המשרד לביטחון לאומי",
+    "משרד ביטחון פנים": "המשרד לביטחון פנים",
+    "משרד הכלכלה והתעשיה והטכנולוגיה": "משרד הכלכלה והתעשייה",
+    "משרד התחבורה והבטיחות": "משרד התחבורה והבטיחות בדרכים",
+    "משרד השיכון והבניה": "משרד השיכון והבינוי",
+    "משרד החקלאות ופיתוח כפרי": "משרד החקלאות ופיתוח הכפר",
+    "משרד הטכנולוגיה": "משרד החדשנות המדע והטכנולוגיה",
+    "משרד קליטת עלייה": "משרד העלייה והקליטה",
+    "משרד התרבות והאמנות": "משרד התרבות והספורט",
+    "משרד הרווחה והשירותים החברתיים": "משרד הרווחה",
+    "משרד העבודה והרווחה": "משרד העבודה",
+    "משרד הטכנולוגיה הדיגיטלית": "משרד הדיגיטל",
+    "המשרד לדיגיטל": "משרד הדיגיטל",
+    "משרד התקשורת והטכנולוגיה": "משרד התקשורת",
+    "מש\"ב": "משרד הבריאות",
+    "המשטרה": "משטרת ישראל",
+    "שירות הכבאות וההצלה": "כבאות והצלה",
+    "כב\"ה": "כבאות והצלה",
+    "ביטוח לאומי": "המוסד לביטוח לאומי",
+    "המוסד לביטוח הלאומי": "המוסד לביטוח לאומי",
+    "נציבות שירות הציבור": "נציבות שירות המדינה",
+    "רש\"מ": "נציבות שירות המדינה",
+    "רשות לחירום לאומי": "רשות החירום הלאומית (רח\"ל)",
+    "הייעוץ המשפטי לממשלה": "היועץ המשפטי לממשלה",
+    "המל\"ג": "מל\"ג/ות\"ת",
+    "ועדת התכנון ותקצוב": "מל\"ג/ות\"ת",
 }
 
 # Regex pattern for summary prefix to strip
@@ -245,6 +273,100 @@ def enforce_body_whitelist(tags_str: str) -> str:
     validated = list(dict.fromkeys(validated))
 
     return '; '.join(validated) if validated else ""
+
+
+def validate_government_body_relevance(body: str, decision_content: str, decision_title: str) -> bool:
+    """Enhanced validation to check if a government body tag is relevant to the decision.
+
+    This function distinguishes between:
+    1. True hallucinations (completely irrelevant bodies)
+    2. Semantic tagging (relevant but not explicitly mentioned)
+    3. Explicit mentions (directly found in text)
+
+    Args:
+        body: The government body name
+        decision_content: Full decision text
+        decision_title: Decision title
+
+    Returns:
+        True if the body is relevant, False if it's a true hallucination
+    """
+    if not decision_content and not decision_title:
+        return False
+
+    combined_text = (decision_title + " " + decision_content).lower()
+    body_lower = body.lower()
+
+    # 1. Direct mention check - highest confidence
+    direct_patterns = [
+        body_lower,  # Full name
+        body.replace("משרד ", "").replace("המשרד ל", "").lower(),  # Ministry name without prefix
+        body.replace("ועדת ", "").replace("ועדה ", "").lower(),  # Committee name without prefix
+    ]
+
+    # Add minister variations for ministries
+    if "משרד" in body:
+        ministry_name = body.replace("משרד ", "").replace("המשרד ל", "")
+        direct_patterns.extend([
+            f"שר {ministry_name}".lower(),
+            f"שרת {ministry_name}".lower(),
+            f"השר {ministry_name}".lower(),
+            f"השרה {ministry_name}".lower(),
+        ])
+
+    for pattern in direct_patterns:
+        if pattern in combined_text:
+            logger.debug(f"Government body '{body}' directly mentioned: found '{pattern}'")
+            return True
+
+    # 2. Semantic relevance check - moderate confidence
+    # Check if the decision topic is clearly within the ministry's domain
+    semantic_mappings = {
+        "משרד האוצר": ["תקציב", "מס", "כספים", "הקצא", "כלכל", "מיליון", "שח", "מטבע", "בנק"],
+        "משרד המשפטים": ["חוק", "חקיקה", "תקנה", "משפט", "בג\"tz", "בית דין", "פלילי", "אזרחי"],
+        "משרד החינוך": ["חינוך", "תלמיד", "מורה", "בית ספר", "אוניברסיטה", "השכלה", "לימוד"],
+        "משרד הבריאות": ["בריאות", "רופא", "בית חולים", "קופה", "מחלה", "תרופה", "רפואה"],
+        "משרד הביטחון": ["ביטחון", "צבא", "צה\"ל", "קצין", "חייל", "מלחמה", "נשק"],
+        "משרד החוץ": ["חוץ", "שגר", "דיפלומט", "בינלאומי", "חו\"ל", "ארצות", "מדינות"],
+        "משרד הפנים": ["עיריית", "רשות מקומית", "ראש העיר", "מקומי", "עירוני", "כפרי"],
+        "משרד התחבורה והבטיחות בדרכים": ["תחבורה", "כביש", "דרך", "תאונה", "נהיגה", "רכב"],
+        "משרד השיכון והבינוי": ["שיכון", "בינוי", "דירה", "בית", "בניה", "מחיר למשתכן"],
+        "משרד החקלאות ופיתוח הכפר": ["חקלאות", "חקלאי", "כפר", "חווה", "יבול", "אדמה"],
+        "משרד הרווחה": ["רווחה", "סוציאלי", "זקן", "נכה", "קצבה", "תמיכה"],
+        "משרד העבודה": ["עבודה", "עובד", "משרה", "שכר", "איגוד", "התאחדות"],
+        "משרד התקשורת": ["תקשורת", "טלפון", "אינטרנט", "רדיו", "טלוויזיה", "ערוץ"],
+        "משרד התרבות והספורט": ["תרבות", "אמנות", "ספורט", "מוזיאון", "תיאטרון"],
+        "נציבות שירות המדינה": ["מינוי", "עובד מדינה", "שירות ציבורי", "פקיד"],
+        "היועץ המשפטי לממשלה": ["חוק", "חקיקה", "עמדה משפטית", "פרשנות"],
+        "המוסד לביטוח לאומי": ["ביטוח לאומי", "קצבה", "תגמול", "נכות", "זקנה"],
+        "ועדת השרים": ["ועדת שרים", "אישור", "החלטה", "שרים"],
+        "ועדת הכספים": ["תקציב", "כספי", "מימון", "הקצא"],
+    }
+
+    body_keywords = semantic_mappings.get(body, [])
+    if body_keywords:
+        for keyword in body_keywords:
+            if keyword in combined_text:
+                logger.debug(f"Government body '{body}' semantically relevant: found '{keyword}'")
+                return True
+
+    # 3. Check for common false positives that should be accepted
+    # Some decisions are about general topics that involve multiple ministries
+    general_decision_patterns = [
+        "הצעת חוק",  # Bills often involve multiple ministries
+        "תכנית",      # Plans often cross ministry boundaries
+        "מדיניות",     # Policies often involve multiple ministries
+        "ועדה",       # Committees often have multi-ministry representation
+    ]
+
+    for pattern in general_decision_patterns:
+        if pattern in combined_text and len(body_keywords) > 0:
+            logger.debug(f"Government body '{body}' accepted for general decision type")
+            return True
+
+    # If we reach here, it's likely a true hallucination
+    logger.debug(f"Government body '{body}' not found in content and not semantically relevant")
+    return False
 
 
 def strip_summary_prefix(summary: str) -> str:
@@ -488,6 +610,13 @@ def post_process_ai_results(decision_data: Dict, decision_content: str = "") -> 
                 # Step 3: Validate ministry context if we have the content
                 if decision_content and not validate_ministry_context(decision_content, normalized):
                     logger.debug(f"Excluding ministry due to context: {normalized}")
+                    continue
+
+                # Step 4: Enhanced relevance validation (new stricter logic)
+                if decision_content and not validate_government_body_relevance(
+                    normalized, decision_content, cleaned_data.get('decision_title', '')
+                ):
+                    logger.info(f"Excluding government body due to irrelevance: {normalized}")
                     continue
 
                 normalized_bodies.append(normalized)
