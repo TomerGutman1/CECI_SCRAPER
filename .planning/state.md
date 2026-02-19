@@ -1,6 +1,6 @@
 # GOV2DB Project State
-**Last Updated:** 2026-02-19
-**Current Focus:** Phase 2 pending — manifest ready (25,421), need scrape + AI on all decisions
+**Last Updated:** 2026-02-19 (evening)
+**Current Focus:** Phase 2 in progress — 2-phase pipeline built and tested (5 decisions), full run pending
 **Manifest:** `data/catalog_manifest.json` — 25,421 entries, 10/10 QA passed, 0 duplicates
 **DB Records:** ~25,036 (existing in Supabase, needs full refresh from new pipeline)
 **Production Dataset:** NONE — old backup deleted (had 40% duplicates), new pipeline not yet run

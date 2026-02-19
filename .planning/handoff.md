@@ -1,40 +1,43 @@
 # Session Handoff
 **Date:** 2026-02-19
-**Focus:** Built 3-phase pipeline, completed full catalog discovery (25,421 decisions), QA-validated manifest
+**Focus:** Restructured full_local_scraper.py into 2-phase pipeline to fix Gemini+Chrome httpx conflict; verified scraping and AI work
 
 ## Done
-- **3-Phase Pipeline Architecture** — fully implemented:
-  - `bin/discover_all.py` — Phase 1: paginate gov.il catalog API, extract all metadata
-  - `bin/sync.py --manifest --local-only` — Phase 2: scrape + AI from manifest, save locally
-  - `bin/push_local.py --qa-only/--push` — Phase 3: QA validate + push to Supabase
-  - Makefile targets: `discover`, `full-scrape`, `push-local`, etc.
-- **Full Discovery Complete** — `data/catalog_manifest.json` with 25,421 entries, 10/10 QA checks passed:
-  - 0 duplicates, 0 missing fields, all 13 governments (25-37), dates 1993-2026
-  - Gov 36 PM rotation (Bennett/Lapid) correctly handled
-  - All URL patterns captured (old DDmonYYYYNNN through new decNNN-YYYY)
-- **Config/Code Updates** — `config.py` (PM_BY_GOVERNMENT table), `catalog.py` (parse_government_field, remove URL filter, paginate_full_catalog), `decision.py` (dynamic gov number in _build_result_from_meta)
-- **AI Algorithm Improvements** — policy tags, operativity, gov body detection, summary-tag alignment (all in code, NOT yet applied to fresh data)
-- **Deleted flawed backup** — `production_ready_20260219_070758.json` was just old backup with post-processing, had 40% duplicates
+- **Restructured `bin/full_local_scraper.py`** into 2-phase pipeline:
+  - Phase A: Scrape with Chrome → save to `*_raw.json` → close Chrome
+  - Phase B: AI process with Gemini (no Chrome running) → save final output
+  - Added `--ai-only` flag to re-run AI without re-scraping
+  - Added `--resume` support for both phases (dedup by decision_key)
+- **Fixed `_extract_confidence_scores()` in `unified_ai.py`** — Gemini sometimes returns non-numeric confidence values (dicts/lists), causing `'<' not supported between tuple and float`. Added `_safe_float()` coercion.
+- **Updated Makefile** — Added `full-scrape-ai-only` target, updated help text
+- **Verified Phase A works** — Successfully scraped 5 decisions in 1.6 min, saved to `data/scraped/latest_raw.json`
+- **Verified Phase B works** — Gemini API calls succeed after Chrome is closed (was hanging before)
+- **Apple Silicon Chrome fixes** (from earlier in session):
+  - Monkey-patched UC's `mac-x64` → `mac-arm64` platform detection in `selenium.py`
+  - Pre-patched chromedriver path to skip IPv6 download hang
+  - Ad-hoc code signing for UC-patched binary at `~/Library/Application Support/undetected_chromedriver/patched_chromedriver`
 
 ## Not Done
-- **Phase 2 not executed at scale** — manifest has metadata only (7/16 DB fields). Still need to scrape each URL and run AI to get: `decision_content`, `summary`, `operativity`, `tags_policy_area`, `tags_government_body`, `tags_location`, `all_tags`
-- **No production-ready backup exists** — the deleted file was based on old data, not the new pipeline
-- **AI improvements not validated on fresh scrapes** — improvements are in code but haven't been tested with actual Gemini calls on new data
+- **Full Phase 2 run not started** — only tested 5 decisions
+- **Unified AI path fell back to individual calls** (6 API calls instead of 1). The confidence score fix should resolve this, but untested
+- **Rate limiting** — Gemini 429 errors hit during test (the 6-call fallback exhausted quota). Unified path (1 call) should avoid this
+- **Uncommitted changes** — all work from this and previous sessions is uncommitted (8 modified + 17 untracked files). 4 local commits not yet pushed.
+- **No production backup** — old backup was flawed (40% duplicates)
 
 ## Warnings
-- **Phase 2 will take hours** — scraping 25K URLs + Gemini API calls. Must use `--no-headless` (Cloudflare blocks headless Chrome). Budget ~10+ hours.
-- **Gemini API costs** — 25K decisions x 1 API call each. Monitor rate limits.
-- **Apple Silicon limitation** — Chrome/Selenium via Docker doesn't work locally. Phase 2 scraping must run natively on macOS or on the Linux server.
-- **state.md is bloated** — 529 lines of accumulated session logs. Consider trimming to essentials.
+- **Chrome/Selenium on Apple Silicon**: Works but fragile. Pre-patched chromedriver at `~/Library/Application Support/undetected_chromedriver/patched_chromedriver`. If Chrome updates, need to re-download and re-patch.
+- **Gemini rate limits**: Free tier has low RPM. With unified AI (1 call/decision) should be fine, but fallback to 6 calls/decision hits 429s fast.
+- **`data/scraped/latest_raw.json`** exists with 5 test entries — will be appended to on resume, or delete before fresh full run.
+- **DO NOT push to Supabase without explicit user approval.**
 
 ## Next Session Priorities
-1. **Execute Phase 2** — scrape + AI process all 25,421 decisions from manifest (`make full-scrape` or batched runs). This is the BIG task.
-2. **QA the scraped results** — run `push_local.py --qa-only` on output, verify AI improvements actually work on fresh data
-3. **Create clean production backup** — in `backups/` format (flat JSON list, 16 fields per record matching DB schema)
-4. **Push to Supabase** — once QA passes, use `push_local.py --push`
+1. **Commit all changes** — 8 modified + key new files (full_local_scraper.py, alignment_validator.py). Clean up test/report files.
+2. **Test unified AI path** — The confidence score fix should make unified processing work (1 API call instead of 6). Run `make full-scrape-test` to verify.
+3. **Run full Phase 2** — `make full-scrape` to scrape+AI all 25,421 decisions. ETA: several hours for scraping, then AI processing separately.
+4. **QA + Push** — `make push-local-qa` then `make push-local` (with user approval)
 
 ## Read First
-- `.planning/handoff.md` (this file)
-- `data/catalog_manifest.json` — the 25,421 discovery entries (source of truth)
-- `bin/sync.py` — Phase 2 script with `--manifest` and `--local-only` flags
-- `bin/push_local.py` — Phase 3 QA + push script
+- `.planning/state.md`
+- `bin/full_local_scraper.py` — the 2-phase pipeline script
+- `src/gov_scraper/processors/unified_ai.py` — confidence score fix at `_extract_confidence_scores()`
+- `src/gov_scraper/utils/selenium.py` — Apple Silicon Chrome patches
