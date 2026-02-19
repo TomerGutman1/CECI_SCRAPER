@@ -1,0 +1,503 @@
+{
+  "validation_metadata": {
+    "timestamp": "2026-02-19T14:06:27.814792",
+    "total_records": 1000,
+    "sample_size": 1000,
+    "is_full_dataset": true
+  },
+  "executive_summary": {
+    "overall_quality_grade": "B+",
+    "overall_quality_score": 84.31,
+    "total_records_analyzed": 1000,
+    "total_issues_found": 1071,
+    "records_needing_manual_review": 11,
+    "operativity_distribution": {
+      "operative_percentage": 85.0,
+      "target_met": false,
+      "target_range": "60.0-65.0%"
+    },
+    "key_achievements": [
+      "Excellent government body whitelist compliance (95%+)",
+      "Excellent policy tag whitelist compliance (95%+)"
+    ],
+    "areas_for_improvement": [
+      "4 duplicate decision keys found"
+    ]
+  },
+  "detailed_findings": {
+    "government_body": {
+      "compliance_percentage": 99.6,
+      "total_issues": 4,
+      "high_severity": 4,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "35_116",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "27_3084",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "27_702",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "26_821",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        }
+      ],
+      "grade": "A"
+    },
+    "policy_tag": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "summary_prefix": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "operativity": {
+      "compliance_percentage": 100.0,
+      "total_issues": 2,
+      "high_severity": 0,
+      "medium_severity": 2,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "34_130",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        },
+        {
+          "decision_key": "25_5734",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        }
+      ],
+      "grade": "A"
+    },
+    "all_tags_consistency": {
+      "compliance_percentage": 0.1,
+      "total_issues": 999,
+      "high_severity": 0,
+      "medium_severity": 999,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "35_546",
+          "severity": "medium",
+          "description": "Missing from all_tags: דיור, נדלן ותכנון, אנרגיה מים ותשתיות; Extra in all_tags: מים ותשתיות מים, ועדה לתשתיות, הממשלה, תחבורה ציבורית ותשתיות דרך",
+          "current_value": "מים ותשתיות מים; תחבורה ציבורית ותשתיות דרך; ועדה לתשתיות, הממשלה; שורק",
+          "expected_value": "אנרגיה מים ותשתיות; דיור, נדלן ותכנון; שורק"
+        },
+        {
+          "decision_key": "35_550",
+          "severity": "medium",
+          "description": "Missing from all_tags: משבר הקורונה, משרד הבריאות; Extra in all_tags: משרד הבריאות, משרד האוצר, משרד ראש הממשלה, ועדת השרים, הממשלה, כלכלה מאקרו ותקציב",
+          "current_value": "חינוך; בריאות ורפואה; כלכלה מאקרו ותקציב; משרד הבריאות, משרד האוצר, משרד ראש הממשלה, ועדת השרים, הממשלה",
+          "expected_value": "חינוך; בריאות ורפואה; משבר הקורונה; משרד הבריאות"
+        },
+        {
+          "decision_key": "35_548",
+          "severity": "medium",
+          "description": "Missing from all_tags: תל-אביב, ירושלים, חיפה, משרד הבריאות; Extra in all_tags: תל-אביב, חיפה, ירושלים, משרד הבריאות, החשב הכללי, הממשלה",
+          "current_value": "בריאות ורפואה; משרד הבריאות, החשב הכללי, הממשלה; תל-אביב, חיפה, ירושלים",
+          "expected_value": "בריאות ורפואה; משרד הבריאות; תל-אביב; חיפה; ירושלים"
+        },
+        {
+          "decision_key": "35_552",
+          "severity": "medium",
+          "description": "Missing from all_tags: משבר הקורונה, יוקר המחייה, תעשייה מסחר ומשק; Extra in all_tags: יוקר המחיה ושוק הצרכן, הממשלה",
+          "current_value": "יוקר המחיה ושוק הצרכן; הממשלה",
+          "expected_value": "משבר הקורונה; תעשייה מסחר ומשק; יוקר המחייה"
+        },
+        {
+          "decision_key": "35_542",
+          "severity": "medium",
+          "description": "Missing from all_tags: משבר הקורונה, משרד החינוך, רגולציה; Extra in all_tags: ועדה בתוך, ועדה של, ועדת החינוך, הממשלה, הכנסת",
+          "current_value": "חינוך; ועדה בתוך, ועדה של, ועדת החינוך, הממשלה, הכנסת",
+          "expected_value": "חינוך; משבר הקורונה; רגולציה; משרד החינוך"
+        }
+      ],
+      "grade": "D"
+    },
+    "date_format": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "decision_key": {
+      "compliance_percentage": 99.8,
+      "total_issues": 2,
+      "high_severity": 0,
+      "medium_severity": 2,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "35_MH_2",
+          "severity": "medium",
+          "description": "Decision key doesn't match government_number_decision_number pattern",
+          "current_value": "35_MH_2",
+          "expected_value": "35_מח/2"
+        },
+        {
+          "decision_key": "36_RHM_47",
+          "severity": "medium",
+          "description": "Decision key doesn't match government_number_decision_number pattern",
+          "current_value": "36_RHM_47",
+          "expected_value": "36_רהמ/47"
+        }
+      ],
+      "grade": "A"
+    },
+    "content_length": {
+      "compliance_percentage": 94.0,
+      "total_issues": 60,
+      "high_severity": 3,
+      "medium_severity": 57,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "37_2961",
+          "severity": "medium",
+          "description": "Content too short: 56 chars",
+          "current_value": "56",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "37_2346",
+          "severity": "medium",
+          "description": "Content too short: 93 chars",
+          "current_value": "93",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "37_2963",
+          "severity": "medium",
+          "description": "Content too short: 54 chars",
+          "current_value": "54",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "35_413",
+          "severity": "medium",
+          "description": "Content too short: 93 chars",
+          "current_value": "93",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "31_1416",
+          "severity": "medium",
+          "description": "Content too short: 96 chars",
+          "current_value": "96",
+          "expected_value": ">= 100 chars"
+        }
+      ],
+      "grade": "B+"
+    },
+    "duplicate_keys": {
+      "compliance_percentage": 100.0,
+      "total_issues": 4,
+      "high_severity": 4,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "37_2346",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "34_3335",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "32_372",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "32_371",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        }
+      ],
+      "grade": "A"
+    }
+  },
+  "statistics": {
+    "compliance_metrics": {
+      "government_body_compliance": 99.6,
+      "policy_tag_compliance": 100.0,
+      "summary_prefix_compliance": 100.0,
+      "all_tags_consistency_compliance": 0.1,
+      "date_format_compliance": 100.0,
+      "decision_key_compliance": 99.8,
+      "content_length_compliance": 94.0
+    },
+    "operativity_distribution": {
+      "אופרטיבית": 850,
+      "דקלרטיבית": 148
+    },
+    "most_common_government_bodies": [
+      [
+        "ועדת השרים",
+        113
+      ],
+      [
+        "משרד האוצר",
+        80
+      ],
+      [
+        "משרד הבריאות",
+        54
+      ],
+      [
+        "משרד המשפטים",
+        54
+      ],
+      [
+        "משרד הפנים",
+        54
+      ],
+      [
+        "משרד החינוך",
+        46
+      ],
+      [
+        "משרד הביטחון",
+        40
+      ],
+      [
+        "משרד החוץ",
+        23
+      ],
+      [
+        "משרד התחבורה והבטיחות בדרכים",
+        22
+      ],
+      [
+        "משרד העבודה",
+        20
+      ]
+    ],
+    "most_common_policy_tags": [
+      [
+        "מינהל ציבורי ושירות המדינה",
+        199
+      ],
+      [
+        "חקיקה, משפט ורגולציה",
+        197
+      ],
+      [
+        "תקציב, פיננסים, ביטוח ומיסוי",
+        187
+      ],
+      [
+        "מינויים",
+        132
+      ],
+      [
+        "בריאות ורפואה",
+        114
+      ],
+      [
+        "משבר הקורונה",
+        107
+      ],
+      [
+        "חוץ הסברה ותפוצות",
+        105
+      ],
+      [
+        "מדיני ביטחוני",
+        103
+      ],
+      [
+        "תחבורה ובטיחות בדרכים",
+        96
+      ],
+      [
+        "דיור, נדלן ותכנון",
+        71
+      ]
+    ],
+    "decision_years_coverage": {
+      "2020": 254,
+      "2025": 2,
+      "2017": 12,
+      "1998": 76,
+      "2010": 13,
+      "2024": 11,
+      "2018": 5,
+      "2014": 3,
+      "2000": 1,
+      "2009": 23,
+      "2007": 1,
+      "2011": 1,
+      "2013": 2,
+      "2012": 2,
+      "2008": 4,
+      "1997": 429,
+      "1999": 2,
+      "2023": 7,
+      "2022": 1,
+      "1995": 3,
+      "1993": 1,
+      "1996": 141,
+      "2002": 4,
+      "2019": 1,
+      "2001": 1
+    },
+    "content_length_stats": {
+      "min": 10,
+      "max": 32768,
+      "avg": 908.21,
+      "under_100_chars": 60
+    }
+  },
+  "recommendations": {
+    "immediate_actions": [
+      "Investigate and resolve duplicate decision keys"
+    ],
+    "iterative_improvements": [
+      "Adjust operativity classification to meet 60-65% operative target"
+    ],
+    "monitoring_suggestions": [
+      "Run daily incremental QA checks",
+      "Monitor compliance trends over time",
+      "Set up alerts for whitelist violations",
+      "Review manual flagged records quarterly"
+    ]
+  },
+  "records_for_manual_review": [
+    {
+      "decision_key": "37_2346",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "34_3335",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "32_372",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "32_371",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "35_116",
+      "issues": [
+        "government_body"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "27_3145",
+      "issues": [
+        "content_length"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "27_3084",
+      "issues": [
+        "government_body"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "37_354",
+      "issues": [
+        "content_length"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "27_2631",
+      "issues": [
+        "content_length"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "27_702",
+      "issues": [
+        "government_body"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "26_821",
+      "issues": [
+        "government_body"
+      ],
+      "severity": "high"
+    }
+  ],
+  "quality_thresholds_used": {
+    "operativity_target_min": 60.0,
+    "operativity_target_max": 65.0,
+    "min_content_length": 100,
+    "max_missing_titles": 50,
+    "max_whitelist_violations": 5.0,
+    "overall_quality_target": 85.0
+  }
+}

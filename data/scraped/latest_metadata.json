@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-02-19T13:07:08.250582",
+  "timestamp": "2026-02-19T13:56:37.435147",
   "total_scraped": 5,
   "total_processed": 5,
   "scrape_failed": [],
   "ai_failed": [],
-  "processing_time_hours": 0.9641550585958693,
+  "processing_time_hours": 6.511476304796007e-07,
   "source_manifest": "data/catalog_manifest.json"
 }

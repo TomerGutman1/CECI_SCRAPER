@@ -294,7 +294,10 @@ def validate_government_body_relevance(body: str, decision_content: str, decisio
     if not decision_content and not decision_title:
         return False
 
-    combined_text = (decision_title + " " + decision_content).lower()
+    # Handle None values by converting to empty string
+    title = decision_title or ""
+    content = decision_content or ""
+    combined_text = (title + " " + content).lower()
     body_lower = body.lower()
 
     # 1. Direct mention check - highest confidence

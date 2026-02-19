@@ -1,0 +1,383 @@
+{
+  "validation_metadata": {
+    "timestamp": "2026-02-19T14:06:10.742371",
+    "total_records": 98,
+    "sample_size": 98,
+    "is_full_dataset": true
+  },
+  "executive_summary": {
+    "overall_quality_grade": "B+",
+    "overall_quality_score": 84.49,
+    "total_records_analyzed": 98,
+    "total_issues_found": 106,
+    "records_needing_manual_review": 6,
+    "operativity_distribution": {
+      "operative_percentage": 86.73,
+      "target_met": false,
+      "target_range": "60.0-65.0%"
+    },
+    "key_achievements": [
+      "Excellent government body whitelist compliance (95%+)",
+      "Excellent policy tag whitelist compliance (95%+)"
+    ],
+    "areas_for_improvement": [
+      "4 duplicate decision keys found"
+    ]
+  },
+  "detailed_findings": {
+    "government_body": {
+      "compliance_percentage": 97.96,
+      "total_issues": 2,
+      "high_severity": 2,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_5170",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "25_6012",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        }
+      ],
+      "grade": "A"
+    },
+    "policy_tag": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "summary_prefix": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "operativity": {
+      "compliance_percentage": 100.0,
+      "total_issues": 1,
+      "high_severity": 0,
+      "medium_severity": 1,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_5734",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        }
+      ],
+      "grade": "A"
+    },
+    "all_tags_consistency": {
+      "compliance_percentage": 0.0,
+      "total_issues": 98,
+      "high_severity": 0,
+      "medium_severity": 98,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_1049",
+          "severity": "medium",
+          "description": "Missing from all_tags: משרד הכלכלה והתעשייה, אנרגיה מים ותשתיות, קירגיסטן, משרד המשפטים, מדע, טכנולוגיה וחדשנות, קזחסטן, חוץ הסברה ותפוצות, משרד האנרגיה והתשתיות; Extra in all_tags: קירגיסטן, קזחסטן, חקלאות ופיתוח הכפר, משרד הכלכלה, משרד המדע, משרד הכלכלה, הממשלה, דיפלומטיה ויחסים בינלאומיים, טכנולוגיה, חדשנות ודיגיטל",
+          "current_value": "דיפלומטיה ויחסים בינלאומיים; טכנולוגיה, חדשנות ודיגיטל; חקלאות ופיתוח הכפר; משרד הכלכלה, משרד המדע, משרד הכלכלה, הממשלה; קירגיסטן, קזחסטן",
+          "expected_value": "חוץ הסברה ותפוצות; מדע, טכנולוגיה וחדשנות; אנרגיה מים ותשתיות; משרד האנרגיה והתשתיות; משרד הכלכלה והתעשייה; משרד המשפטים; קירגיסטן; קזחסטן"
+        },
+        {
+          "decision_key": "25_719",
+          "severity": "medium",
+          "description": "Missing from all_tags: תרבות וספורט, מדיני ביטחוני; Extra in all_tags: ביטחון לאומי וצבא",
+          "current_value": "ביטחון לאומי וצבא",
+          "expected_value": "מדיני ביטחוני; תרבות וספורט"
+        },
+        {
+          "decision_key": "25_1509",
+          "severity": "medium",
+          "description": "Missing from all_tags: תעסוקה ועבודה, חקיקה, משפט ורגולציה, משרד האוצר, מינהל ציבורי ושירות המדינה; Extra in all_tags: ביטחון פנים וחירום אזרחי, משרד האוצר, הממשלה",
+          "current_value": "ביטחון פנים וחירום אזרחי; משרד האוצר, הממשלה",
+          "expected_value": "מינהל ציבורי ושירות המדינה; תעסוקה ועבודה; חקיקה, משפט ורגולציה; משרד האוצר"
+        },
+        {
+          "decision_key": "25_1433",
+          "severity": "medium",
+          "description": "Missing from all_tags: תל-אביב, מדע, טכנולוגיה וחדשנות, חיפה, ועדת השרים; Extra in all_tags: ועדה לתכנית, ועדה הלאומית, ועדה הנ, הועדה לתכנית, ועדת השרים, הממשלה, חיפה, תל-אביב, ירושלים, טכנולוגיה, חדשנות ודיגיטל",
+          "current_value": "טכנולוגיה, חדשנות ודיגיטל; ועדה לתכנית, ועדה הלאומית, ועדה הנ, הועדה לתכנית, ועדת השרים, הממשלה; חיפה, תל-אביב, ירושלים",
+          "expected_value": "מדע, טכנולוגיה וחדשנות; ועדת השרים; חיפה; תל-אביב"
+        },
+        {
+          "decision_key": "25_1350",
+          "severity": "medium",
+          "description": "Missing from all_tags: תקציב, פיננסים, ביטוח ומיסוי, פיתוח הפריפריה ואוכלוסיות, ועדת השרים; Extra in all_tags: ועדת שרים, הממשלה, הכנסת, פיננסים, ביטוח ומסים",
+          "current_value": "פיננסים, ביטוח ומסים; ועדת שרים, הממשלה, הכנסת",
+          "expected_value": "תקציב, פיננסים, ביטוח ומיסוי; פיתוח הפריפריה ואוכלוסיות; ועדת השרים"
+        }
+      ],
+      "grade": "D"
+    },
+    "date_format": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "decision_key": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "content_length": {
+      "compliance_percentage": 98.98,
+      "total_issues": 1,
+      "high_severity": 0,
+      "medium_severity": 1,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_943",
+          "severity": "medium",
+          "description": "Content too short: 72 chars",
+          "current_value": "72",
+          "expected_value": ">= 100 chars"
+        }
+      ],
+      "grade": "A"
+    },
+    "duplicate_keys": {
+      "compliance_percentage": 100.0,
+      "total_issues": 4,
+      "high_severity": 4,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_4938",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "25_5009",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "25_5647",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "25_5486",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        }
+      ],
+      "grade": "A"
+    }
+  },
+  "statistics": {
+    "compliance_metrics": {
+      "government_body_compliance": 97.96,
+      "policy_tag_compliance": 100.0,
+      "summary_prefix_compliance": 100.0,
+      "all_tags_consistency_compliance": 0.0,
+      "date_format_compliance": 100.0,
+      "decision_key_compliance": 100.0,
+      "content_length_compliance": 98.98
+    },
+    "operativity_distribution": {
+      "אופרטיבית": 85,
+      "דקלרטיבית": 12
+    },
+    "most_common_government_bodies": [
+      [
+        "משרד האוצר",
+        15
+      ],
+      [
+        "ועדת השרים",
+        15
+      ],
+      [
+        "משרד הפנים",
+        10
+      ],
+      [
+        "משרד המשפטים",
+        6
+      ],
+      [
+        "משרד החינוך",
+        6
+      ],
+      [
+        "משרד הכלכלה והתעשייה",
+        5
+      ],
+      [
+        "משרד האנרגיה והתשתיות",
+        4
+      ],
+      [
+        "משרד הבריאות",
+        4
+      ],
+      [
+        "משטרת ישראל",
+        3
+      ],
+      [
+        "משרד החקלאות ופיתוח הכפר",
+        2
+      ]
+    ],
+    "most_common_policy_tags": [
+      [
+        "תקציב, פיננסים, ביטוח ומיסוי",
+        25
+      ],
+      [
+        "מינהל ציבורי ושירות המדינה",
+        23
+      ],
+      [
+        "מדיני ביטחוני",
+        13
+      ],
+      [
+        "תעשייה מסחר ומשק",
+        12
+      ],
+      [
+        "חוץ הסברה ותפוצות",
+        11
+      ],
+      [
+        "חקיקה, משפט ורגולציה",
+        10
+      ],
+      [
+        "תעסוקה ועבודה",
+        8
+      ],
+      [
+        "תרבות וספורט",
+        7
+      ],
+      [
+        "מינויים",
+        7
+      ],
+      [
+        "אנרגיה מים ותשתיות",
+        6
+      ]
+    ],
+    "decision_years_coverage": {
+      "1993": 13,
+      "1994": 24,
+      "1995": 55,
+      "1996": 6
+    },
+    "content_length_stats": {
+      "min": 72,
+      "max": 2653,
+      "avg": 585.54,
+      "under_100_chars": 1
+    }
+  },
+  "recommendations": {
+    "immediate_actions": [
+      "Investigate and resolve duplicate decision keys"
+    ],
+    "iterative_improvements": [
+      "Adjust operativity classification to meet 60-65% operative target"
+    ],
+    "monitoring_suggestions": [
+      "Run daily incremental QA checks",
+      "Monitor compliance trends over time",
+      "Set up alerts for whitelist violations",
+      "Review manual flagged records quarterly"
+    ]
+  },
+  "records_for_manual_review": [
+    {
+      "decision_key": "25_4938",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5009",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5647",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5486",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5170",
+      "issues": [
+        "government_body"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_6012",
+      "issues": [
+        "government_body"
+      ],
+      "severity": "high"
+    }
+  ],
+  "quality_thresholds_used": {
+    "operativity_target_min": 60.0,
+    "operativity_target_max": 65.0,
+    "min_content_length": 100,
+    "max_missing_titles": 50,
+    "max_whitelist_violations": 5.0,
+    "overall_quality_target": 85.0
+  }
+}

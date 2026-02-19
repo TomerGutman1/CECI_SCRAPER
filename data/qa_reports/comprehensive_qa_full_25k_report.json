@@ -1,0 +1,1191 @@
+{
+  "validation_metadata": {
+    "timestamp": "2026-02-19T14:07:00.488358",
+    "total_records": 25022,
+    "sample_size": 25022,
+    "is_full_dataset": true
+  },
+  "executive_summary": {
+    "overall_quality_grade": "B+",
+    "overall_quality_score": 84.67,
+    "total_records_analyzed": 25022,
+    "total_issues_found": 33692,
+    "records_needing_manual_review": 7812,
+    "operativity_distribution": {
+      "operative_percentage": 79.86,
+      "target_met": false,
+      "target_range": "60.0-65.0%"
+    },
+    "key_achievements": [
+      "Excellent government body whitelist compliance (95%+)",
+      "Excellent policy tag whitelist compliance (95%+)"
+    ],
+    "areas_for_improvement": [
+      "7771 duplicate decision keys found"
+    ]
+  },
+  "detailed_findings": {
+    "government_body": {
+      "compliance_percentage": 99.54,
+      "total_issues": 114,
+      "high_severity": 114,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_5170",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "25_5452",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "25_5452",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "25_6012",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        },
+        {
+          "decision_key": "25_6012",
+          "severity": "high",
+          "description": "Unauthorized government bodies: שונות",
+          "current_value": "שונות",
+          "expected_value": ""
+        }
+      ],
+      "grade": "A"
+    },
+    "policy_tag": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "summary_prefix": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "operativity": {
+      "compliance_percentage": 100.0,
+      "total_issues": 174,
+      "high_severity": 0,
+      "medium_severity": 174,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_5734",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        },
+        {
+          "decision_key": "25_5734",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        },
+        {
+          "decision_key": "27_3650",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        },
+        {
+          "decision_key": "27_3650",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        },
+        {
+          "decision_key": "28_201",
+          "severity": "medium",
+          "description": "Missing operativity classification",
+          "current_value": "",
+          "expected_value": "אופרטיבית or דקלרטיבית"
+        }
+      ],
+      "grade": "A"
+    },
+    "all_tags_consistency": {
+      "compliance_percentage": 0.08,
+      "total_issues": 25002,
+      "high_severity": 0,
+      "medium_severity": 25002,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_1033",
+          "severity": "medium",
+          "description": "Missing from all_tags: ועדת השרים; Extra in all_tags: ועדה בנושא, ועדת השרים, הממשלה, הכנסת",
+          "current_value": "מינהל ציבורי ושירות המדינה; ועדה בנושא, ועדת השרים, הממשלה, הכנסת",
+          "expected_value": "מינהל ציבורי ושירות המדינה; ועדת השרים"
+        },
+        {
+          "decision_key": "25_1033",
+          "severity": "medium",
+          "description": "Missing from all_tags: ועדת השרים; Extra in all_tags: ועדה בנושא, ועדת השרים, הממשלה, הכנסת",
+          "current_value": "מינהל ציבורי ושירות המדינה; ועדה בנושא, ועדת השרים, הממשלה, הכנסת",
+          "expected_value": "מינהל ציבורי ושירות המדינה; ועדת השרים"
+        },
+        {
+          "decision_key": "25_1048",
+          "severity": "medium",
+          "description": "Missing from all_tags: משרד הבריאות, מינויים; Extra in all_tags: משרד הבריאות, הממשלה",
+          "current_value": "בריאות ורפואה; משרד הבריאות, הממשלה",
+          "expected_value": "בריאות ורפואה; מינויים; משרד הבריאות"
+        },
+        {
+          "decision_key": "25_1049",
+          "severity": "medium",
+          "description": "Missing from all_tags: חוץ הסברה ותפוצות, משרד האנרגיה והתשתיות, קזחסטן, אנרגיה מים ותשתיות, משרד הכלכלה והתעשייה, מדע, טכנולוגיה וחדשנות, קירגיסטן, משרד המשפטים; Extra in all_tags: דיפלומטיה ויחסים בינלאומיים, קירגיסטן, קזחסטן, משרד הכלכלה, משרד המדע, משרד הכלכלה, הממשלה, טכנולוגיה, חדשנות ודיגיטל, חקלאות ופיתוח הכפר",
+          "current_value": "דיפלומטיה ויחסים בינלאומיים; טכנולוגיה, חדשנות ודיגיטל; חקלאות ופיתוח הכפר; משרד הכלכלה, משרד המדע, משרד הכלכלה, הממשלה; קירגיסטן, קזחסטן",
+          "expected_value": "חוץ הסברה ותפוצות; מדע, טכנולוגיה וחדשנות; אנרגיה מים ותשתיות; משרד האנרגיה והתשתיות; משרד הכלכלה והתעשייה; משרד המשפטים; קירגיסטן; קזחסטן"
+        },
+        {
+          "decision_key": "25_1050",
+          "severity": "medium",
+          "description": "Missing from all_tags: חקיקה, משפט ורגולציה, ועדת השרים, תקציב, פיננסים, ביטוח ומיסוי; Extra in all_tags: ועדה שתדון, ועדת השרים, ועדת הכנסת, הממשלה, הכנסת, פיננסים, ביטוח ומסים",
+          "current_value": "פיננסים, ביטוח ומסים; ועדה שתדון, ועדת השרים, ועדת הכנסת, הממשלה, הכנסת",
+          "expected_value": "תקציב, פיננסים, ביטוח ומיסוי; חקיקה, משפט ורגולציה; ועדת השרים"
+        }
+      ],
+      "grade": "D"
+    },
+    "date_format": {
+      "compliance_percentage": 100.0,
+      "total_issues": 0,
+      "high_severity": 0,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [],
+      "grade": "A"
+    },
+    "decision_key": {
+      "compliance_percentage": 99.91,
+      "total_issues": 22,
+      "high_severity": 0,
+      "medium_severity": 22,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "35_GBL_10",
+          "severity": "medium",
+          "description": "Decision key doesn't match government_number_decision_number pattern",
+          "current_value": "35_GBL_10",
+          "expected_value": "35_גבל/10"
+        },
+        {
+          "decision_key": "35_GBL_10",
+          "severity": "medium",
+          "description": "Decision key doesn't match government_number_decision_number pattern",
+          "current_value": "35_GBL_10",
+          "expected_value": "35_גבל/10"
+        },
+        {
+          "decision_key": "35_GBL_12",
+          "severity": "medium",
+          "description": "Decision key doesn't match government_number_decision_number pattern",
+          "current_value": "35_GBL_12",
+          "expected_value": "35_גבל/12"
+        },
+        {
+          "decision_key": "35_GBL_15",
+          "severity": "medium",
+          "description": "Decision key doesn't match government_number_decision_number pattern",
+          "current_value": "35_GBL_15",
+          "expected_value": "35_גבל/15"
+        },
+        {
+          "decision_key": "35_GBL_15",
+          "severity": "medium",
+          "description": "Decision key doesn't match government_number_decision_number pattern",
+          "current_value": "35_GBL_15",
+          "expected_value": "35_גבל/15"
+        }
+      ],
+      "grade": "A"
+    },
+    "content_length": {
+      "compliance_percentage": 97.57,
+      "total_issues": 609,
+      "high_severity": 56,
+      "medium_severity": 553,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_800",
+          "severity": "medium",
+          "description": "Content too short: 87 chars",
+          "current_value": "87",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "25_868",
+          "severity": "medium",
+          "description": "Content too short: 92 chars",
+          "current_value": "92",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "25_937",
+          "severity": "medium",
+          "description": "Content too short: 81 chars",
+          "current_value": "81",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "25_943",
+          "severity": "medium",
+          "description": "Content too short: 72 chars",
+          "current_value": "72",
+          "expected_value": ">= 100 chars"
+        },
+        {
+          "decision_key": "26_560",
+          "severity": "medium",
+          "description": "Content too short: 91 chars",
+          "current_value": "91",
+          "expected_value": ">= 100 chars"
+        }
+      ],
+      "grade": "A"
+    },
+    "duplicate_keys": {
+      "compliance_percentage": 100.0,
+      "total_issues": 7771,
+      "high_severity": 7771,
+      "medium_severity": 0,
+      "low_severity": 0,
+      "sample_issues": [
+        {
+          "decision_key": "25_1033",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "25_1130",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "25_1167",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "25_1201",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        },
+        {
+          "decision_key": "25_1433",
+          "severity": "high",
+          "description": "Duplicate decision key appears 2 times",
+          "current_value": "2",
+          "expected_value": "1 (unique)"
+        }
+      ],
+      "grade": "A"
+    }
+  },
+  "statistics": {
+    "compliance_metrics": {
+      "government_body_compliance": 99.54,
+      "policy_tag_compliance": 100.0,
+      "summary_prefix_compliance": 100.0,
+      "all_tags_consistency_compliance": 0.08,
+      "date_format_compliance": 100.0,
+      "decision_key_compliance": 99.91,
+      "content_length_compliance": 97.57
+    },
+    "operativity_distribution": {
+      "אופרטיבית": 19982,
+      "דקלרטיבית": 4866
+    },
+    "most_common_government_bodies": [
+      [
+        "ועדת השרים",
+        3297
+      ],
+      [
+        "משרד האוצר",
+        2671
+      ],
+      [
+        "משרד המשפטים",
+        2141
+      ],
+      [
+        "משרד הבריאות",
+        1436
+      ],
+      [
+        "משרד הביטחון",
+        1190
+      ],
+      [
+        "משרד הפנים",
+        1135
+      ],
+      [
+        "משרד החינוך",
+        1080
+      ],
+      [
+        "משרד החוץ",
+        582
+      ],
+      [
+        "משרד העבודה",
+        508
+      ],
+      [
+        "משרד התחבורה והבטיחות בדרכים",
+        386
+      ]
+    ],
+    "most_common_policy_tags": [
+      [
+        "חקיקה, משפט ורגולציה",
+        7458
+      ],
+      [
+        "תקציב, פיננסים, ביטוח ומיסוי",
+        4925
+      ],
+      [
+        "מינהל ציבורי ושירות המדינה",
+        4339
+      ],
+      [
+        "מדיני ביטחוני",
+        2979
+      ],
+      [
+        "מינויים",
+        2627
+      ],
+      [
+        "חוץ הסברה ותפוצות",
+        2215
+      ],
+      [
+        "רווחה ושירותים חברתיים",
+        2137
+      ],
+      [
+        "בריאות ורפואה",
+        2112
+      ],
+      [
+        "דיור, נדלן ותכנון",
+        2062
+      ],
+      [
+        "תחבורה ובטיחות בדרכים",
+        1938
+      ]
+    ],
+    "decision_years_coverage": {
+      "1993": 136,
+      "1995": 559,
+      "1994": 241,
+      "1996": 1182,
+      "1997": 1405,
+      "1998": 1073,
+      "1999": 1173,
+      "2000": 746,
+      "2001": 335,
+      "2003": 207,
+      "2002": 275,
+      "2004": 152,
+      "2005": 221,
+      "2006": 133,
+      "2007": 208,
+      "2008": 424,
+      "2011": 961,
+      "2009": 1247,
+      "2010": 1795,
+      "2012": 639,
+      "2018": 1014,
+      "2013": 327,
+      "2014": 439,
+      "2015": 332,
+      "2017": 775,
+      "2016": 350,
+      "2019": 427,
+      "2020": 1436,
+      "2021": 1775,
+      "2022": 470,
+      "2023": 856,
+      "2024": 2686,
+      "2025": 933,
+      "2026": 90
+    },
+    "content_length_stats": {
+      "min": 10,
+      "max": 33308,
+      "avg": 998.42,
+      "under_100_chars": 609
+    }
+  },
+  "recommendations": {
+    "immediate_actions": [
+      "Investigate and resolve duplicate decision keys"
+    ],
+    "iterative_improvements": [
+      "Adjust operativity classification to meet 60-65% operative target"
+    ],
+    "monitoring_suggestions": [
+      "Run daily incremental QA checks",
+      "Monitor compliance trends over time",
+      "Set up alerts for whitelist violations",
+      "Review manual flagged records quarterly"
+    ]
+  },
+  "records_for_manual_review": [
+    {
+      "decision_key": "25_1033",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_1130",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_1167",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_1201",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_1433",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_1466",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_147",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2467",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2534",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2827",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2895",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2898",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2957",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2962",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_2984",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_3022",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_3123",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_3644",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_3830",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_3890",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_3894",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4219",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4324",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4328",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4332",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4338",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4389",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4391",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4392",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4472",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4543",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4544",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4570",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4634",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4647",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4651",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4705",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4757",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4759",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4762",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4788",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4793",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4860",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4878",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4880",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4889",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4937",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4938",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4951",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4956",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4968",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_4972",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5009",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5031",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5038",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5041",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5043",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5044",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5047",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5053",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5075",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5083",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5088",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5090",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5098",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5102",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5104",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5106",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5108",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5136",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5137",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5144",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5166",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5167",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5174",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5190",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5230",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5231",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5242",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5243",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5249",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5251",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5255",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5260",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5311",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5313",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5317",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5324",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5326",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5334",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5374",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5377",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5389",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5407",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5408",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5410",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5412",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5413",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5448",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    },
+    {
+      "decision_key": "25_5452",
+      "issues": [
+        "duplicate_keys"
+      ],
+      "severity": "high"
+    }
+  ],
+  "quality_thresholds_used": {
+    "operativity_target_min": 60.0,
+    "operativity_target_max": 65.0,
+    "min_content_length": 100,
+    "max_missing_titles": 50,
+    "max_whitelist_violations": 5.0,
+    "overall_quality_target": 85.0
+  }
+}
