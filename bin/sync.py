@@ -6,24 +6,32 @@ and syncs them with the Supabase database.
 """
 
 import argparse
+import json
 import logging
 import os
 import random
 import sys
 import time
+from datetime import datetime
 
 # Add src to Python path for package imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from gov_scraper.scrapers.catalog import extract_decision_urls_from_catalog_selenium
-from gov_scraper.scrapers.decision import scrape_decision_with_url_recovery
+# Basic imports (always available)
 from gov_scraper.processors.ai import process_decision_with_ai
 from gov_scraper.processors.incremental import prepare_for_database
 from gov_scraper.db.dal import insert_decisions_batch, check_existing_decision_keys
 from gov_scraper.processors.approval import get_user_approval
 from gov_scraper.processors.qa import validate_decision_inline, validate_scraped_content, apply_inline_fixes
-from gov_scraper.utils.selenium import SeleniumWebDriver, CloudflareBlockedError
 from gov_scraper.config import LOG_DIR, LOG_FILE, GOVERNMENT_NUMBER
+
+# Selenium imports (only when needed for scraping)
+def _import_selenium_modules():
+    """Import selenium modules only when needed."""
+    from gov_scraper.scrapers.catalog import extract_decision_urls_from_catalog_selenium
+    from gov_scraper.scrapers.decision import scrape_decision_with_url_recovery
+    from gov_scraper.utils.selenium import SeleniumWebDriver, CloudflareBlockedError
+    return extract_decision_urls_from_catalog_selenium, scrape_decision_with_url_recovery, SeleniumWebDriver, CloudflareBlockedError
 
 # Anti-block: batch cooldown settings
 BATCH_SIZE = 10            # Take a break every N decisions
@@ -65,6 +73,10 @@ def main():
                         help='Deprecated: kept for backward compatibility. Filtering is now key-based (all entries checked against DB).')
     parser.add_argument('--no-headless', action='store_true',
                         help='Run Chrome in visible mode (not headless) - may help bypass Cloudflare')
+    parser.add_argument('--manifest', type=str, default=None,
+                        help='Load entries from manifest JSON file instead of catalog API')
+    parser.add_argument('--local-only', action='store_true',
+                        help='Save processed decisions to local JSON file instead of database insertion')
 
     args = parser.parse_args()
     

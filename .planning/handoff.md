@@ -1,38 +1,86 @@
 # Session Handoff
-**Date:** 2026-02-18
-**Focus:** Implemented whitelist enforcement, QA fixes, and planned server deployment
+**Date:** 2026-02-19
+**Focus:** Docker cron infrastructure — diagnosed and fixed all issues, tested locally, ready for server deployment.
 
-## Done
-- **Summary prefix fix** — anti-prefix instructions added to all 3 prompts (legacy, unified, fallback) + post-processor regex safety net in `ai_post_processor.py`
-- **Gov body normalization** — expanded `BODY_NORMALIZATION` map with Knesset committees, single-yod variants, וו→ו handling
-- **Whitelist enforcement** — `enforce_policy_whitelist()` and `enforce_body_whitelist()` in `ai_post_processor.py` — loads authorized lists from `new_tags.md` / `new_departments.md` at module level, fuzzy match (Jaccard >=0.5), unauthorized tags dropped
-- **Operativity rules** — pattern-based override for bill opposition (→declarative) and principle approval patterns
-- **all_tags desync fix** — deterministic rebuild added at end of `apply_inline_fixes()` in `qa.py`
-- **Authorized list expansion** — added "השכלה גבוהה" to `new_tags.md` (46 tags), "המוסד לביטוח לאומי" to `new_departments.md` (45 bodies)
-- **Test sync** — 15 decisions synced and QA'd, all fixes confirmed working
-- **All 7 tests pass**
-- **Deployment plan written** — full plan at `.claude/plans/nifty-squishing-valiant.md`
+## ✅ COMPLETED — Docker Cron Fix
 
-## Not Done
-- **Commit & push** — 8 modified files uncommitted, 5 commits unpushed to origin
-- **Docker build & push** — image not yet rebuilt with new code
-- **Server deployment** — new image not deployed to `ceci` (178.62.39.248)
-- **Full re-sync** — all ~25K decisions need re-processing with improved AI pipeline
+### Problem Found
+The cron job on the server was **silently broken** since the migration from OpenAI to Gemini:
+- `docker-entrypoint.sh` exported `OPENAI_API_KEY` to `.env` → Python crashed on import (`GEMINI_API_KEY` missing)
+- `randomized_sync.sh` swallowed exit codes via `tee` pipe and always marked sync as "successful"
+- Healthcheck state lost on container restart (no volume mount)
+- No retry logic — single failure = 21-34 hour wait
+- Duplicate log lines (tee + crontab both writing to same file)
+
+### Files Changed (5 files)
+1. **`docker-compose.yml`** — switched to `env_file: .env`, removed external network dependency, added `./healthcheck` volume
+2. **`docker/docker-entrypoint.sh`** — generic env export (all vars, not hardcoded), validates required vars at startup, FRESH_START sentinel
+3. **`docker/randomized_sync.sh`** — captures real exit codes, 3x retry with 30/60/90min backoff, writes `last_failure.txt` on persistent failure
+4. **`docker/crontab`** — redirects to `cron.log` (sync script handles its own `daily_sync.log`)
+5. **`docker/healthcheck.sh`** — checks `last_failure.txt` first, handles FRESH_START sentinel, self-heals on success
+
+### Test Scripts Created
+- **`bin/test_cron.py`** — simple pipeline test (env → DB read → DB write)
+- **`bin/test_cron_full.py`** — 18 integration tests (exit codes, AI failure simulation, healthcheck scenarios, sync script validation)
+- **`cron_test_log`** table created in Supabase for test writes
+
+### Local Docker Test Results
+- **18/18 tests pass** inside Docker container
+- Chrome/Selenium can't run on Apple Silicon (Rosetta limitation) — works on Linux server
+- All other components verified: env vars, DB read/write, exit code handling, healthcheck states, retry logic
+
+## 🎯 Next Session: Deploy to Server
+
+```bash
+# 1. Build and push
+docker build -t tomerjoe/gov2db-scraper:cron-fix .
+docker push tomerjoe/gov2db-scraper:cron-fix
+
+# 2. On server
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull"
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && docker compose up -d --build"
+
+# 3. Verify
+ssh ceci "docker exec gov2db-scraper cat /app/.env | grep GEMINI"
+ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
+ssh ceci "docker exec -e DISPLAY=:99 gov2db-scraper python3 bin/test_cron.py"
+```
+
+## Docker Quick Reference
+
+```bash
+# Local development
+docker compose up -d --build    # Build and start
+docker logs gov2db-scraper      # Check startup
+docker ps                       # Should show (healthy)
+docker compose down             # Stop
+
+# Run tests inside container
+docker exec gov2db-scraper python3 bin/test_cron.py        # Simple test
+docker exec gov2db-scraper python3 bin/test_cron_full.py   # Full integration
+
+# Server operations
+ssh ceci "docker ps | grep gov2db"
+ssh ceci "docker exec gov2db-scraper tail -50 /app/logs/daily_sync.log"
+ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
+```
+
+## Self-Healing Behavior (No Manual Intervention Needed)
+
+| Scenario | What Happens |
+|----------|-------------|
+| Single sync failure | Auto-retry up to 3x with backoff |
+| Missing env vars | Container refuses to start → restart loop visible in `docker ps` |
+| Container restart | Health state preserved via volume mount |
+| All 3 retries fail | `last_failure.txt` written → healthcheck fails → `docker ps` shows `(unhealthy)` |
+| Next sync succeeds | `last_failure.txt` deleted → auto-heals to `(healthy)` |
 
 ## Warnings
-- **Do NOT commit** `recent_decisions_qa.json` or `recent_sync_qa.json` — temporary QA exports
-- **5 commits already unpushed** — push all together with the new commit
-- `new_tags.md` and `new_departments.md` are copied into Docker image by Dockerfile — must rebuild image after changes
-- Full re-sync will take hours — run detached on server (tmux or `docker exec -d`)
+- **Chrome/Selenium test won't work on macOS** (Apple Silicon → Rosetta limitation)
+- **Server docker-compose.yml** needs network name updated to `compose_ceci-internal`
+- **Don't use `set -e`** in sync wrapper scripts — it masks failures with pipe commands
 
-## Next Session Priorities
-1. **Commit, push, build, deploy** — follow the plan in `.claude/plans/nifty-squishing-valiant.md` steps 1-3
-2. **Test sync from server** — 1 decision to verify Docker image works (step 4)
-3. **Full re-sync from server** — unlimited sync, run detached (step 5)
-4. **Verify results** — QA after full sync completes (step 6)
+---
 
-## Read First
-- `.planning/state.md`
-- `.claude/plans/nifty-squishing-valiant.md` — the deployment plan (follow it step by step)
-- `SERVER-OPERATIONS.md` — server SSH/Docker commands reference
-- `Dockerfile` — confirms `new_tags.md` / `new_departments.md` are copied into image
+**Status:** All fixes implemented and tested locally
+**Next:** Deploy to server + verify first cron run

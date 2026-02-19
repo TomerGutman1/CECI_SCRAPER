@@ -44,9 +44,26 @@ HEADERS = {
 MAX_RETRIES = 5
 RETRY_DELAY = 2  # seconds
 
-# Fixed values for decisions
+# Fixed values for decisions (current government)
 GOVERNMENT_NUMBER = 37
 PRIME_MINISTER = "בנימין נתניהו"
+
+# Prime Minister mapping by government number (governments 25-37)
+PM_BY_GOVERNMENT = {
+    25: "יצחק רבין",        # 1992-1995
+    26: "שמעון פרס",         # 1995-1996
+    27: "בנימין נתניהו",     # 1996-1999
+    28: "אהוד ברק",          # 1999-2001
+    29: "אריאל שרון",        # 2001-2003
+    30: "אריאל שרון",        # 2003-2006
+    31: "אהוד אולמרט",       # 2006-2009
+    32: "בנימין נתניהו",     # 2009-2013
+    33: "בנימין נתניהו",     # 2013-2015
+    34: "בנימין נתניהו",     # 2015-2020
+    35: "בנימין נתניהו",     # 2020-2021
+    36: "נפתלי בנט",         # 2021-2022
+    37: "בנימין נתניהו",     # 2022-present
+}
 
 # Gemini Configuration
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')

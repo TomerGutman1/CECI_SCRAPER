@@ -3,9 +3,9 @@
 import logging
 import re
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 from ..utils.selenium import SeleniumWebDriver
-from ..config import HEBREW_LABELS, GOVERNMENT_NUMBER, PRIME_MINISTER
+from ..config import HEBREW_LABELS, GOVERNMENT_NUMBER, PRIME_MINISTER, PM_BY_GOVERNMENT
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -495,9 +495,13 @@ def scrape_decision_page_selenium(url: str) -> Dict[str, str]:
             # Extract committee directly from content (most reliable method)
             committee = extract_committee_name(decision_content)
             
+            # Use default government number for direct scraping (legacy function)
+            gov_num = GOVERNMENT_NUMBER
+            prime_minister = PRIME_MINISTER
+
             # Generate decision key
-            decision_key = f"{GOVERNMENT_NUMBER}_{decision_number}" if decision_number else ""
-            
+            decision_key = f"{gov_num}_{decision_number}" if decision_number else ""
+
             # Prepare the result
             result = {
                 'decision_url': url,
@@ -506,8 +510,8 @@ def scrape_decision_page_selenium(url: str) -> Dict[str, str]:
                 'committee': committee or "",
                 'decision_title': decision_title,
                 'decision_content': decision_content,
-                'government_number': str(GOVERNMENT_NUMBER),
-                'prime_minister': PRIME_MINISTER,
+                'government_number': str(gov_num),
+                'prime_minister': prime_minister,
                 'decision_key': decision_key
             }
             
@@ -559,6 +563,14 @@ def scrape_decision_content_only(url: str, wait_time: int = 15, swd=None) -> str
 
 def _build_result_from_meta(decision_meta: dict, content: str) -> Dict[str, str]:
     """Build a full result dict by merging API metadata with scraped content."""
+    # Get government_number from decision_meta, fallback to default
+    gov_num = decision_meta.get('government_number', GOVERNMENT_NUMBER)
+
+    # Get prime_minister from decision_meta or lookup by government number
+    prime_minister = decision_meta.get('prime_minister')
+    if not prime_minister:
+        prime_minister = PM_BY_GOVERNMENT.get(int(gov_num), PRIME_MINISTER)
+
     return {
         'decision_url': decision_meta['url'],
         'decision_number': decision_meta.get('decision_number', ''),
@@ -566,9 +578,9 @@ def _build_result_from_meta(decision_meta: dict, content: str) -> Dict[str, str]
         'committee': decision_meta.get('committee', ''),
         'decision_title': decision_meta.get('title', ''),
         'decision_content': content,
-        'government_number': str(GOVERNMENT_NUMBER),
-        'prime_minister': PRIME_MINISTER,
-        'decision_key': f"{GOVERNMENT_NUMBER}_{decision_meta.get('decision_number', '')}"
+        'government_number': str(gov_num),
+        'prime_minister': prime_minister,
+        'decision_key': f"{gov_num}_{decision_meta.get('decision_number', '')}"
     }
 
 

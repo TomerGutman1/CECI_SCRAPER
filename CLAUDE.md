@@ -8,7 +8,31 @@ Automated scraper that extracts Israeli government decisions from gov.il, analyz
 
 ## How To Run
 
-### Daily Operations
+### Docker (Production & Local)
+```bash
+# Start locally
+docker compose up -d --build    # Build and start
+docker logs gov2db-scraper      # Check startup (should show env vars exported)
+docker ps                       # Should show (healthy) after ~1 minute
+
+# Test inside container
+docker exec gov2db-scraper python3 bin/test_cron.py        # Simple: env → DB read → DB write
+docker exec gov2db-scraper python3 bin/test_cron_full.py   # Full: 18 integration tests
+
+# Stop
+docker compose down
+```
+
+**Requirements:** `.env` file with `GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
+
+**What happens automatically:**
+- Container validates env vars on startup (missing = FATAL, won't start)
+- Cron runs sync daily (randomized 21-34h interval to avoid Cloudflare)
+- Failed syncs retry 3x with backoff (30/60/90 min)
+- Healthcheck runs hourly → 3 failures = `(unhealthy)` in `docker ps`
+- Logs persist in `./logs/`, health state in `./healthcheck/`
+
+### Daily Operations (Without Docker)
 ```bash
 make sync              # Daily sync (auto-approve, no-headless mode)
 make sync-test         # Test with 1 decision
@@ -42,15 +66,22 @@ python bin/simple_incremental_qa.py run       # Fast incremental QA (working!)
 
 ## Project Structure
 ```
-bin/               # CLI scripts (sync.py, qa.py, simple_incremental_qa.py)
+bin/               # CLI scripts (sync.py, qa.py, test_cron.py, test_cron_full.py)
 src/gov_scraper/
   ├── scrapers/    # Web scraping (catalog.py, decision.py)
   ├── processors/  # AI & QA logic (ai.py, qa.py, incremental.py)
   └── db/          # Database (connector.py, dal.py)
+docker/            # Docker infrastructure
+  ├── docker-entrypoint.sh  # Startup: env validation, Xvfb, cron
+  ├── randomized_sync.sh    # Sync wrapper: retry, backoff, health state
+  ├── healthcheck.sh        # Hourly health check (DB + sync age + failures)
+  ├── crontab               # Cron schedule (2AM + 2PM Israel time)
+  └── logrotate.conf        # Log rotation (30 days, 100MB max)
+healthcheck/       # Health state (persists across restarts via volume)
 data/              # Reports, exports, backups
 logs/              # Scraper and sync logs
-new_tags.md        # 45 authorized policy tags
-new_departments.md # 44 authorized government bodies
+new_tags.md        # 46 authorized policy tags
+new_departments.md # 45 authorized government bodies
 ```
 
 ## Database Rules
@@ -70,24 +101,26 @@ new_departments.md # 44 authorized government bodies
 **Usage**: Run `make simple-qa-run` daily for fast QA updates
 **Status**: Check with `make simple-qa-status`
 
-## Current Status (Feb 18, 2026)
+## Current Status (Feb 19, 2026)
 - **Algorithm Improvements:** DEPLOYED ✅ + Post-deployment fixes applied
+- **Docker Cron:** FIXED ✅ — env vars, retry logic, healthcheck, self-healing
 - **DB Quality:** 0% duplicates (unique constraint enforced)
 - **Tag Accuracy:** ~93% (up from 50%), known issues documented
 - **API Efficiency:** 1 call per decision (down from 5-6)
 - **Dynamic Summaries:** Implemented, scales with content length
-- **Known Issues:** Summary prefix waste (40%), gov body normalization (50%), operativity inconsistencies (20%)
 - See `.planning/state.md` and `.planning/handoff.md` for details
 
-## 🚀 Quick Deployment (New!)
+## Docker Deployment
 ```bash
-# Deploy all algorithm improvements
-make deploy-check        # Check prerequisites
-make deploy-full         # Run full deployment (~40 min)
-make verify-deployment   # Verify success
+# Local
+docker compose up -d --build
+docker exec gov2db-scraper python3 bin/test_cron.py   # Verify pipeline
 
-# Or auto-deploy (no prompts)
-make deploy-auto
+# Server (178.62.39.248, alias: ceci)
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull && docker compose up -d --build"
+ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
+
+# Server docker-compose.yml uses network: compose_ceci-internal
 ```
 
 ## New Components (Feb 2026 - Ready, Not Yet Deployed)
@@ -105,12 +138,17 @@ make deploy-auto
 4. **Safety Modes:** Use `--safety-mode extra-safe` after long breaks
 5. **Incremental Logic:** Compares by date THEN number, not just number
 6. **Unified AI:** Set `USE_UNIFIED_AI=true` in .env to enable new processor
+7. **Cloudflare:** Always use `--no-headless` for scraping (headless Chrome is blocked)
+8. **Docker env vars:** Entrypoint exports ALL Docker env vars to `/app/.env` for cron — don't hardcode var names
+9. **Apple Silicon:** Chrome/Selenium tests fail locally on macOS ARM (Rosetta limitation) — works on Linux server
 
 ## Key Files to Modify
 - **Scraping:** `src/gov_scraper/scrapers/decision.py`
 - **AI Prompts:** `src/gov_scraper/processors/ai.py`
 - **QA Checks:** `src/gov_scraper/processors/qa.py`
 - **Database:** `src/gov_scraper/db/dal.py`
+- **Docker Cron:** `docker/randomized_sync.sh` (sync wrapper), `docker/docker-entrypoint.sh` (startup)
+- **Health Check:** `docker/healthcheck.sh`
 
 ## Environment Variables
 ```bash
@@ -125,6 +163,7 @@ SUPABASE_SERVICE_ROLE_KEY=...     # Service role JWT
 - **QA Process:** `QA-LESSONS.md`
 - **Server Ops:** `SERVER-OPERATIONS.md`
 - **Anti-Block:** `ANTI-BLOCK-STRATEGY.md`
+- **Session Handoff:** `.planning/handoff.md` (current status + next steps)
 
 ## When Making Changes
 1. Run QA scan first to understand current issues
