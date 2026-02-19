@@ -1,86 +1,40 @@
 # Session Handoff
 **Date:** 2026-02-19
-**Focus:** Docker cron infrastructure — diagnosed and fixed all issues, tested locally, ready for server deployment.
+**Focus:** Built 3-phase pipeline, completed full catalog discovery (25,421 decisions), QA-validated manifest
 
-## ✅ COMPLETED — Docker Cron Fix
+## Done
+- **3-Phase Pipeline Architecture** — fully implemented:
+  - `bin/discover_all.py` — Phase 1: paginate gov.il catalog API, extract all metadata
+  - `bin/sync.py --manifest --local-only` — Phase 2: scrape + AI from manifest, save locally
+  - `bin/push_local.py --qa-only/--push` — Phase 3: QA validate + push to Supabase
+  - Makefile targets: `discover`, `full-scrape`, `push-local`, etc.
+- **Full Discovery Complete** — `data/catalog_manifest.json` with 25,421 entries, 10/10 QA checks passed:
+  - 0 duplicates, 0 missing fields, all 13 governments (25-37), dates 1993-2026
+  - Gov 36 PM rotation (Bennett/Lapid) correctly handled
+  - All URL patterns captured (old DDmonYYYYNNN through new decNNN-YYYY)
+- **Config/Code Updates** — `config.py` (PM_BY_GOVERNMENT table), `catalog.py` (parse_government_field, remove URL filter, paginate_full_catalog), `decision.py` (dynamic gov number in _build_result_from_meta)
+- **AI Algorithm Improvements** — policy tags, operativity, gov body detection, summary-tag alignment (all in code, NOT yet applied to fresh data)
+- **Deleted flawed backup** — `production_ready_20260219_070758.json` was just old backup with post-processing, had 40% duplicates
 
-### Problem Found
-The cron job on the server was **silently broken** since the migration from OpenAI to Gemini:
-- `docker-entrypoint.sh` exported `OPENAI_API_KEY` to `.env` → Python crashed on import (`GEMINI_API_KEY` missing)
-- `randomized_sync.sh` swallowed exit codes via `tee` pipe and always marked sync as "successful"
-- Healthcheck state lost on container restart (no volume mount)
-- No retry logic — single failure = 21-34 hour wait
-- Duplicate log lines (tee + crontab both writing to same file)
-
-### Files Changed (5 files)
-1. **`docker-compose.yml`** — switched to `env_file: .env`, removed external network dependency, added `./healthcheck` volume
-2. **`docker/docker-entrypoint.sh`** — generic env export (all vars, not hardcoded), validates required vars at startup, FRESH_START sentinel
-3. **`docker/randomized_sync.sh`** — captures real exit codes, 3x retry with 30/60/90min backoff, writes `last_failure.txt` on persistent failure
-4. **`docker/crontab`** — redirects to `cron.log` (sync script handles its own `daily_sync.log`)
-5. **`docker/healthcheck.sh`** — checks `last_failure.txt` first, handles FRESH_START sentinel, self-heals on success
-
-### Test Scripts Created
-- **`bin/test_cron.py`** — simple pipeline test (env → DB read → DB write)
-- **`bin/test_cron_full.py`** — 18 integration tests (exit codes, AI failure simulation, healthcheck scenarios, sync script validation)
-- **`cron_test_log`** table created in Supabase for test writes
-
-### Local Docker Test Results
-- **18/18 tests pass** inside Docker container
-- Chrome/Selenium can't run on Apple Silicon (Rosetta limitation) — works on Linux server
-- All other components verified: env vars, DB read/write, exit code handling, healthcheck states, retry logic
-
-## 🎯 Next Session: Deploy to Server
-
-```bash
-# 1. Build and push
-docker build -t tomerjoe/gov2db-scraper:cron-fix .
-docker push tomerjoe/gov2db-scraper:cron-fix
-
-# 2. On server
-ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull"
-ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && docker compose up -d --build"
-
-# 3. Verify
-ssh ceci "docker exec gov2db-scraper cat /app/.env | grep GEMINI"
-ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
-ssh ceci "docker exec -e DISPLAY=:99 gov2db-scraper python3 bin/test_cron.py"
-```
-
-## Docker Quick Reference
-
-```bash
-# Local development
-docker compose up -d --build    # Build and start
-docker logs gov2db-scraper      # Check startup
-docker ps                       # Should show (healthy)
-docker compose down             # Stop
-
-# Run tests inside container
-docker exec gov2db-scraper python3 bin/test_cron.py        # Simple test
-docker exec gov2db-scraper python3 bin/test_cron_full.py   # Full integration
-
-# Server operations
-ssh ceci "docker ps | grep gov2db"
-ssh ceci "docker exec gov2db-scraper tail -50 /app/logs/daily_sync.log"
-ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
-```
-
-## Self-Healing Behavior (No Manual Intervention Needed)
-
-| Scenario | What Happens |
-|----------|-------------|
-| Single sync failure | Auto-retry up to 3x with backoff |
-| Missing env vars | Container refuses to start → restart loop visible in `docker ps` |
-| Container restart | Health state preserved via volume mount |
-| All 3 retries fail | `last_failure.txt` written → healthcheck fails → `docker ps` shows `(unhealthy)` |
-| Next sync succeeds | `last_failure.txt` deleted → auto-heals to `(healthy)` |
+## Not Done
+- **Phase 2 not executed at scale** — manifest has metadata only (7/16 DB fields). Still need to scrape each URL and run AI to get: `decision_content`, `summary`, `operativity`, `tags_policy_area`, `tags_government_body`, `tags_location`, `all_tags`
+- **No production-ready backup exists** — the deleted file was based on old data, not the new pipeline
+- **AI improvements not validated on fresh scrapes** — improvements are in code but haven't been tested with actual Gemini calls on new data
 
 ## Warnings
-- **Chrome/Selenium test won't work on macOS** (Apple Silicon → Rosetta limitation)
-- **Server docker-compose.yml** needs network name updated to `compose_ceci-internal`
-- **Don't use `set -e`** in sync wrapper scripts — it masks failures with pipe commands
+- **Phase 2 will take hours** — scraping 25K URLs + Gemini API calls. Must use `--no-headless` (Cloudflare blocks headless Chrome). Budget ~10+ hours.
+- **Gemini API costs** — 25K decisions x 1 API call each. Monitor rate limits.
+- **Apple Silicon limitation** — Chrome/Selenium via Docker doesn't work locally. Phase 2 scraping must run natively on macOS or on the Linux server.
+- **state.md is bloated** — 529 lines of accumulated session logs. Consider trimming to essentials.
 
----
+## Next Session Priorities
+1. **Execute Phase 2** — scrape + AI process all 25,421 decisions from manifest (`make full-scrape` or batched runs). This is the BIG task.
+2. **QA the scraped results** — run `push_local.py --qa-only` on output, verify AI improvements actually work on fresh data
+3. **Create clean production backup** — in `backups/` format (flat JSON list, 16 fields per record matching DB schema)
+4. **Push to Supabase** — once QA passes, use `push_local.py --push`
 
-**Status:** All fixes implemented and tested locally
-**Next:** Deploy to server + verify first cron run
+## Read First
+- `.planning/handoff.md` (this file)
+- `data/catalog_manifest.json` — the 25,421 discovery entries (source of truth)
+- `bin/sync.py` — Phase 2 script with `--manifest` and `--local-only` flags
+- `bin/push_local.py` — Phase 3 QA + push script
