@@ -24,7 +24,11 @@ logger = logging.getLogger(__name__)
 
 
 def _load_authorized_list(filename: str) -> Set[str]:
-    """Load authorized tag/body list from file."""
+    """Load authorized tag/body list from file.
+
+    Raises RuntimeError if file is missing or empty — whitelist enforcement
+    is a critical security layer that must not be silently bypassed.
+    """
     filepath = os.path.join(os.path.dirname(__file__), '..', '..', '..', filename)
     filepath = os.path.abspath(filepath)
     tags = set()
@@ -36,7 +40,12 @@ def _load_authorized_list(filename: str) -> Set[str]:
                     continue
                 tags.add(line)
     except FileNotFoundError:
-        logger.error(f"Authorized list not found: {filepath}")
+        raise RuntimeError(f"CRITICAL: Authorized list not found: {filepath}. "
+                          f"Whitelist enforcement cannot work without this file.")
+
+    if not tags:
+        raise RuntimeError(f"CRITICAL: Authorized list is empty: {filepath}. "
+                          f"Whitelist enforcement would be bypassed.")
     return tags
 
 
@@ -468,8 +477,8 @@ def deduplicate_tags(tags_string: str, separator: str = ';') -> str:
     if not tags_string:
         return ""
 
-    # Split and strip whitespace
-    tags = [t.strip() for t in tags_string.split(separator)]
+    # Split, strip whitespace, and filter empty strings
+    tags = [t.strip() for t in tags_string.split(separator) if t.strip()]
 
     # Remove duplicates while preserving order
     unique_tags = list(dict.fromkeys(tags))
@@ -658,17 +667,17 @@ def post_process_ai_results(decision_data: Dict, decision_content: str = "") -> 
     all_individual_tags = []
 
     if cleaned_data.get('tags_policy_area'):
-        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_policy_area'].split(';')])
+        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_policy_area'].split(';') if t.strip()])
 
     if cleaned_data.get('tags_government_body'):
-        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_government_body'].split(';')])
+        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_government_body'].split(';') if t.strip()])
 
     if cleaned_data.get('tags_location'):
-        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_location'].split(',')])
+        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_location'].split(',') if t.strip()])
 
     # Include special categories if stored separately
     if cleaned_data.get('tags_special_categories'):
-        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_special_categories'].split(';')])
+        all_individual_tags.extend([t.strip() for t in cleaned_data['tags_special_categories'].split(';') if t.strip()])
 
     # Remove duplicates while preserving order
     unique_all_tags = list(dict.fromkeys(all_individual_tags))

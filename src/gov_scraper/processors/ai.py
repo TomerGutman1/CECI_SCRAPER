@@ -979,6 +979,9 @@ def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = 
         use_unified = USE_UNIFIED_AI
 
     if use_unified:
+        # Save a copy before unified processing — if it fails mid-mutation,
+        # legacy fallback needs clean original data
+        decision_data_backup = decision_data.copy()
         try:
             # NEW UNIFIED PROCESSING (1 API call)
             from .unified_ai import create_unified_processor
@@ -1004,11 +1007,11 @@ def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = 
             # Combine all tags and deduplicate across all categories
             all_individual_tags = []
             if policy_areas_str:
-                all_individual_tags.extend([t.strip() for t in policy_areas_str.split(';')])
+                all_individual_tags.extend([t.strip() for t in policy_areas_str.split(';') if t.strip()])
             if government_bodies_str:
-                all_individual_tags.extend([t.strip() for t in government_bodies_str.split(';')])
+                all_individual_tags.extend([t.strip() for t in government_bodies_str.split(';') if t.strip()])
             if locations_str:
-                all_individual_tags.extend([t.strip() for t in locations_str.split(',')])
+                all_individual_tags.extend([t.strip() for t in locations_str.split(',') if t.strip()])
 
             # Remove duplicates while preserving order
             unique_all_tags = list(dict.fromkeys(all_individual_tags))
@@ -1038,7 +1041,8 @@ def process_decision_with_ai(decision_data: Dict[str, str], use_unified: bool = 
 
         except Exception as e:
             logger.warning(f"Unified processing failed: {e}, falling back to individual calls")
-            # Fall through to legacy processing
+            # Restore clean copy before legacy fallback
+            decision_data = decision_data_backup
 
     # LEGACY PROCESSING (5-6 API calls)
     logger.info("Using legacy individual AI calls")

@@ -561,26 +561,49 @@ def scrape_decision_content_only(url: str, wait_time: int = 15, swd=None) -> str
         return ""
 
 
-def _build_result_from_meta(decision_meta: dict, content: str) -> Dict[str, str]:
-    """Build a full result dict by merging API metadata with scraped content."""
+def _build_result_from_meta(decision_meta: dict, content: str) -> Optional[Dict[str, str]]:
+    """Build a full result dict by merging API metadata with scraped content.
+
+    Returns None if critical fields (url, decision_number) are missing.
+    """
+    url = decision_meta.get('url')
+    decision_number = decision_meta.get('decision_number')
+
+    # Validate critical fields — refuse to build invalid records
+    if not url:
+        logger.error(f"_build_result_from_meta: missing 'url' in decision_meta: {list(decision_meta.keys())}")
+        return None
+    if not decision_number:
+        logger.error(f"_build_result_from_meta: missing 'decision_number' for url={url}")
+        return None
+
     # Get government_number from decision_meta, fallback to default
     gov_num = decision_meta.get('government_number', GOVERNMENT_NUMBER)
+
+    # Validate decision_key won't be malformed
+    decision_key = f"{gov_num}_{decision_number}"
+    if not gov_num or decision_key.endswith('_') or '_None' in decision_key:
+        logger.error(f"_build_result_from_meta: invalid decision_key '{decision_key}' for url={url}")
+        return None
 
     # Get prime_minister from decision_meta or lookup by government number
     prime_minister = decision_meta.get('prime_minister')
     if not prime_minister:
-        prime_minister = PM_BY_GOVERNMENT.get(int(gov_num), PRIME_MINISTER)
+        try:
+            prime_minister = PM_BY_GOVERNMENT.get(int(gov_num), PRIME_MINISTER)
+        except (ValueError, TypeError):
+            prime_minister = PRIME_MINISTER
 
     return {
-        'decision_url': decision_meta['url'],
-        'decision_number': decision_meta.get('decision_number', ''),
+        'decision_url': url,
+        'decision_number': str(decision_number),
         'decision_date': decision_meta.get('decision_date', ''),
         'committee': decision_meta.get('committee', ''),
         'decision_title': decision_meta.get('title', ''),
         'decision_content': content,
         'government_number': str(gov_num),
         'prime_minister': prime_minister,
-        'decision_key': f"{gov_num}_{decision_meta.get('decision_number', '')}"
+        'decision_key': decision_key
     }
 
 

@@ -162,7 +162,7 @@ def get_raw_path(output_path):
     return output_path.replace('.json', '_raw.json')
 
 
-def phase_a_scrape(entries_to_process, raw_path, start_index, total_entries, headless, logger):
+def phase_a_scrape(entries_to_process, raw_path, start_index, total_entries, headless, logger, resume=False):
     """
     Phase A: Scrape all decision content with Chrome, save raw data, close Chrome.
 
@@ -173,17 +173,20 @@ def phase_a_scrape(entries_to_process, raw_path, start_index, total_entries, hea
     from src.gov_scraper.processors.qa import validate_scraped_content
     from src.gov_scraper.utils.selenium import SeleniumWebDriver
 
-    # Load existing raw data if resuming
+    # Load existing raw data ONLY if resuming
     scraped_data = []
     scraped_keys = set()
-    if os.path.exists(raw_path):
+    if resume and os.path.exists(raw_path):
         try:
             with open(raw_path, 'r', encoding='utf-8') as f:
                 scraped_data = json.load(f)
             scraped_keys = {d.get('decision_key') for d in scraped_data}
-            logger.info(f"Loaded {len(scraped_data)} existing raw entries from {raw_path}")
+            logger.info(f"RESUME: Loaded {len(scraped_data)} existing raw entries from {raw_path}")
         except Exception:
+            logger.warning(f"RESUME: Failed to load {raw_path}, starting fresh")
             scraped_data = []
+    elif os.path.exists(raw_path):
+        logger.info(f"FRESH RUN: Ignoring existing {raw_path} (use --resume to continue from it)")
 
     failed_keys = []
     consecutive_blocks = 0
@@ -280,7 +283,7 @@ def phase_a_scrape(entries_to_process, raw_path, start_index, total_entries, hea
     return scraped_data, failed_keys
 
 
-def phase_b_ai_process(scraped_data, output_path, logger):
+def phase_b_ai_process(scraped_data, output_path, logger, resume=False):
     """
     Phase B: AI-process all scraped decisions (no Chrome running).
 
@@ -291,20 +294,23 @@ def phase_b_ai_process(scraped_data, output_path, logger):
     from src.gov_scraper.processors.qa import apply_inline_fixes
     from src.gov_scraper.processors.incremental import prepare_for_database
 
-    # Load existing processed data if resuming
+    # Load existing processed data ONLY if resuming
     processed_decisions = []
     processed_keys = set()
-    if os.path.exists(output_path):
+    if resume and os.path.exists(output_path):
         try:
             with open(output_path, 'r', encoding='utf-8') as f:
                 processed_decisions = json.load(f)
             if isinstance(processed_decisions, list):
                 processed_keys = {d.get('decision_key') for d in processed_decisions}
-                logger.info(f"Loaded {len(processed_decisions)} existing processed entries from {output_path}")
+                logger.info(f"RESUME: Loaded {len(processed_decisions)} existing processed entries from {output_path}")
             else:
                 processed_decisions = []
         except Exception:
+            logger.warning(f"RESUME: Failed to load {output_path}, starting fresh")
             processed_decisions = []
+    elif os.path.exists(output_path):
+        logger.info(f"FRESH RUN: Ignoring existing {output_path} (use --resume to continue from it)")
 
     ai_failed_keys = []
     new_processed = 0
@@ -435,7 +441,7 @@ def main():
     else:
         scraped_data, scrape_failed_keys = phase_a_scrape(
             entries_to_process, raw_path, start_index, len(entries),
-            headless=not args.no_headless, logger=logger,
+            headless=not args.no_headless, logger=logger, resume=args.resume,
         )
         if not scraped_data:
             logger.error("Phase A produced no scraped data — aborting")
@@ -443,7 +449,7 @@ def main():
 
     # ── PHASE B: AI PROCESS ──────────────────────────────────────────
     processed_decisions, ai_failed_keys = phase_b_ai_process(
-        scraped_data, args.output, logger,
+        scraped_data, args.output, logger, resume=args.resume,
     )
 
     # ── FINAL REPORT ─────────────────────────────────────────────────

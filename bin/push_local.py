@@ -166,22 +166,31 @@ class PushLocalProcessor:
             content_valid, content_warnings = self.validate_content_length(validated_record['decision_content'])
             warnings.extend(content_warnings)
 
-        # 6. Apply post-processing fixes (this modifies the record)
+        # 6. Validate post-processing was already applied (do NOT re-apply —
+        #    post_process_ai_results() is called during Phase B in the pipeline.
+        #    Re-applying could mutate tags differently if lists changed.)
         try:
-            decision_content = validated_record.get('decision_content', '')
-            original_record = validated_record.copy()
-            validated_record = post_process_ai_results(validated_record, decision_content)
-
-            # Track what was fixed
             fixes = []
-            if original_record.get('summary') != validated_record.get('summary'):
-                fixes.append("summary prefix stripped")
-            if original_record.get('tags_policy_area') != validated_record.get('tags_policy_area'):
-                fixes.append("policy tags whitelist enforced")
-            if original_record.get('tags_government_body') != validated_record.get('tags_government_body'):
-                fixes.append("government body whitelist enforced")
-            if original_record.get('operativity') != validated_record.get('operativity'):
-                fixes.append("operativity pattern override applied")
+            # Check if post-processing looks already applied
+            summary = validated_record.get('summary', '')
+            if summary and summary.startswith('החלטת ממשלה'):
+                warnings.append("Summary still has forbidden prefix — post-processing may not have run")
+
+            policy_tags = validated_record.get('tags_policy_area', '')
+            if policy_tags:
+                from src.gov_scraper.processors.ai_post_processor import AUTHORIZED_POLICY_AREAS
+                tags = [t.strip() for t in policy_tags.split(';') if t.strip()]
+                unauthorized = [t for t in tags if t not in AUTHORIZED_POLICY_AREAS]
+                if unauthorized:
+                    warnings.append(f"Unauthorized policy tags found: {unauthorized}")
+
+            gov_bodies = validated_record.get('tags_government_body', '')
+            if gov_bodies:
+                from src.gov_scraper.processors.ai_post_processor import AUTHORIZED_GOVERNMENT_BODIES
+                bodies = [b.strip() for b in gov_bodies.split(';') if b.strip()]
+                unauthorized_bodies = [b for b in bodies if b not in AUTHORIZED_GOVERNMENT_BODIES]
+                if unauthorized_bodies:
+                    warnings.append(f"Unauthorized gov bodies found: {unauthorized_bodies}")
             if original_record.get('all_tags') != validated_record.get('all_tags'):
                 fixes.append("all_tags rebuilt deterministically")
 
