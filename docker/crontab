@@ -3,10 +3,9 @@ PATH=/home/seluser/venv/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:
 TZ=Asia/Jerusalem
 PYTHONUNBUFFERED=1
 
-# Randomized sync - runs every 12 hours, wrapper ensures 21-34 hour intervals
-# Script handles its own logging to /app/logs/daily_sync.log
-# Only cron-level errors (script missing, permission denied) go to cron.log
-0 2,14 * * * root /app/docker/randomized_sync.sh >> /app/logs/cron.log 2>&1
+# Daily sync at 02:00 AM Israel time (API mode, no Chrome)
+# Script adds 0-30 min jitter, retries 3x on failure
+0 2 * * * root /app/docker/randomized_sync.sh >> /app/logs/cron.log 2>&1
 
 # Logrotate daily at 03:00 AM
 0 3 * * * root /usr/sbin/logrotate /etc/logrotate.d/gov2db >> /app/logs/logrotate.log 2>&1

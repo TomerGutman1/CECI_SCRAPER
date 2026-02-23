@@ -1,15 +1,12 @@
 #!/bin/bash
-# Randomized Sync Wrapper
-# Ensures 21-34 hours between runs to avoid Cloudflare rate limiting detection
+# Daily Sync Wrapper (API mode)
+# Runs once daily via cron with minimal jitter
 #
 # How it works:
-# 1. Checks when the last successful sync was
-# 2. If less than 21 hours ago, waits until 21 hours have passed
-# 3. Adds random delay of 0-13 hours (0-780 minutes)
-# 4. Runs sync with --no-headless to bypass Cloudflare
-# 5. Retries up to 3 times on failure with escalating backoff
-#
-# This creates an effective interval of 21-34 hours between syncs
+# 1. Sources /app/.env for cron environment (GEMINI_API_KEY, SUPABASE, etc.)
+# 2. Adds 0-30 minutes of random jitter
+# 3. Runs sync via gov.il REST APIs (no Chrome/Selenium)
+# 4. Retries up to 3 times on failure with escalating backoff
 
 # Do NOT use set -e: we handle exit codes manually
 set -o pipefail
@@ -17,30 +14,23 @@ set -o pipefail
 LOG_FILE="/app/logs/daily_sync.log"
 LAST_SUCCESS_FILE="/app/healthcheck/last_success.txt"
 LAST_FAILURE_FILE="/app/healthcheck/last_failure.txt"
-MIN_HOURS=21
-MAX_RANDOM_HOURS=13
 MAX_RETRIES=3
-RETRY_BACKOFF_MINUTES=30  # 30min, 60min, 90min
+RETRY_BACKOFF_MINUTES=10  # 10min, 20min, 30min
 
 log() {
-    echo "$(date -Iseconds) [randomized_sync] $1" >> "$LOG_FILE"
+    echo "$(date -Iseconds) [daily_sync] $1" >> "$LOG_FILE"
 }
 
-# Get hours since last successful sync
-get_hours_since_last_sync() {
-    if [ -f "$LAST_SUCCESS_FILE" ]; then
-        last_sync=$(cat "$LAST_SUCCESS_FILE")
-        # Handle FRESH_START sentinel from entrypoint
-        if echo "$last_sync" | grep -q "FRESH_START"; then
-            echo 999
-            return
-        fi
-        last_epoch=$(date -d "$last_sync" +%s 2>/dev/null || echo 0)
-        now_epoch=$(date +%s)
-        hours=$(( (now_epoch - last_epoch) / 3600 ))
-        echo $hours
+# Source environment variables for cron
+# Docker entrypoint writes all env vars to /app/.env at startup
+load_env() {
+    if [ -f /app/.env ]; then
+        set -a
+        source /app/.env
+        set +a
+        log "Loaded $(wc -l < /app/.env) env vars from /app/.env"
     else
-        echo 999  # No previous sync, run immediately
+        log "WARNING: /app/.env not found — env vars may be missing"
     fi
 }
 
@@ -61,37 +51,30 @@ run_sync() {
 # ---- Main logic ----
 
 log "========================================="
-log "Randomized Sync Starting"
+log "Daily Sync Starting (API mode)"
 log "========================================="
 
-hours_since_last=$(get_hours_since_last_sync)
-log "Hours since last sync: $hours_since_last"
+# Load env vars (required for cron — cron doesn't inherit Docker env)
+load_env
 
-# If less than MIN_HOURS, calculate wait time
-if [ "$hours_since_last" -lt "$MIN_HOURS" ]; then
-    wait_hours=$((MIN_HOURS - hours_since_last))
-    wait_minutes=$((wait_hours * 60))
-    log "Need to wait $wait_hours more hours to reach minimum interval"
-else
-    wait_minutes=0
+# Validate critical env vars
+if [ -z "$GEMINI_API_KEY" ] || [ -z "$SUPABASE_URL" ]; then
+    log "FATAL: Missing GEMINI_API_KEY or SUPABASE_URL after loading /app/.env"
+    echo "$(date -Iseconds) FAILED: missing env vars" > "$LAST_FAILURE_FILE"
+    exit 1
 fi
 
-# Add random delay (0-13 hours = 0-780 minutes)
-random_minutes=$((RANDOM % (MAX_RANDOM_HOURS * 60)))
-total_delay_minutes=$((wait_minutes + random_minutes))
+# Small random jitter (0-30 minutes) for API politeness
+jitter_minutes=$((RANDOM % 30))
+log "Random jitter: $jitter_minutes minutes"
 
-log "Random delay: $random_minutes minutes"
-total_delay_hours=$((total_delay_minutes / 60))
-log "Total delay: $total_delay_minutes minutes (~$total_delay_hours hours)"
-
-if [ "$total_delay_minutes" -gt 0 ]; then
-    log "Sleeping for $total_delay_minutes minutes..."
-    sleep "${total_delay_minutes}m"
+if [ "$jitter_minutes" -gt 0 ]; then
+    sleep "${jitter_minutes}m"
 fi
 
 # ---- Sync with retry ----
 
-log "Starting sync with --use-api (no Chrome)..."
+log "Starting sync..."
 
 sync_success=false
 for attempt in $(seq 1 $MAX_RETRIES); do
