@@ -122,16 +122,18 @@ def _filter_new_entries(decision_entries, logger, max_decisions=None):
     return new_entries, existing_keys
 
 
-def _process_decisions_api(entries_to_process, logger):
+def _process_decisions_api(entries_to_process, logger, session=None):
     """Step 3 (API mode): Scrape content via Content Page API and run AI."""
     _, scrape_decision_via_api = _import_api_modules()
-    from curl_cffi import requests as curl_requests
+
+    if session is None:
+        from curl_cffi import requests as curl_requests
+        session = curl_requests.Session(impersonate="chrome120")
+        session.get("https://www.gov.il/he", timeout=15)
 
     processed_decisions = []
     failed_count = 0
     consecutive_failures = 0
-
-    session = curl_requests.Session(impersonate="chrome")
 
     logger.info(f"Will process {len(entries_to_process)} new decisions via API (no Chrome)")
 
@@ -368,6 +370,10 @@ def _insert_to_database(processed_decisions, existing_keys, total_from_catalog, 
 def _run_api_sync(args, logger):
     """Run the full sync pipeline using API mode (no Chrome)."""
     extract_catalog_via_api, _ = _import_api_modules()
+    from curl_cffi import requests as curl_requests
+
+    # Create shared session (warm-up happens inside extract_catalog_via_api)
+    session = curl_requests.Session(impersonate="chrome120")
 
     # Step 1: Fetch catalog via API
     logger.info("STEP 1: Fetching catalog entries via API (no Chrome)...")
@@ -378,7 +384,7 @@ def _run_api_sync(args, logger):
     else:
         batch_size = args.max_decisions * 2
 
-    decision_entries = extract_catalog_via_api(max_decisions=batch_size)
+    decision_entries = extract_catalog_via_api(max_decisions=batch_size, session=session)
 
     if not decision_entries:
         logger.warning("No decision entries found from catalog API")
@@ -396,8 +402,8 @@ def _run_api_sync(args, logger):
         print("No new decisions found. Database is up to date.")
         return True
 
-    # Step 3: Process decisions via API
-    processed_decisions, failed_count = _process_decisions_api(new_entries, logger)
+    # Step 3: Process decisions via API (reuse warmed session from catalog)
+    processed_decisions, failed_count = _process_decisions_api(new_entries, logger, session=session)
 
     logger.info(f"Completed processing: {len(processed_decisions)} processed, {failed_count} failed")
 

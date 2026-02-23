@@ -166,7 +166,16 @@ def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict
     api_url = f"{CATALOG_API_URL}&skip=0&limit={max_decisions}"
 
     if session is None:
-        session = curl_requests.Session(impersonate="chrome")
+        session = curl_requests.Session(impersonate="chrome120")
+
+    # Warm up session: visit main page to get Cloudflare cookies
+    # Required for datacenter IPs where Cloudflare blocks direct API calls
+    try:
+        logger.info("Warming up session (visiting gov.il main page)...")
+        warmup = session.get("https://www.gov.il/he", timeout=15)
+        logger.info(f"Session warm-up: status={warmup.status_code}, cookies={len(session.cookies)}")
+    except Exception as e:
+        logger.warning(f"Session warm-up failed (continuing anyway): {e}")
 
     max_retries = 3
     for attempt in range(max_retries):
