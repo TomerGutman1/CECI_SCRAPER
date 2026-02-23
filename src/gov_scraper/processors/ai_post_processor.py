@@ -230,8 +230,10 @@ def enforce_policy_whitelist(tags_str: str) -> str:
 
     Tags not on the list are fuzzy-matched or dropped.
     """
-    if not tags_str or not AUTHORIZED_POLICY_AREAS:
+    if not AUTHORIZED_POLICY_AREAS:
         return tags_str
+    if not tags_str:
+        return "שונות"
 
     tags = [t.strip() for t in tags_str.split(';') if t.strip()]
     validated = []

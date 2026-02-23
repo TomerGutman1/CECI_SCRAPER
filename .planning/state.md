@@ -1,10 +1,125 @@
 # GOV2DB Project State
-**Last Updated:** 2026-02-19 (evening)
-**Current Focus:** Phase 2 in progress — 2-phase pipeline built and tested (5 decisions), full run pending
+**Last Updated:** 2026-02-23
+**Current Focus:** Full DB refresh COMPLETE — all 25,401 decisions in Supabase
+**Phase B Status:** ✅ COMPLETE — 25,401 decisions processed, 0 failures
 **Manifest:** `data/catalog_manifest.json` — 25,421 entries, 10/10 QA passed, 0 duplicates
-**DB Records:** ~25,036 (existing in Supabase, needs full refresh from new pipeline)
-**Production Dataset:** NONE — old backup deleted (had 40% duplicates), new pipeline not yet run
-**Quality Grade:** B (infrastructure A+, AI improvements in code but untested on fresh data)
+**DB Records:** 25,401 (fully refreshed in Supabase on Feb 23, 2026)
+**Production Dataset:** `data/scraped/production_api_parallel.json` (75MB, 25,401 decisions)
+**Quality Grade:** A+ (98.1%) on full 25,401 decision QA
+
+## ✅ FULL DB REFRESH COMPLETE (Feb 23, 2026)
+
+### Phase B Parallel Processing
+- **4 workers** processed 25,401 decisions across governments 25-37 in ~9.5 hours
+- **0 failures**, 32 duplicate keys auto-resolved during processing
+- Output: `data/scraped/production_api_parallel.json` (75MB)
+
+### QA Results (Full 25,401 decisions)
+```
+Overall Grade: A+ (98.1%)
+- 100% field completeness for required fields
+- 25,401 unique decision keys, 0 duplicates
+- 0 bad summary prefixes, avg 169 chars
+- 44.3% operative (target 40-65%) ✅
+- 0.2% "שונות" only tags (was 50%) ✅
+- 264 malformed keys (special numbering — all fixed and pushed)
+- 39.4% empty gov bodies (legitimate for committee/admin decisions)
+```
+
+### DB Push
+1. Deleted 25,022 existing records from Supabase
+2. Inserted 25,137 standard records (batch size 100, 0 errors)
+3. Fixed 264 malformed keys (Hebrew prefixes → Latin: רהמ→rhm, מח→mh, גבל→gbl, etc.)
+4. Inserted all 264 fixed records (0 errors)
+5. **Final DB count: 25,401**
+
+### Files Modified
+- `bin/parallel_phase_b.py` line 31: `range(25, 37)` → `range(25, 38)` (include gov 37)
+- `bin/push_local.py` line 194: bug fix (`original_record` → `record`)
+
+### Next Steps
+- Deploy updated code to production server (178.62.39.248)
+- Server Docker rebuild with latest AI improvements
+- Verify daily cron sync works with new pipeline
+
+---
+
+## ✅ CODEBASE CLEANUP (Feb 23, 2026)
+
+**Removed ~120 files, ~140MB of stale data, ~5,100 lines of dead code.**
+
+### What Was Removed
+- **Root:** 7 junk files, 8 misplaced test files, 12 misplaced scripts/data, 22 obsolete docs
+- **bin/:** 50 obsolete scripts (investigations, one-off fixes, monitoring, deployment) → kept 10 active
+- **src/:** 5 dead modules (~5,100 lines): `optimized_dal.py`, `qa_processor.py`, `qa_core.py`, `incremental_qa.py`, `qa_checks/` subpackage, stale `src/.env`
+- **data/:** 75MB Phase B checkpoints, 62MB raw data, test artifacts, old QA reports, old backups
+- **.planning/:** 8 stale planning docs
+- **Other:** `examples/`, `scripts/`, `templates/`, stale configs, old logs, `__pycache__`
+
+### What Remains (Active)
+```
+bin/ (10 scripts): sync.py, qa.py, simple_incremental_qa.py, full_local_scraper.py,
+     push_local.py, parallel_phase_b.py, discover_all.py, test_cron.py,
+     test_cron_full.py, test_edge_cases.sh
+data/ (3 files): catalog_manifest.json, scraped/production_api_parallel.json, .gitkeep
+root (15 files): CLAUDE.md, README.md, Makefile, Dockerfile, docker-compose.yml,
+     requirements.txt, setup.py, pytest.ini, new_tags.md, new_departments.md,
+     + 5 reference docs (QA-LESSONS, SERVER-OPERATIONS, etc.)
+```
+
+### Makefile Rewritten
+- 809 lines → ~220 lines
+- Removed all dead targets (monitoring, deployment, migration, incremental QA, etc.)
+- Kept: setup, sync, test, QA, 3-phase pipeline, clean, health-check, lint, format
+
+---
+
+## Content Page API — BREAKTHROUGH (Feb 22, 2026)
+
+### Discovery
+gov.il's Angular SPA uses an internal API for content:
+```
+GET https://www.gov.il/ContentPageWebApi/api/content-pages/{slug}?culture=he
+```
+Returns structured JSON with full decision content, metadata, and committee info.
+
+### Performance
+- **100/100 requests succeeded** with zero Cloudflare blocks
+- **~940 pages/min** (~15.7/sec) vs 3/min with Selenium
+- **~27 minutes for 25K pages** vs ~140 hours with Selenium
+- No browser needed, no Cloudflare bypass needed, completely free
+
+### Integration Test — PASSED (5 decisions)
+```
+Phase A (API): 5/5 scraped, 0 failed — ~0 min
+Phase B (AI):  5/5 processed, 0 failed — ~2.1 min
+Quality: Content 100% | Policy Tags 100% | Gov Bodies 100% | Summaries 100%
+Grade: A (100%)
+```
+
+### Files Modified
+- `src/gov_scraper/scrapers/decision.py` — Added `scrape_decision_via_api()` + `CONTENT_PAGE_API_BASE`
+- `bin/full_local_scraper.py` — Added `phase_a_api_scrape()` + `--use-api` CLI flag
+
+### How to Run
+```bash
+# Test (5 decisions)
+python3 bin/full_local_scraper.py --manifest data/catalog_manifest.json \
+  --output data/scraped/test_api_5.json --use-api --max-decisions 5 --verbose
+
+# Full run (25K decisions)
+python3 bin/full_local_scraper.py --manifest data/catalog_manifest.json \
+  --output data/scraped/production_api.json --use-api --verbose
+```
+
+### Earlier Research: curl_cffi Test Results
+- **Test 1 PASS** — Basic connection (HTTP 200)
+- **Test 2 PASS** — Catalog API (25,738 decisions via JSON)
+- **Test 3 FAIL** — Decision HTML pages return SPA shell only (2,940 chars)
+- **Root cause:** gov.il is 100% client-side Angular SPA — HTML is `<div id="root"></div>` + JS bundles
+- **Solution:** Use the Content Page API instead of scraping rendered HTML
+
+---
 
 ## 🚨 Critical Issues Status
 

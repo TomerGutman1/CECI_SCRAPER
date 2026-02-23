@@ -4,6 +4,7 @@ import logging
 import re
 from datetime import datetime
 from typing import Dict, Optional, List
+from bs4 import BeautifulSoup
 from ..utils.selenium import SeleniumWebDriver
 from ..config import HEBREW_LABELS, GOVERNMENT_NUMBER, PRIME_MINISTER, PM_BY_GOVERNMENT
 
@@ -741,6 +742,102 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15, 
 
     logger.error(f"All URL recovery attempts failed for decision {decision_number}")
     return None
+
+
+CONTENT_PAGE_API_BASE = "https://www.gov.il/ContentPageWebApi/api/content-pages"
+
+
+def scrape_decision_via_api(decision_meta: dict, session=None) -> Optional[Dict[str, str]]:
+    """
+    Scrape decision content using the Content Page API instead of Selenium.
+
+    The API returns structured JSON with the full decision content, metadata,
+    and committee info — no browser or Cloudflare bypass needed.
+
+    Args:
+        decision_meta: Dict from catalog manifest with keys:
+            url, title, decision_number, decision_date, committee,
+            government_number, prime_minister, decision_key
+        session: Optional curl_cffi.requests.Session to reuse
+
+    Returns:
+        Dictionary in the same format as scrape_decision_with_url_recovery(),
+        or None on failure.
+    """
+    url = decision_meta.get('url', '')
+    slug = url.split('/pages/')[-1] if '/pages/' in url else ''
+    dec_num = decision_meta.get('decision_number', '?')
+
+    if not slug:
+        logger.error(f"Cannot extract slug from URL: {url}")
+        return None
+
+    api_url = f"{CONTENT_PAGE_API_BASE}/{slug}?culture=he"
+    logger.info(f"API scraping decision #{dec_num}: {api_url}")
+
+    try:
+        if session is None:
+            from curl_cffi import requests as curl_requests
+            session = curl_requests.Session(impersonate="chrome")
+
+        resp = session.get(api_url, timeout=15)
+
+        if resp.status_code == 404:
+            logger.warning(f"API 404 for decision #{dec_num} (slug={slug})")
+            return None
+
+        if resp.status_code != 200:
+            logger.warning(f"API returned {resp.status_code} for decision #{dec_num}")
+            return None
+
+        if not resp.text:
+            logger.warning(f"API returned empty body for decision #{dec_num}")
+            return None
+
+        api_data = resp.json()
+    except Exception as e:
+        logger.error(f"API call failed for decision #{dec_num}: {e}")
+        return None
+
+    # Extract content from htmlContents
+    try:
+        html_contents = api_data.get('contentMain', {}).get('htmlContents') or []
+        html_parts = [item.get('sectionData', '') for item in html_contents if item.get('sectionData')]
+
+        if not html_parts:
+            logger.warning(f"No htmlContents for decision #{dec_num}")
+            return None
+
+        combined_html = ''.join(html_parts)
+        soup = BeautifulSoup(combined_html, 'html.parser')
+        content = clean_hebrew_text(soup.get_text())
+    except Exception as e:
+        logger.error(f"Failed to extract content for decision #{dec_num}: {e}")
+        return None
+
+    if not content or len(content) < 20:
+        logger.warning(f"Content too short for decision #{dec_num}: {len(content) if content else 0} chars")
+        return None
+
+    # Enrich metadata from API (committee is often more complete than manifest)
+    enriched_meta = dict(decision_meta)
+
+    content_head = api_data.get('contentHead', {})
+
+    # Use API title if available (more reliable than manifest)
+    api_title = content_head.get('title')
+    if api_title:
+        enriched_meta['title'] = api_title
+
+    # Use API committee if manifest is missing it
+    metadata = content_head.get('metaData') or {}
+    if not enriched_meta.get('committee'):
+        committee_list = metadata.get('ועדות שרים') or []
+        if committee_list and isinstance(committee_list, list):
+            enriched_meta['committee'] = committee_list[0].get('title', '') if isinstance(committee_list[0], dict) else str(committee_list[0])
+
+    logger.info(f"API scraped decision #{dec_num}: {len(content)} chars")
+    return _build_result_from_meta(enriched_meta, content)
 
 
 def test_decision_scraping():

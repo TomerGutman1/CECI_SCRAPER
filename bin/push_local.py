@@ -191,7 +191,7 @@ class PushLocalProcessor:
                 unauthorized_bodies = [b for b in bodies if b not in AUTHORIZED_GOVERNMENT_BODIES]
                 if unauthorized_bodies:
                     warnings.append(f"Unauthorized gov bodies found: {unauthorized_bodies}")
-            if original_record.get('all_tags') != validated_record.get('all_tags'):
+            if record.get('all_tags') != validated_record.get('all_tags'):
                 fixes.append("all_tags rebuilt deterministically")
 
             fixes_applied.extend(fixes)

@@ -341,8 +341,9 @@ class UnifiedAIProcessor:
         logger.info("Starting unified AI processing")
 
         try:
-            # Prepare content for processing
-            smart_content = self._get_smart_content(decision_content, 4000)
+            # Send full content — Gemini 2.0 Flash supports 1M tokens,
+            # max decision is ~32K chars (~15K tokens). No truncation needed.
+            smart_content = decision_content
 
             # Calculate dynamic summary parameters based on content length
             from .ai import calculate_dynamic_summary_params
@@ -395,29 +396,12 @@ class UnifiedAIProcessor:
                 logger.warning(f"General validation failed: {validation_result.errors}")
 
             if not tag_validation.is_valid:
-                logger.warning(f"Policy tag validation failed: {tag_validation.errors}")
-                logger.info(f"Tag validation suggestions: {tag_validation.suggestions}")
+                logger.debug(f"Policy tag profile warnings: {tag_validation.errors}")
 
-                # Update tags with validated ones if available
-                validated_tags, _ = self.validator._validate_tag_content_relevance(
-                    result.policy_areas, decision_content, decision_title
-                )
-                if validated_tags != result.policy_areas:
-                    logger.info(f"Updating tags from {result.policy_areas} to {validated_tags}")
-                    result.policy_areas = validated_tags
-
-            # Apply alignment corrections if needed
+            # Log alignment info (warn-only, no auto-correction — concept map
+            # only covers 30% of tags, so auto-correction destroys good tags)
             if not alignment_validation.is_aligned:
-                logger.warning(f"Summary-tag alignment issues found (score: {alignment_validation.alignment_score:.2f})")
-                logger.info(f"Alignment issues: {alignment_validation.issues}")
-                logger.info(f"Alignment suggestions: {alignment_validation.suggestions}")
-
-                # Auto-fix alignment if corrected tags available
-                if alignment_validation.corrected_tags:
-                    logger.info(f"Auto-correcting tags for alignment: {result.policy_areas} → {alignment_validation.corrected_tags}")
-                    result.policy_areas = alignment_validation.corrected_tags
-                    result.alignment_score = alignment_validation.alignment_score
-                    result.alignment_check = f"Auto-corrected: {'; '.join(alignment_validation.issues)}"
+                logger.debug(f"Alignment score: {alignment_validation.alignment_score:.2f}, issues: {alignment_validation.issues}")
 
             logger.info(f"Unified processing completed in {processing_time:.2f}s (alignment score: {result.alignment_score:.2f})")
             return result

@@ -10,6 +10,10 @@ from typing import Dict, Optional, List, Set
 
 from ..config import GEMINI_API_KEY, GEMINI_MODEL, MAX_RETRIES, RETRY_DELAY, USE_UNIFIED_AI
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Try importing post-processor if available
 try:
     from .ai_post_processor import post_process_ai_results
@@ -17,10 +21,6 @@ except ImportError:
     logger.warning("Post-processor not found, using direct processing")
     def post_process_ai_results(data, content=""):
         return data
-
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 def deduplicate_tags(tags_string: str, separator: str = ';') -> str:

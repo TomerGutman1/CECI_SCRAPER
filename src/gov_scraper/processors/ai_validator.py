@@ -375,12 +375,13 @@ class AIResponseValidator:
 
         # 3. Semantic validation
         # Tag-content relevance (30% overlap target)
-        tag_relevance = self._validate_tag_content_relevance(
+        validated_tags, rejected_tags = self._validate_tag_content_relevance(
             result.policy_areas, content, title
         )
+        tag_relevance_score = len(validated_tags) / len(result.policy_areas) if result.policy_areas else 1.0
 
-        if tag_relevance < 0.3:
-            warnings.append(f"Low tag-content relevance {tag_relevance:.2f} (target: 0.30)")
+        if tag_relevance_score < 0.3:
+            warnings.append(f"Low tag-content relevance {tag_relevance_score:.2f} (target: 0.30)")
 
         # Summary-tag alignment
         summary_alignment = self._validate_summary_tag_alignment(
@@ -414,7 +415,7 @@ class AIResponseValidator:
             errors.append("No policy areas identified")
 
         # 6. Generate suggestions
-        if tag_relevance < 0.2:
+        if tag_relevance_score < 0.2:
             suggestions.append("Consider reviewing tag selections - low relevance to content")
 
         if len(result.policy_areas) > 3:
@@ -425,7 +426,7 @@ class AIResponseValidator:
             result.summary_confidence * 0.3 +
             result.operativity_confidence * 0.2 +
             result.tags_confidence * 0.3 +
-            tag_relevance * 0.2
+            tag_relevance_score * 0.2
         )
 
         # Determine if valid

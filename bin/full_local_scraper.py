@@ -283,6 +283,105 @@ def phase_a_scrape(entries_to_process, raw_path, start_index, total_entries, hea
     return scraped_data, failed_keys
 
 
+def phase_a_api_scrape(entries_to_process, raw_path, start_index, total_entries, logger, resume=False, delay=0.2):
+    """
+    Phase A (API): Scrape decision content using the Content Page API.
+
+    No browser needed — uses curl_cffi to call the API directly.
+    Produces the same raw JSON format as phase_a_scrape() for Phase B compatibility.
+    """
+    from src.gov_scraper.scrapers.decision import scrape_decision_via_api
+    from src.gov_scraper.processors.qa import validate_scraped_content
+    from curl_cffi import requests as curl_requests
+
+    # Load existing raw data ONLY if resuming
+    scraped_data = []
+    scraped_keys = set()
+    if resume and os.path.exists(raw_path):
+        try:
+            with open(raw_path, 'r', encoding='utf-8') as f:
+                scraped_data = json.load(f)
+            scraped_keys = {d.get('decision_key') for d in scraped_data}
+            logger.info(f"RESUME: Loaded {len(scraped_data)} existing raw entries from {raw_path}")
+        except Exception:
+            logger.warning(f"RESUME: Failed to load {raw_path}, starting fresh")
+            scraped_data = []
+    elif os.path.exists(raw_path):
+        logger.info(f"FRESH RUN: Ignoring existing {raw_path} (use --resume to continue from it)")
+
+    failed_keys = []
+    new_scraped = 0
+    start_time = time.time()
+
+    logger.info(f"PHASE A (API): SCRAPING {len(entries_to_process)} decisions via Content Page API")
+    logger.info(f"Delay between requests: {delay}s")
+    logger.info("-" * 60)
+
+    session = curl_requests.Session(impersonate="chrome")
+
+    for i, entry in enumerate(entries_to_process, 1):
+        actual_index = start_index + i
+        dec_num = entry.get('decision_number', '?')
+        dec_key = entry.get('decision_key', '')
+
+        # Skip already-scraped decisions
+        if dec_key in scraped_keys:
+            logger.debug(f"Skipping already-scraped decision #{dec_num}")
+            continue
+
+        logger.info(f"[{actual_index}/{total_entries}] API scraping decision #{dec_num}")
+
+        if new_scraped > 0 and delay > 0:
+            time.sleep(delay)
+
+        try:
+            decision_data = scrape_decision_via_api(entry, session=session)
+
+            if not decision_data:
+                logger.warning(f"API returned no data for decision #{dec_num} - skipping")
+                failed_keys.append(dec_key)
+                continue
+
+            is_valid, error_msg = validate_scraped_content(decision_data)
+            if not is_valid:
+                logger.warning(f"Content validation failed for decision #{dec_num}: {error_msg}")
+                failed_keys.append(dec_key)
+                continue
+
+            scraped_data.append(decision_data)
+            scraped_keys.add(dec_key)
+            new_scraped += 1
+
+            logger.info(f"Scraped decision #{dec_num} — content: {len(decision_data.get('decision_content', ''))} chars ({new_scraped} new)")
+
+        except Exception as e:
+            logger.error(f"Unexpected error scraping decision #{dec_num}: {e}")
+            failed_keys.append(dec_key)
+            continue
+
+        # Incremental save
+        if new_scraped > 0 and new_scraped % SCRAPE_SAVE_INTERVAL == 0:
+            with open(raw_path, 'w', encoding='utf-8') as f:
+                json.dump(scraped_data, f, ensure_ascii=False, indent=2)
+            logger.info(f"Phase A checkpoint: saved {len(scraped_data)} raw entries")
+
+        # Progress
+        if new_scraped > 0 and new_scraped % PROGRESS_REPORT_INTERVAL == 0:
+            elapsed = time.time() - start_time
+            rate = new_scraped / elapsed * 3600
+            remaining = len(entries_to_process) - i
+            eta = remaining / (new_scraped / elapsed) if new_scraped > 0 else 0
+            logger.info(f"SCRAPE PROGRESS: {i}/{len(entries_to_process)} ({i/len(entries_to_process)*100:.1f}%) — {rate:.0f}/hr — ETA {eta/3600:.1f}h")
+
+    # Final save of raw data
+    with open(raw_path, 'w', encoding='utf-8') as f:
+        json.dump(scraped_data, f, ensure_ascii=False, indent=2)
+
+    elapsed = time.time() - start_time
+    logger.info(f"PHASE A (API) COMPLETE: {new_scraped} new scraped, {len(scraped_data)} total, {len(failed_keys)} failed — {elapsed/60:.1f} min")
+    return scraped_data, failed_keys
+
+
 def phase_b_ai_process(scraped_data, output_path, logger, resume=False):
     """
     Phase B: AI-process all scraped decisions (no Chrome running).
@@ -385,6 +484,7 @@ def main():
     parser.add_argument('--resume', action='store_true', help='Resume from checkpoint (reuse existing raw/processed data)')
     parser.add_argument('--no-headless', action='store_true', help='Run Chrome in visible mode (required for Cloudflare bypass)')
     parser.add_argument('--ai-only', action='store_true', help='Skip scraping, run AI on existing raw data')
+    parser.add_argument('--use-api', action='store_true', help='Use Content Page API instead of Chrome (faster, no Cloudflare issues)')
 
     args = parser.parse_args()
     logger = setup_logging(args.verbose)
@@ -396,6 +496,7 @@ def main():
     logger.info(f"Max decisions: {args.max_decisions or 'Unlimited'}")
     logger.info(f"Resume mode: {args.resume}")
     logger.info(f"AI-only mode: {args.ai_only}")
+    logger.info(f"Use API: {args.use_api}")
     logger.info(f"Headless: {not args.no_headless}")
     logger.info("=" * 80)
 
@@ -438,6 +539,11 @@ def main():
         with open(raw_path, 'r', encoding='utf-8') as f:
             scraped_data = json.load(f)
         logger.info(f"Loaded {len(scraped_data)} raw entries for AI processing")
+    elif args.use_api:
+        scraped_data, scrape_failed_keys = phase_a_api_scrape(
+            entries_to_process, raw_path, start_index, len(entries),
+            logger=logger, resume=args.resume,
+        )
     else:
         scraped_data, scrape_failed_keys = phase_a_scrape(
             entries_to_process, raw_path, start_index, len(entries),

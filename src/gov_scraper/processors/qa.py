@@ -2957,7 +2957,7 @@ def validate_scraped_content(decision_data: Dict) -> Tuple[bool, Optional[str]]:
     Returns:
         (is_valid, error_message) — (True, None) if OK, (False, reason) if bad
     """
-    from gov_scraper.utils.selenium import detect_cloudflare_block
+    from src.gov_scraper.utils.selenium import detect_cloudflare_block
     from bs4 import BeautifulSoup
 
     content = decision_data.get("decision_content", "") or ""
