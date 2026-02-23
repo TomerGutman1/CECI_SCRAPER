@@ -19,6 +19,9 @@ from .ai_prompts import (
 from .ai_validator import AIResponseValidator
 from .alignment_validator import create_alignment_validator
 
+# Set up logging
+logger = logging.getLogger(__name__)
+
 # Try to import committee mappings if available
 try:
     import sys
@@ -29,9 +32,6 @@ except ImportError:
     logger.warning("Committee mappings not found, using direct mapping")
     def normalize_committee_name(name):
         return name
-
-# Set up logging
-logger = logging.getLogger(__name__)
 
 
 @dataclass
