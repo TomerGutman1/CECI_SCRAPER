@@ -48,15 +48,14 @@ export_env_for_cron() {
 
 # Run sync once (for manual execution)
 run_once() {
-    echo "Running sync once (manual mode)..."
-    start_xvfb
+    echo "Running sync once (manual mode, API)..."
     export_env_for_cron
     cd /app
 
     python3 bin/sync.py \
         --unlimited \
         --no-approval \
-        --no-headless \
+        --use-api \
         --verbose
 
     exit_code=$?

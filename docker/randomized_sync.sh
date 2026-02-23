@@ -47,12 +47,11 @@ get_hours_since_last_sync() {
 # Run sync and return its actual exit code
 run_sync() {
     cd /app
-    export DISPLAY=:99
 
     python3 bin/sync.py \
         --unlimited \
         --no-approval \
-        --no-headless \
+        --use-api \
         --verbose \
         >> "$LOG_FILE" 2>&1
 
@@ -92,7 +91,7 @@ fi
 
 # ---- Sync with retry ----
 
-log "Starting sync with --no-headless on virtual display..."
+log "Starting sync with --use-api (no Chrome)..."
 
 sync_success=false
 for attempt in $(seq 1 $MAX_RETRIES); do

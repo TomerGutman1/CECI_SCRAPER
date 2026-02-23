@@ -1,4 +1,4 @@
-"""Selenium-based scraper for the Israeli Government decisions catalog page."""
+"""Scraper for the Israeli Government decisions catalog page (API + Selenium)."""
 
 import json
 import logging
@@ -141,6 +141,71 @@ def extract_entry_from_api_result(result_item: Dict) -> Optional[Dict]:
         "url_path": url_path,  # Keep original for pattern analysis
         "raw_api_result": result_item  # Keep full result for debugging
     }
+
+
+def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict]:
+    """
+    Extract decision entries from the gov.il catalog API using curl_cffi (no browser).
+
+    Calls the same catalog REST API as the Selenium version but uses curl_cffi
+    with Chrome impersonation instead of a real browser. This is faster and
+    avoids all Cloudflare/Chrome issues.
+
+    Args:
+        max_decisions: Maximum number of decision entries to extract
+        session: Optional curl_cffi Session to reuse
+
+    Returns:
+        List of dicts with keys: url, title, decision_number, decision_date, committee, etc.
+        Same format as extract_decision_urls_from_catalog_selenium().
+    """
+    from curl_cffi import requests as curl_requests
+
+    logger.info(f"Fetching {max_decisions} catalog entries via API (no browser)...")
+
+    api_url = f"{CATALOG_API_URL}&skip=0&limit={max_decisions}"
+
+    if session is None:
+        session = curl_requests.Session(impersonate="chrome")
+
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            resp = session.get(api_url, timeout=30)
+            resp.raise_for_status()
+
+            data = resp.json()
+            total = data.get("total", 0)
+            results = data.get("results", [])
+
+            logger.info(f"API returned {len(results)} results (total available: {total})")
+
+            decision_entries = []
+            for result in results:
+                entry = extract_entry_from_api_result(result)
+                if entry:
+                    decision_entries.append(entry)
+
+            # Sort by decision number (newest first)
+            decision_entries.sort(key=lambda d: _extract_decision_sort_key(d["url"]))
+
+            logger.info(f"Extracted {len(decision_entries)} decision entries via API")
+            for i, entry in enumerate(decision_entries[:10], 1):
+                logger.info(f"  {i}. #{entry['decision_number']} | {entry['decision_date']} | {entry['title'][:60]}")
+
+            if not decision_entries:
+                logger.warning("No decision entries found from catalog API!")
+
+            return decision_entries
+
+        except Exception as e:
+            if attempt < max_retries - 1:
+                wait = 5 * (attempt + 1)
+                logger.warning(f"Catalog API attempt {attempt + 1} failed: {e}. Retrying in {wait}s...")
+                time.sleep(wait)
+            else:
+                logger.error(f"Catalog API failed after {max_retries} attempts: {e}")
+                raise
 
 
 def _extract_decision_sort_key(url: str):
