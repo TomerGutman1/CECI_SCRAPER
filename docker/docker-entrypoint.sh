@@ -38,8 +38,10 @@ export_env_for_cron() {
     fi
 
     # Export ALL env vars to .env (filter out shell internals only)
+    # Quote values to handle spaces in PATH-like variables
     env | grep -v '^_=' | grep -v '^SHLVL=' | grep -v '^PWD=' \
         | grep -v '^HOSTNAME=' | grep -v '^HOME=' \
+        | sed "s/=\(.*\)/='\1'/" \
         > /app/.env
 
     chmod 600 /app/.env

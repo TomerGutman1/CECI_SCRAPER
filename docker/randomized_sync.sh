@@ -26,7 +26,7 @@ log() {
 load_env() {
     if [ -f /app/.env ]; then
         set -a
-        source /app/.env
+        source /app/.env 2>/dev/null
         set +a
         log "Loaded $(wc -l < /app/.env) env vars from /app/.env"
     else
