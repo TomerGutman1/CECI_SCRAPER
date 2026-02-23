@@ -143,6 +143,43 @@ def extract_entry_from_api_result(result_item: Dict) -> Optional[Dict]:
     }
 
 
+def _create_api_session(logger=None):
+    """Create a curl_cffi session with Cloudflare bypass.
+
+    Tries impersonation options in order until the main page returns 200.
+    Safari works from datacenter IPs where Chrome impersonation gets blocked.
+    """
+    from curl_cffi import requests as curl_requests
+
+    # Safari works from datacenter IPs where Chrome gets 403
+    for imp in ["safari", "chrome120", "chrome"]:
+        session = curl_requests.Session(impersonate=imp)
+        try:
+            r = session.get("https://www.gov.il/he", timeout=15)
+            if r.status_code == 200:
+                if logger:
+                    logger.info(f"API session ready (impersonate={imp}, cookies={len(session.cookies)})")
+                return session
+        except Exception:
+            continue
+
+    # Fallback: return last session even if warm-up failed
+    if logger:
+        logger.warning("All impersonation options returned non-200, using safari as fallback")
+    return curl_requests.Session(impersonate="safari")
+
+
+def _warmup_session(session, logger=None):
+    """Warm up an existing session by visiting gov.il main page."""
+    try:
+        r = session.get("https://www.gov.il/he", timeout=15)
+        if logger:
+            logger.info(f"Session warm-up: status={r.status_code}, cookies={len(session.cookies)}")
+    except Exception as e:
+        if logger:
+            logger.warning(f"Session warm-up failed: {e}")
+
+
 def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict]:
     """
     Extract decision entries from the gov.il catalog API using curl_cffi (no browser).
@@ -166,16 +203,10 @@ def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict
     api_url = f"{CATALOG_API_URL}&skip=0&limit={max_decisions}"
 
     if session is None:
-        session = curl_requests.Session(impersonate="chrome120")
-
-    # Warm up session: visit main page to get Cloudflare cookies
-    # Required for datacenter IPs where Cloudflare blocks direct API calls
-    try:
-        logger.info("Warming up session (visiting gov.il main page)...")
-        warmup = session.get("https://www.gov.il/he", timeout=15)
-        logger.info(f"Session warm-up: status={warmup.status_code}, cookies={len(session.cookies)}")
-    except Exception as e:
-        logger.warning(f"Session warm-up failed (continuing anyway): {e}")
+        session = _create_api_session(logger)
+    elif not session.cookies:
+        # Session exists but has no cookies yet — warm it up
+        _warmup_session(session, logger)
 
     max_retries = 3
     for attempt in range(max_retries):

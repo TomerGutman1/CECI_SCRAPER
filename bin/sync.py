@@ -127,9 +127,8 @@ def _process_decisions_api(entries_to_process, logger, session=None):
     _, scrape_decision_via_api = _import_api_modules()
 
     if session is None:
-        from curl_cffi import requests as curl_requests
-        session = curl_requests.Session(impersonate="chrome120")
-        session.get("https://www.gov.il/he", timeout=15)
+        from gov_scraper.scrapers.catalog import _create_api_session
+        session = _create_api_session(logger)
 
     processed_decisions = []
     failed_count = 0
@@ -370,10 +369,10 @@ def _insert_to_database(processed_decisions, existing_keys, total_from_catalog, 
 def _run_api_sync(args, logger):
     """Run the full sync pipeline using API mode (no Chrome)."""
     extract_catalog_via_api, _ = _import_api_modules()
-    from curl_cffi import requests as curl_requests
+    from gov_scraper.scrapers.catalog import _create_api_session
 
-    # Create shared session (warm-up happens inside extract_catalog_via_api)
-    session = curl_requests.Session(impersonate="chrome120")
+    # Create shared session with Cloudflare bypass (tries safari, chrome120, chrome)
+    session = _create_api_session(logger)
 
     # Step 1: Fetch catalog via API
     logger.info("STEP 1: Fetching catalog entries via API (no Chrome)...")
