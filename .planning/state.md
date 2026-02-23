@@ -1,10 +1,9 @@
 # GOV2DB Project State
 **Last Updated:** 2026-02-23
-**Current Focus:** Full DB refresh COMPLETE — all 25,401 decisions in Supabase
-**Phase B Status:** ✅ COMPLETE — 25,401 decisions processed, 0 failures
-**Manifest:** `data/catalog_manifest.json` — 25,421 entries, 10/10 QA passed, 0 duplicates
-**DB Records:** 25,401 (fully refreshed in Supabase on Feb 23, 2026)
-**Production Dataset:** `data/scraped/production_api_parallel.json` (75MB, 25,401 decisions)
+**Current Focus:** Chrome-free daily sync DEPLOYED and running on production server
+**Daily Sync:** ✅ API-only pipeline (no Chrome/Selenium) — cron at 02:00 AM IST daily
+**DB Records:** 25,403 (up from 25,401 after API sync tests)
+**Server:** 178.62.39.248 — container HEALTHY, cron configured
 **Quality Grade:** A+ (98.1%) on full 25,401 decision QA
 
 ## ✅ FULL DB REFRESH COMPLETE (Feb 23, 2026)
@@ -37,10 +36,27 @@ Overall Grade: A+ (98.1%)
 - `bin/parallel_phase_b.py` line 31: `range(25, 37)` → `range(25, 38)` (include gov 37)
 - `bin/push_local.py` line 194: bug fix (`original_record` → `record`)
 
-### Next Steps
-- Deploy updated code to production server (178.62.39.248)
-- Server Docker rebuild with latest AI improvements
-- Verify daily cron sync works with new pipeline
+### ✅ Chrome-Free Daily Sync DEPLOYED (Feb 23, 2026)
+
+**Pipeline:** gov.il REST APIs + curl_cffi (Safari impersonation) + Gemini AI + Supabase
+**Cron:** `0 2 * * *` (02:00 AM IST daily) with 0-30 min jitter
+**Retry:** 3x with 10/20/30 min backoff on failure
+**Healthcheck:** 48h threshold, DB connectivity check
+
+**Key fixes during deployment:**
+- `randomized_sync.sh`: sources `/app/.env` for cron (cron doesn't inherit Docker env vars)
+- `unified_ai.py`: logger initialization moved before first use (was crashing, falling back to 6x API calls)
+- `docker-compose.yml`: CPU limit reduced to 1 (server has 1 CPU)
+- Cron simplified from 2x/day with 21-34h randomized interval to 1x/day with 0-30 min jitter
+
+**Commits:**
+- `d9b14bf` feat: Chrome-free daily sync via gov.il REST APIs
+- `acd7cf9` feat: add Content Page API scraper + AI improvements
+- `6e626ba` fix: warm up curl_cffi session for Cloudflare on datacenter IPs
+- `5bd466d` fix: auto-detect working impersonation for Cloudflare bypass
+- `f5dba34` fix: cron sync broken — source env vars, simplify schedule
+- `9ac2c2a` fix: unified AI processor crashed on import
+- `232fb66` fix: quote env values in .env export
 
 ---
 
