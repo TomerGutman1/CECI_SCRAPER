@@ -133,7 +133,21 @@ class UnifiedAIProcessor:
                 error_str = str(e)
                 logger.warning(f"Unified request failed (attempt {attempt + 1}): {e}")
 
-                # Check for rate limit error (429)
+                # Hard-quota detection: "limit: 0" or PerDayPerProject quota means daily
+                # quota is exhausted/disabled and will NOT recover within minutes. Bail
+                # immediately instead of burning ~15min in pointless backoff per decision.
+                # User must wait for daily reset OR upgrade Gemini tier.
+                hard_quota = (
+                    "limit: 0" in error_str
+                    or "PerDayPerProject" in error_str and "exceeded" in error_str.lower()
+                )
+                if hard_quota:
+                    raise Exception(
+                        f"Gemini DAILY quota exhausted (limit:0 or PerDay exceeded). "
+                        f"Will not retry — daily reset required. Detail: {e}"
+                    )
+
+                # Check for transient rate limit error (429 minute/burst quota)
                 if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
                     # Exponential backoff for rate limits: 30s, 60s, 120s, 240s, 480s
                     wait_time = min(30 * (2 ** attempt), 480)  # Cap at 8 minutes

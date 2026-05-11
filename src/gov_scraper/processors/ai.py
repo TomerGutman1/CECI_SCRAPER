@@ -113,7 +113,19 @@ def make_openai_request_with_retry(prompt: str, max_tokens: int = 500) -> str:
             error_str = str(e)
             logger.warning(f"Gemini request failed (attempt {attempt + 1}): {e}")
 
-            # Check for rate limit error (429)
+            # Hard-quota fail-fast: daily quota exhausted (limit:0 or PerDay) won't
+            # recover within minutes. Bail immediately so the sync doesn't waste
+            # ~15min per decision in pointless backoff. Caller should retry tomorrow.
+            hard_quota = (
+                "limit: 0" in error_str
+                or ("PerDayPerProject" in error_str and "exceeded" in error_str.lower())
+            )
+            if hard_quota:
+                raise Exception(
+                    f"Gemini DAILY quota exhausted — will not retry. Detail: {e}"
+                )
+
+            # Check for transient rate limit error (429 minute/burst)
             if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
                 # Exponential backoff for rate limits: 30s, 60s, 120s, 240s, 480s
                 wait_time = min(30 * (2 ** attempt), 480)  # Cap at 8 minutes
