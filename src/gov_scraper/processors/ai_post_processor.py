@@ -190,6 +190,14 @@ OPERATIVITY_OVERRIDES = [
     (re.compile(r'הממשלה רושמת לפניה'), "דקלרטיבית"),
     (re.compile(r'הממשלה מביעה הערכה'), "דקלרטיבית"),
     (re.compile(r'הממשלה מכירה בחשיבות'), "דקלרטיבית"),
+    # Operative: budget allocations with specific amounts
+    (re.compile(r'להקצות\s+[\d,]+\s*(?:מיליון|אלף|ש"ח|שקל)'), "אופרטיבית"),
+    (re.compile(r'תקציב\s+(?:של\s+)?[\d,]+\s*(?:מיליון|אלף)'), "אופרטיבית"),
+    # Operative: binding directives to specific bodies
+    (re.compile(r'מטיל(?:ה)?\s+על\s+(?:משרד|ה(?:ממשלה|מנהל))'), "אופרטיבית"),
+    (re.compile(r'מורה\s+ל(?:משרד|מנהל)'), "אופרטיבית"),
+    # Operative: establishing bodies/committees with mandate
+    (re.compile(r'להקים\s+(?:ועדה|צוות|מנהלת)'), "אופרטיבית"),
 ]
 
 
@@ -381,6 +389,37 @@ def validate_government_body_relevance(body: str, decision_content: str, decisio
     # If we reach here, it's likely a true hallucination
     logger.debug(f"Government body '{body}' not found in content and not semantically relevant")
     return False
+
+
+def infer_body_from_title(title: str) -> Optional[str]:
+    """Extract government body from decision title when AI returns empty.
+
+    Only returns bodies from the authorized list (AUTHORIZED_GOVERNMENT_BODIES).
+    Uses direct substring matching — no fuzzy matching to avoid false positives.
+    Also checks BODY_NORMALIZATION variants to catch common name forms.
+
+    Args:
+        title: Decision title text
+
+    Returns:
+        Authorized body name, or None if no match found
+    """
+    if not title:
+        return None
+
+    # Check each authorized body name directly
+    for body in AUTHORIZED_GOVERNMENT_BODIES:
+        if body in title:
+            logger.info(f"Inferred gov body from title: '{body}'")
+            return body
+
+    # Check BODY_NORMALIZATION keys (map variant names to authorized)
+    for variant, canonical in BODY_NORMALIZATION.items():
+        if canonical and variant in title:
+            logger.info(f"Inferred gov body from title (via normalization): '{variant}' -> '{canonical}'")
+            return canonical
+
+    return None
 
 
 def strip_summary_prefix(summary: str) -> str:
@@ -664,6 +703,13 @@ def post_process_ai_results(decision_data: Dict, decision_content: str = "") -> 
         cleaned_data['tags_policy_area'] = enforce_policy_whitelist(cleaned_data['tags_policy_area'])
     if cleaned_data.get('tags_government_body'):
         cleaned_data['tags_government_body'] = enforce_body_whitelist(cleaned_data['tags_government_body'])
+
+    # 4c. Title-based body inference fallback: if no gov body after all validation, try title
+    if not cleaned_data.get('tags_government_body') and cleaned_data.get('decision_title'):
+        inferred = infer_body_from_title(cleaned_data['decision_title'])
+        if inferred:
+            cleaned_data['tags_government_body'] = inferred
+            logger.info(f"Fallback: inferred gov body from title: {inferred}")
 
     # 5. Rebuild all_tags deterministically from individual fields
     all_individual_tags = []

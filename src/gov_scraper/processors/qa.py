@@ -18,7 +18,7 @@ import logging
 import json
 import random
 from collections import defaultdict
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from typing import Dict, List, Tuple, Optional, Set
 from dataclasses import dataclass, field
 from collections import defaultdict
@@ -414,16 +414,14 @@ OPERATIVE_KEYWORDS = [
     # Budget/financial actions
     "להקצות", "יוקצ", "מקצה", "הקצאת", "תקציב של", "תוקצב",
     # Directives
-    "יפעל", "יבצע", "ימנה", "יפנה", "יורה", "יועבר", "ינקוט",
-    "יפעלו", "יבצעו", "ימנו", "ידווח", "ידווחו",
+    "יפעל", "יבצע", "יפנה", "יורה", "יועבר", "ינקוט",
+    "יפעלו", "יבצעו", "ידווח", "ידווחו",
     "מטיל על", "מטילה על", "מחייב", "מחייבת",
     "מופקד", "אחראי", "יישום", "ליישם", "לבצע",
     # Approvals with concrete action
     "מאשרת את", "מאשרת ל", "לאשר",
     # Timeline/deadlines
     "עד ליום", "לוח זמנים", "בתוך", "עד תום", "תוך 30", "תוך 60", "תוך 90",
-    # Appointments
-    "למנות את", "ימונה", "תמנה",
     # Establishment
     "להקים", "יוקם", "תוקם", "הקמת",
 ]
@@ -442,6 +440,8 @@ DECLARATIVE_KEYWORDS = [
     # Principled statements
     "עמדת הממשלה", "עמדה עקרונית", "הצהרת כוונות",
     "מכריזה", "מכירה בחשיבות", "מכירה בצורך",
+    # Appointments (declarative — position statements, not operational directives)
+    "למנות את", "הארכת כהונת", "מינוי",
 ]
 
 # Policy tag → expected government bodies
@@ -929,9 +929,9 @@ def check_operativity_vs_content(records: List[Dict]) -> QAScanResult:
 
         result.total_scanned += 1
 
-        # Count keyword hits
-        op_hits = sum(1 for kw in OPERATIVE_KEYWORDS if kw in content)
-        decl_hits = sum(1 for kw in DECLARATIVE_KEYWORDS if kw in content)
+        # Count keyword hits (prefix-aware matching for Hebrew morphology)
+        op_hits = sum(1 for kw in OPERATIVE_KEYWORDS if _word_in_text(kw, content))
+        decl_hits = sum(1 for kw in DECLARATIVE_KEYWORDS if _word_in_text(kw, content))
 
         # Determine expected classification based on keywords
         if op_hits == 0 and decl_hits == 0:
@@ -1273,7 +1273,7 @@ def check_summary_quality(records: List[Dict]) -> QAScanResult:
                 current_value=summary,
                 description=f"Summary too short ({len(summary)} chars)"
             ))
-        elif len(summary) > 500:
+        elif len(summary) > 800:
             too_long += 1
             result.issues_found += 1
             result.issues.append(QAIssue(
@@ -1487,8 +1487,23 @@ def check_date_vs_government(records: List[Dict]) -> QAScanResult:
     """Check that government number matches the decision date."""
     result = QAScanResult(check_name="date_vs_government", total_scanned=0, issues_found=0)
 
-    # Government 37 started 2022-12-29
-    GOV_37_START = "2022-12-29"
+    # Date ranges for Israeli governments 25-37 (start_date, end_date)
+    GOVERNMENT_DATE_RANGES = {
+        25: ("1992-07-13", "1995-11-22"),
+        26: ("1995-11-22", "1996-06-18"),
+        27: ("1996-06-18", "1999-07-06"),
+        28: ("1999-07-06", "2001-03-07"),
+        29: ("2001-03-07", "2003-02-28"),
+        30: ("2003-02-28", "2006-05-04"),
+        31: ("2006-05-04", "2009-03-31"),
+        32: ("2009-03-31", "2013-03-18"),
+        33: ("2013-03-18", "2015-05-14"),
+        34: ("2015-05-14", "2020-05-17"),
+        35: ("2020-05-17", "2021-06-13"),
+        36: ("2021-06-13", "2022-12-29"),
+        37: ("2022-12-29", "2099-12-31"),
+    }
+    TOLERANCE_DAYS = 30  # Allow 30-day tolerance at government boundaries
 
     for r in records:
         date_str = r.get("decision_date", "") or ""
@@ -1498,7 +1513,27 @@ def check_date_vs_government(records: List[Dict]) -> QAScanResult:
 
         result.total_scanned += 1
 
-        if str(gov_num) == "37" and date_str < GOV_37_START:
+        try:
+            gov_int = int(gov_num)
+        except (ValueError, TypeError):
+            continue
+
+        date_range = GOVERNMENT_DATE_RANGES.get(gov_int)
+        if not date_range:
+            continue
+
+        start_date, end_date = date_range
+        # Apply tolerance: shift start back and end forward by TOLERANCE_DAYS
+        # Using string comparison on ISO dates (YYYY-MM-DD) works correctly
+        try:
+            start_dt = datetime.strptime(start_date, "%Y-%m-%d") - timedelta(days=TOLERANCE_DAYS)
+            end_dt = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=TOLERANCE_DAYS)
+            start_with_tolerance = start_dt.strftime("%Y-%m-%d")
+            end_with_tolerance = end_dt.strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+
+        if date_str < start_with_tolerance or date_str > end_with_tolerance:
             result.issues_found += 1
             result.issues.append(QAIssue(
                 decision_key=r.get("decision_key", ""),
@@ -1506,7 +1541,7 @@ def check_date_vs_government(records: List[Dict]) -> QAScanResult:
                 severity="high",
                 field="government_number + decision_date",
                 current_value=f"gov={gov_num}, date={date_str}",
-                description=f"Government 37 started {GOV_37_START} but decision dated {date_str}"
+                description=f"Government {gov_int} range is {start_date} to {end_date} but decision dated {date_str}"
             ))
 
     result.summary = {"mismatches": result.issues_found}
@@ -1808,6 +1843,33 @@ def check_content_completeness(records: List[Dict]) -> QAScanResult:
     return result
 
 
+def check_content_truncation(records: List[Dict]) -> QAScanResult:
+    """Detect decisions that hit the 32K content limit (potentially truncated at DB level)."""
+    TRUNCATION_THRESHOLD = 32700  # Within 68 chars of 32768 limit
+    result = QAScanResult(check_name="content_truncation", total_scanned=0, issues_found=0)
+
+    for r in records:
+        content = r.get("decision_content", "") or ""
+        if not content:
+            continue
+
+        result.total_scanned += 1
+
+        if len(content) >= TRUNCATION_THRESHOLD:
+            result.issues_found += 1
+            result.issues.append(QAIssue(
+                decision_key=r.get("decision_key", ""),
+                check_name="content_truncation",
+                severity="medium",
+                field="decision_content",
+                current_value=f"{len(content)} chars",
+                description=f"Content at 32K limit ({len(content)} chars) — may be truncated"
+            ))
+
+    result.summary = {"truncated_at_limit": result.issues_found}
+    return result
+
+
 # =============================================================================
 # New Scanners — Default/Fallback Pattern Detection
 # =============================================================================
@@ -2053,6 +2115,7 @@ ALL_CHECKS = {
     "content-quality": check_content_quality,
     "tag-consistency": check_tag_consistency,
     "content-completeness": check_content_completeness,
+    "content-truncation": check_content_truncation,
     # Phase 4 — Default/fallback pattern detection
     "body-default": check_body_default_patterns,
     "policy-default": check_policy_default_patterns,
@@ -2136,9 +2199,9 @@ def fix_operativity(
 
         result.total_scanned += 1
 
-        # Count keyword evidence
-        op_hits = sum(1 for kw in OPERATIVE_KEYWORDS if kw in content)
-        decl_hits = sum(1 for kw in DECLARATIVE_KEYWORDS if kw in content)
+        # Count keyword evidence (prefix-aware matching for Hebrew morphology)
+        op_hits = sum(1 for kw in OPERATIVE_KEYWORDS if _word_in_text(kw, content))
+        decl_hits = sum(1 for kw in DECLARATIVE_KEYWORDS if _word_in_text(kw, content))
 
         keyword_hint = ""
         if op_hits > decl_hits:
@@ -3110,16 +3173,16 @@ def validate_decision_inline(decision_data: Dict) -> List[str]:
     if summary:
         if len(summary) < 20:
             warnings.append(f"Summary too short ({len(summary)} chars)")
-        elif len(summary) > 500:
+        elif len(summary) > 800:
             warnings.append(f"Summary too long ({len(summary)} chars)")
         if title and summary.strip() == title.strip():
             warnings.append("Summary identical to title")
 
-    # Check operative/declarative keyword match
+    # Check operative/declarative keyword match (prefix-aware)
     operativity = decision_data.get("operativity", "")
     if operativity and content:
-        op_hits = sum(1 for kw in OPERATIVE_KEYWORDS if kw in content)
-        decl_hits = sum(1 for kw in DECLARATIVE_KEYWORDS if kw in content)
+        op_hits = sum(1 for kw in OPERATIVE_KEYWORDS if _word_in_text(kw, content))
+        decl_hits = sum(1 for kw in DECLARATIVE_KEYWORDS if _word_in_text(kw, content))
         if decl_hits > 0 and op_hits == 0 and operativity == "אופרטיבית":
             warnings.append("Classified operative but content has only declarative keywords")
         elif op_hits > 0 and decl_hits == 0 and operativity == "דקלרטיבית":

@@ -61,9 +61,27 @@ PM_BY_GOVERNMENT = {
     33: "בנימין נתניהו",     # 2013-2015
     34: "בנימין נתניהו",     # 2015-2020
     35: "בנימין נתניהו",     # 2020-2021
-    36: "נפתלי בנט",         # 2021-2022
+    36: "נפתלי בנט",         # 2021-06-13 to 2022-07-01 (Bennett), then Lapid
     37: "בנימין נתניהו",     # 2022-present
 }
+
+# Government 36 rotation: Bennett until 2022-07-01, then Lapid
+_GOV36_LAPID_START = "2022-07-01"
+
+
+def get_pm_for_decision(gov_num: int, decision_date: str = None) -> str:
+    """Get PM name for a decision, handling gov 36 rotation agreement.
+
+    Args:
+        gov_num: Government number (25-37)
+        decision_date: ISO date string (YYYY-MM-DD), needed for gov 36
+
+    Returns:
+        PM name string
+    """
+    if gov_num == 36 and decision_date and decision_date >= _GOV36_LAPID_START:
+        return "יאיר לפיד"
+    return PM_BY_GOVERNMENT.get(gov_num, PRIME_MINISTER)
 
 # Gemini Configuration
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')

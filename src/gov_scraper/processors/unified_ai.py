@@ -395,8 +395,17 @@ class UnifiedAIProcessor:
             if not validation_result.is_valid:
                 logger.warning(f"General validation failed: {validation_result.errors}")
 
-            if not tag_validation.is_valid:
-                logger.debug(f"Policy tag profile warnings: {tag_validation.errors}")
+            # Auto-correct policy tags when profile validation rejects some
+            if tag_validation.errors:
+                validated_tags, rejected_tags = self.validator._validate_tag_content_relevance(
+                    result.policy_areas, decision_content, decision_title
+                )
+                if validated_tags:
+                    logger.info(f"Auto-correcting policy tags: keeping {validated_tags}, rejected {rejected_tags}")
+                    result.policy_areas = validated_tags
+                else:
+                    # All tags rejected — keep original (post-processor whitelist will handle)
+                    logger.warning(f"All tags rejected by profile validation, keeping original: {result.policy_areas}")
 
             # Log alignment info (warn-only, no auto-correction — concept map
             # only covers 30% of tags, so auto-correction destroys good tags)
