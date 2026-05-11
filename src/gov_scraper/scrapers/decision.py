@@ -6,7 +6,7 @@ from datetime import datetime
 from typing import Dict, Optional, List
 from bs4 import BeautifulSoup
 from ..utils.selenium import SeleniumWebDriver
-from ..config import HEBREW_LABELS, GOVERNMENT_NUMBER, PRIME_MINISTER, PM_BY_GOVERNMENT
+from ..config import HEBREW_LABELS, GOVERNMENT_NUMBER, PRIME_MINISTER, PM_BY_GOVERNMENT, get_pm_for_decision
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -578,8 +578,32 @@ def _build_result_from_meta(decision_meta: dict, content: str) -> Optional[Dict[
         logger.error(f"_build_result_from_meta: missing 'decision_number' for url={url}")
         return None
 
-    # Get government_number from decision_meta, fallback to default
-    gov_num = decision_meta.get('government_number', GOVERNMENT_NUMBER)
+    # Get government_number from decision_meta, fallback to default.
+    # CRITICAL: use `or` not `.get(..., default)` — when the key exists with explicit
+    # None value (catalog API sometimes omits the 'ממשלה' field for some entries),
+    # .get returns None, not the default. This caused months of silent failures
+    # where decisions like #3947 produced decision_key='None_3947' and got dropped.
+    gov_num = decision_meta.get('government_number') or GOVERNMENT_NUMBER
+
+    # Additional defensive recovery: try to infer gov_num from URL year if still missing.
+    # gov.il URLs like /he/pages/dec4070-2026 embed the year — we can look up which
+    # government was active that year via PM_BY_GOVERNMENT date mapping.
+    if not gov_num or str(gov_num).lower() in ('none', ''):
+        url_match = re.search(r'/dec-?\d+[a-z]?-(\d{4})', url)
+        if url_match:
+            year = int(url_match.group(1))
+            # Rough year → gov mapping (we don't need exact date precision here).
+            # GOVERNMENT_NUMBER (37) is current, so for 2023+ default to it; older years
+            # we let the default through but log a warning.
+            if year >= 2023:
+                gov_num = 37
+            else:
+                logger.warning(
+                    f"_build_result_from_meta: gov_num missing AND url year {year} predates "
+                    f"current government; using default {GOVERNMENT_NUMBER} but result may "
+                    f"be wrong gov."
+                )
+                gov_num = GOVERNMENT_NUMBER
 
     # Validate decision_key won't be malformed
     decision_key = f"{gov_num}_{decision_number}"
@@ -587,11 +611,12 @@ def _build_result_from_meta(decision_meta: dict, content: str) -> Optional[Dict[
         logger.error(f"_build_result_from_meta: invalid decision_key '{decision_key}' for url={url}")
         return None
 
-    # Get prime_minister from decision_meta or lookup by government number
+    # Get prime_minister from decision_meta or lookup by government number (date-aware for gov 36)
     prime_minister = decision_meta.get('prime_minister')
     if not prime_minister:
         try:
-            prime_minister = PM_BY_GOVERNMENT.get(int(gov_num), PRIME_MINISTER)
+            decision_date = decision_meta.get('decision_date', '')
+            prime_minister = get_pm_for_decision(int(gov_num), decision_date)
         except (ValueError, TypeError):
             prime_minister = PRIME_MINISTER
 
@@ -744,7 +769,9 @@ def scrape_decision_with_url_recovery(decision_meta: dict, wait_time: int = 15, 
     return None
 
 
-CONTENT_PAGE_API_BASE = "https://www.gov.il/ContentPageWebApi/api/content-pages"
+CONTENT_PAGE_API_BASE = (
+    "https://openapi-gc.digital.gov.il/pub/cio/govil/rest/contentpage/v1/api/content-pages"
+)
 
 
 def scrape_decision_via_api(decision_meta: dict, session=None) -> Optional[Dict[str, str]]:
@@ -777,21 +804,50 @@ def scrape_decision_via_api(decision_meta: dict, session=None) -> Optional[Dict[
 
     try:
         if session is None:
-            from curl_cffi import requests as curl_requests
-            session = curl_requests.Session(impersonate="chrome")
+            # Use the catalog module's session factory so x-client-id header is set.
+            # Falls back to a minimal session if import fails (legacy callers).
+            try:
+                from .catalog import _create_api_session
+                session = _create_api_session(None)
+            except Exception:
+                from curl_cffi import requests as curl_requests
+                session = curl_requests.Session(impersonate="safari")
 
-        resp = session.get(api_url, timeout=15)
+        # Defensive: pass header explicitly even if session has it as default.
+        # The new openapi-gc gateway REQUIRES this header.
+        try:
+            from .catalog import _api_headers
+            headers = _api_headers(None)
+        except Exception:
+            headers = {
+                "x-client-id": "9KFgciHHGDyNiqz5MdQS0eK2ApeJYMc6YnElUICpN1atirZc",
+                "Origin": "https://www.gov.il",
+                "Referer": f"https://www.gov.il/he/pages/{slug}",
+            }
+
+        resp = session.get(api_url, timeout=15, headers=headers)
 
         if resp.status_code == 404:
             logger.warning(f"API 404 for decision #{dec_num} (slug={slug})")
             return None
 
         if resp.status_code != 200:
-            logger.warning(f"API returned {resp.status_code} for decision #{dec_num}")
+            logger.warning(f"API returned {resp.status_code} for decision #{dec_num}: "
+                           f"body[:160]={resp.text[:160]!r}")
             return None
 
         if not resp.text:
             logger.warning(f"API returned empty body for decision #{dec_num}")
+            return None
+
+        # Detect HTML SPA fallback (gov.il served the homepage instead of API JSON).
+        if not resp.text.lstrip().startswith("{"):
+            logger.error(
+                f"API for decision #{dec_num} returned non-JSON "
+                f"(ct='{resp.headers.get('content-type','')}', "
+                f"body[:160]={resp.text[:160]!r}). "
+                f"URL may be wrong or auth header missing."
+            )
             return None
 
         api_data = resp.json()

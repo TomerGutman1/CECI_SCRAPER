@@ -359,8 +359,16 @@ def _insert_to_database(processed_decisions, existing_keys, total_from_catalog, 
         print(f"Successfully synced {inserted_count} new decisions to database!")
 
     if error_messages:
-        print(f"{len(error_messages)} insertions failed. Check logs for details.")
-        return False
+        # Log errors but don't fail the whole sync if at least one decision was inserted.
+        # Returning False here would cause the wrapper to log "SYNC FAILED" and the
+        # healthcheck to report unhealthy, even when data WAS inserted — caused months
+        # of confusing log noise. Partial success is still success.
+        print(f"{len(error_messages)} insertions failed (continuing).")
+        for msg in error_messages[:5]:
+            logger.warning(f"  insertion error: {msg}")
+        if inserted_count == 0:
+            # Total failure — no data made it to DB.
+            return False
 
     print("Database sync completed successfully!")
     return True

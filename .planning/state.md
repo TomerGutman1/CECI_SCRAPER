@@ -1,10 +1,79 @@
 # GOV2DB Project State
-**Last Updated:** 2026-02-23
-**Current Focus:** Chrome-free daily sync DEPLOYED and running on production server
-**Daily Sync:** ✅ API-only pipeline (no Chrome/Selenium) — cron at 02:00 AM IST daily
-**DB Records:** 25,403 (up from 25,401 after API sync tests)
-**Server:** 178.62.39.248 — container HEALTHY, cron configured
-**Quality Grade:** A+ (98.1%) on full 25,401 decision QA
+**Last Updated:** 2026-05-11
+**Current Focus:** gov.il API gateway migration + silent-failure fixes deployed
+**Daily Sync:** 🟡 Fix committed locally — pending server deployment
+**DB Records:** 25,563 (latest: 37_4077 dated 2026-04-27; ~308 decisions missed since cron broke)
+**Server:** 178.62.39.248 — container (unhealthy) since May 3 due to gov.il API migration
+**Quality Grade:** A+ (98.1% pre-gap)
+
+## 🚨 May 11, 2026 — gov.il API Migration + Silent Failures FIXED (PENDING DEPLOY)
+
+### Root causes (all 5 verified)
+
+1. **gov.il moved catalog & content-page APIs** to centralized gateway `openapi-gc.digital.gov.il`
+   - Old `www.gov.il/CollectorsWebApi/api/*` and `www.gov.il/ContentPageWebApi/api/*` started serving SPA HTML fallback intermittently from Feb 26, fully dead by May 11
+   - Found gov.il's own SPA config at `/CollectorsWebApi/client-config.js` declaring new base + clientId
+2. **Silent failure on `government_number=None`**
+   - `_build_result_from_meta()` used `.get('government_number', DEFAULT)` which returns None when key exists with None value
+   - Caused months of cron "FAILED" runs when only "new" entry was an oddball like #3947 with missing `ממשלה` metadata
+3. **Old catalog data was frozen** at ~25,856 entries from April 27 to May 10 (gov.il stopped updating old endpoint before turning it off)
+4. **sync.py exit code misreported partial success** — returned False if ANY decision failed, even if many succeeded → wrapper logged SYNC FAILED → healthcheck reported unhealthy
+5. **Sort key bug** for non-matching URL formats put older decisions first
+
+### Fixes (1094 insertions, 33 deletions across 4 files)
+
+| File | Change |
+|---|---|
+| `src/gov_scraper/scrapers/catalog.py` | New `GOVIL_CLIENT_ID` + `GOVIL_COLLECTORS_API_BASE` constants; `CATALOG_API_URL` points to new gateway; added `_fetch_govil_config()` dynamic resilience layer that reads gov.il's SPA config (self-heals if endpoint or clientId changes again); `_create_api_session()` sets `x-client-id` header on session; explicit headers on `extract_catalog_via_api()` call; HTML-fallback detection with `body[:200]` in error log; `_extract_decision_sort_key()` handles legacy URLs and pushes non-matches to END |
+| `src/gov_scraper/scrapers/decision.py` | `CONTENT_PAGE_API_BASE` points to new gateway; `scrape_decision_via_api()` uses catalog's session factory (gets header) and passes header explicitly; HTML-fallback detection with body preview in error log; **fixed `_build_result_from_meta` line 582**: `decision_meta.get('government_number') or GOVERNMENT_NUMBER` (handles None, "", missing) + URL-year-based recovery for older decisions |
+| `bin/sync.py` | `_insert_to_database()` returns True if `inserted_count > 0` regardless of error_messages (only returns False on total zero-insert failure) |
+| `.planning/todo.md` | Implementation plan documenting all 5 root causes + edge case handling |
+
+### Verification
+
+Standalone test script (`/tmp/test_govil_fix.py`) — **all 23 assertions PASS** against live gov.il infrastructure:
+- ✅ New catalog API: total=25,871, latest #4095 (May 7), all fields present
+- ✅ New content-page API for `dec4070-2026`: 1256 chars content, decision_key='37_4070'
+- ✅ `_build_result_from_meta` with `government_number=None` → falls back to gov 37 correctly
+- ✅ Sort key handles modern, legacy, and garbage URLs
+- ✅ Dynamic config fetch returns live `{dataCollectorWebApi, clientId}`
+
+Local sync (`python3 bin/sync.py --use-api --max-decisions 2`):
+- ✅ Catalog returned 4 results from new gateway (`total=25871`, latest May 7)
+- ✅ Content-page scraped #4091 successfully via new gateway (1344 chars)
+- ❌ Gemini hit `limit: 0` (free-tier quota exhausted today — pre-existing issue, separate from this fix)
+
+### Known follow-up — Gemini quota
+Free-tier quota shows `limit: 0` on the API key — needs billing upgrade or new key to avoid the 5x retry-with-backoff burning sync time. Existing retry logic handles it gracefully (continues to next decision) so not blocking but slow.
+
+### Deploy plan
+1. Commit (this commit)
+2. SSH ceci, git pull, docker compose up -d --build
+3. Container-level test: `docker exec ... bin/sync.py --use-api --max-decisions 5 --no-approval --verbose`
+4. Healthcheck: `docker exec ... /usr/local/bin/healthcheck.sh`
+5. Wait for next 02:00 IST cron and verify
+
+## Previous: QA & Pipeline Improvements (Feb 24, 2026) — kept for context
+
+## QA & Pipeline Improvements (Feb 24, 2026)
+
+### Phase 1: QA-Only Fixes (DONE)
+- **1.1** Summary max threshold raised 500→800 chars (eliminates FP from long summaries)
+- **1.2** Removed contradictory appointment keywords from OPERATIVE_KEYWORDS → DECLARATIVE
+- **1.3** Used `_word_in_text()` prefix-aware matching in operativity check (~30% FN reduction)
+- **1.4** Extended date_vs_government check to all govs 25-37 (found 7 genuine mismatches)
+- **1.5** Added 32K content truncation detection (11 decisions at limit)
+- **1.6** Date-aware PM for gov 36 (Bennett→Lapid on 2022-07-01)
+
+### Phase 2: Pipeline Improvements (DONE)
+- **2.1** Added 5 operative OPERATIVITY_OVERRIDES (was declarative-only)
+- **2.2** Title-based body inference fallback (~3% of empty bodies recovered)
+- **2.3** Enabled auto-correction in AI validator (was WARN-ONLY)
+
+### Phase 3: Advanced Features (PENDING)
+- 3.1 Audit ministry_detection_rules.py against new_departments.md
+- 3.2 Connect ministry rules to pipeline
+- 3.3 Create authorized location list + normalization
 
 ## ✅ FULL DB REFRESH COMPLETE (Feb 23, 2026)
 

@@ -8,19 +8,97 @@ from datetime import datetime
 from typing import List, Dict, Optional
 from selenium.webdriver.common.by import By
 from ..utils.selenium import SeleniumWebDriver, CloudflareBlockedError
-from ..config import BASE_CATALOG_URL, CATALOG_PARAMS, BASE_DECISION_URL, PM_BY_GOVERNMENT
+from ..config import BASE_CATALOG_URL, CATALOG_PARAMS, BASE_DECISION_URL, PM_BY_GOVERNMENT, get_pm_for_decision
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# gov.il REST API endpoint for decision results
+# gov.il public API gateway — used by the gov.il SPA itself.
+# The clientId is a PUBLIC identifier hardcoded in gov.il's own browser-side config
+# at https://www.gov.il/CollectorsWebApi/client-config.js. Anyone loading
+# https://www.gov.il/he/collectors/policies fetches the same value. NOT a secret.
+GOVIL_CLIENT_ID = "9KFgciHHGDyNiqz5MdQS0eK2ApeJYMc6YnElUICpN1atirZc"
+GOVIL_COLLECTORS_API_BASE = "https://openapi-gc.digital.gov.il/pub/cio/govil/rest/collectors/v1"
+
+# Catalog endpoint (cabinet decisions only via Type GUID).
+# Migrated from www.gov.il/CollectorsWebApi/api/* on 2026-05 — old host now serves
+# the SPA HTML fallback for any unknown path.
 CATALOG_API_URL = (
-    "https://www.gov.il/CollectorsWebApi/api/DataCollector/GetResults"
+    f"{GOVIL_COLLECTORS_API_BASE}/api/DataCollector/GetResults"
     "?CollectorType=policy&CollectorType=pmopolicy"
     "&Type=30280ed5-306f-4f0b-a11d-cacf05d36648"
     "&culture=he"
 )
+
+# Cached dynamic config from gov.il's own SPA. Lazy-fetched on first use.
+# Self-healing if gov.il rotates the clientId or moves the gateway again.
+_GOVIL_CONFIG_CACHE = {}
+
+
+def _fetch_govil_config(logger=None):
+    """Fetch gov.il's SPA client-config to detect any future API migration.
+
+    Returns dict with keys 'dataCollectorWebApi' and 'clientId', or {} if fetch fails.
+    Cached after first successful fetch (process-lifetime).
+    """
+    if _GOVIL_CONFIG_CACHE:
+        return _GOVIL_CONFIG_CACHE
+
+    from curl_cffi import requests as curl_requests
+    try:
+        s = curl_requests.Session(impersonate="safari")
+        r = s.get("https://www.gov.il/CollectorsWebApi/client-config.js", timeout=10)
+        if r.status_code != 200 or "govilRunConfig" not in r.text:
+            return {}
+        # Body shape: window['govilRunConfig'] = {"key":"val", ...};
+        m = re.search(r"=\s*(\{[^;]+\})\s*;", r.text)
+        if not m:
+            return {}
+        cfg = json.loads(m.group(1))
+        _GOVIL_CONFIG_CACHE.update(cfg)
+        # Warn if our hardcoded values drift from what gov.il publishes
+        live_base = cfg.get("dataCollectorWebApi", "").rstrip("/")
+        live_cid = cfg.get("clientId", "")
+        if live_base and live_base != GOVIL_COLLECTORS_API_BASE.rstrip("/"):
+            if logger:
+                logger.warning(
+                    f"gov.il SPA config drift: dataCollectorWebApi='{live_base}' "
+                    f"but our constant is '{GOVIL_COLLECTORS_API_BASE}'. "
+                    f"Using live value. Consider updating GOVIL_COLLECTORS_API_BASE."
+                )
+        if live_cid and live_cid != GOVIL_CLIENT_ID:
+            if logger:
+                logger.warning(
+                    f"gov.il SPA config drift: clientId rotated. "
+                    f"Hardcoded GOVIL_CLIENT_ID is stale; using live value."
+                )
+        return cfg
+    except Exception as e:
+        if logger:
+            logger.debug(f"Failed to fetch gov.il SPA config (non-fatal): {e}")
+        return {}
+
+
+def _api_headers(logger=None):
+    """Build headers for openapi-gc.digital.gov.il API calls.
+
+    Uses live clientId from gov.il SPA config when available, falls back to hardcoded.
+    """
+    cfg = _fetch_govil_config(logger)
+    client_id = cfg.get("clientId") or GOVIL_CLIENT_ID
+    return {
+        "x-client-id": client_id,
+        "Origin": "https://www.gov.il",
+        "Referer": "https://www.gov.il/he/collectors/policies",
+        "Accept": "application/json, text/plain, */*",
+    }
+
+
+def _api_base(logger=None):
+    """Return live API base URL when available, else hardcoded constant."""
+    cfg = _fetch_govil_config(logger)
+    return (cfg.get("dataCollectorWebApi") or GOVIL_COLLECTORS_API_BASE).rstrip("/")
 
 
 def _format_date(raw_date: str) -> str:
@@ -116,11 +194,11 @@ def extract_entry_from_api_result(result_item: Dict) -> Optional[Dict]:
         if gov_text:
             government_number, prime_minister = parse_government_field(gov_text)
 
-    # Fallback to PM_BY_GOVERNMENT lookup if PM not found in API
+    # Fallback to date-aware PM lookup if PM not found in API
     if government_number and not prime_minister:
         try:
             gov_num_int = int(government_number)
-            prime_minister = PM_BY_GOVERNMENT.get(gov_num_int)
+            prime_minister = get_pm_for_decision(gov_num_int, decision_date)
         except (ValueError, TypeError):
             pass
 
@@ -144,29 +222,51 @@ def extract_entry_from_api_result(result_item: Dict) -> Optional[Dict]:
 
 
 def _create_api_session(logger=None):
-    """Create a curl_cffi session with Cloudflare bypass.
+    """Create a curl_cffi session ready to call openapi-gc.digital.gov.il.
 
-    Tries impersonation options in order until the main page returns 200.
-    Safari works from datacenter IPs where Chrome impersonation gets blocked.
+    1. Tries TLS impersonation options against www.gov.il/he to warm up cookies
+       (Safari is most reliable from datacenter IPs).
+    2. Sets default headers (x-client-id, Origin, Referer) so every subsequent
+       session.get() to the API gateway authenticates correctly.
+
+    Returns a session even if warm-up fails — the gateway only needs the header,
+    not the cookies. Warm-up is mainly belt-and-suspenders.
     """
     from curl_cffi import requests as curl_requests
 
-    # Safari works from datacenter IPs where Chrome gets 403
+    api_headers = _api_headers(logger)
+
+    # Safari works from datacenter IPs where Chrome gets 403 at Cloudflare layer
+    chosen = None
     for imp in ["safari", "chrome120", "chrome"]:
         session = curl_requests.Session(impersonate=imp)
         try:
             r = session.get("https://www.gov.il/he", timeout=15)
             if r.status_code == 200:
-                if logger:
-                    logger.info(f"API session ready (impersonate={imp}, cookies={len(session.cookies)})")
-                return session
+                chosen = (session, imp)
+                break
         except Exception:
             continue
 
-    # Fallback: return last session even if warm-up failed
+    if chosen is None:
+        if logger:
+            logger.warning("All impersonation options failed warm-up; using safari (headers still set).")
+        session = curl_requests.Session(impersonate="safari")
+        imp = "safari"
+    else:
+        session, imp = chosen
+
+    # Inject default API headers — apply to ALL subsequent session.get() calls.
+    # x-client-id is required by openapi-gc gateway; other headers are polite/defensive.
+    try:
+        session.headers.update(api_headers)
+    except Exception:
+        # If curl_cffi Session doesn't expose .headers.update, callers pass headers per request.
+        pass
+
     if logger:
-        logger.warning("All impersonation options returned non-200, using safari as fallback")
-    return curl_requests.Session(impersonate="safari")
+        logger.info(f"API session ready (impersonate={imp}, cookies={len(session.cookies)})")
+    return session
 
 
 def _warmup_session(session, logger=None):
@@ -200,7 +300,20 @@ def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict
 
     logger.info(f"Fetching {max_decisions} catalog entries via API (no browser)...")
 
-    api_url = f"{CATALOG_API_URL}&skip=0&limit={max_decisions}"
+    # Use live API base if gov.il config drift detected, else hardcoded constant.
+    live_base = _api_base(logger)
+    if live_base != GOVIL_COLLECTORS_API_BASE.rstrip("/"):
+        # gov.il moved the API again — adapt URL on the fly
+        api_url = (
+            f"{live_base}/api/DataCollector/GetResults"
+            "?CollectorType=policy&CollectorType=pmopolicy"
+            "&Type=30280ed5-306f-4f0b-a11d-cacf05d36648"
+            f"&culture=he&skip=0&limit={max_decisions}"
+        )
+    else:
+        api_url = f"{CATALOG_API_URL}&skip=0&limit={max_decisions}"
+
+    headers = _api_headers(logger)
 
     if session is None:
         session = _create_api_session(logger)
@@ -209,10 +322,24 @@ def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict
         _warmup_session(session, logger)
 
     max_retries = 3
+    last_body_preview = ""
     for attempt in range(max_retries):
         try:
-            resp = session.get(api_url, timeout=30)
+            # Pass headers explicitly even though session has defaults — defensive.
+            resp = session.get(api_url, timeout=30, headers=headers)
             resp.raise_for_status()
+
+            content_type = resp.headers.get("content-type", "")
+            body_text = resp.text or ""
+            last_body_preview = body_text[:200].replace("\n", " ")
+
+            # Guard against HTML SPA fallback (gov.il serves homepage HTML for unknown routes)
+            if not body_text.lstrip().startswith("{"):
+                snippet = last_body_preview
+                raise ValueError(
+                    f"Catalog API returned non-JSON (ct='{content_type}', "
+                    f"first 200 chars: {snippet!r}). URL likely dead or auth missing."
+                )
 
             data = resp.json()
             total = data.get("total", 0)
@@ -226,7 +353,7 @@ def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict
                 if entry:
                     decision_entries.append(entry)
 
-            # Sort by decision number (newest first)
+            # Sort by decision number (newest first). Non-matching URLs sort to END (see fn).
             decision_entries.sort(key=lambda d: _extract_decision_sort_key(d["url"]))
 
             logger.info(f"Extracted {len(decision_entries)} decision entries via API")
@@ -244,12 +371,22 @@ def extract_catalog_via_api(max_decisions: int = 100, session=None) -> List[Dict
                 logger.warning(f"Catalog API attempt {attempt + 1} failed: {e}. Retrying in {wait}s...")
                 time.sleep(wait)
             else:
-                logger.error(f"Catalog API failed after {max_retries} attempts: {e}")
+                logger.error(
+                    f"Catalog API failed after {max_retries} attempts: {e} | "
+                    f"url={api_url} | last_body_preview={last_body_preview!r}"
+                )
                 raise
 
 
 def _extract_decision_sort_key(url: str):
-    """Extract sort key from decision URL for ordering."""
+    """Extract sort key from decision URL for ordering (newest first).
+
+    Returns negative-keyed tuples so ascending sort yields newest-first order.
+    URLs that don't match (older formats like /he/pages/2012_des4070, or garbage)
+    return a key that sorts AFTER all matched URLs — prevents them from incorrectly
+    appearing at the top of the catalog list.
+    """
+    # Try the modern dec-format first: /he/pages/dec4070-2026 or /he/pages/dec-4070-2026
     match = re.search(r'/dec-?(\d+)([a-z]?)-(\d{4})([a-z]?)', url)
     if match:
         year = int(match.group(3))
@@ -257,7 +394,19 @@ def _extract_decision_sort_key(url: str):
         suffix_order = ord(match.group(2)) if match.group(2) else 0
         postfix_order = ord(match.group(4)) if match.group(4) else 0
         return (-year, -decision_num, -suffix_order, -postfix_order)
-    return (0, 0, 0, 0)
+
+    # Try legacy format: /he/pages/{gov_num}_des{decision_num} or /he/pages/{year}_des{decision_num}
+    legacy = re.search(r'/(\d+)_des(\d+)', url)
+    if legacy:
+        prefix = int(legacy.group(1))  # could be gov_num (e.g., 32) or year (e.g., 2012)
+        decision_num = int(legacy.group(2))
+        # Heuristic: 4-digit prefix → year; smaller → gov_num. Normalize gov_num to pseudo-year.
+        year_or_proxy = prefix if prefix >= 1900 else (1990 + prefix)
+        return (-year_or_proxy, -decision_num, 0, 0)
+
+    # Unknown format — sort to END (positive key > all negative keys above).
+    # Using `1` not `0` so even non-matches with same content stay stable.
+    return (1, 0, 0, 0)
 
 
 def extract_decision_urls_from_catalog_selenium(max_decisions: int = 5, swd=None) -> List[Dict]:
@@ -276,6 +425,17 @@ def extract_decision_urls_from_catalog_selenium(max_decisions: int = 5, swd=None
         List of dicts with keys: url, title, decision_number, decision_date, committee
     """
     logger.info(f"Using Selenium to extract {max_decisions} decision entries from catalog")
+
+    # NOTE: the new openapi-gc gateway requires an x-client-id header which
+    # Selenium's `drv.get(url)` cannot inject without CDP. Daily cron uses the
+    # curl_cffi path (extract_catalog_via_api) which works correctly. This
+    # Selenium path is only invoked by full re-discovery (bin/discover_all.py)
+    # and will most likely fail against the new gateway. Use the API path instead.
+    logger.warning(
+        "Selenium catalog path may fail: new gov.il API gateway requires "
+        "x-client-id header which Selenium drv.get() cannot inject. "
+        "Prefer extract_catalog_via_api() (curl_cffi) for daily sync."
+    )
 
     api_url = f"{CATALOG_API_URL}&skip=0&limit={max_decisions}"
 
