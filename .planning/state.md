@@ -6,7 +6,29 @@
 **Server:** 178.62.39.248 — container (unhealthy) since May 3 due to gov.il API migration
 **Quality Grade:** A+ (98.1% pre-gap)
 
-## 🚨 May 11, 2026 — gov.il API Migration + Silent Failures FIXED (PENDING DEPLOY)
+## 🚨 May 11–12, 2026 — gov.il API Migration + Silent Failures FIXED & DEPLOYED
+
+### Deployment status
+- ✅ Code committed (3 commits: f37e912, then bundled config.py improvements, then Gemini fail-fast)
+- ✅ Pushed to origin/master
+- ✅ Server pulled, container rebuilt twice (initial import error, then clean rebuild)
+- ✅ End-to-end verified from production container:
+  - Catalog API: total=25,871, latest #4095 from 2026-05-07 — returns proper JSON
+  - Content-page API: scraped #4095 (1222 chars) and #4094 (459 chars) successfully
+  - `decision_key=37_4095` proves gov_num=None fix works
+  - Fail-fast Gemini quota detection: pipeline now dies in ~5 seconds when quota=0 (was 15+ min)
+
+### Remaining blocker — Gemini daily quota (not a code issue)
+The Gemini API key shows `limit: 0` for all free-tier metrics. Until user enables billing
+or rotates to a key with quota, **decisions cannot be AI-processed** even though they
+can be scraped. The cron will run nightly, scrape successfully, then bail fast at AI
+step. Healthcheck will stay unhealthy until Gemini works.
+
+**To unblock:** enable billing on the Google Cloud project for the current GEMINI_API_KEY,
+OR generate a new key from a project with billing enabled. The cron will then work
+without further code changes.
+
+
 
 ### Root causes (all 5 verified)
 

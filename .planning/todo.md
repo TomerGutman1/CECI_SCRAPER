@@ -88,4 +88,46 @@
 
 ## Review section (filled after completion)
 
-(to be filled)
+### Was completed
+- ✅ All 5 root causes fixed (URL migration ×2, gov_num=None silent failure, exit code, sort key)
+- ✅ +1 bonus: fail-fast Gemini hard-quota detection (saves ~15 min per decision when quota=0)
+- ✅ Dynamic gov.il SPA config fetch as self-healing layer (if endpoint moves again, code adapts)
+- ✅ HTML-fallback detection on both API call sites with body preview in error log
+- ✅ Standalone test script with 23 assertions — all pass against live gov.il
+- ✅ End-to-end verified from production container: catalog returns 25,871 entries, content-page scrapes work
+- ✅ Bundled 4 uncommitted dependency changes that would have blocked deployment
+
+### Caveats / known limitations
+- ⚠️ **Gemini billing blocker** — current API key shows `limit: 0` for all free-tier metrics.
+  Until user enables billing or rotates key, cron will scrape successfully but fail at AI step.
+  Mitigation: fail-fast logic ensures runs complete in ~30s instead of 15-30 min.
+- ⚠️ Selenium-based catalog path (`extract_decision_urls_from_catalog_selenium`) still uses
+  the new URL but Selenium's `drv.get()` cannot inject x-client-id header. Marked with
+  warning in code. Only invoked by full re-discovery (`bin/discover_all.py`) — not daily cron.
+- ⚠️ The wrapper's exit-code reporting (`SYNC FAILED` vs `Sync completed successfully`)
+  now correctly reflects whether ANY decision made it to DB, vs the prior all-or-nothing
+  reporting.
+
+### Cron behavior after this fix
+- **If Gemini works:** cron scrapes new decisions, AI-processes, inserts to DB, logs SUCCESS,
+  healthcheck reports HEALTHY. ~308 backlog catches up over multiple nights.
+- **If Gemini fails (current state):** cron scrapes, hits hard quota at AI step, fails fast
+  (~30s total run instead of 60+ min), wrapper retries 3x (all fail fast), logs SYNC FAILED,
+  healthcheck reports unhealthy. No data corruption, no infinite hangs.
+
+### Files changed (3 commits, master)
+1. `f37e912` — fix: migrate to gov.il openapi-gc gateway + fix silent sync failures
+   - .planning/state.md, .planning/todo.md, bin/sync.py, src/gov_scraper/scrapers/catalog.py,
+     src/gov_scraper/scrapers/decision.py
+2. `<sha2>` — fix: ship uncommitted Phase 1+2 improvements blocking import in catalog.py
+   - src/gov_scraper/config.py (get_pm_for_decision function)
+   - src/gov_scraper/processors/{ai_post_processor,qa,unified_ai}.py
+3. `<sha3>` — fix(gemini): fail-fast on hard daily-quota exhaustion
+   - src/gov_scraper/processors/{ai,unified_ai}.py
+
+### What to verify after Gemini is unblocked
+1. `make sync-test` — should insert 1 decision successfully
+2. Wait for next 02:00 IDT cron — should report SUCCESS and insert backlog
+3. `docker exec gov2db-scraper /usr/local/bin/healthcheck.sh` — should report HEALTHY
+4. Supabase DB: latest decision_date should be near current date (decisions through May 7+)
+
