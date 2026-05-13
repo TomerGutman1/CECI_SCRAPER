@@ -18,15 +18,47 @@
   - `decision_key=37_4095` proves gov_num=None fix works
   - Fail-fast Gemini quota detection: pipeline now dies in ~5 seconds when quota=0 (was 15+ min)
 
-### Remaining blocker — Gemini daily quota (not a code issue)
-The Gemini API key shows `limit: 0` for all free-tier metrics. Until user enables billing
-or rotates to a key with quota, **decisions cannot be AI-processed** even though they
-can be scraped. The cron will run nightly, scrape successfully, then bail fast at AI
-step. Healthcheck will stay unhealthy until Gemini works.
+### Gemini billing transition — RESOLVED (May 13, 2026)
+The `limit: 0` errors were caused by free-tier trial expiring before paid tier was set
+up. Once the account manager moved the project to paid tier on May 13, Gemini calls
+started succeeding immediately. No code change required for this.
 
-**To unblock:** enable billing on the Google Cloud project for the current GEMINI_API_KEY,
-OR generate a new key from a project with billing enabled. The cron will then work
-without further code changes.
+**Verified working end-to-end on May 13:**
+- 2 decisions inserted (#4091, #4093) — sync took ~12 seconds per decision
+- Healthcheck: HEALTHY, DB accessible, 25,565 records
+- Full backlog (~308 decisions) catching up via unlimited sync run
+
+### Defensive code remains
+My `fail-fast on limit:0` Gemini retry logic stays in place as a defensive measure —
+if there's ever a future billing gap or quota issue, the script will bail in seconds
+instead of burning hours in retry-with-backoff. With paid tier active, this code path
+should never trigger in normal operation.
+
+### Coverage audit (May 13, 2026) — DB at 25,585 records
+Walked the full gov.il catalog (25,871 entries) and diffed against DB by URL:
+
+**2020-2026 coverage: 99.89%** (only 6 missing out of ~5,400 recent decisions)
+
+The 6 remaining missing are all **PDF-only decisions** — gov.il published only the PDF
+attachment with no HTML content in the page, so our scraper has nothing to extract.
+Decision was made (May 13) to **leave them as-is** rather than add PDF extraction —
+0.1% gap, no user-facing impact, and adding pdfplumber to the pipeline is a separate
+half-day project that can be picked up later if needed.
+
+**Older years (pre-2020):** 71 truly missing entries (vs catalog), mostly letter-prefix
+decisions with unusual URL formats from earlier governments. Not a current concern
+given user focus is on recent decisions.
+
+### Bonus fix: Hebrew-prefix decision key support
+The DAL's `_is_valid_decision_key_format` regex was rejecting committee/special-numbered
+decisions like `37_מח/6` (priviatization committee). Added:
+- `normalize_decision_key()` — auto-converts Hebrew prefixes to Latin form at insert
+  (e.g., `37_מח/6` → `37_mh6`, `37_רהמ/95` → `37_rhm95`)
+- Validator now accepts the existing transliterated-Hebrew key pattern (`\d+_[a-z]+\d+`)
+  consistent with the 264-key cleanup from Feb 2026
+
+This unblocked 3 February 2026 committee decisions that had been silently rejected.
+Future committee decisions from gov.il will flow through the pipeline automatically.
 
 
 
