@@ -155,6 +155,17 @@ def insert_decisions_batch(decisions: List[Dict], batch_size: int = 50) -> Tuple
     inserted_count = 0
     error_messages = []
 
+    # Normalize Hebrew-prefixed keys to Latin form (e.g., 37_מח/6 → 37_mh6).
+    # This keeps the DB consistent with legacy entries from the Feb 2026 cleanup
+    # (state.md: "Fixed 264 malformed keys (Hebrew prefixes → Latin)").
+    for decision in unique_decisions:
+        original_key = decision.get('decision_key')
+        if original_key:
+            normalized = normalize_decision_key(original_key)
+            if normalized != original_key:
+                logging.info(f"Normalized decision_key: '{original_key}' → '{normalized}'")
+                decision['decision_key'] = normalized
+
     # Validate decision keys before insertion
     invalid_decisions = []
     for decision in unique_decisions:
@@ -236,7 +247,10 @@ def _is_valid_decision_key_format(decision_key: str) -> bool:
 
     Valid formats after migration 004:
     - Standard: {gov_num}_{decision_num} (e.g., "37_1234")
-    - Special: {gov_num}_{type}_{num} (e.g., "37_COMMITTEE_5")
+    - Letter-prefix decisions (transliterated from Hebrew): {gov_num}_{letters}{digits}
+      e.g., "37_mh6" (=מח/6 committee), "35_gbl14" (=גבל/14), "32_rhm95" (=רהמ/95)
+      These exist historically in the DB and are a legitimate gov.il URL pattern.
+    - Special enum: {gov_num}_{type}_{num} (e.g., "37_COMMITTEE_5")
     """
     if not decision_key or not isinstance(decision_key, str):
         return False
@@ -245,11 +259,52 @@ def _is_valid_decision_key_format(decision_key: str) -> bool:
     if re.match(r'^\d+_\d+$', decision_key):
         return True
 
-    # Special format: digits_TYPE_digits
+    # Letter-prefix (transliterated Hebrew committee/special decisions): digits_letters+digits
+    # Allow lowercase ASCII letters as prefix (rhm, mh, gbl, etc.) followed by digits.
+    if re.match(r'^\d+_[a-z]+\d+[a-z]?$', decision_key):
+        return True
+
+    # Special enum format: digits_TYPE_digits
     if re.match(r'^\d+_(COMMITTEE|SECURITY|ECON|SPECIAL)_\d+$', decision_key):
         return True
 
     return False
+
+
+# Hebrew prefix → Latin transliteration for committee/special decision keys.
+# Used to normalize keys like "37_מח/6" → "37_mh6" so they pass the validator
+# and match the existing DB convention (see migration 004 cleanup which fixed
+# 264 such records).
+_HEBREW_KEY_PREFIX_MAP = {
+    'רהמ': 'rhm',      # ראש הממשלה (PM)
+    'מח': 'mh',        # committee
+    'גבל': 'gbl',      # ועדת גבולות / גבלות
+    'תכ': 'tk',        # תכנון
+    'עב': 'ab',        # עבודה
+    'ב': 'b',          # generic single-letter
+}
+
+
+def normalize_decision_key(decision_key: str) -> str:
+    """Normalize Hebrew-prefixed decision keys to the Latin form used in DB.
+
+    Examples:
+        "37_מח/6" → "37_mh6"
+        "37_רהמ/95" → "37_rhm95"
+        "37_ב\\6" → "37_b6"
+        "37_1234" → "37_1234" (unchanged)
+    """
+    if not decision_key or '_' not in decision_key:
+        return decision_key
+    gov, rest = decision_key.split('_', 1)
+    # Strip Hebrew slashes and backslashes
+    rest = rest.replace('/', '').replace('\\', '')
+    # Replace known Hebrew prefixes
+    for heb, lat in _HEBREW_KEY_PREFIX_MAP.items():
+        if rest.startswith(heb):
+            rest = lat + rest[len(heb):]
+            break
+    return f"{gov}_{rest}"
 
 
 def _insert_single_decision_with_constraint_handling(
