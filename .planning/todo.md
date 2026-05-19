@@ -1,4 +1,37 @@
-# Fix: gov.il API Migration + Silent Failures
+# Handover Prep — Tomer → Hadar
+**Created:** 2026-05-19
+**Goal:** Hadar can clone this repo and operate the system with his own Claude Code, no tribal knowledge required.
+
+## Plan
+Execute as two commits: (1) cleanup + toolkit, (2) handover docs.
+
+### Phase 1 — Clean the working tree
+- [ ] Extend `.gitignore`: `.claude/settings.local.json`, `.playwright-mcp/`, `data/**/*.json`, `src/gov_scraper/data/`
+- [ ] Vendor `taste.sh` from ceci server into repo root
+- [ ] Stage 221 Feb 23 cleanup deletions
+- [ ] Stage 7 new ops scripts in `bin/` (parallel_phase_b + integrity toolkit)
+- [ ] Stage `.claude/settings.json` modification + new `.gitignore` + new `taste.sh`
+- [ ] Commit 1: cleanup + integrity toolkit
+
+### Phase 2 — Documentation refresh for handover
+- [ ] Update project `CLAUDE.md` "Current Status" block to May 2026 + add "Known Blockers" section
+- [ ] Rewrite `README.md` — Gemini-correct, Docker-first, remove dead command refs
+- [ ] Create `.planning/docs/TRIBAL-KNOWLEDGE.md` — Apple Silicon Chrome patch, Chrome+Gemini conflict, Docker/cron pitfalls, 3-layer whitelist, gov.il client_id
+- [ ] Overwrite `.planning/handoff.md` to May 2026 snapshot
+- [ ] Create `ONBOARDING.md` at repo root — Hadar's day-1 self-contained guide
+- [ ] Create `HANDOVER-CHECKLIST.md` — Tomer-facing out-of-band transfer list
+- [ ] Surgical update `.planning/state.md` Last Updated line + brief handover-prep note
+- [ ] Commit 2: handover docs
+
+### Phase 3 — Share
+- [ ] Run `ShareOnboardingGuide` to publish ONBOARDING.md → share link for Hadar
+
+## Review (filled in after execution)
+TBD
+
+---
+
+# Fix: gov.il API Migration + Silent Failures (HISTORICAL — completed & deployed May 11–13)
 
 **Date:** 2026-05-11
 **Goal:** Make daily sync work reliably and silently never break again.
