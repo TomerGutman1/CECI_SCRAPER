@@ -95,14 +95,45 @@ new_departments.md   - 45 authorized government bodies
 - All tags validated against authorized lists (46 policy, 45 bodies)
 - No direct SQL - use DAL functions in `db/dal.py`
 
-## Current Status (Feb 23, 2026)
-- **DB Records:** 25,401 (full refresh completed Feb 23)
-- **Quality Grade:** A+ (98.1%)
+## Current Status (May 13, 2026)
+- **DB Records:** 25,585+ (gov.il catalog at 25,871; ~0.1% PDF-only gap)
+- **Latest decision:** ~May 7, 2026 (catching up backlog after gov.il API migration)
+- **Quality Grade:** A+ (98.1% pre-gap)
+- **Coverage (2020-2026):** 99.89%
 - **Duplicates:** 0% (unique constraint enforced)
 - **Tag Accuracy:** ~93% (3-layer whitelist enforcement)
 - **API Efficiency:** 1 Gemini call per decision
-- **Content API:** Direct JSON API bypasses Cloudflare (~940 pages/min)
+- **Content API:** gov.il openapi-gc gateway (Chrome-free, ~940 pages/min)
 - See `.planning/state.md` for details
+
+## Known Blockers / Recent Migrations (read before changing scrapers/AI)
+
+1. **gov.il API gateway migration (May 11, 2026)** — Old `www.gov.il/*WebApi/*` URLs are DEAD.
+   New gateway: `https://openapi-gc.digital.gov.il/pub/cio/govil/rest/...` and **requires
+   `x-client-id` header**. Constants in `src/gov_scraper/scrapers/catalog.py`
+   (`GOVIL_CLIENT_ID`, `GOVIL_COLLECTORS_API_BASE`, `CATALOG_API_URL`) and
+   `decision.py` (`CONTENT_PAGE_API_BASE`). Self-healing layer reads gov.il's live SPA
+   config at `_fetch_govil_config()`. **Do not revert these to www.gov.il/*WebApi/*.**
+
+2. **Gemini billing** — Free tier returns `limit: 0` once trial expires. As of May 13
+   the project is on paid tier. If `limit: 0` reappears, verify Google Cloud billing
+   is active on the project owning the GEMINI_API_KEY. Fail-fast logic in
+   `processors/ai.py` + `unified_ai.py` exits in ~30s on hard quota instead of burning
+   15+ min in backoff.
+
+3. **Chrome + Gemini conflict on macOS** — Never call Gemini while undetected_chromedriver
+   Chrome is running on macOS (httpx hangs). 2-phase pipeline in `bin/full_local_scraper.py`
+   scrapes with Chrome → closes Chrome → then runs Gemini.
+
+4. **Apple Silicon Chrome** — `src/gov_scraper/utils/selenium.py` monkey-patches UC's
+   hardcoded `mac-x64` to `mac-arm64`, pre-downloads chromedriver to skip IPv6 hang, and
+   uses ad-hoc codesign on patched binary. Works but fragile if Chrome updates.
+
+5. **Selenium catalog path** — `extract_decision_urls_from_catalog_selenium()` cannot
+   inject `x-client-id` (drv.get can't set headers). Only used by `bin/discover_all.py`;
+   daily cron uses the API path which works fine.
+
+See `.planning/docs/TRIBAL-KNOWLEDGE.md` for the full set of non-obvious gotchas.
 
 ## Docker Deployment
 ```bash

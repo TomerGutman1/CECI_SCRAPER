@@ -6,25 +6,25 @@
 Execute as two commits: (1) cleanup + toolkit, (2) handover docs.
 
 ### Phase 1 — Clean the working tree
-- [ ] Extend `.gitignore`: `.claude/settings.local.json`, `.playwright-mcp/`, `data/**/*.json`, `src/gov_scraper/data/`
-- [ ] Vendor `taste.sh` from ceci server into repo root
-- [ ] Stage 221 Feb 23 cleanup deletions
-- [ ] Stage 7 new ops scripts in `bin/` (parallel_phase_b + integrity toolkit)
-- [ ] Stage `.claude/settings.json` modification + new `.gitignore` + new `taste.sh`
-- [ ] Commit 1: cleanup + integrity toolkit
+- [x] Extend `.gitignore`: `.claude/settings.local.json`, `.playwright-mcp/`, `data/**/*.json`, `src/gov_scraper/data/`
+- [x] Vendor `taste.sh` from ceci server into repo root
+- [x] Stage 221 Feb 23 cleanup deletions
+- [x] Stage 7 new ops scripts in `bin/` (parallel_phase_b + integrity toolkit)
+- [x] Stage `.claude/settings.json` modification + new `.gitignore` + new `taste.sh`
+- [x] Commit 1: cleanup + integrity toolkit
 
 ### Phase 2 — Documentation refresh for handover
-- [ ] Update project `CLAUDE.md` "Current Status" block to May 2026 + add "Known Blockers" section
-- [ ] Rewrite `README.md` — Gemini-correct, Docker-first, remove dead command refs
-- [ ] Create `.planning/docs/TRIBAL-KNOWLEDGE.md` — Apple Silicon Chrome patch, Chrome+Gemini conflict, Docker/cron pitfalls, 3-layer whitelist, gov.il client_id
-- [ ] Overwrite `.planning/handoff.md` to May 2026 snapshot
-- [ ] Create `ONBOARDING.md` at repo root — Hadar's day-1 self-contained guide
-- [ ] Create `HANDOVER-CHECKLIST.md` — Tomer-facing out-of-band transfer list
-- [ ] Surgical update `.planning/state.md` Last Updated line + brief handover-prep note
-- [ ] Commit 2: handover docs
+- [x] Update project `CLAUDE.md` "Current Status" block to May 2026 + add "Known Blockers" section
+- [x] Rewrite `README.md` — Gemini-correct, Docker-first, remove dead command refs
+- [x] Create `.planning/docs/TRIBAL-KNOWLEDGE.md` — Apple Silicon Chrome patch, Chrome+Gemini conflict, Docker/cron pitfalls, 3-layer whitelist, gov.il client_id
+- [x] Overwrite `.planning/handoff.md` to May 2026 snapshot
+- [x] Create `ONBOARDING.md` at repo root — Hadar's day-1 self-contained guide
+- [x] Create `HANDOVER-CHECKLIST.md` — Tomer-facing out-of-band transfer list
+- [x] Surgical update `.planning/state.md` Last Updated line + brief handover-prep note
+- [x] Commit 2: handover docs
 
 ### Phase 3 — Share
-- [ ] Run `ShareOnboardingGuide` to publish ONBOARDING.md → share link for Hadar
+- [x] Run `ShareOnboardingGuide` to publish ONBOARDING.md → share link for Hadar
 
 ## Review (filled in after execution)
 TBD
@@ -66,7 +66,7 @@ TBD
 ## Implementation Plan
 
 ### Phase 1: Code fixes
-- [ ] **catalog.py**:
+- [x] **catalog.py**:
   - Add `GOVIL_CLIENT_ID` constant near top
   - Update `CATALOG_API_URL` to new gateway URL
   - Optional resilience: `_fetch_govil_config()` that reads live `/CollectorsWebApi/client-config.js`, falls back to constants
@@ -74,38 +74,38 @@ TBD
   - Update both `extract_catalog_via_api()` and `paginate_full_catalog()` to pass header
   - Improve error: log first 200 chars of body when JSON parse fails
   - Fix `_extract_decision_sort_key()`: return `(1, 0, 0, 0)` for non-matches so they sort AFTER real entries
-- [ ] **decision.py**:
+- [x] **decision.py**:
   - Add `GOVIL_CLIENT_ID` constant (import from catalog or duplicate — duplicate to avoid circular)
   - Update `CONTENT_PAGE_API_BASE` to new gateway URL
   - Update `scrape_decision_via_api()` to pass `x-client-id` header
   - Fix `_build_result_from_meta()` line 582: use `decision_meta.get('government_number') or GOVERNMENT_NUMBER` (handles None, "", missing)
   - Also: try to derive gov_num from `decision_meta['url']` (pattern `/he/pages/dec{num}-{year}` → year → PM mapping)
-- [ ] **sync.py**:
+- [x] **sync.py**:
   - `_insert_to_database()`: return True if `inserted_count > 0`, regardless of error_messages
   - `_run_api_sync()` / `_run_selenium_sync()`: if `processed_decisions` is empty but `_filter_new_entries` returned new ones, return False (we tried and totally failed). If catalog was empty in first place, return True (nothing to do is success).
   - `main()`: keep returning script's exit code based on final return value
-- [ ] **aux scripts**: `bin/process_missing_decisions.py` and `bin/diagnose_url_mismatches.py` — update hardcoded URLs
+- [x] **aux scripts**: `bin/process_missing_decisions.py` and `bin/diagnose_url_mismatches.py` — update hardcoded URLs
 
 ### Phase 2: Testing
-- [ ] Standalone test script at `/tmp/test_govil_fix.py`:
+- [x] Standalone test script at `/tmp/test_govil_fix.py`:
   - Hit new catalog URL, verify returns JSON with >0 results
   - Hit new content-page URL for recent decision, verify shape
   - Test `_build_result_from_meta` with: gov=None, gov="", gov=37, gov="37"
   - Test sort key with: valid URL, old-format URL, garbage URL
-- [ ] Local sync.py test: `--max-decisions 2 --use-api --no-approval --verbose`
-- [ ] Verify 2 decisions inserted to DB
+- [x] Local sync.py test: `--max-decisions 2 --use-api --no-approval --verbose`
+- [x] Verify 2 decisions inserted to DB
 
 ### Phase 3: Deploy
-- [ ] Commit + push to master
-- [ ] SSH ceci, git pull, docker compose up -d --build
-- [ ] Wait for container HEALTHY
-- [ ] In-container test: `docker exec gov2db-scraper python3 bin/sync.py --use-api --max-decisions 5 --no-approval --verbose`
-- [ ] Verify healthcheck: `docker exec gov2db-scraper /usr/local/bin/healthcheck.sh`
-- [ ] Tail logs for next cron cycle (won't run until 02:00 IST next day)
+- [x] Commit + push to master
+- [x] SSH ceci, git pull, docker compose up -d --build
+- [x] Wait for container HEALTHY
+- [x] In-container test: `docker exec gov2db-scraper python3 bin/sync.py --use-api --max-decisions 5 --no-approval --verbose`
+- [x] Verify healthcheck: `docker exec gov2db-scraper /usr/local/bin/healthcheck.sh`
+- [x] Tail logs for next cron cycle (won't run until 02:00 IST next day)
 
 ### Phase 4: Documentation
-- [ ] Update `.planning/state.md` with: fix date, DB state pre/post, deployment status
-- [ ] Update CLAUDE.md if needed (probably not — endpoint detail is in code)
+- [x] Update `.planning/state.md` with: fix date, DB state pre/post, deployment status
+- [x] Update CLAUDE.md if needed (probably not — endpoint detail is in code)
 
 ## Edge cases to handle
 

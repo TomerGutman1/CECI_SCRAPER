@@ -1,12 +1,37 @@
 # GOV2DB Project State
-**Last Updated:** 2026-05-11
-**Current Focus:** gov.il API gateway migration + silent-failure fixes deployed
+**Last Updated:** 2026-05-19
+**Current Focus:** Handover prep — Tomer → Hadar (docs + working tree cleanup)
+
+## 🤝 May 19, 2026 — Handover Preparation (current session)
+
+Pre-handover audit and documentation refresh, executed as two commits:
+
+**Commit 1 — `41b4800` — working tree cleanup + integrity toolkit**
+- Staged the 221 Feb 23 cleanup deletions that had been sitting unstaged for 3 months
+- Tracked 7 new ops scripts under `bin/` (parallel_phase_b, audit_integrity, audit_manifest_vs_db, analyze/diagnose_url_mismatches, fix_integrity, process_missing_decisions)
+- Vendored `taste.sh` from ceci server into repo root (was referenced in SERVER-OPERATIONS.md but never tracked)
+- Extended `.gitignore`: `.claude/settings.local.json`, `.playwright-mcp/`, `data/**/*.json`, `src/gov_scraper/data/`
+
+**Commit 2 — handover documentation**
+- `ONBOARDING.md` (root) — self-contained day-1 guide for Hadar
+- `HANDOVER-CHECKLIST.md` (root) — Tomer-facing out-of-band transfer list (SSH key, Supabase, Gemini, GitHub access)
+- `.planning/docs/TRIBAL-KNOWLEDGE.md` — 16 non-obvious gotchas migrated out of personal Claude memory
+- `README.md` — rewrite. Was dangerously stale (telling readers to set OPENAI_API_KEY, referenced deleted `make migrate-*` commands and dead bin/ scripts)
+- `CLAUDE.md` — refreshed "Current Status" to May 2026 numbers + added "Known Blockers / Recent Migrations" section
+- `.planning/handoff.md` — overwritten to May 2026 snapshot (per rule: handoff is always full overwrite)
+
+After Commit 2, generated a `ShareOnboardingGuide` link so Hadar can open `ONBOARDING.md` directly in his own Claude Code.
+
+Working tree is now clean. Repository is ready for handover pending the out-of-band credential transfers listed in `HANDOVER-CHECKLIST.md`.
+
+---
+
+## 🚨 May 11–12, 2026 — gov.il API Migration + Silent Failures FIXED & DEPLOYED
 **Daily Sync:** 🟡 Fix committed locally — pending server deployment
 **DB Records:** 25,563 (latest: 37_4077 dated 2026-04-27; ~308 decisions missed since cron broke)
 **Server:** 178.62.39.248 — container (unhealthy) since May 3 due to gov.il API migration
 **Quality Grade:** A+ (98.1% pre-gap)
 
-## 🚨 May 11–12, 2026 — gov.il API Migration + Silent Failures FIXED & DEPLOYED
 
 ### Deployment status
 - ✅ Code committed (3 commits: f37e912, then bundled config.py improvements, then Gemini fail-fast)
