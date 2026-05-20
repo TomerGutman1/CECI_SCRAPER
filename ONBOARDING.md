@@ -102,7 +102,8 @@ Output should include:
 If you see `(unhealthy)`:
 ```bash
 ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
-ssh ceci "cat /root/ceci-ai-production/ceci-ai/GOV2DB/healthcheck/last_failure.txt"
+# last_failure.txt only exists after a failure; when healthy you'll see last_success.txt
+ssh ceci "ls /root/ceci-ai-production/ceci-ai/GOV2DB/healthcheck/ && cat /root/ceci-ai-production/ceci-ai/GOV2DB/healthcheck/last_failure.txt 2>/dev/null"
 ```
 
 ### 6. Read the canonical docs (20 min)
@@ -237,7 +238,8 @@ ssh ceci "/root/ceci-ai-production/ceci-ai/GOV2DB/taste.sh"   # Verify
 ### Container reports unhealthy
 ```bash
 ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
-ssh ceci "cat /root/ceci-ai-production/ceci-ai/GOV2DB/healthcheck/last_failure.txt"
+# last_failure.txt is written only after a sync failure; "No such file" means clean state
+ssh ceci "cat /root/ceci-ai-production/ceci-ai/GOV2DB/healthcheck/last_failure.txt 2>/dev/null || echo 'no failure recorded'"
 ssh ceci "docker logs --tail 100 gov2db-scraper"
 ```
 

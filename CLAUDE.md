@@ -97,7 +97,7 @@ new_departments.md   - 45 authorized government bodies
 
 ## Current Status (May 13, 2026)
 - **DB Records:** 25,585+ (gov.il catalog at 25,871; ~0.1% PDF-only gap)
-- **Latest decision:** ~May 7, 2026 (catching up backlog after gov.il API migration)
+- **Latest decision:** ~May 15, 2026 (backlog caught up after gov.il API migration)
 - **Quality Grade:** A+ (98.1% pre-gap)
 - **Coverage (2020-2026):** 99.89%
 - **Duplicates:** 0% (unique constraint enforced)
