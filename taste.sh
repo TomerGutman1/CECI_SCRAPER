@@ -1,4 +1,11 @@
 #!/bin/bash
+# Resolve log path relative to this script — works on any host with the
+# standard repo layout (logs/ sibling to taste.sh). Designed for the ceci
+# server; will produce empty log output if run from a host that doesn't
+# also run the gov2db-scraper container.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOG_FILE="$SCRIPT_DIR/logs/daily_sync.log"
+
 echo "╔══════════════════════════════════════════════════════════════╗"
 echo "║           GOV2DB - טעימת החלטות אחרונות                      ║"
 echo "╚══════════════════════════════════════════════════════════════╝"
@@ -29,5 +36,9 @@ echo "  Status: $STATUS | Health: $HEALTH"
 echo ""
 echo "📝 Sync אחרון (5 שורות אחרונות):"
 echo "─────────────────────────────────────────────────────────────────"
-tail -5 /root/ceci-ai-production/ceci-ai/GOV2DB/logs/daily_sync.log 2>/dev/null || echo "  אין לוגים עדיין"
+if [ -f "$LOG_FILE" ]; then
+    tail -5 "$LOG_FILE"
+else
+    echo "  אין לוגים עדיין (log file not found at $LOG_FILE)"
+fi
 echo ""

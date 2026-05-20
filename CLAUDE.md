@@ -1,7 +1,7 @@
 # GOV2DB - Israeli Government Decisions Scraper
 
 ## What This Is
-Automated scraper that extracts Israeli government decisions from gov.il, analyzes them with AI (Gemini), and stores in Supabase. Production dataset: 25,401 decisions (governments 25-37, 1993-2026).
+Automated scraper that extracts Israeli government decisions from gov.il, analyzes them with AI (Gemini), and stores in Supabase. Production dataset: 25,585+ decisions (governments 25-37, 1993-2026; May 2026 snapshot).
 
 ## Planning & State
 **IMPORTANT:** Read `.planning/state.md` before starting any task to understand current DB status and priorities.
@@ -27,15 +27,17 @@ docker compose down
 
 **What happens automatically:**
 - Container validates env vars on startup (missing = FATAL, won't start)
-- Cron runs sync daily (randomized 21-34h interval to avoid Cloudflare)
-- Failed syncs retry 3x with backoff (30/60/90 min)
-- Healthcheck runs hourly -> 3 failures = `(unhealthy)` in `docker ps`
+- Cron runs sync daily at **02:00 IDT** (Asia/Jerusalem TZ, handles DST) with 0-30 min random jitter
+- Failed syncs retry 3x with backoff (10/20/30 min)
+- Healthcheck runs hourly -> 3 failures = `(unhealthy)` in `docker ps` (status can be up to 60 min stale)
 - Logs persist in `./logs/`, health state in `./healthcheck/`
 
 ### Daily Operations (Without Docker)
+> Prefer Docker for sync on macOS — local `make sync` can hit the Chrome+Gemini conflict if it falls back to Selenium. The Makefile already routes through `--use-api` (no Chrome) but `bin/sync.py` direct invocation does not.
+
 ```bash
-make sync              # Daily sync (auto-approve, no-headless mode)
-make sync-test         # Test with 1 decision
+make sync              # Daily sync via API (no Chrome, no-approval)
+make sync-test         # Test with 1 decision (API mode)
 make sync-dev          # Dev mode (5 decisions)
 make test-conn         # Test DB connection
 ```
@@ -58,9 +60,11 @@ make push-local-qa     # QA check before pushing
 
 ### Direct CLI
 ```bash
-python bin/sync.py --unlimited --no-approval --no-headless --verbose
-python bin/qa.py scan --stratified --seed 42
-python bin/simple_incremental_qa.py run
+# Always use --use-api on macOS to avoid the Chrome+Gemini hang. Use python3, not python.
+# Prefer venv: source venv/bin/activate && python3 bin/sync.py ...
+python3 bin/sync.py --unlimited --no-approval --use-api --verbose
+python3 bin/qa.py scan --stratified --seed 42
+python3 bin/simple_incremental_qa.py run
 ```
 
 ## Project Structure
@@ -154,7 +158,7 @@ ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
 5. **Gemini + Chrome conflict:** Never call Gemini while Chrome is running on macOS
 6. **Docker env vars:** Entrypoint exports ALL Docker env vars to `/app/.env` for cron
 7. **Apple Silicon:** Chrome/Selenium tests fail locally on macOS ARM — works on Linux server
-8. **Unified AI:** Set `USE_UNIFIED_AI=true` in .env (active in production)
+8. **Unified AI:** Defaults to `true` in `config.py` — no .env setting needed unless explicitly overriding to legacy multi-call path
 
 ## Key Files to Modify
 - **Scraping:** `src/gov_scraper/scrapers/decision.py`
@@ -170,7 +174,7 @@ ssh ceci "docker exec gov2db-scraper /usr/local/bin/healthcheck.sh"
 GEMINI_API_KEY=...                # Google Gemini API
 SUPABASE_URL=...                  # Supabase project URL
 SUPABASE_SERVICE_ROLE_KEY=...     # Service role JWT
-USE_UNIFIED_AI=true               # Enable unified AI processor
+USE_UNIFIED_AI=true               # OPTIONAL — defaults to true in config.py
 ```
 
 ## Documentation

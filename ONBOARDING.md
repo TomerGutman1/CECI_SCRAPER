@@ -1,7 +1,8 @@
 # Onboarding — GOV2DB
 
 Welcome. You're inheriting an Israeli government decisions scraper that runs in
-production. This guide gets you operational in roughly one hour.
+production. This guide gets you operational in roughly 2 hours on a cold setup
+(first Docker build pulls a ~2.5 GB base image).
 
 **You can open this guide in Claude Code if it was shared with you as a link** — your
 Claude will load the project context and you can ask follow-up questions inline.
@@ -79,9 +80,11 @@ If `test_cron.py` fails, the most common cause is `.env` issues — re-check the
 ### 4. End-to-end smoke test (5 min)
 
 ```bash
-# Single-decision real sync against production DB
+# Single-decision real sync against production DB.
+# --use-api is REQUIRED on macOS/local — without it sync.py falls back to Selenium/Chrome
+# which conflicts with Gemini (see TRIBAL-KNOWLEDGE #3). Cron path uses --use-api already.
 docker exec gov2db-scraper python3 bin/sync.py \
-    --max-decisions 1 --no-approval --verbose
+    --max-decisions 1 --no-approval --use-api --verbose
 ```
 
 You should see one decision scraped, AI-processed, and inserted. If it says "decision
@@ -117,24 +120,30 @@ In order:
 
 ### 7. Make one trivial change end-to-end (10 min)
 
-To prove the deploy loop works, do something tiny:
+To prove the deploy loop works end-to-end, change a file that IS in the Docker image.
+**Don't edit README.md or top-level *.md files** — the Dockerfile only COPYs `bin/`,
+`src/`, `setup.py`, `new_tags.md`, `new_departments.md`, and the docker/ scripts. README
+changes produce an identical image hash and don't trigger a container restart, so the
+"deploy" silently does nothing.
 
 ```bash
-# Add a log line, change a comment, anything trivial
+# Edit a file under src/ — even a comment counts (changes image layer hash)
 git checkout -b proof-of-deploy
-echo "# Reviewed by Hadar on $(date)" >> README.md   # or pick something else
-git add README.md
+echo "# Reviewed by Hadar on $(date)" >> src/gov_scraper/__init__.py
+git add src/gov_scraper/__init__.py
 git commit -m "chore: confirm deploy loop"
 git push origin proof-of-deploy
 
-# Merge via GitHub PR (or fast-forward to master if you have permission)
-# Then deploy:
-ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull && docker compose up -d --build"
-ssh ceci "docker ps | grep gov2db"   # Wait for (healthy)
+# Merge to master via GitHub PR (or push directly if you have permission). Then deploy:
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull && docker compose up -d --build --force-recreate"
+
+# Verify the container actually restarted (don't trust 'healthy' alone — it's up to 60 min stale)
+ssh ceci "docker inspect gov2db-scraper --format='Started: {{.State.StartedAt}}'"
+ssh ceci "docker ps | grep gov2db"   # Wait for (healthy) — takes ~5 min after recreate
 ssh ceci "/root/ceci-ai-production/ceci-ai/GOV2DB/taste.sh"
 ```
 
-If all green, you're operational.
+If `Started:` shows a fresh timestamp and `taste.sh` shows current data, you're operational.
 
 ---
 
@@ -193,8 +202,8 @@ Pick a real issue to work on. Suggestions:
 2. **Pre-2020 backfill** — 71 truly missing decisions from earlier governments.
    Lower priority but visible improvement.
 3. **Improve operativity classification** — currently ~93% accurate, target 95%+.
-   Read `OPERATIVITY_CLASSIFICATION_ANALYSIS.md` if it still exists (it was deleted in
-   Feb 23 cleanup but the lessons are in `.planning/state.md`).
+   Lessons are in `.planning/state.md` (search for "Operativity Classification") and
+   `QA-LESSONS.md`.
 4. **Anti-block resilience** — `ANTI-BLOCK-STRATEGY.md` documents 8 strategies; not all
    are implemented.
 
@@ -218,10 +227,21 @@ Pick a real issue to work on. Suggestions:
 ### Deploying changes
 ```bash
 git push origin master
-ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull && docker compose up -d --build"
-ssh ceci "docker ps | grep gov2db"   # Wait for (healthy)
+
+# --force-recreate guarantees the container restarts even if Docker reuses cached layers.
+# The server's GitHub auth is unauthenticated HTTPS (works because the repo is public —
+# if you make it private, configure a GitHub PAT or deploy key on the server first).
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull && docker compose up -d --build --force-recreate"
+
+# Verify restart actually happened (Started: timestamp should be fresh)
+ssh ceci "docker inspect gov2db-scraper --format='Started: {{.State.StartedAt}}'"
+ssh ceci "docker ps | grep gov2db"   # Wait for (healthy) — takes ~5 min after recreate
 ssh ceci "/root/ceci-ai-production/ceci-ai/GOV2DB/taste.sh"   # Verify
 ```
+
+> Avoid `docker compose down/restart` between 01:30-02:30 IDT — the daily cron fires at
+> 02:00 IDT inside the container; if the container is down at that moment, that night's
+> sync is skipped.
 
 ### Things not to do without thinking carefully
 - Don't revert gov.il URLs to `www.gov.il/*WebApi/*` — those are dead (see TRIBAL-KNOWLEDGE #1)

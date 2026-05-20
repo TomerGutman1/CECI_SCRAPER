@@ -2,6 +2,10 @@
 """
 Audit: Compare manifest decision_keys against DB decision_keys.
 
+PREREQUISITES: requires data/catalog_manifest.json (run `make discover` to
+regenerate — that pipeline uses Selenium/Chrome and takes ~2 hours on a
+fresh machine).
+
 Finds decisions that were "dropped" — present in the manifest but missing from DB.
 Classifies each dropped key by likely reason (invalid format, number mismatch, etc.).
 

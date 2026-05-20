@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Analyze and categorize URL mismatches from integrity audit."""
+"""Analyze and categorize URL mismatches from integrity audit.
+
+PREREQUISITES: requires data/integrity_audit_results.csv (run
+`bin/audit_integrity.py` first to produce it).
+"""
 
 import sys
 import os

@@ -69,7 +69,7 @@ hard-blocked, so observability stays clean.
 
 **How to apply.** If you see "no new decisions in DB despite cron firing":
 ```bash
-ssh ceci "docker exec gov2db-scraper tail /app/logs/daily_sync.log | grep 'limit: 0'"
+ssh ceci "docker exec gov2db-scraper tail -200 /app/logs/daily_sync.log | grep 'limit: 0'"
 ```
 If matches → enable billing on the GCP project owning the `GEMINI_API_KEY`, or rotate to
 a key from a billed project. No code change needed once Gemini works again.
@@ -120,15 +120,13 @@ Daily cron is unaffected — it uses the API path (`bin/sync.py --use-api`), no 
    the driver manually and pass `driver_executable_path` to skip UC's download path.
 
 3. **UC patches the binary in-place** to evade detection, which invalidates the macOS
-   signature → Gatekeeper kills the process. Fix: re-codesign with an ad-hoc identity:
-   ```
-   codesign -s - -f <path-to-chromedriver>
+   signature → Gatekeeper kills the process. Fix: re-codesign with an ad-hoc identity.
+   The path has a space, so it MUST be quoted:
+   ```bash
+   codesign -s - -f "$HOME/Library/Application Support/undetected_chromedriver/patched_chromedriver"
    ```
 
-**Pre-patched driver location:**
-```
-~/Library/Application Support/undetected_chromedriver/patched_chromedriver
-```
+**Pre-patched driver location:** `~/Library/Application Support/undetected_chromedriver/patched_chromedriver`
 
 **Detection.** `_detect_chrome_version()` uses
 `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --version` on macOS, falls

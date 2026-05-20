@@ -2,7 +2,11 @@
 """
 Diagnose and fix URL mismatches in israeli_government_decisions.
 
-For each of the 101 mismatched URLs:
+PREREQUISITES: Run `bin/audit_integrity.py` first to produce the URL-mismatch
+list this script consumes. Count is whatever the audit currently finds
+(was 101 during the Feb 2026 audit; will differ now).
+
+For each URL mismatch found by the audit:
 1. Build candidate "correct" slugs based on government-era URL patterns
 2. Test each candidate via Content Page API (fast, no Cloudflare)
 3. Also test if current URL still works

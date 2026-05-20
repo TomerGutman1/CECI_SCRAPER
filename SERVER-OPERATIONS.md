@@ -71,8 +71,8 @@ docker exec gov2db-scraper date
 # 4. Cron configured for 02:00?
 docker exec gov2db-scraper cat /etc/cron.d/gov2db-scraper | grep "^0 2"
 
-# 5. Run taste tool
-./GOV2DB/taste.sh
+# 5. Run taste tool (absolute path — SSH lands in /root, not the project dir)
+/root/ceci-ai-production/ceci-ai/GOV2DB/taste.sh
 
 # 6. Check sync log (after 02:00 AM)
 tail -20 /root/ceci-ai-production/ceci-ai/GOV2DB/logs/daily_sync.log
@@ -198,30 +198,33 @@ ssh ceci "docker system prune -f"
 
 ## Update Container
 
-### Pull New Image & Restart
+### Standard deploy — git pull + rebuild on server (recommended)
 
 ```bash
-ssh ceci "docker pull tomerjoe/gov2db-scraper:latest && \
-  docker stop gov2db-scraper && \
-  docker rm gov2db-scraper && \
-  docker run -d \
-    --name gov2db-scraper \
-    --restart unless-stopped \
-    --env-file /root/ceci-ai-production/ceci-ai/GOV2DB/.env \
-    -v /root/ceci-ai-production/ceci-ai/GOV2DB/logs:/app/logs \
-    -v /root/ceci-ai-production/ceci-ai/GOV2DB/data:/app/data \
-    --network compose_ceci-internal \
-    --memory 1g \
-    --cpus 0.9 \
-    tomerjoe/gov2db-scraper:latest"
+git push origin master
+
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && git pull && docker compose up -d --build --force-recreate"
+
+# Verify the container actually restarted (Started: timestamp should be fresh)
+ssh ceci "docker inspect gov2db-scraper --format='Started: {{.State.StartedAt}}'"
+ssh ceci "docker ps | grep gov2db"   # Wait for (healthy) — takes ~5 min after recreate
 ```
 
-### Rebuild Locally & Push
+> The server pulls from GitHub over HTTPS without a credential. This works **only because the repo is public**. If the repo becomes private, configure a GitHub Personal Access Token (or deploy key) on the server before deploying.
+
+### Alternative — rebuild and push prebuilt image (rarely needed)
 
 ```bash
-# On local machine
-cd /Users/tomergutman/Downloads/GOV2DB
+# On local machine — uses Docker Hub. Only needed if you want to skip the build step on the server.
+cd "$(git rev-parse --show-toplevel)"
 docker buildx build --platform linux/amd64 -t tomerjoe/gov2db-scraper:latest --push .
+
+# Then on the server, pull the new image. Use docker compose, NOT a raw `docker run` —
+# the compose file has the correct env file, volumes (including healthcheck/), and
+# network configuration. A hand-written `docker run` will silently miss the healthcheck
+# volume mount (breaking unhealthy-detection logic) and put the container on the wrong
+# network. Do not use docker run for deploys.
+ssh ceci "cd /root/ceci-ai-production/ceci-ai/GOV2DB && docker compose pull && docker compose up -d --force-recreate"
 ```
 
 ---
@@ -241,7 +244,7 @@ This completely removes GOV2DB without affecting other containers.
 After 02:00 AM, run:
 
 ```bash
-ssh ceci "./GOV2DB/taste.sh"
+ssh ceci "/root/ceci-ai-production/ceci-ai/GOV2DB/taste.sh"
 ```
 
 **Expected output includes:**
@@ -259,5 +262,5 @@ ssh ceci "./GOV2DB/taste.sh"
 
 ---
 
-*Last updated: 2026-01-20*
-*Deployed by: Claude Code*
+*Last updated: 2026-05-20*
+*Maintained by: Claude Code*

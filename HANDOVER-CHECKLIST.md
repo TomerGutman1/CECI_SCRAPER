@@ -54,7 +54,7 @@ everything you need to *give*.
 
 ## Knowledge transfer
 
-These are already done as part of the handover-prep session (commit `<TBD>`):
+These are already done as part of the handover-prep session (commits `41b4800` → `07c29f1` → `daf336f` → followup):
 
 - [x] `ONBOARDING.md` written and committed
 - [x] `.planning/docs/TRIBAL-KNOWLEDGE.md` — 16 non-obvious gotchas migrated out of

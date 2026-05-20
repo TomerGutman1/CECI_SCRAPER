@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 """
-Process missing decisions that can't be scraped normally.
+ONE-OFF SCRIPT — Feb 2026 audit. NOT a reusable maintenance tool.
 
-Handles:
+This script processes a HARDCODED set of 16 specific decision keys
+(MISSING_KEYS) and one constructed entry for `36_1022` that were identified
+as missing during a one-time DB audit. Those keys are now in the DB.
+
+DO NOT re-run this expecting it to "find currently missing decisions" — it
+will just re-process those 16 specific decisions or skip them all silently.
+
+For future "missing decisions" recovery:
+  1. Run `bin/audit_manifest_vs_db.py` against current state
+  2. Update MISSING_KEYS with the keys it reports
+  3. Then run this script
+
+Handles (the Feb 2026 set):
 - PDF-only decisions: downloads PDF, extracts text
 - Minimal content pages: uses whatever text exists
 - Missing decision 36_1022: constructs correct manifest entry

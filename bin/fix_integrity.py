@@ -1,15 +1,28 @@
 #!/usr/bin/env python3
 """
-Fix 19 data integrity issues in israeli_government_decisions.
+ONE-OFF SCRIPT — Feb 2026 audit. NOT a reusable maintenance tool.
 
-Fixes:
+This script patches 19 SPECIFIC Supabase row IDs that were found corrupted in the
+original production DB during a one-time integrity audit. The row IDs are auto-
+increment integers from THAT instance.
+
+DO NOT run --execute on a different DB instance. On any other DB, these row IDs
+either don't exist (silent no-op) or refer to completely different rows (silent
+corruption).
+
+For future integrity fixes:
+  1. Run `bin/audit_integrity.py` against your current DB to find issues
+  2. Build a new FIXES dict with row IDs from YOUR DB
+  3. Either edit this script in place (carefully) or write a new one-off
+
+Fixes (Feb 2026):
 - Group A (5): Clean NBSP from decision_number (keys already clean)
 - Group B (11): Clean decision_number + decision_key (corrupted/parenthetical)
 - Group C (3): Clean NBSP from decision_number + decision_key (Hebrew keys)
 
 Usage:
-    python bin/fix_integrity.py              # Dry run (default)
-    python bin/fix_integrity.py --execute    # Apply fixes
+    python bin/fix_integrity.py              # Dry run (default — safe)
+    python bin/fix_integrity.py --execute    # Apply fixes — DESTRUCTIVE, DB-specific
 """
 
 import sys
